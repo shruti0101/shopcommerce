@@ -50,7 +50,6 @@ export default function CategoryPage() {
       {/* 🔥 HERO BANNER */}
       <div className="w-full px-6 mt-4">
         <div className="relative rounded-2xl overflow-hidden shadow-lg">
-
           {/* NAV BUTTONS */}
           <div className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center shadow cursor-pointer">
             <ChevronLeft />
@@ -73,13 +72,11 @@ export default function CategoryPage() {
             {slides.map((slide, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-[300px] md:h-[340px]">
-
                   {/* IMAGE */}
                   <img
                     src={slide.image}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
-
 
                   {/* TEXT */}
                   {/* <div className="relative z-10 h-full flex flex-col justify-center px-10 text-white">
@@ -93,7 +90,6 @@ export default function CategoryPage() {
                       {slide.offer}
                     </span>
                   </div> */}
-
                 </div>
               </SwiperSlide>
             ))}
@@ -105,11 +101,11 @@ export default function CategoryPage() {
 
       {/* 🔥 PRODUCTS SECTION */}
       <div className="px-6 mt-8">
-
         {/* SORT */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold capitalize">
-            {slug?.replace("-", " ")}
+            {decodeURIComponent(slug || "").replace(/-/g, " ")
+              }  
           </h2>
 
           <select
@@ -133,14 +129,10 @@ export default function CategoryPage() {
             No products found
           </div>
         ) : (
-
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-10">
-
             {products.map((p) => (
               <Link href={`/product/${p.slug}`} key={p._id}>
-
                 <div className="group bg-white rounded-2xl p-3 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
-
                   {/* IMAGE */}
                   <div className="relative overflow-hidden rounded-xl">
                     <Image
@@ -155,7 +147,7 @@ export default function CategoryPage() {
                     {p.oldPrice > 0 && (
                       <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">
                         {Math.round(
-                          ((p.oldPrice - p.price) / p.oldPrice) * 100
+                          ((p.oldPrice - p.price) / p.oldPrice) * 100,
                         )}
                         % OFF
                       </span>
@@ -164,7 +156,6 @@ export default function CategoryPage() {
 
                   {/* CONTENT */}
                   <div className="mt-3">
-
                     <h2 className="text-sm font-medium text-gray-800 line-clamp-2">
                       {p.name}
                     </h2>
@@ -181,14 +172,10 @@ export default function CategoryPage() {
                         </span>
                       )}
                     </div>
-
                   </div>
-
                 </div>
-
               </Link>
             ))}
-
           </div>
         )}
       </div>
