@@ -6,8 +6,8 @@ import ProductView from "./ProductView";
 export default async function ProductPage({ params }) {
   await connectDB();
 
-const resolvedParams = await params;
-const slug = resolvedParams.slug;
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
 
   const product = await Product.findOne({ slug }).populate("category");
 

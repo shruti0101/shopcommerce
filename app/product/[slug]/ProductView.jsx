@@ -171,7 +171,7 @@ export default function ProductView({ product }) {
     </div>
 
   </div>
-</div>
+</div>  
 
       {/* ================= TABS SECTION ================= */}
       <div className=" pb-10 mt-15 max-w-5xl">
