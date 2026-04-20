@@ -9,10 +9,10 @@ export async function POST(req) {
     // 🔥 COMPRESSION + OPTIMIZATION
     transformation: [
       {
-        quality: "auto",       // auto compress
+       quality: "auto:best", // highest quality auto,       // auto compress
         fetch_format: "auto",  // webp/avif automatically
-        width: 800,            // resize
-        height: 800,
+   width: 1600,
+height: 1600,
         crop: "limit",         // keep aspect ratio
       },
     ],
