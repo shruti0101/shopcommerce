@@ -15,8 +15,22 @@ export default async function ProductPage({ params }) {
     return <div className="text-center text-red-500">Product not found</div>;
   }
 
-  // ✅ convert mongoose object → plain JSON
-  const cleanProduct = JSON.parse(JSON.stringify(product));
+  // 🔥 FETCH RELATED PRODUCTS
+  const relatedProducts = await Product.find({
+    category: product.category._id,   // same category
+    _id: { $ne: product._id },        // exclude current product
+  })
+    .limit(6)
+    .populate("category");
 
-  return <ProductView product={cleanProduct} />;
+
+  const cleanProduct = JSON.parse(JSON.stringify(product));
+  const cleanRelated = JSON.parse(JSON.stringify(relatedProducts));
+
+  return (
+    <ProductView
+      product={cleanProduct}
+      relatedProducts={cleanRelated}   
+    />
+  );
 }

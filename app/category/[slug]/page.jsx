@@ -104,8 +104,7 @@ export default function CategoryPage() {
         {/* SORT */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold capitalize">
-            {decodeURIComponent(slug || "").replace(/-/g, " ")
-              }  
+            {decodeURIComponent(slug || "").replace(/-/g, " ")}
           </h2>
 
           <select
@@ -137,10 +136,10 @@ export default function CategoryPage() {
                   <div className="relative overflow-hidden rounded-xl">
                     <Image
                       src={p.images?.[0] || "/placeholder.png"}
-                      width={300}
-                      height={300}
-                      className="w-full h-[220px] object-cover group-hover:scale-105 transition duration-300"
+                      width={1500}
+                      height={1200}
                       alt={p.name}
+                      className="w-full h-[220px] object-contain group-hover:scale-105 transition duration-300"
                     />
 
                     {/* DISCOUNT BADGE */}
@@ -156,7 +155,7 @@ export default function CategoryPage() {
 
                   {/* CONTENT */}
                   <div className="mt-3">
-                    <h2 className="text-sm font-medium text-gray-800 line-clamp-2">
+                    <h2 className="text-md font-medium text-black line-clamp-2">
                       {p.name}
                     </h2>
 
