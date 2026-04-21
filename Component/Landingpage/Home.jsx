@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Clientele from "./Clientele";
 import Catslider from "./Catslider";
+import Bestsellers from "./BestSeller";
 
 
 export default function Hero() {
@@ -295,7 +296,7 @@ export default function Hero() {
 
 
 
-      <Category></Category>
+      <Bestsellers></Bestsellers>
 
 
 

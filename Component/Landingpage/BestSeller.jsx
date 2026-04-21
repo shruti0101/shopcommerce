@@ -9,34 +9,67 @@ import Link from "next/link";
 
 const products = [
   {
-    title: "Bunny Bluetooth Lamp",
-    href: "/product/bunny-bluetooth-lamp",
-    price: "549",
-    old: "899",
+    title: "Inflatable Lounge Chair",
+    href: "/product/inflatable-lounge-chair",
+    price: "899",
+    old: "1299",
     discount: "14%",
     rating: "4.6",
     reviews: "33.8K",
-    img: "/featured-products/lamp.webp",
+    img: "/best-seller/chair.webp",
   },
   {
-    title: "TEMPERATURE BOTTLE",
-    href: "/product/temperature-bottle-",
-    price: "399",
-    old: "799",
+    title: "DUMBELL BOTTLE",
+    href: "http://localhost:3000/product/dumbell-bottle-",
+    price: "199",
+    old: "499",
     discount: "35%",
     rating: "4.5",
     reviews: "13K",
-    img: "/featured-products/bottle.webp",
+    img: "/best-seller/bottle.webp",
   },
   {
-    title: "SHIP HUMDIFIER",
-    href: "/product/ship-humdifier",
+    title: "PANDA LAMP",
+    href: "/product/panda-lamp",
     price: "899",
     old: "1,599",
-    discount: "",
+    discount: "12%",
     rating: "4.6",
     reviews: "1.6K",
-    img: "/featured-products/ship.webp",
+    img: "/best-seller/panda.webp",
+  },
+
+  {
+    title: "Jellyfish Lamp Bluetooth Speaker",
+    href: "/product/jellyfish-lamp-bluetooth-speaker",
+    price: "1,299",
+    old: "2599",
+    discount: "9%",
+    rating: "4.7",
+    reviews: "278",
+    img: "/best-seller/jellyfish.webp",
+  },
+
+  {
+    title: "VOILANT FAN AIR BLOWER",
+    href: "/product/voilant-fan-air-blower",
+    price: "1,299",
+    old: "3,799",
+    discount: "9%",
+    rating: "4.7",
+    reviews: "278",
+    img: "/best-seller/blower.webp",
+  },
+
+  {
+    title: "MINI AIR CONDITIONER",
+    href: "/product/mini-air-conditioner",
+    price: "1799",
+    old: "3,320",
+    discount: "9%",
+    rating: "4.7",
+    reviews: "278",
+    img: "/best-seller/cooler.webp",
   },
   {
     title: "KIDS FIGHTER JET",
@@ -48,46 +81,14 @@ const products = [
     reviews: "20.1K",
     img: "/featured-products/jet.webp",
   },
-  {
-    title: "MURMAID HUMIDIFIER",
-    href: "/product/murmaid-humidifier",
-    price: "1,299",
-    old: "2599",
-    discount: "9%",
-    rating: "4.7",
-    reviews: "278",
-    img: "/featured-products/diffuser.webp",
-  },
-
-  {
-    title: "MIRROR CLOCK",
-    href: "/product/mirror-clock-",
-    price: "1,299",
-    old: "1,799",
-    discount: "9%",
-    rating: "4.7",
-    reviews: "278",
-    img: "/featured-products/clock.webp",
-  },
-
-  {
-    title: "KNEE BRACE",
-    href: "/product/knee-brace",
-    price: "799",
-    old: "1,320",
-    discount: "9%",
-    rating: "4.7",
-    reviews: "278",
-    img: "/featured-products/knee.webp",
-  },
 ];
 
-export default function ProductSlider() {
+export default function Bestsellers() {
   return (
     <>
       <div className="px-6 py-6">
         <h2 className="text-2xl md:text-4xl font-semibold mb-4">
-          Featured Products
+          Our Bestseller
         </h2>
         <Swiper
           modules={[Navigation]}
