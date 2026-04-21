@@ -6,24 +6,18 @@ const Catslider = () => {
 
 
 const categories = [
-  { name: "Led Lights", image: "/led-spot-light.jpg" },
-  { name: "Fitness Product", image: "/download.jfif" },
-  { name: "Kitchen Product", image: "/images.jfif" },
-  { name: "Massager Product", image: "/massage.jfif" },
-  { name: "House Hold Product", image: "/38603104-1c4e-4fa8-94f3-f355971cf90f.avif" },
-  { name: "Candle & Lamps", image: "/download(1).jfif" },
-  { name: "Table Fans", image: "/tablefan.jfif" },
-  { name: "Vaccum Flask", image: "/vaccum.jfif" },
-  { name: "Slimming Patch", image: "/patch.webp" },
-  { name: "Led Lights", image: "/led-spot-light.jpg" },
-  { name: "Fitness Product", image: "/download.jfif" },
-  { name: "Kitchen Product", image: "/images.jfif" },
-  { name: "Massager Product", image: "/massage.jfif" },
-  { name: "House Hold Product", image: "/38603104-1c4e-4fa8-94f3-f355971cf90f.avif" },
-  { name: "Candle & Lamps", image: "/download(1).jfif" },
-  { name: "Table Fans", image: "/tablefan.jfif" },
-  { name: "Vaccum Flask", image: "/vaccum.jfif" },
-  { name: "Slimming Patch", image: "/patch.webp" },
+  { name: "Beauty & Health", image: "/cat/heathbeauty.webp" },
+  { name: "Decorative Product", image: "/cat/decorative.webp" },
+  { name: "Health", image: "/cat/heath.webp" },
+  { name: "Home decorative", image: "/cat/homedecorative.webp" },
+  { name: "Office Product", image: "/cat/officeProducts.webp" },
+  { name: "Home Product", image: "/cat/homeProduct.webp" },
+  { name: "Fitness & Health", image: "/cat/fitness-health.webp" },
+  { name: "Smart Gadgets", image: "/cat/smart-gadgets.webp" },
+  { name: "Kids Items", image: "/cat/kids.webp" },
+  { name: "Water Bottles", image: "/cat/water-bottles.webp" },
+  { name: "Home & Kitchen", image: "/cat/home-kitchen.webp" },
+  { name: "Others", image: "/cat/others.webp" },
 ];
 
 
