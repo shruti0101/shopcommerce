@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
+import { Heart } from "lucide-react";
+import {toast} from "react-hot-toast";
 
 import { useCartStore } from "@/store/cartStore"; 
 import { useWishlistStore } from "@/store/wishlistStore";
@@ -34,13 +36,13 @@ export default function ProductView({ product, relatedProducts = [] }) {
   };
 
 
+  const [animate, setAnimate] = useState(false);
+
 
 const addToCart = useCartStore((state) => state.addToCart);
 
 const addToWishlist = useWishlistStore((state) => state.addToWishlist);
-const isInWishlist = useWishlistStore((state) =>
-  state.isInWishlist(product._id)
-);
+const isInWishlist = useWishlistStore((state) => state.isInWishlist);
 const removeFromWishlist = useWishlistStore(
   (state) => state.removeFromWishlist
 );
@@ -172,22 +174,39 @@ const removeFromWishlist = useWishlistStore(
   {/* ADD TO CART */}
   <button
     onClick={() => addToCart(product, 1)}
-    className="flex-1 bg-black text-white py-3 rounded-xl text-md font-medium hover:bg-gray-800 transition"
+    className="flex-1 bg-black cursor-pointer text-white py-2 rounded-xl text-lg font-medium hover:bg-gray-800 transition"
   >
     Add to Cart
   </button>
 
   {/* WISHLIST */}
-  <button
-    onClick={() =>
-      isInWishlist
-        ? removeFromWishlist(product._id)
-        : addToWishlist(product)
-    }
-    className="flex-1 bg-black text-white py-3 rounded-xl text-md font-medium hover:bg-gray-800 transition"
-  >
-    {isInWishlist ? "Remove Wishlist ❤️" : "Add to Wishlist ♡"}
-  </button>
+<button
+  onClick={() => {
+    setAnimate(true);
+    setTimeout(() => setAnimate(false), 300);
+
+    isInWishlist(product._id)
+      ? removeFromWishlist(product._id)
+      : addToWishlist(product);
+  }}
+  className={`h-12 px-4 border cursor-pointer border-gray-500 rounded-xl flex items-center gap-2 transition ${
+    animate ? "heart-pop" : ""
+  }`}
+>
+  <Heart
+    size={18}
+    className={`transition-all duration-300 ${
+      isInWishlist(product._id)
+        ? "fill-red-500 text-red-500 scale-110"
+        : "text-black"
+    }`}
+  />
+
+  {/* TEXT */}
+  <span className="text-sm font-medium">
+    {isInWishlist(product._id) ? "Wishlisted" : "Add to Wishlist"}
+  </span>
+</button>
 </div>
 
           {/* EXTRA TRUST BADGES */}

@@ -84,7 +84,13 @@ export default function CartDrawer() {
                 <div className="flex items-center gap-2 mt-3">
                   
                   <button
-                    onClick={() => updateQty(item._id, item.quantity - 1)}
+                 onClick={() => {
+  if (item.quantity > 1) {
+    updateQty(item._id, item.quantity - 1);
+  } else {
+    removeItem(item._id); 
+  }
+}}
                     className="p-1 border rounded-md hover:bg-gray-100"
                   >
                     <Minus size={14} />

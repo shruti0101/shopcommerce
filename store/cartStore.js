@@ -11,28 +11,39 @@ export const useCartStore = create(
 
       openCart: () => set({ cartOpen: true }),
       closeCart: () => set({ cartOpen: false }),
+addToCart: (product, quantity = 1) => {
+  const cart = get().cart;
 
-      addToCart: (product, quantity = 1) => {
-        const cart = get().cart;
+  const existing = cart.find((item) => item._id === product._id);
 
-        const existing = cart.find((item) => item._id === product._id);
+  if (existing) {
+    const newQty = existing.quantity + quantity;
 
-        if (existing) {
-          const updated = cart.map((item) =>
-            item._id === product._id
-              ? { ...item, quantity: item.quantity + quantity }
-              : item
-          );
+    if (newQty <= 0) {
+      // ❌ remove if 0 or negative
+      set({
+        cart: cart.filter((item) => item._id !== product._id),
+      });
+      return;
+    }
 
-          set({ cart: updated });
-        } else {
-          set({
-            cart: [...cart, { ...product, quantity }],
-          });
-        }
+    const updated = cart.map((item) =>
+      item._id === product._id
+        ? { ...item, quantity: newQty }
+        : item
+    );
 
-        set({ cartOpen: true });
-      },
+    set({ cart: updated });
+  } else {
+    if (quantity > 0) {
+      set({
+        cart: [...cart, { ...product, quantity }],
+      });
+    }
+  }
+
+  set({ cartOpen: true });
+},
 
       removeItem: (id) => {
         set({
@@ -40,20 +51,22 @@ export const useCartStore = create(
         });
       },
 
-      updateQty: (id, qty) => {
-        if (qty <= 0) {
-          set({
-            cart: get().cart.filter((item) => item._id !== id),
-          });
-          return;
-        }
+    updateQty: (id, qty) => {
+  if (qty <= 0) {
+    set({
+      cart: get().cart.filter((item) => item._id !== id),
+    });
+    return;
+  }
 
-        const updated = get().cart.map((item) =>
-          item._id === id ? { ...item, quantity: qty } : item
-        );
+  const updated = get().cart.map((item) =>
+    item._id === id
+      ? { ...item, quantity: Math.max(1, qty) } // 🔥 force minimum 1
+      : item
+  );
 
-        set({ cart: updated });
-      },
+  set({ cart: updated });
+},
 
       clearCart: () => set({ cart: [] }),
 
