@@ -10,6 +10,7 @@ import {
   User,
   ShoppingBag,
   Heart,
+  
   Globe,
   Menu,
 } from "lucide-react";
