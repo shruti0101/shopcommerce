@@ -6,6 +6,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 
+import { useCartStore } from "@/store/cartStore"; 
+import { useWishlistStore } from "@/store/wishlistStore";
+
 export default function ProductView({ product, relatedProducts = [] }) {
   const [activeImage, setActiveImage] = useState(product.images?.[0]);
   const [zoomStyle, setZoomStyle] = useState({});
@@ -30,9 +33,21 @@ export default function ProductView({ product, relatedProducts = [] }) {
     });
   };
 
+
+
+const addToCart = useCartStore((state) => state.addToCart);
+
+const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+const isInWishlist = useWishlistStore((state) =>
+  state.isInWishlist(product._id)
+);
+const removeFromWishlist = useWishlistStore(
+  (state) => state.removeFromWishlist
+);
+
   return (
     <div className="bg-white px-20 py-8">
-      {/* ================= MAIN SECTION ================= */}
+    
       <div className=" grid md:grid-cols-2 gap-16 ">
         {/* LEFT SIDE */}
         <div>
@@ -153,15 +168,27 @@ export default function ProductView({ product, relatedProducts = [] }) {
           </ul>
 
           {/* BUTTONS */}
-          <div className="flex gap-4 mt-8">
-            <button className="flex-1 bg-black text-white py-3 rounded-xl text-md font-medium hover:bg-gray-800 transition">
-              Add to Cart
-            </button>
+       <div className="flex gap-4 mt-8">
+  {/* ADD TO CART */}
+  <button
+    onClick={() => addToCart(product, 1)}
+    className="flex-1 bg-black text-white py-3 rounded-xl text-md font-medium hover:bg-gray-800 transition"
+  >
+    Add to Cart
+  </button>
 
-            <button className="flex-1 bg-black text-white py-3 rounded-xl text-md font-medium hover:bg-gray-800 transition">
-              Add to Wishlist ♡
-            </button>
-          </div>
+  {/* WISHLIST */}
+  <button
+    onClick={() =>
+      isInWishlist
+        ? removeFromWishlist(product._id)
+        : addToWishlist(product)
+    }
+    className="flex-1 bg-black text-white py-3 rounded-xl text-md font-medium hover:bg-gray-800 transition"
+  >
+    {isInWishlist ? "Remove Wishlist ❤️" : "Add to Wishlist ♡"}
+  </button>
+</div>
 
           {/* EXTRA TRUST BADGES */}
           <div className="flex gap-6 mt-6 text-sm text-gray-500">

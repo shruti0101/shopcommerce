@@ -2,6 +2,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ChevronLeft, ChevronRight, NotebookText } from "lucide-react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 import {
   Search,
   MapPin,
@@ -15,6 +17,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Navbar() {
+
+
+const openCart = useCartStore((state) => state.openCart);
+const totalItems = useCartStore((state) => state.totalItems());
+
+const wishlist = useWishlistStore((state) => state.wishlist);
+
+
   const [categories, setCategories] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -89,15 +99,34 @@ export default function Navbar() {
             <span>Orders</span>
           </div>
 
-          <div className="flex items-center gap-1 cursor-pointer">
-            <Heart size={18} />
-            <span>Wishlist</span>
-          </div>
+        {/* WISHLIST */}
+<Link href="/wishlist" className="flex items-center gap-1 cursor-pointer relative">
+  <Heart size={18} />
 
-          <div className="flex items-center gap-1 cursor-pointer">
-            <ShoppingBag size={18} />
-            <span>Cart</span>
-          </div>
+  {wishlist.length > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
+      {wishlist.length}
+    </span>
+  )}
+
+  <span>Wishlist</span>
+</Link>
+
+{/* CART */}
+<div
+  onClick={openCart}
+  className="flex items-center gap-1 cursor-pointer relative"
+>
+  <ShoppingBag size={18} />
+
+  {totalItems > 0 && (
+    <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] px-1.5 rounded-full">
+      {totalItems}
+    </span>
+  )}
+
+  <span>Cart</span>
+</div>
         </div>
       </div>
 

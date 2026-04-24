@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Layoutwrapper from "@/Component/Layout/Layoutwrapper";
+import CartDrawer from "@/Component/CartDrawer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,8 @@ export default function RootLayout({ children }) {
         {children}
 
     </Layoutwrapper>
+    
+        <CartDrawer />
 </body>
     </html>
   );
