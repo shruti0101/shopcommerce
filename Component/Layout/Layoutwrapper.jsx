@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Layoutwrapper = ({children}) => {
   const pathname = usePathname();
@@ -14,9 +15,12 @@ const Layoutwrapper = ({children}) => {
 
   return <>
   
-  {!shouldHideHeader && <Navbar />}
+  {!shouldHideHeader && <Navbar /> }
 
   {children}
+
+  
+  {!shouldHideHeader && <Footer/>}
 
   
   </>;
