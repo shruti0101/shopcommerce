@@ -74,7 +74,7 @@ const Whychoose = () => {
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-base md:text-lg font-semibold text-gray-900 leading-snug">
+                    <h2 className="text-lg md:text-lg font-semibold text-center mt-3 text-gray-900 leading-snug">
                       {item.title}
                     </h2>
                   </div>

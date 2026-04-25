@@ -196,7 +196,7 @@ export default function Hero() {
 
 
       <section className="w-full bg-[#f6f6f6]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 h-[320px] ">
+        <div className="grid grid-cols-1 h-full lg:grid-cols-12 items-center gap-6 md:h-full ">
 
           {/* LEFT CONTENT */}
           <div className="px-8  lg:col-span-4 flex flex-col justify-center">

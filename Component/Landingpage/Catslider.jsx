@@ -61,7 +61,7 @@ const Catslider = () => {
 
   return (
     <div>
-      <div className="mt-6 px-6">
+      <div className="mt-6 ">
         <Swiper
           slidesPerView={9} // 4 per row
           breakpoints={{
@@ -86,14 +86,14 @@ const Catslider = () => {
               grid: { rows: 2 },
             },
           }}
-          spaceBetween={10}
+          spaceBetween={30}
           className="overflow-hidden"
         >
           {categories.map((item, i) => (
             <SwiperSlide key={i}>
               <Link href={item.href}>
-                <div className="flex flex-col items-center ">
-                  <div className="w-[130px] h-[130px] bg-white rounded-2xl flex items-center justify-center shadow-sm hover:shadow-md transition">
+                <div className="flex flex-col items-center  ">
+                  <div className="w-[130px] h-[130px]  rounded-2xl flex items-center justify-center shadow-sm hover:shadow-md transition">
                     <img
                       src={item.image}
                       alt={item.name}
