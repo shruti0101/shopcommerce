@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -15,7 +18,14 @@ const Footer = () => {
           
           {/* Brand */}
           <div>
-            <img src="/logo.png" alt="logo" className="h-12 md:h-16 bg-white  rounded-sm" />
+            <Link href="/">
+              <img
+                src="/logo.png"
+                alt="logo"
+                className="h-12 md:h-16 bg-white rounded-sm cursor-pointer"
+              />
+            </Link>
+
             <p className="mt-5 text-sm text-white leading-relaxed">
               A reliable eCommerce platform offering high-quality industrial
               supplies and equipment for businesses and bulk buyers.
@@ -27,23 +37,37 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-5 tracking-wide">
               SUPPORT
             </h3>
+
             <ul className="space-y-3 text-sm text-white">
-              {[
-                "Frequently Asked Questions",
-                "Return & Refund Policy",
-                "Shipping & Cancellations",
-                "Bulk Enquiry",
-                "Terms & Conditions",
-              ].map((item, i) => (
-                <li key={i}>
-                  <a
-                    href="#"
-                    className="transition-all duration-300 hover:text-[#039c98] hover:pl-1"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link href="/faq" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Frequently Asked Questions
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/return-refund" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Return & Refund Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/shipping-cancellations" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Shipping & Cancellations
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/bulk-enquiry" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Bulk Enquiry
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/terms-conditions" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Terms & Conditions
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -52,17 +76,31 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-5 tracking-wide">
               COMPANY
             </h3>
+
             <ul className="space-y-3 text-sm text-white">
-              {["Home", "About", "Blogs", "Privacy"].map((item, i) => (
-                <li key={i}>
-                  <a
-                    href="#"
-                    className="transition-all duration-300 hover:text-[#039c98] hover:pl-1"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link href="/" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/about" className="hover:text-[#039c98] hover:pl-1 transition">
+                  About
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Blogs
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/privacy-policy" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -76,12 +114,12 @@ const Footer = () => {
               Have questions or bulk requirements? Contact our team.
             </p>
 
-            <a
+            <Link
               href="/contact"
               className="inline-block bg-[#039c98] hover:bg-[#02827f] transition px-5 py-2.5 rounded-lg text-sm font-medium shadow-lg"
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -90,10 +128,11 @@ const Footer = () => {
           <p>© 2026 JL Industries. All Rights Reserved.</p>
 
           <p>
-            Designed by Promozione Branding Pvt. Ltd {" "}
+            Designed by Promozione Branding Pvt. Ltd{" "}
             <a
               href="https://promozionebranding.com/"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-[#039c98] hover:underline"
             >
               Website Designing Company

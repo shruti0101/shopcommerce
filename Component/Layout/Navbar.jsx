@@ -328,21 +328,43 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* CATEGORY NAV (unchanged) */}
-      <div className="h-[50px] flex items-center px-3 sm:px-4 md:px-6 bg-white overflow-hidden">
-        <Swiper slidesPerView="auto" spaceBetween={20} freeMode className="flex-1">
-          {categories.map((cat) => (
-            <SwiperSlide key={cat._id} className="!w-auto">
-              <Link
-                href={`/category/${cat.slug}`}
-                className="text-[15px] sm:text-[16px] md:text-[17px] font-semibold whitespace-nowrap"
-              >
-                {cat.name}
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+    
+    {/* CATEGORY NAV */}
+<div className="h-[60px] flex items-center px-3 sm:px-4 md:px-6 bg-white/90 backdrop-blur-md border-y border-gray-100 shadow-sm overflow-hidden">
+  <Swiper
+    slidesPerView="auto"
+    spaceBetween={12}
+    freeMode
+    className="flex-1"
+  >
+    {categories.map((cat) => (
+      <SwiperSlide key={cat._id} className="!w-auto">
+        <Link
+          href={`/category/${cat.slug}`}
+          className="
+            group relative inline-flex items-center
+            text-[13px] sm:text-[15px] md:text-[16px]
+            font-medium whitespace-nowrap
+            px-4 py-2 rounded-full
+            bg-gradient-to-br from-yellow-100 to-yellow-50
+            border border-yellow-200
+            shadow-sm
+            transition-all duration-300
+            hover:shadow-md hover:-translate-y-[1px]
+            hover:bg-yellow-400 hover:text-black
+          "
+        >
+          {/* subtle glow */}
+          <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 bg-yellow-300/20 blur-md transition"></span>
+
+          <span className="relative z-10">{cat.name}</span>
+        </Link>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
+
+
     </div>
   );
 }
