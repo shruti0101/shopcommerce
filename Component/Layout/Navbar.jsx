@@ -173,7 +173,7 @@ useEffect(() => {
    
     <div className="relative">
       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-white flex items-center justify-center text-[11px] font-semibold shadow-sm">
-        {user ? user.name.charAt(0).toUpperCase() : <User size={17} />}
+        {user ? user.name?.charAt(0).toUpperCase() : <User size={17} />}
       </div>
 
       {/*  ONLINE DOT */}
@@ -184,7 +184,7 @@ useEffect(() => {
 
     {/*  SMART GREETING */}
     <span>
-      {user ? `Hi, ${user.name.split(" ")[0]} 👋` : "Login / Register"}
+      {user ? `Hi, ${user.name?.split(" ")[0]} 👋` : "Login / Register"}
     </span>
   </div>
 

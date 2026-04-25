@@ -18,6 +18,7 @@ import {
 import Clientele from "./Clientele";
 import Catslider from "./Catslider";
 import Bestsellers from "./BestSeller";
+import Whychoose from "./Whychoose";
 
 
 export default function Hero() {
@@ -342,8 +343,10 @@ export default function Hero() {
             </div>
           ))}
         </div>
+        
       </section>
-
+      
+      <Whychoose></Whychoose>
 
 
 
