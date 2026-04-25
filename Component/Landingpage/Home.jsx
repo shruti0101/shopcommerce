@@ -24,174 +24,175 @@ import Whychoose from "./Whychoose";
 export default function Hero() {
   return (
     <>
-      <section className="w-full h-full">
-        <div className="w-full bg-[#f7f7f7] mt-2">
-      
+   <section className="w-full h-full bg-[#f7f7f7]">
 
-          {/* MAIN HERO */}
-          <div className="flex gap-4 px-6 mt-3">
-            {/* LEFT BIG BANNER (SWIPER) */}
-            <div className="relative flex-1 h-[260px] rounded-md overflow-hidden">
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                navigation={{
-                  nextEl: ".hero-next",
-                  prevEl: ".hero-prev",
-                }}
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 3000 }}
-                loop={true}
-                className="h-full"
-              >
-                {banners.map((item, i) => (
-                  <SwiperSlide key={i}>
-                    <img
-                      src={item}
-                      alt="banner"
-                      className="w-full h-full object-cover"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+  {/* HERO SECTION */}
+  <div className="px-3 sm:px-4 md:px-6 mt-3">
+    <div className="flex flex-col lg:flex-row gap-4">
 
-              {/* CUSTOM ARROWS */}
-              <button className="hero-prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/70 rounded-full flex items-center justify-center z-10">
-                <ChevronLeft />
-              </button>
-
-              <button className="hero-next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/70 rounded-full flex items-center justify-center z-10">
-                <ChevronRight />
-              </button>
-            </div>
-
-            {/* RIGHT SMALL BANNER */}
-
-            <div className=" bg-black rounded-md flex items-center justify-center">
+      {/* LEFT BANNER */}
+      <div className="relative flex-1 h-[230px] sm:h-[260px] md:h-[320px] rounded-xl overflow-hidden shadow-md">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation={{
+            nextEl: ".hero-next",
+            prevEl: ".hero-prev",
+          }}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000 }}
+          loop
+          className="h-full"
+        >
+          {banners.map((item, i) => (
+            <SwiperSlide key={i}>
               <img
-                src="/sidebanner1.avif"
-                alt="promo"
-                className="w-full  object-contain h-[200px]"
+                src={item}
+                alt="banner"
+                className="w-full h-full object-cover"
               />
-            </div>
-          </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-          {/* CATEGORY ROW (SWIPER) */}
+        {/* ARROWS */}
+        <button className="hero-prev absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow">
+          <ChevronLeft size={18} />
+        </button>
 
+        <button className="hero-next absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow">
+          <ChevronRight size={18} />
+        </button>
+      </div>
 
-<Catslider></Catslider>
-        </div>
+      {/* RIGHT BANNER */}
+      <div className="hidden md:block w-full lg:w-[370px] h-[140px] sm:h-[200px] md:h-[320px] bg-black rounded-xl overflow-hidden shadow-md">
+        <img
+          src="/sidebanner1.avif"
+          alt="promo"
+          className="w-full h-full object-contain"
+        />
+      </div>
+    </div>
+  </div>
 
+  {/* CATEGORY SLIDER */}
+  <Catslider />
 
-        <div className="w-full mx-auto px-8 py-10">
-          <div className="grid grid-cols-12 gap-6">
+  {/* MAIN GRID */}
+  <div className="w-full mx-auto px-3 sm:px-4 md:px-8 py-8 md:py-10">
+    <div className="grid grid-cols-12 gap-4 md:gap-6">
 
-            {/* LEFT SIDE */}
-            <div className="col-span-12 lg:col-span-3">
-              <h2 className="text-2xl font-semibold mb-4">
-                More reasons to shop
-              </h2>
+      {/* LEFT */}
+      <div className="col-span-12 lg:col-span-3">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4">
+          More reasons to shop
+        </h2>
 
-              <div className="grid grid-cols-2 gap-4">
-                {categories2.map((item, i) => (
-                  <div
-                    key={i}
-                    className={`rounded-xl p-4 ${item.bg} cursor-pointer hover:scale-[1.02] transition`}
-                  >
-                    <div className="relative w-full h-24">
-                      <Image
-                        src={item.img}
-                        fill
-                        alt={item.title}
-                        className="object-contain"
-                      />
-                    </div>
-
-                    <h3 className="font-semibold mt-3">{item.title}</h3>
-                    <p className="text-sm text-gray-600">
-                      {item.subtitle}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CENTER */}
-            <div className="col-span-12 lg:col-span-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold">Mega deals</h2>
-                <button className="bg-gray-800 text-white text-sm px-4 py-1 rounded">
-                  ALL DEALS
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {deals.map((item, i) => (
-                  <div
-                    key={i}
-                    className="bg-white rounded-xl p-4 shadow-sm relative"
-                  >
-                    {/* Tag */}
-                    <span className="absolute top-2 left-2 bg-yellow-300 text-xs px-2 py-1 rounded">
-                      {item.tag}
-                    </span>
-
-                    {/* Image */}
-                    <div className="relative w-full h-32 mb-3">
-                      <Image
-                        src={item.img}
-                        fill
-                        alt={item.title}
-                        className="object-contain"
-                      />
-                    </div>
-
-                    {/* Title */}
-                    <p className="text-sm line-clamp-2 mb-2">
-                      {item.title}
-                    </p>
-
-                    {/* Price */}
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg font-bold">
-                        Rs {item.price}
-                      </span>
-                      <span className="line-through text-gray-400 text-sm">
-                        Rs {item.old}
-                      </span>
-                    </div>
-
-                    {/* Add Button */}
-                    <button className="absolute bottom-4 right-4 w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xl">
-                      +
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* RIGHT SIDE */}
-            <div className="col-span-12 lg:col-span-3 mt-10 flex flex-col gap-4">
-              <div className="relative h-55 rounded-xl overflow-hidden">
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
+          {categories2.map((item, i) => (
+            <div
+              key={i}
+              className={`rounded-xl p-3 md:p-4 ${item.bg} cursor-pointer hover:scale-[1.03] transition shadow-sm hover:shadow-md`}
+            >
+              <div className="relative w-full h-20 md:h-24">
                 <Image
-                  src="/cat1.avif"
+                  src={item.img}
                   fill
-                  alt="banner"
-                  className="object-cover"
+                  alt={item.title}
+                  className="object-contain"
                 />
               </div>
 
-              <div className="relative h-55 rounded-xl overflow-hidden">
+              <h3 className="font-semibold mt-2 text-sm md:text-base">
+                {item.title}
+              </h3>
+              <p className="text-xs md:text-sm text-gray-600">
+                {item.subtitle}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CENTER */}
+      <div className="col-span-12 lg:col-span-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg md:text-xl font-semibold">
+            Mega deals
+          </h2>
+          <button className="bg-gray-900 hover:bg-black text-white text-xs md:text-sm px-3 md:px-4 py-1.5 rounded-full shadow">
+            ALL DEALS
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+          {deals.map((item, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-md transition relative"
+            >
+              {/* TAG */}
+              <span className="absolute top-2 left-2 bg-yellow-300 text-[10px] md:text-xs px-2 py-0.5 rounded">
+                {item.tag}
+              </span>
+
+              {/* IMAGE */}
+              <div className="relative w-full h-24 md:h-32 mb-2 md:mb-3">
                 <Image
-                  src="/sidebanner1.avif"
+                  src={item.img}
                   fill
-                  alt="banner"
-                  className="object-cover"
+                  alt={item.title}
+                  className="object-contain"
                 />
               </div>
+
+              {/* TITLE */}
+              <p className="text-xs md:text-sm line-clamp-2 mb-1 md:mb-2">
+                {item.title}
+              </p>
+
+              {/* PRICE */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm md:text-lg font-bold">
+                  ₹ {item.price}
+                </span>
+                <span className="line-through text-gray-400 text-xs md:text-sm">
+                  ₹ {item.old}
+                </span>
+              </div>
+
+              {/* BUTTON */}
+              <button className="absolute bottom-3 right-3 w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-100 hover:bg-black hover:text-white flex items-center justify-center text-lg transition">
+                +
+              </button>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+
+      {/* RIGHT */}
+      <div className="col-span-12 lg:col-span-3 flex flex-col gap-4 mt-4 lg:mt-10">
+        <div className="relative h-[160px] sm:h-[200px] md:h-[240px] rounded-xl overflow-hidden shadow-md">
+          <Image
+            src="/cat1.avif"
+            fill
+            alt="banner"
+            className="object-cover"
+          />
+        </div>
+
+        <div className="relative h-[160px] sm:h-[200px] md:h-[240px] rounded-xl overflow-hidden shadow-md">
+          <Image
+            src="/sidebanner1.avif"
+            fill
+            alt="banner"
+            className="object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
       <section className="w-full bg-[#f6f6f6]">
@@ -306,7 +307,7 @@ export default function Hero() {
 
       <Clientele></Clientele>
 
-      <section className="max-w-[1400px] mt-3 mx-auto rounded-xl bg-gray-50 py-16 px-6 md:px-16">
+      <section className="w-full mt-3 mx-auto rounded-xl bg-gray-50 py-16 px-6 md:px-16">
 
         {/* HEADER */}
         <div className="flex items-center gap-6 mb-12">
@@ -492,5 +493,19 @@ const deals = [
     old: "35",
     img: "/images/wipes.png",
     tag: "Home Care & Cleaning",
+  },
+   {
+    title: "Samsung Galaxy S25 AI Dual SIM",
+    price: "2099",
+    old: "3199",
+    img: "/cat1/mobile.png",
+    tag: "Mobile Phones deals",
+  },
+   {
+    title: "Vitamin D3 Softgel",
+    price: "53",
+    old: "79",
+    img: "/images/vitamin.png",
+    tag: "NUTRAXIN deals",
   },
 ];

@@ -2,103 +2,106 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <>
-      <footer className="relative px-6 md:px-10 lg:px-14 xl:px-22 w-full overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-[url('/footer-bg.webp')] bg-cover bg-center bg-no-repeat"></div>
+    <footer className="relative w-full overflow-hidden text-white">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[url('/footer-bg.webp')] bg-cover bg-center" />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/60 to-transparent"></div>
-
-        {/* Content */}
-        <div className="relative z-10 flex flex-col md:flex-row items-start justify-center gap-10 py-10 border-b border-gray-300/30 text-white">
-          {/* LEFT */}
-          <div className="max-w-96">
-            <img src="/logo.png" alt="logo" className="h-[50px] md:h-[58px]" />
-
-            <p className="mt-6 text-sm md:text-base text-gray-200">
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-10">
+        
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/20 pb-10">
+          
+          {/* Brand */}
+          <div>
+            <img src="/logo.png" alt="logo" className="h-12 md:h-16 bg-white  rounded-sm" />
+            <p className="mt-5 text-sm text-white leading-relaxed">
               A reliable eCommerce platform offering high-quality industrial
               supplies and equipment for businesses and bulk buyers.
             </p>
           </div>
 
-          {/* RIGHT */}
-          <div className="w-full md:w-1/2 flex flex-wrap md:flex-nowrap justify-between">
-            <div>
-              <h2 className="font-semibold text-lg mb-4">SUPPORT</h2>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <a href="/faq" className="hover:text-[#039c98]">
-                    Frequently Asked Questions
+          {/* Support */}
+          <div>
+            <h3 className="text-lg font-semibold mb-5 tracking-wide">
+              SUPPORT
+            </h3>
+            <ul className="space-y-3 text-sm text-white">
+              {[
+                "Frequently Asked Questions",
+                "Return & Refund Policy",
+                "Shipping & Cancellations",
+                "Bulk Enquiry",
+                "Terms & Conditions",
+              ].map((item, i) => (
+                <li key={i}>
+                  <a
+                    href="#"
+                    className="transition-all duration-300 hover:text-[#039c98] hover:pl-1"
+                  >
+                    {item}
                   </a>
                 </li>
-                <li>
-                  <a href="/return-refund" className="hover:text-[#039c98]">
-                    Return & Refund Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="/shipping-cancellations" className="hover:text-[#039c98]">
-                    Shipping & Cancellations
-                  </a>
-                </li>
-                <li>
-                  <a href="/bulk-enquiry" className="hover:text-[#039c98]">
-                    Bulk Enquiry
-                  </a>
-                </li>
-                
-                
-                <li>
-                  <a href="/terms-conditions" className="hover:text-[#039c98]">
-                    Terms
-                  </a>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
+          </div>
 
-            <div>
-              <h2 className="font-semibold text-lg mb-4">COMPANY</h2>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <a href="/" className="hover:text-[#039c98]">
-                    Home
+          {/* Company */}
+          <div>
+            <h3 className="text-lg font-semibold mb-5 tracking-wide">
+              COMPANY
+            </h3>
+            <ul className="space-y-3 text-sm text-white">
+              {["Home", "About", "Blogs", "Privacy"].map((item, i) => (
+                <li key={i}>
+                  <a
+                    href="#"
+                    className="transition-all duration-300 hover:text-[#039c98] hover:pl-1"
+                  >
+                    {item}
                   </a>
                 </li>
-                <li>
-                  <a href="/about" className="hover:text-[#039c98]">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#039c98]">
-                    Blogs
-                  </a>
-                </li>
-                <li>
-                  <a href="/privacy-policy" className="hover:text-[#039c98]">
-                    Privacy
-                  </a>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact / CTA */}
+          <div>
+            <h3 className="text-lg font-semibold mb-5 tracking-wide">
+              GET IN TOUCH
+            </h3>
+
+            <p className="text-sm text-white mb-4">
+              Have questions or bulk requirements? Contact our team.
+            </p>
+
+            <a
+              href="/contact"
+              className="inline-block bg-[#039c98] hover:bg-[#02827f] transition px-5 py-2.5 rounded-lg text-sm font-medium shadow-lg"
+            >
+              Contact Us
+            </a>
           </div>
         </div>
 
         {/* Bottom */}
-        <p className="relative z-10 py-4 text-center text-xs md:text-sm text-gray-300">
-          © 2025 JL Industries. All Rights Reserved. <br />
-          Website Designed By{" "}
-          <a
-            href="https://promozionebranding.com/"
-            className="text-[#039c98] hover:underline"
-            target="_blank"
-          >
-            Promozione Branding Pvt. Ltd
-          </a>
-        </p>
-      </footer>
-    </>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 text-xs md:text-sm text-white">
+          <p>© 2026 JL Industries. All Rights Reserved.</p>
+
+          <p>
+            Designed by Promozione Branding Pvt. Ltd {" "}
+            <a
+              href="https://promozionebranding.com/"
+              target="_blank"
+              className="text-[#039c98] hover:underline"
+            >
+              Website Designing Company
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 };
 

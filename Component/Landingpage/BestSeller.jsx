@@ -50,16 +50,7 @@ const products = [
     img: "/best-seller/jellyfish.webp",
   },
 
-  {
-    title: "VOILANT FAN AIR BLOWER",
-    href: "/product/voilant-fan-air-blower",
-    price: "1,299",
-    old: "3,799",
-    discount: "9%",
-    rating: "4.7",
-    reviews: "278",
-    img: "/best-seller/blower.webp",
-  },
+
 
   {
     title: "MINI AIR CONDITIONER",

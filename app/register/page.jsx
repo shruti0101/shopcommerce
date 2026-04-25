@@ -31,7 +31,6 @@ export default function Register() {
 
       toast.success("Account created 🎉", { id: toastId });
 
-      // 👉 Redirect to login
       router.push("/login");
 
     } catch (err) {
@@ -41,10 +40,13 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#F6F7FB]">
-      <div className="bg-white p-8 rounded-2xl shadow w-[380px]">
-
-        <h2 className="text-2xl font-semibold mb-6 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] px-4">
+      
+      {/* Card */}
+      <div className="w-full max-w-md bg-white/70 backdrop-blur-lg border border-white/40 shadow-2xl rounded-2xl p-6 sm:p-8">
+        
+        {/* Heading */}
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center text-gray-900 mb-6">
           Create Account
         </h2>
 
@@ -52,7 +54,7 @@ export default function Register() {
         <input
           type="text"
           placeholder="Full Name"
-          className="w-full border p-3 rounded-lg mb-3"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
           value={form.name}
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
@@ -63,7 +65,7 @@ export default function Register() {
         <input
           type="email"
           placeholder="Email"
-          className="w-full border p-3 rounded-lg mb-3"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
           value={form.email}
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
@@ -74,7 +76,7 @@ export default function Register() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full border p-3 rounded-lg mb-4"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-5 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
           value={form.password}
           onChange={(e) =>
             setForm({ ...form, password: e.target.value })
@@ -84,17 +86,17 @@ export default function Register() {
         {/* BUTTON */}
         <button
           onClick={handleRegister}
-          className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition"
+          className="w-full bg-black text-white py-2.5 rounded-lg font-medium tracking-wide hover:bg-gray-900 active:scale-[0.98] transition-all duration-200 shadow-md"
         >
           Register
         </button>
 
         {/* LOGIN LINK */}
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-sm text-gray-500 mt-5">
           Already have an account?{" "}
           <span
             onClick={() => router.push("/login")}
-            className="text-black cursor-pointer font-medium"
+            className="text-black cursor-pointer font-medium hover:underline"
           >
             Login
           </span>

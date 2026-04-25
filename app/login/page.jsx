@@ -28,45 +28,51 @@ export default function Login() {
         return;
       }
 
-      // ✅ STORE TOKEN
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      toast.success("Login success", { id: toastId });
+      toast.success("Welcome back! " + data.user.name, { id: toastId });
 
-      // ✅ REDIRECT BASED ON ROLE
       if (data.user.role === "admin") {
         router.push("/admin");
       } else {
         router.push("/");
       }
-
     } catch (err) {
       toast.error("Error", { id: toastId });
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white p-6 rounded-xl shadow w-[350px]">
-        <h2 className="text-xl mb-4">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] px-4">
+      
+      {/* Card */}
+      <div className="w-full max-w-md bg-white/70 backdrop-blur-lg border border-white/40 shadow-2xl rounded-2xl p-8">
+        
+        {/* Heading */}
+        <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
+          Login
+        </h2>
 
+        {/* Email */}
         <input
           placeholder="Email"
-          className="w-full border p-2 mb-3"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
 
+        {/* Password */}
         <input
           type="password"
           placeholder="Password"
-          className="w-full border p-2 mb-3"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-5 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
+        {/* Button */}
         <button
           onClick={handleLogin}
-          className="w-full bg-black text-white py-2 rounded"
+          className="w-full bg-black text-white py-2.5 rounded-lg font-medium tracking-wide hover:bg-gray-900 active:scale-[0.98] transition-all duration-200 shadow-md"
         >
           Login
         </button>
