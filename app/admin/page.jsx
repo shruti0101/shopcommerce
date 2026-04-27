@@ -26,6 +26,7 @@ export default function AdminPage() {
     toast.success("Logged out");
     router.push("/");
   };
+  
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] flex">
