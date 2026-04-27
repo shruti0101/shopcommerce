@@ -3,7 +3,8 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
+import Link from "next/link";
 export default function Login() {
   const router = useRouter();
 
@@ -44,39 +45,57 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] px-4">
-      
-      {/* Card */}
-      <div className="w-full max-w-md bg-white/70 backdrop-blur-lg border border-white/40 shadow-2xl rounded-2xl p-8">
-        
-        {/* Heading */}
-        <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
-          Login
-        </h2>
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] px-4">
 
-        {/* Email */}
-        <input
-          placeholder="Email"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
+  {/* Card */}
+  <div className="w-full max-w-md bg-white/70 backdrop-blur-lg border border-white/40 shadow-2xl rounded-2xl p-8">
 
-        {/* Password */}
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-5 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-
-        {/* Button */}
-        <button
-          onClick={handleLogin}
-          className="w-full bg-black text-white py-2.5 rounded-lg font-medium tracking-wide hover:bg-gray-900 active:scale-[0.98] transition-all duration-200 shadow-md"
-        >
-          Login
-        </button>
-      </div>
+    {/* Logo */}
+    <div className="flex justify-center ">
+      <Image
+        src="/logo.png"
+        alt="JL Industries Logo"
+        width={320}
+        height={220}
+        className="object-cover"
+        priority
+      />
     </div>
+
+    {/* Heading */}
+    <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
+      Login To Continue In JL Industries
+    </h2>
+
+    {/* Email */}
+    <input
+      placeholder="Email"
+      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
+      onChange={(e) => setForm({ ...form, email: e.target.value })}
+    />
+
+    {/* Password */}
+    <input
+      type="password"
+      placeholder="Password"
+      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-5 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
+      onChange={(e) => setForm({ ...form, password: e.target.value })}
+    />
+
+    {/* Button */}
+    <button
+      onClick={handleLogin}
+      className="w-full bg-black text-white py-2.5 rounded-lg font-medium tracking-wide hover:bg-gray-900 active:scale-[0.98] transition-all duration-200 shadow-md"
+    >
+      Login
+    </button>
+
+    <Link href="/register" className="text-sm text-gray-600 hover:text-black transition">
+      <p className="text-center mt-4">Don't have an account? <span className="font-medium text-black">Register</span></p>
+    
+    </Link>
+
+  </div>
+</div>
   );
 }

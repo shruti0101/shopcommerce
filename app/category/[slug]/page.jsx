@@ -20,10 +20,6 @@ export default function CategoryPage() {
   const [sort, setSort] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // ✅ PAGINATION STATE
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-
   const addToCart = useCartStore((state) => state.addToCart);
 
   const slides = [
@@ -36,25 +32,12 @@ export default function CategoryPage() {
 
     setLoading(true);
 
-    fetch(`/api/product?category=${slug}&sort=${sort}&page=${page}`)
+    fetch(`/api/product?category=${slug}&sort=${sort}`)
       .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.products || []);
-        setHasMore(data.hasMore);
-      })
+      .then((data) => setProducts(data || []))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
-  }, [slug, sort, page]);
-
-  // ✅ reset page on category/sort change
-  useEffect(() => {
-    setPage(1);
   }, [slug, sort]);
-
-  // ✅ scroll top on page change
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
 
   return (
     <>
@@ -115,16 +98,25 @@ export default function CategoryPage() {
           </select>
         </div>
 
-        {/* SKELETON */}
+        {/* ✅ SHIMMER SKELETON */}
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 pb-10">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border shadow-sm">
+              <div
+                key={i}
+                className="relative overflow-hidden bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border shadow-sm"
+              >
+                {/* SHIMMER */}
                 <div className="absolute inset-0 animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+
+                {/* IMAGE */}
                 <div className="w-full h-[180px] sm:h-[220px] md:h-[260px] lg:h-[310px] bg-gray-200 rounded-lg sm:rounded-xl" />
+
+                {/* TEXT */}
                 <div className="mt-3 space-y-2">
                   <div className="h-3 sm:h-4 bg-gray-200 rounded w-3/4" />
                   <div className="h-3 sm:h-4 bg-gray-200 rounded w-1/2" />
+
                   <div className="flex gap-2 mt-2">
                     <div className="h-4 w-12 bg-gray-300 rounded" />
                     <div className="h-4 w-10 bg-gray-200 rounded" />
@@ -134,101 +126,90 @@ export default function CategoryPage() {
             ))}
           </div>
         ) : products.length === 0 ? null : (
-          <>
-            {/* PRODUCT GRID */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 pb-6">
-              {products.map((p) => (
-                <Link
-                  href={`/product/${p.slug}`}
-                  key={p._id}
-                  className="group relative bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border shadow-sm hover:shadow-xl transition"
-                >
-                  <div className="relative overflow-hidden rounded-lg sm:rounded-xl">
-                    <Image
-                      src={p.images?.[0] || "/placeholder.png"}
-                      width={1500}
-                      height={1500}
-                      alt={p.name}
-                      className="w-full h-[180px] sm:h-[220px] md:h-[260px] lg:h-[310px] object-cover group-hover:scale-110 transition duration-500"
-                    />
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 pb-10">
 
-                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition flex items-center p-2 sm:p-3">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToCart({
-                            _id: p._id,
-                            name: p.name,
-                            price: p.price,
-                            images: p.images,
-                            quantity: 1,
-                          });
-                          toast.success("Added to cart 🛒");
-                        }}
-                        className="w-full sm:w-fit mx-auto px-4 sm:px-8 md:px-12 bg-yellow-400 text-black py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-md flex items-center justify-center gap-2"
-                      >
-                        <ShoppingCart size={14} />
-                        Add to Cart
-                      </button>
-                    </div>
+            {products.map((p) => (
+              <Link
+                href={`/product/${p.slug}`}
+                key={p._id}
+                className="group relative bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border shadow-sm hover:shadow-xl transition"
+              >
+                {/* IMAGE */}
+                <div className="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <Image
+                    src={p.images?.[0] || "/placeholder.png"}
+                    width={1500}
+                    height={1500}
+                    alt={p.name}
+                    className="w-full h-[180px] sm:h-[220px] md:h-[260px] lg:h-[310px] object-cover group-hover:scale-110 transition duration-500"
+                  />
+
+                  {/* ADD TO CART */}
+                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition flex items-center p-2 sm:p-3">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToCart({
+                          _id: p._id,
+                          name: p.name,
+                          price: p.price,
+                          images: p.images,
+                          quantity: 1,
+                        });
+                        toast.success("Added to cart 🛒");
+                      }}
+                      className="w-full sm:w-fit mx-auto px-4 sm:px-8 md:px-12 bg-yellow-400 text-black py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-md flex items-center justify-center gap-2"
+                    >
+                      <ShoppingCart size={14} />
+                      Add to Cart
+                    </button>
+                  </div>
+
+                  {/* DISCOUNT */}
+                  {p.oldPrice > 0 && (
+                    <span className="absolute top-2 left-2 bg-black text-white text-[10px] sm:text-xs px-2 py-1 rounded">
+                      {Math.round(
+                        ((p.oldPrice - p.price) / p.oldPrice) * 100
+                      )}
+                      % OFF
+                    </span>
+                  )}
+                </div>
+
+                {/* CONTENT */}
+                <div className="mt-2 sm:mt-3">
+                  <h2 className="text-xs sm:text-sm md:text-md font-medium line-clamp-2">
+                    {p.name}
+                  </h2>
+
+                  <div className="mt-1 sm:mt-2 flex items-center gap-2">
+                    <span className="font-semibold text-sm sm:text-base">
+                      ₹{p.price}
+                    </span>
 
                     {p.oldPrice > 0 && (
-                      <span className="absolute top-2 left-2 bg-black text-white text-[10px] sm:text-xs px-2 py-1 rounded">
-                        {Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100)}% OFF
+                      <span className="text-gray-400 line-through text-xs sm:text-sm">
+                        ₹{p.oldPrice}
                       </span>
                     )}
                   </div>
+                </div>
+              </Link>
+            ))}
 
-                  <div className="mt-2 sm:mt-3">
-                    <h2 className="text-xs sm:text-sm md:text-md font-medium line-clamp-2">
-                      {p.name}
-                    </h2>
-
-                    <div className="mt-1 sm:mt-2 flex items-center gap-2">
-                      <span className="font-semibold text-sm sm:text-base">
-                        ₹{p.price}
-                      </span>
-
-                      {p.oldPrice > 0 && (
-                        <span className="text-gray-400 line-through text-xs sm:text-sm">
-                          ₹{p.oldPrice}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* ✅ PAGINATION (minimal UI, no design break) */}
-            <div className="flex justify-center items-center gap-4 pb-10">
-              <button
-                disabled={page === 1}
-                onClick={() => setPage((p) => p - 1)}
-                className="px-4 py-2 border rounded-full text-sm disabled:opacity-40"
-              >
-                Prev
-              </button>
-
-              <span className="text-sm font-medium">Page {page}</span>
-
-              <button
-                disabled={!hasMore}
-                onClick={() => setPage((p) => p + 1)}
-                className="px-4 py-2 border rounded-full text-sm disabled:opacity-40"
-              >
-                Next
-              </button>
-            </div>
-          </>
+          </div>
         )}
       </div>
 
-      {/* SHIMMER */}
+      {/* ✅ SHIMMER KEYFRAME */}
       <style jsx>{`
         @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
         }
       `}</style>
     </>

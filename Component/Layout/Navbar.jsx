@@ -346,12 +346,12 @@ export default function Navbar() {
             text-[13px] sm:text-[15px] md:text-[16px]
             font-medium whitespace-nowrap
             px-4 py-2 rounded-full
-            bg-gradient-to-br from-yellow-100 to-yellow-50
+            bg-gradient-to-br from-yellow-100/ to-yellow-50
             border border-yellow-200
             shadow-sm
             transition-all duration-300
             hover:shadow-md hover:-translate-y-[1px]
-            hover:bg-yellow-400 hover:text-black
+            hover:bg-yellow-300 hover:text-black
           "
         >
           {/* subtle glow */}

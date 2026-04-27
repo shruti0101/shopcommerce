@@ -271,8 +271,8 @@ export default function ProductView({ product, relatedProducts }) {
           <Swiper
             spaceBetween={16}
             breakpoints={{
-              320: { slidesPerView: 1.2 },
-              480: { slidesPerView: 1.5 },
+              320: { slidesPerView: 2 },
+              480: { slidesPerView: 2 },
               640: { slidesPerView: 2 },
               768: { slidesPerView: 3 },
               1024: { slidesPerView: 4 },

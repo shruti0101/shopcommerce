@@ -80,7 +80,7 @@ const Whychoose = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-700 leading-relaxed">
+                  <p className="text-sm md:text-lg text-gray-700 leading-relaxed">
                     {item.desc}
                   </p>
 

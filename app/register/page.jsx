@@ -3,6 +3,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Register() {
   const router = useRouter();
@@ -45,6 +46,18 @@ export default function Register() {
       {/* Card */}
       <div className="w-full max-w-md bg-white/70 backdrop-blur-lg border border-white/40 shadow-2xl rounded-2xl p-6 sm:p-8">
         
+  {/* Logo */}
+    <div className="flex justify-center ">
+      <Image
+        src="/logo.png"
+        alt="JL Industries Logo"
+        width={320}
+        height={220}
+        className="object-cover"
+        priority
+      />
+    </div>
+
         {/* Heading */}
         <h2 className="text-2xl sm:text-3xl font-semibold text-center text-gray-900 mb-6">
           Create Account
