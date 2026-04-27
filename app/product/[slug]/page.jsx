@@ -12,7 +12,7 @@ export default async function ProductPage({ params }) {
   const product = await Product.findOne({ slug }).populate("category");
 
   if (!product) {
-    return <div className="text-center text-red-500">Product not found</div>;
+    return <div className="text-center text-red-500">Product not foundff</div>;
   }
 
   // 🔥 FETCH RELATED PRODUCTS
