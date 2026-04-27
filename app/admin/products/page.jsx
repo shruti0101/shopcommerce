@@ -6,7 +6,8 @@ import { useRef } from "react";
 
 
 export default function Products() {
-
+const [search, setSearch] = useState("");
+const [filterCategory, setFilterCategory] = useState("");
   const editor = useRef(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -163,6 +164,18 @@ const handleEdit = (p) => {
   };
 
 
+const filteredProducts = products.filter((p) => {
+  const matchSearch =
+    p.name.toLowerCase().includes(search.toLowerCase());
+
+  const matchCategory =
+    !filterCategory ||
+    p.category?._id === filterCategory ||
+    p.category === filterCategory;
+
+  return matchSearch && matchCategory;
+});
+
   return (
   <div className="p-8 bg-[#F6F7FB] min-h-screen">
 
@@ -202,14 +215,14 @@ const handleEdit = (p) => {
           <div className="grid grid-cols-2 gap-3">
             <input
               className="border p-3 rounded-lg"
-              placeholder="Price"
+              placeholder="Sale Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
 
             <input
               className="border p-3 rounded-lg"
-              placeholder="Old Price"
+              placeholder="Regular Price"
               value={oldPrice}
               onChange={(e) => setOldPrice(e.target.value)}
             />
@@ -372,14 +385,76 @@ const handleEdit = (p) => {
 
     </div>
 
-    {/* PRODUCT GRID */}
-    <div className="mt-12">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">
-        All Products
+
+ <h2 className="text-xl md:text-4xl  mt-10 font-semibold mb-4 text-gray-800">
+        All Products Listed Below
       </h2>
 
+{/* SEARCH + CATEGORY FILTER */}
+{/* SEARCH + CATEGORY FILTER (PREMIUM UI) */}
+<div className="mt-10 flex flex-col md:flex-row gap-3 items-stretch">
+
+  {/* SEARCH */}
+  <div className="flex-1 relative">
+    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+      🔍
+    </span>
+
+    <input
+      type="text"
+      placeholder="Search products here..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full pl-9 pr-4 py-3 rounded-xl border border-black  bg-white shadow-sm 
+      focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition"
+    />
+  </div>
+
+  {/* CATEGORY FILTER */}
+  <div className="relative md:w-64">
+    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+      📂
+    </span>
+
+    <select
+      value={filterCategory}
+      onChange={(e) => setFilterCategory(e.target.value)}
+      className="w-full pl-9 pr-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm 
+      focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition appearance-none"
+    >
+      <option value="">All Categories</option>
+      {categories.map((c) => (
+        <option key={c._id} value={c._id}>
+          {c.name}
+        </option>
+      ))}
+    </select>
+
+    {/* dropdown arrow */}
+    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">
+      ▼
+    </span>
+  </div>
+
+  {/* RESET BUTTON */}
+  <button
+    onClick={() => {
+      setSearch("");
+      setFilterCategory("");
+    }}
+    className="px-6 py-3 rounded-xl bg-gradient-to-r from-gray-900 to-gray-700 text-white 
+    shadow-md hover:shadow-lg hover:scale-[1.02] transition font-medium"
+  >
+    Reset
+  </button>
+
+</div>
+    {/* PRODUCT GRID */}
+    <div className="mt-12">
+     
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-        {products.map((p) => (
+     {filteredProducts.map((p) => (
           <div
             key={p._id}
             className="bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition"

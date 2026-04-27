@@ -34,7 +34,7 @@ export default function CheckoutPage() {
 
     if (!token) {
       toast.error("Please login first");
-      router.push("/login");
+      router.push("/login?redirect=/checkout");
       return;
     }
 
@@ -43,7 +43,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (!form.name || !form.phone || !form.address) {
+    if (!form.name || !form.phone || !form.address || !form.pincode || !form.email ) {
       toast.error("Please fill required details");
       return;
     }
@@ -123,6 +123,7 @@ export default function CheckoutPage() {
                       name={field.name}
                       onChange={handleChange}
                       placeholder=" "
+                      required
                       className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
                     />
                     <label className="absolute left-4 top-2 text-gray-500 text-sm transition-all

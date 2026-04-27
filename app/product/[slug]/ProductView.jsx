@@ -21,15 +21,15 @@ export default function ProductView({ product, relatedProducts }) {
 
   const addToCart = useCartStore((state) => state.addToCart);
 
-  const wishlistItems = useWishlistStore((state) => state.items);
+const wishlistItems = useWishlistStore((state) => state.wishlist);
+const isInWishlist = useWishlistStore((state) => state.isInWishlist);
+
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
   const removeFromWishlist = useWishlistStore(
     (state) => state.removeFromWishlist
   );
 
-  const isWishlisted = wishlistItems?.some(
-    (item) => item._id === product._id
-  );
+const isWishlisted = isInWishlist(product._id);
 
   const handleMouseMove = (e) => {
     const { left, top, width, height } =
@@ -161,11 +161,22 @@ export default function ProductView({ product, relatedProducts }) {
           </p>
 
           {/* FEATURES */}
-          <ul className="mt-4 space-y-2 text-xs sm:text-sm">
-            {product.features?.map((f, i) => (
-              <li key={i}>• {f}</li>
-            ))}
-          </ul>
+      <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+  {product.features?.map((f, i) => (
+    <li
+      key={i}
+      className="flex items-start gap-2 bg-gray-50 hover:bg-gray-100 transition p-1 rounded-lg border"
+    >
+      {/* ICON */}
+      <span className="text-green-600 mt-[2px]">✔</span>
+
+      {/* TEXT */}
+      <span className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+        {f}
+      </span>
+    </li>
+  ))}
+</ul>
 
           {/* BUTTONS */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
@@ -179,27 +190,27 @@ export default function ProductView({ product, relatedProducts }) {
               Add to Cart
             </button>
 
-            <button
-              onClick={() => {
-                setAnimate(true);
-                setTimeout(() => setAnimate(false), 300);
+          <button
+  onClick={() => {
+    setAnimate(true);
+    setTimeout(() => setAnimate(false), 300);
 
-                isWishlisted
-                  ? removeFromWishlist(product._id)
-                  : addToWishlist(product);
-              }}
-              className="border px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-sm"
-            >
-              <Heart
-                size={18}
-                className={
-                  isWishlisted
-                    ? "fill-red-500 text-red-500"
-                    : ""
-                }
-              />
-              {isWishlisted ? "Wishlisted" : "Wishlist"}
-            </button>
+    if (isWishlisted) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist(product);
+    }
+  }}
+  className="border px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-sm"
+>
+  <Heart
+    size={18}
+    className={`transition ${
+      isWishlisted ? "fill-red-500 text-red-500" : "text-gray-500"
+    }`}
+  />
+  {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+</button>
           </div>
         </div>
       </div>

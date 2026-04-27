@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function CartPage() {
   const cart = useCartStore((state) => state.cart);
-  const removeItem = useCartStore((state) => state.removeFromCart);
+ const removeItem = useCartStore((state) => state.removeItem);
   const addItem = useCartStore((state) => state.addToCart);
   const clearCart = useCartStore((state) => state.clearCart);
 const updateQty = useCartStore((state) => state.updateQty);

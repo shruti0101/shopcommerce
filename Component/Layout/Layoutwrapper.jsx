@@ -10,7 +10,8 @@ const Layoutwrapper = ({children}) => {
   const shouldHideHeader =
     pathname === "/login" ||
     pathname === "/register" ||
-    pathname.startsWith("/admin/");
+    pathname.startsWith("/admin");
+   
 
   return <>
   

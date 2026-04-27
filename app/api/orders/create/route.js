@@ -22,13 +22,16 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    const order = await Order.create({
-      userId: decoded.id,
-      items: body.items,
-      totalAmount: body.totalAmount,
-      address: body.address,
-      paymentMethod: body.paymentMethod,
-    });
+  const order = await Order.create({
+  userId: decoded.id,
+  customerName: body.customerName,
+  email: body.email,
+  phone: body.phone,
+  items: body.items,
+  totalAmount: body.totalAmount,
+  address: body.address,
+  paymentMethod: body.paymentMethod,
+});
 
     return Response.json(order);
 
