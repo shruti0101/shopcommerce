@@ -216,7 +216,12 @@ export default function Hero() {
           </div>
 
           {/* RIGHT SLIDER */}
+<<<<<<< HEAD
           <div className="relative lg:col-span-8 h-full  overflow-hidden">
+=======
+          <div className="relative  lg:col-span-8 h-full  overflow-hidden">
+
+>>>>>>> 0ed71357c19266b50d6fe2f7d618e144484b972d
             <Swiper
               modules={[Autoplay, Pagination]}
               autoplay={{ delay: 3500, disableOnInteraction: false }}
