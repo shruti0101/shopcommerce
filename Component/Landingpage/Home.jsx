@@ -192,63 +192,57 @@ export default function Hero() {
       </section>
 
       <section className="w-full bg-[#f6f6f6]">
-        <div className="grid grid-cols-1 h-full lg:grid-cols-12 items-center gap-6 md:h-full ">
-          {/* LEFT CONTENT */}
-          <div className="px-8  lg:col-span-4 flex flex-col justify-center">
-            <p className="text-xs tracking-[3px] text-gray-500 mb-2">
-              NEW COLLECTION
-            </p>
+  <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 h-full">
 
-            <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
-              OUR BESTSELLING COLLECTION
-            </h1>
+    {/* LEFT CONTENT */}
+    <div className="px-8 lg:col-span-4 flex flex-col justify-center">
+      <p className="text-xs tracking-[3px] text-gray-500 mb-2">
+        NEW COLLECTION
+      </p>
 
-            <p className="text-black text-md leading-relaxed mb-6 max-w-sm">
-              Customize freely! Reli adapts to your child's changing passions
-              with versatile fronts—choose smooth wardrobes or open, playful
-              shelves.
-            </p>
+      <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+        OUR BESTSELLING COLLECTION
+      </h1>
 
-            <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 text-sm font-medium w-fit flex items-center gap-2 transition">
-              SHOP COLLECTION
-              <span>→</span>
-            </button>
-          </div>
+      <p className="text-black text-md leading-relaxed mb-6 max-w-sm">
+        Customize freely! Reli adapts to your child's changing passions
+        with versatile fronts—choose smooth wardrobes or open, playful
+        shelves.
+      </p>
 
-          {/* RIGHT SLIDER */}
-<<<<<<< HEAD
-          <div className="relative lg:col-span-8 h-full  overflow-hidden">
-=======
-          <div className="relative  lg:col-span-8 h-full  overflow-hidden">
+      <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 text-sm font-medium w-fit flex items-center gap-2 transition">
+        SHOP COLLECTION
+        <span>→</span>
+      </button>
+    </div>
 
->>>>>>> 0ed71357c19266b50d6fe2f7d618e144484b972d
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              autoplay={{ delay: 3500, disableOnInteraction: false }}
-              loop
-              pagination={{ clickable: true }}
-              className="h-full"
-            >
-              {["/banner1.avif", "/banner2.gif", "/banner3.avif"].map(
-                (img, i) => (
-                  <SwiperSlide key={i}>
-                    <div className="relative w-full h-full">
-                      {/* IMAGE */}
-                      <Image
-                        src={img}
-                        fill
-                        alt="slide"
-                        className="object-cover"
-                        priority={i === 0}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ),
-              )}
-            </Swiper>
-          </div>
-        </div>
-      </section>
+    {/* RIGHT SLIDER */}
+    <div className="relative lg:col-span-8 h-[400px] md:h-[500px] lg:h-full overflow-hidden">
+      <Swiper
+        modules={[Autoplay, Pagination]}
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
+        loop
+        pagination={{ clickable: true }}
+        className="h-full"
+      >
+        {["/banner1.avif", "/banner2.gif", "/banner3.avif"].map((img, i) => (
+          <SwiperSlide key={i}>
+            <div className="relative w-full h-full">
+              <Image
+                src={img}
+                fill
+                alt="slide"
+                className="object-cover"
+                priority={i === 0}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+
+  </div>
+</section>
 
       <Category></Category>
 
