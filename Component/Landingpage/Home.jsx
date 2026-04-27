@@ -44,10 +44,11 @@ export default function Hero() {
                   <SwiperSlide key={i}>
                     {/* 👇 wrapper fixes alignment */}
                     <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                      <img
+                      <Image
                         src={item}
+                     fill
                         alt="banner"
-                        className="w-full h-full  object-contain"
+                        className="w-full h-full  object-cover"
                       />
                     </div>
                   </SwiperSlide>
@@ -368,7 +369,7 @@ const slides = [
 
 const banners = [
   "/banner/banner3.webp",
-  "/banner/banner1.webp",
+
   "/banner/banner5.webp",
 
   // "/banner2.gif",
