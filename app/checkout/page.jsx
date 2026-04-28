@@ -2,7 +2,7 @@
 
 import { useCartStore } from "@/store/cartStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function CheckoutPage() {
@@ -21,6 +21,21 @@ export default function CheckoutPage() {
     pincode: "",
   });
 
+  // ✅ RESTORE DATA AFTER LOGIN
+  useEffect(() => {
+    const saved = localStorage.getItem("checkoutData");
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setForm(parsed.form || {});
+        localStorage.removeItem("checkoutData");
+      } catch (err) {
+        console.error("Error restoring checkout data");
+      }
+    }
+  }, []);
+
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -32,8 +47,17 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     const token = localStorage.getItem("token");
 
+    // ✅ LOGIN ON PLACE ORDER (MAIN LOGIC)
     if (!token) {
-      toast.error("Please login first");
+      localStorage.setItem(
+        "checkoutData",
+        JSON.stringify({
+          form,
+          cart,
+        })
+      );
+
+      toast.error("Please login to continue");
       router.push("/login?redirect=/checkout");
       return;
     }
@@ -43,7 +67,13 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (!form.name || !form.phone || !form.address || !form.pincode || !form.email ) {
+    if (
+      !form.name ||
+      !form.phone ||
+      !form.address ||
+      !form.pincode ||
+      !form.email
+    ) {
       toast.error("Please fill required details");
       return;
     }
@@ -80,7 +110,6 @@ export default function CheckoutPage() {
       toast.success("Order placed successfully ✅");
       clearCart();
       router.push("/order-success");
-
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
@@ -90,22 +119,18 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] py-10 px-4">
-
       <div className="max-w-7xl mx-auto">
 
-        {/* TITLE */}
         <h1 className="text-4xl font-bold mb-10 tracking-tight">
           Checkout
         </h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
 
-          {/* ================= LEFT ================= */}
+          {/* LEFT */}
           <div className="lg:col-span-2 space-y-6">
 
-            {/* CUSTOMER CARD */}
             <div className="bg-white/80 backdrop-blur-lg border border-gray-200 rounded-3xl p-6 shadow-xl">
-
               <h2 className="text-xl font-semibold mb-6">
                 Customer Details
               </h2>
@@ -121,9 +146,9 @@ export default function CheckoutPage() {
                   <div key={field.name} className="relative">
                     <input
                       name={field.name}
+                      value={form[field.name]}
                       onChange={handleChange}
                       placeholder=" "
-                      required
                       className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
                     />
                     <label className="absolute left-4 top-2 text-gray-500 text-sm transition-all
@@ -137,6 +162,7 @@ export default function CheckoutPage() {
                 <div className="relative">
                   <textarea
                     name="address"
+                    value={form.address}
                     onChange={handleChange}
                     placeholder=" "
                     rows={3}
@@ -152,9 +178,8 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* CART ITEMS */}
+            {/* CART */}
             <div className="bg-white/80 backdrop-blur-lg border rounded-3xl p-6 shadow-xl">
-
               <h3 className="text-lg font-semibold mb-4">
                 Your Items
               </h3>
@@ -185,13 +210,12 @@ export default function CheckoutPage() {
                   </div>
                 ))}
               </div>
-
             </div>
+
           </div>
 
-          {/* ================= RIGHT ================= */}
+          {/* RIGHT */}
           <div className="sticky top-20 h-fit">
-
             <div className="bg-white border rounded-3xl p-6 shadow-2xl">
 
               <h2 className="text-xl font-semibold mb-6">
@@ -199,7 +223,6 @@ export default function CheckoutPage() {
               </h2>
 
               <div className="space-y-3 text-sm">
-
                 <div className="flex justify-between">
                   <span className="text-gray-500">Subtotal</span>
                   <span>₹{total}</span>
@@ -214,7 +237,6 @@ export default function CheckoutPage() {
                   <span className="text-gray-500">Delivery</span>
                   <span>Free</span>
                 </div>
-
               </div>
 
               <div className="border-t my-5" />
