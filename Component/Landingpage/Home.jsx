@@ -29,6 +29,7 @@ export default function Hero() {
           <div className="">
             {/* LEFT BANNER */}
             <div className="relative h-[260px] md:h-[320px] lg:h-[80vh] overflow-hidden shadow-md">
+              
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation={{
