@@ -25,10 +25,10 @@ export default function Hero() {
     <>
       <section className="w-full h-full bg-[#f7f7f7]">
         {/* HERO SECTION */}
-        <div className="px-3 sm:px-4 md:px-6 mt-3">
-          <div className="flex flex-col  lg:flex-row gap-4">
+        <div className="mt-3">
+          <div className="">
             {/* LEFT BANNER */}
-            <div className="relative flex-1 h-[260px] md:h-[320px] lg:h-[80vh] rounded-xl overflow-hidden shadow-md">
+            <div className="relative h-[260px] md:h-[320px] lg:h-[80vh] overflow-hidden shadow-md">
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation={{
