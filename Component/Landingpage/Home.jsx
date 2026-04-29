@@ -28,7 +28,7 @@ export default function Hero() {
         <div className="px-3 sm:px-4 md:px-6 mt-3">
           <div className="flex flex-col  lg:flex-row gap-4">
             {/* LEFT BANNER */}
-            <div className="relative flex-1 h-[260px] md:h-[320px] lg:h-[350px] rounded-xl overflow-hidden shadow-md">
+            <div className="relative flex-1 h-[260px] md:h-[320px] lg:h-[80vh] rounded-xl overflow-hidden shadow-md">
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation={{
@@ -65,14 +65,7 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* RIGHT BANNER */}
-            <div className="hidden md:block w-full lg:w-[370px] h-[140px] sm:h-[200px] md:h-[320px] lg:h-[350px] bg-black rounded-xl overflow-hidden shadow-md">
-              <img
-                src="/sidebanner1.avif"
-                alt="promo"
-                className="w-full h-full object-contain"
-              />
-            </div>
+         
           </div>
         </div>
 
@@ -368,7 +361,7 @@ const slides = [
 ];
 
 const banners = [
-  "/banner/banner3.webp",
+  "/banner/banner3.png",
 
   "/banner/banner5.webp",
 
