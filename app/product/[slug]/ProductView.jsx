@@ -190,6 +190,8 @@ const isWishlisted = isInWishlist(product._id);
               Add to Cart
             </button>
 
+            <button className="bg-green-500 hover:bg-green-600 text-sm sm:text-base capitalize rounded-lg px-3 text-white py-2 cursor-pointer">whatsapp now</button>
+
           <button
   onClick={() => {
     setAnimate(true);
@@ -217,12 +219,12 @@ const isWishlisted = isInWishlist(product._id);
 
       {/* TABS */}
       <div className="mt-10 md:mt-12 max-w-4xl">
-        <div className="flex gap-4 sm:gap-6 border-b mb-4 overflow-x-auto">
-          {["description", "specifications", "reviews"].map((tab) => (
+        <div className="flex gap-4 sm:gap-12 capitalize border-b mb-4 overflow-x-auto">
+          {["description", "specifications", ].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 whitespace-nowrap text-sm sm:text-base ${
+              className={`pb-2 whitespace-nowrap text-sm sm:text-base capitalize ${
                 activeTab === tab
                   ? "border-b-2 border-red-500"
                   : ""

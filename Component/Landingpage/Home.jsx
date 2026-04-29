@@ -23,168 +23,174 @@ import Whychoose from "./Whychoose";
 export default function Hero() {
   return (
     <>
-      <section className="w-full h-full bg-[#f7f7f7]">
-        {/* HERO SECTION */}
-        <div className="">
-          <div className="">
-            {/* LEFT BANNER */}
-            <div className="relative h-[260px] md:h-[320px] lg:h-[80vh] overflow-hidden shadow-md">
+    <section className="w-full bg-[#f7f7f7]">
 
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                navigation={{
-                  nextEl: ".hero-next",
-                  prevEl: ".hero-prev",
-                }}
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 3000 }}
-                loop
-                className="h-full w-full"
-              >
-                {banners.map((item, i) => (
-                  <SwiperSlide key={i}>
-                    {/* 👇 wrapper fixes alignment */}
-                    <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                      <Image
-                        src={item}
-                     fill
-                        alt="banner"
-                        className="w-full h-full  object-cover"
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+  {/* HERO SECTION */}
+  <div className="w-full">
+    <div className="relative w-full h-[220px] sm:h-[260px] md:h-[320px] lg:h-[70vh] xl:h-[76vh] overflow-hidden">
 
-              {/* ARROWS */}
-              <button className="hero-prev absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow">
-                <ChevronLeft size={18} />
-              </button>
-
-              <button className="hero-next absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow">
-                <ChevronRight size={18} />
-              </button>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation={{
+          nextEl: ".hero-next",
+          prevEl: ".hero-prev",
+        }}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        loop
+        className="h-full w-full"
+      >
+        {banners.map((item, i) => (
+          <SwiperSlide key={i}>
+            <div className="relative w-full h-full">
+              <Image
+                src={item}
+                width={1000}
+                height={1000}
+                alt="banner"
+                priority={i === 0}
+                className="max-w-full h-auto md:w-full md:h-full object-cover"
+              />
             </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-         
-          </div>
-        </div>
+      {/* ARROWS */}
+      <button className="hero-prev absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 bg-white/80 hover:bg-white backdrop-blur rounded-full flex items-center justify-center shadow-lg transition">
+        <ChevronLeft size={20} />
+      </button>
 
-        {/* CATEGORY SLIDER */}
-        <Catslider />
+      <button className="hero-next absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 bg-white/80 hover:bg-white backdrop-blur rounded-full flex items-center justify-center shadow-lg transition">
+        <ChevronRight size={20} />
+      </button>
+    </div>
+  </div>
 
-        {/* MAIN GRID */}
-        <div className="w-full mx-auto px-3 sm:px-4 md:px-8 py-8 md:py-10">
-          <div className="grid grid-cols-12 gap-4 md:gap-6">
-            {/* LEFT */}
-            <div className="col-span-12 lg:col-span-3">
-              <h2 className="text-xl md:text-2xl font-semibold mb-4">
-                More reasons to shop
-              </h2>
+  {/* CATEGORY SLIDER */}
+  <div className="mt-4 md:mt-6">
+    <Catslider />
+  </div>
 
-              <div className="grid grid-cols-2 gap-3 md:gap-4">
-                {categories2.map((item, i) => (
-                  <div
-                    key={i}
-                    className={`rounded-xl p-3 md:p-4 ${item.bg} cursor-pointer hover:scale-[1.03] transition shadow-sm hover:shadow-md`}
-                  >
-                    <div className="relative w-full h-20 md:h-24">
-                      <Image
-                        src={item.img}
-                        fill
-                        alt={item.title}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
+  {/* MAIN GRID */}
+  <div className="w-full mx-auto px-3 sm:px-5 md:px-10 py-6 md:py-10">
+    <div className="grid grid-cols-12 gap-4 md:gap-6">
 
-                    <h3 className="font-semibold mt-2 text-sm md:text-base">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-gray-600">
-                      {item.subtitle}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* LEFT */}
+      <div className="col-span-12 lg:col-span-3">
+        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4">
+          More reasons to shop
+        </h2>
 
-            {/* CENTER */}
-            <div className="col-span-12 lg:col-span-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg md:text-xl font-semibold">Mega deals</h2>
-                <button className="bg-gray-900 hover:bg-black text-white text-xs md:text-sm px-3 md:px-4 py-1.5 rounded-full shadow">
-                  ALL DEALS
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-                {deals.map((item, i) => (
-                  <div
-                    key={i}
-                    className="bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-md transition relative"
-                  >
-                    {/* TAG */}
-                    <span className="absolute top-2 left-2 bg-yellow-300 text-[10px] md:text-xs px-2 py-0.5 rounded">
-                      {item.tag}
-                    </span>
-
-                    {/* IMAGE */}
-                    <div className="relative w-full h-24 md:h-32 mb-2 md:mb-3">
-                      <Image
-                        src={item.img}
-                        fill
-                        alt={item.title}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-
-                    {/* TITLE */}
-                    <p className="text-xs md:text-sm line-clamp-2 mb-1 md:mb-2">
-                      {item.title}
-                    </p>
-
-                    {/* PRICE */}
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm md:text-lg font-bold">
-                        ₹ {item.price}
-                      </span>
-                      <span className="line-through text-gray-400 text-xs md:text-sm">
-                        ₹ {item.old}
-                      </span>
-                    </div>
-
-                    {/* BUTTON */}
-                    <button className="absolute bottom-3 right-3 w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-100 hover:bg-black hover:text-white flex items-center justify-center text-lg transition">
-                      +
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* RIGHT */}
-            <div className="col-span-12 lg:col-span-3 flex flex-col gap-4 mt-4 lg:mt-10">
-              <div className="relative h-[160px] sm:h-[200px] md:h-[240px] rounded-xl overflow-hidden shadow-md">
+        <div className="grid grid-cols-2 gap-3">
+          {categories2.map((item, i) => (
+            <div
+              key={i}
+              className={`rounded-xl p-3 ${item.bg} cursor-pointer transition-all duration-200 hover:scale-[1.04] hover:shadow-md`}
+            >
+              <div className="relative w-full h-20 sm:h-24">
                 <Image
-                  src="/cat1.avif"
+                  src={item.img}
                   fill
-                  alt="banner"
-                  className="object-cover"
+                  alt={item.title}
+                  className="object-cover rounded-md"
                 />
               </div>
 
-              <div className="relative h-[160px] sm:h-[200px] md:h-[240px] rounded-xl overflow-hidden shadow-md">
+              <h3 className="font-semibold mt-2 text-xs sm:text-sm md:text-base">
+                {item.title}
+              </h3>
+              <p className="text-[11px] sm:text-xs text-gray-600">
+                {item.subtitle}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CENTER */}
+      <div className="col-span-12 lg:col-span-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-base sm:text-lg md:text-xl font-semibold">
+            Mega deals
+          </h2>
+
+          <button className="bg-gray-900 hover:bg-black text-white text-xs sm:text-sm px-3 md:px-4 py-1.5 rounded-full shadow transition">
+            ALL DEALS
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+          {deals.map((item, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl p-3 shadow-sm hover:shadow-lg transition relative group"
+            >
+              {/* TAG */}
+              <span className="absolute top-2 left-2 bg-yellow-300 text-[10px] px-2 py-0.5 rounded">
+                {item.tag}
+              </span>
+
+              {/* IMAGE */}
+              <div className="relative w-full h-24 sm:h-28 md:h-32 mb-2">
                 <Image
-                  src="/sidebanner1.avif"
+                  src={item.img}
                   fill
-                  alt="banner"
-                  className="object-cover"
+                  alt={item.title}
+                  className="object-cover rounded-md"
                 />
               </div>
+
+              {/* TITLE */}
+              <p className="text-xs sm:text-sm line-clamp-2 mb-1">
+                {item.title}
+              </p>
+
+              {/* PRICE */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm md:text-base font-bold">
+                  ₹ {item.price}
+                </span>
+                <span className="line-through text-gray-400 text-xs">
+                  ₹ {item.old}
+                </span>
+              </div>
+
+              {/* BUTTON */}
+              <button className="absolute bottom-3 right-3 w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-100 group-hover:bg-black group-hover:text-white flex items-center justify-center text-lg transition">
+                +
+              </button>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+
+      {/* RIGHT */}
+      <div className="col-span-12 lg:col-span-3 flex flex-col gap-4 mt-2 lg:mt-10">
+
+        <div className="relative w-full h-[140px] sm:h-[180px] md:h-[220px] rounded-xl overflow-hidden shadow-md">
+          <Image
+            src="/cat1.avif"
+            fill
+            alt="banner"
+            className="object-cover"
+          />
+        </div>
+
+        <div className="relative w-full h-[140px] sm:h-[180px] md:h-[220px] rounded-xl overflow-hidden shadow-md">
+          <Image
+            src="/sidebanner1.avif"
+            fill
+            alt="banner"
+            className="object-cover"
+          />
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
 
       <section className="w-full bg-[#f6f6f6]">
   <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 h-full">
@@ -364,7 +370,7 @@ const slides = [
 const banners = [
   "/banner/banner3.png",
 
-  "/banner/banner5.webp",
+  "/banner/banner5.png",
 
   // "/banner2.gif",
   // "/banner3.avif",
