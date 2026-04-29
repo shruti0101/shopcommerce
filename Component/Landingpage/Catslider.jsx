@@ -61,7 +61,7 @@ const Catslider = () => {
 
   return (
     <div>
-      <div className="mt-6 ">
+      <div className="mt-6 px-4">
         <Swiper
           slidesPerView={9} // 4 per row
           breakpoints={{

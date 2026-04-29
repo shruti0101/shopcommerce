@@ -19,9 +19,11 @@ export default function CheckoutPage() {
     email: "",
     address: "",
     pincode: "",
+    gst:"",
+    company:""
   });
 
-  // ✅ RESTORE DATA AFTER LOGIN
+  
   useEffect(() => {
     const saved = localStorage.getItem("checkoutData");
 
@@ -154,10 +156,56 @@ export default function CheckoutPage() {
                     <label className="absolute left-4 top-2 text-gray-500 text-sm transition-all
                       peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
                       peer-focus:top-2 peer-focus:text-sm">
-                      {field.label}
+                      {field.label}*
                     </label>
                   </div>
                 ))}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+  
+  {/* GST Number */}
+  <div className="relative w-full">
+    <input
+      type="text"
+      name="gst"
+      value={form.gst}
+      onChange={handleChange}
+      placeholder=" "
+      className="peer w-full border border-gray-300 rounded-xl px-4 pt-5 pb-2 bg-white outline-none transition
+      focus:border-black"
+    />
+
+    <label
+      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
+      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+      peer-focus:top-2 peer-focus:text-sm"
+    >
+      GST Number
+    </label>
+  </div>
+
+  {/* Company Name */}
+  <div className="relative w-full">
+    <input
+      type="text"
+      name="company"
+      value={form.company}
+      onChange={handleChange}
+      placeholder=" "
+      className="peer w-full border border-gray-300 rounded-xl px-4 pt-5 pb-2 bg-white outline-none transition
+      focus:border-black"
+    />
+
+    <label
+      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
+      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+      peer-focus:top-2 peer-focus:text-sm"
+    >
+      Company Name
+    </label>
+  </div>
+
+</div>
 
                 <div className="relative">
                   <textarea
@@ -166,12 +214,13 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                     placeholder=" "
                     rows={3}
+                    required
                     className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
                   />
                   <label className="absolute left-4 top-2 text-gray-500 text-sm transition-all
                     peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
                     peer-focus:top-2 peer-focus:text-sm">
-                    Address
+                    Address *
                   </label>
                 </div>
 
@@ -215,7 +264,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* RIGHT */}
-          <div className="sticky top-20 h-fit">
+          <div className="sticky top-30 h-fit">
             <div className="bg-white border rounded-3xl p-6 shadow-2xl">
 
               <h2 className="text-xl font-semibold mb-6">
