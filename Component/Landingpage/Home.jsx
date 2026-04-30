@@ -442,22 +442,23 @@ export default function Hero() {
             </p>
 
             {/* FEATURES */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-              {[
-                "● User-friendly product selection",
-                "● Detailed product specifications",
-                "● Transparent pricing",
-                "● Secure payment options",
-                
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-sm font-medium text-gray-700"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 place-items-center gap-5 ">
+
+  {[
+    "● User-friendly product selection",
+    "● Detailed product specifications",
+    "● Transparent pricing",
+    "● Secure payment options",
+  ].map((item, i) => (
+    <div
+      key={i}
+      className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-sm font-medium text-gray-700 flex items-center justify-center text-center"
+    >
+      {item}
+    </div>
+  ))}
+
+</div>
 
             {/* FOOT TEXT */}
             <p className="text-gray-600 mt-7 text-lg max-w-3xl mx-auto leading-relaxed">
