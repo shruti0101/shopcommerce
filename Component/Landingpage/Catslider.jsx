@@ -20,16 +20,9 @@ export default function CatSlider() {
 
   return (
     <section className="bg-[#f3f4f6] py-8">
-      <div className="max-w-7xl mx-auto px-4 relative">
+      <div className="max-w-[1440] px-2 mx-auto relative">
 
-        {/* NAV BUTTONS */}
-        <button className="prev absolute -left-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hidden md:flex">
-          <ChevronLeft size={18} />
-        </button>
-
-        <button className="next absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hidden md:flex">
-          <ChevronRight size={18} />
-        </button>
+    
 
         <Swiper
           modules={[Navigation,Autoplay]}
@@ -56,18 +49,18 @@ export default function CatSlider() {
                   {/* CARD */}
                   <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-3">
 
-                    <div className="w-full h-[90px] flex items-center justify-center overflow-hidden rounded-xl">
+                    <div className="w-full h-[110px] flex items-center justify-center overflow-hidden rounded-xl">
                       <img
                         src={item.image || "/placeholder.png"}
                         alt={item.name}
-                        className="h-full object-contain group-hover:scale-105 transition"
+                        className="h-full object-cover group-hover:scale-105 transition"
                       />
                     </div>
 
                   </div>
 
                   {/* LABEL */}
-                  <p className="mt-3 text-sm md:text-md font-medium text-gray-700 group-hover:text-black transition leading-tight">
+                  <p className="mt-3 text-sm md:text-lg font-medium text-gray-700 group-hover:text-black transition leading-tight">
                     {item.name}
                   </p>
 
