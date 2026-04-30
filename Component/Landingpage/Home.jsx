@@ -27,7 +27,7 @@ export default function Hero() {
 
   {/* HERO SECTION */}
   <div className="w-full px-3 mt-2 ">
-    <div className="relative w-full h-[220px] sm:h-[260px] md:h-[320px] lg:h-[70vh] xl:h-[76vh] overflow-hidden">
+    <div className="relative w-full h-[220px] sm:h-[260px] md:h-[320px] lg:h-[70vh] xl:h-[80vh] overflow-hidden">
 
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -49,7 +49,7 @@ export default function Hero() {
                 height={1000}
                 alt="banner"
                 priority={i === 0}
-                className="max-w-full h-auto md:w-full md:h-full object-cover rounded-lg"
+                className="max-w-full h-auto md:w-full md:h-full object-contain rounded-lg"
               />
             </div>
           </SwiperSlide>
