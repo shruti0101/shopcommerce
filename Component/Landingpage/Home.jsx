@@ -26,8 +26,8 @@ export default function Hero() {
     <section className="w-full bg-[#f7f7f7]">
 
   {/* HERO SECTION */}
-  <div className="w-full px-3 mt-2 ">
-    <div className="relative w-full h-[220px] sm:h-[260px] md:h-[320px] lg:h-[70vh] xl:h-[80vh] overflow-hidden">
+  <div className="w-full  ">
+    <div className="relative w-full h-[220px] sm:h-[260px] md:h-[320px] lg:h-[70vh] xl:h-[78vh] overflow-hidden">
 
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
