@@ -19,7 +19,7 @@ export default function CatSlider() {
   }, []);
 
   return (
-    <section className="bg-[#f3f4f6] py-8">
+    <section className="bg-[#f3f4f6] py-3 md:py-8">
       <div className="max-w-[1440] px-2 mx-auto relative">
 
     
@@ -34,7 +34,7 @@ export default function CatSlider() {
           }}
           spaceBetween={20}
           breakpoints={{
-            320: { slidesPerView: 2.2 },
+            320: { slidesPerView: 2 },
             480: { slidesPerView: 3 },
             768: { slidesPerView: 5 },
             1024: { slidesPerView: 7 },

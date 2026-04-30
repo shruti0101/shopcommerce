@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation,Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
@@ -10,9 +10,7 @@ import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-hot-toast";
 import { ShoppingBagIcon } from "lucide-react";
 
-
 export default function Bestsellers() {
-
   const products = [
     {
       title: "Inflatable Lounge Chair",
@@ -80,21 +78,20 @@ export default function Bestsellers() {
 
   return (
     <div className="px-4 md:px-8 py-8 bg-[#fafafa]">
-
       {/* HEADER */}
       <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-6">
         Our Bestseller
       </h2>
 
       <Swiper
-        modules={[Navigation,Autoplay]}
+        modules={[Navigation, Autoplay]}
         navigation
         autoplay={{ delay: 1500, disableOnInteraction: false }}
         loop
         spaceBetween={20}
         slidesPerView={5}
         breakpoints={{
-          320: { slidesPerView: 1.5 },
+          320: { slidesPerView: 2 },
           640: { slidesPerView: 2.5 },
           1024: { slidesPerView: 4 },
           1280: { slidesPerView: 5 },
@@ -102,13 +99,10 @@ export default function Bestsellers() {
       >
         {products.map((item, i) => (
           <SwiperSlide key={i}>
-
-            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] overflow-hidden">
-
+            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[420px] overflow-hidden">
               {/* IMAGE */}
               <Link href={item.href}>
-                <div className="relative w-full h-[180px]  flex items-center justify-center overflow-hidden">
-
+                <div className="relative w-full h-[200px] flex items-center justify-center overflow-hidden bg-gray-50">
                   <Image
                     src={item.img}
                     fill
@@ -122,17 +116,15 @@ export default function Bestsellers() {
                       {item.discount}
                     </span>
                   )}
-
                 </div>
               </Link>
 
               {/* CONTENT */}
-              <div className="flex flex-col justify-between flex-1 p-4">
-
-                <Link href={item.href}>
-                  <div>
+              <div className="flex flex-col flex-1 p-4">
+                <Link href={item.href} className="flex-1">
+                  <div className="flex flex-col h-full">
                     {/* TITLE */}
-                    <h3 className="text-md font-medium text-gray-800 line-clamp-2 min-h-[40px]">
+                    <h3 className="text-md font-medium text-gray-800 line-clamp-2 min-h-[48px]">
                       {item.title}
                     </h3>
 
@@ -140,9 +132,7 @@ export default function Bestsellers() {
                     <div className="flex items-center gap-1 text-xs mt-1">
                       <span className="text-green-600">★</span>
                       <span>{item.rating}</span>
-                      <span className="text-gray-400">
-                        ({item.reviews})
-                      </span>
+                      <span className="text-gray-400">({item.reviews})</span>
                     </div>
 
                     {/* PRICE */}
@@ -160,11 +150,7 @@ export default function Bestsellers() {
                   </div>
                 </Link>
 
-            
-<div className="flex  items-center justify-center">
-
-
-                {/* BUTTON */}
+                
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -176,22 +162,18 @@ export default function Bestsellers() {
                         images: [item.img],
                         price: Number(String(item.price).replace(/,/g, "")),
                       },
-                      1
+                      1,
                     );
 
                     toast.success("Added to cart");
                   }}
-                  className="cursor-pointer flex items-center justify-center gap-2 mt-4 w-full bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
+                  className="mt-auto flex items-center justify-center gap-2 w-full bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
                 >
-                  <ShoppingBagIcon size={17}/>
+                  <ShoppingBagIcon size={17} />
                   Add to Cart
                 </button>
-</div>
-
-
               </div>
             </div>
-
           </SwiperSlide>
         ))}
       </Swiper>

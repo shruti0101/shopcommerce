@@ -20,8 +20,8 @@ export default function Clientele() {
   ];
 
   return (
-    <section className="w-full bg-[#f5f5f5] py-8 px-6 md:px-16 rounded-lg">
-      <h1 className="text-center text-3xl md:mb-4 md:text-6xl">Our Partners</h1>
+    <section className="w-full bg-[#f5f5f5] py-5 px-6 md:px-16 rounded-lg">
+      <h1 className="text-center text-3xl  md:text-6xl">Our Partners</h1>
 
       <div className="relative flex-1 h-[170px] rounded-md  gap-2overflow-hidden">
         <Swiper
