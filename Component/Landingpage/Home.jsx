@@ -252,9 +252,9 @@ export default function Hero() {
 
     
  {/* CATEGORIES */}
-<section className="py-12 bg-[#f4f6f8]">
+<section className="py-8 bg-[#f4f6f8]">
   <div className="max-w-7xl mx-auto px-4">
-
+<h2 className="text-center text-2xl md:text-4xl mb-7 font-bold">Explore Our Product Categories </h2>
     <div className="grid md:grid-cols-2 gap-8">
 
       {[

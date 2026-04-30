@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
@@ -104,6 +105,19 @@ export default function Login() {
           </p>
         </Link>
 
+<div className="flex items-center justify-center mt-4">
+
+<Link href="/" className="bg-yellow-700 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 capitalize group hover:bg-yellow-800 transition duration-200">
+  Back to home
+  <ArrowRight
+    size={18}
+    className="transition duration-200 group-hover:translate-x-1"
+  />
+</Link>
+
+
+
+</div>
       </div>
     </div>
   );
