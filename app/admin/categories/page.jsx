@@ -6,8 +6,38 @@ export default function Categories() {
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [editingId, setEditingId] = useState(null);
-
+const [image, setImage] = useState("");
+const [uploading, setUploading] = useState(false);
   // ✅ Fetch categories
+
+
+
+
+const uploadImage = async (file) => {
+  setUploading(true);
+  const toastId = toast.loading("Uploading...");
+
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+
+  reader.onloadend = async () => {
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: JSON.stringify({ image: reader.result }),
+    });
+
+    const data = await res.json();
+    setImage(data.url);
+
+    toast.success("Uploaded ✅", { id: toastId });
+    setUploading(false);
+  };
+};
+
+
+
+
+
   useEffect(() => {
     refreshCategories();
   }, []);
@@ -28,6 +58,7 @@ export default function Categories() {
 
     const payload = {
       name,
+      image,
       slug: name.toLowerCase().replace(/\s+/g, "-"),
     };
 
@@ -54,12 +85,14 @@ export default function Categories() {
   // 🔄 Reset
   const resetForm = () => {
     setName("");
+     setImage(""); 
     setEditingId(null);
   };
 
   // ✏️ Edit
   const handleEdit = (c) => {
     setEditingId(c._id);
+      setImage(c.image || ""); 
     setName(c.name);
   };
 
@@ -93,6 +126,15 @@ export default function Categories() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+
+   <input
+  type="file"
+  onChange={(e) => uploadImage(e.target.files[0])}
+/>
+
+{image && (
+  <img src={image} className="w-24 h-24 object-cover mt-2 rounded" />
+)}
 
         <div className="flex gap-2">
           <button

@@ -1,123 +1,82 @@
-import React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, Grid } from "swiper/modules";
+import { Navigation,Autoplay } from "swiper/modules";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-const Catslider = () => {
-  const categories = [
-    {
-      name: "Beauty & Health",
-      image: "/cat/heathbeauty.webp",
-      href: "/category/beauty-&-health",
-    },
-    {
-      name: "Decorative Product",
-      image: "/cat/decorative.webp",
-      href: "/category/decorative-product",
-    },
-    { name: "Health", image: "/cat/heath.webp", href: "/category/health" },
-    {
-      name: "Home decorative",
-      image: "/cat/homedecorative.webp",
-      href: "/category/home-decorative",
-    },
-    {
-      name: "Office Product",
-      image: "/cat/officeProducts.webp",
-      href: "/category/office-product",
-    },
-    {
-      name: "Home Product",
-      image: "/cat/homeProduct.webp",
-      href: "/category/home-product",
-    },
-    {
-      name: "Fitness & Health",
-      image: "/cat/fitness-health.webp",
-      href: "/category/fitness-&-health",
-    },
-    {
-      name: "Smart Gadgets",
-      image: "/cat/smart-gadgets.webp",
-      href: "/category/smart-gadgets",
-    },
-    {
-      name: "Kids Items",
-      image: "/cat/kids.webp",
-      href: "/category/kids-items",
-    },
-    {
-      name: "Water Bottles",
-      image: "/cat/water-bottles.webp",
-      href: "/category/water-bottles",
-    },
-    {
-      name: "Home & Kitchen",
-      image: "/cat/home-kitchen.webp",
-      href: "/category/home-&-kitchen",
-    },
-    { name: "Others", image: "/cat/others.webp", href: "/category/others" },
-  ];
+
+import "swiper/css";
+import "swiper/css/navigation";
+
+export default function CatSlider() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }, []);
 
   return (
-    <div>
-      <div className="mt-6 px-4">
+    <section className="bg-[#f3f4f6] py-8">
+      <div className="max-w-7xl mx-auto px-4 relative">
+
+        {/* NAV BUTTONS */}
+        <button className="prev absolute -left-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hidden md:flex">
+          <ChevronLeft size={18} />
+        </button>
+
+        <button className="next absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hidden md:flex">
+          <ChevronRight size={18} />
+        </button>
+
         <Swiper
-          slidesPerView={9} // 4 per row
-          breakpoints={{
-            320: {
-              slidesPerView: 3,
-              grid: { rows: 2 },
-            },
-            480: {
-              slidesPerView: 4,
-              grid: { rows: 2 },
-            },
-            768: {
-              slidesPerView: 6,
-              grid: { rows: 2 },
-            },
-            1024: {
-              slidesPerView: 8,
-              grid: { rows: 2 },
-            },
-            1280: {
-              slidesPerView: 9,
-              grid: { rows: 2 },
-            },
+          modules={[Navigation,Autoplay]}
+          autoplay={{ delay: 1000, disableOnInteraction: false }}
+          loop
+          navigation={{
+            prevEl: ".prev",
+            nextEl: ".next",
           }}
-          spaceBetween={30}
-          className="overflow-hidden"
+          spaceBetween={20}
+          breakpoints={{
+            320: { slidesPerView: 2.2 },
+            480: { slidesPerView: 3 },
+            768: { slidesPerView: 5 },
+            1024: { slidesPerView: 7 },
+            1280: { slidesPerView: 9 },
+          }}
         >
-          {categories.map((item, i) => (
-            <SwiperSlide key={i}>
-              <Link href={item.href}>
-                <div className="flex flex-col items-center  ">
-                  <div className="w-[130px] h-[130px]  rounded-2xl flex items-center justify-center shadow-sm hover:shadow-md transition">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-25 h-25 object-cover"
-                    />
+          {categories.map((item) => (
+            <SwiperSlide key={item._id}>
+              <Link href={`/category/${item.slug}`}>
+                <div className="text-center group cursor-pointer">
+
+                  {/* CARD */}
+                  <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-3">
+
+                    <div className="w-full h-[90px] flex items-center justify-center overflow-hidden rounded-xl">
+                      <img
+                        src={item.image || "/placeholder.png"}
+                        alt={item.name}
+                        className="h-full object-contain group-hover:scale-105 transition"
+                      />
+                    </div>
+
                   </div>
-                  <span className="text-base mt-2 text-center text-gray-900 font-medium leading-tight">
+
+                  {/* LABEL */}
+                  <p className="mt-3 text-sm md:text-md font-medium text-gray-700 group-hover:text-black transition leading-tight">
                     {item.name}
-                  </span>
+                  </p>
+
                 </div>
               </Link>
             </SwiperSlide>
           ))}
         </Swiper>
-
-        {/* Pagination Indicator */}
-        <div className="flex justify-center mt-4">
-          <div className="w-16 h-[4px] bg-gray-200 rounded-full relative">
-            <div className="absolute left-0 w-6 h-[4px] bg-gray-800 rounded-full transition-all"></div>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Catslider;
+}

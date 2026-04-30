@@ -6,5 +6,5 @@ const CategorySchema = new mongoose.Schema({
   image: String,
 });
 
-// ✅ FIXED
+
 export default mongoose.models.Category || mongoose.model("Category", CategorySchema);

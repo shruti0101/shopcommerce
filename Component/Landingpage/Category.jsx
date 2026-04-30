@@ -2,10 +2,16 @@
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation,Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
+import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
+import { ShoppingBagIcon } from "lucide-react";
+import { toast } from "react-hot-toast";
+
+export default function ProductSlider() {
 
 const products = [
   {
@@ -172,92 +178,122 @@ const products = [
   },
 ];
 
-export default function ProductSlider() {
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+  const addToCart = useCartStore((state) => state.addToCart);
+
   return (
-    <>
-      <div className="px-6 py-6">
-        <h2 className="text-2xl md:text-4xl font-semibold mb-4">
+    <div className="px-4 md:px-8 py-8 bg-[#fafafa]">
+
+      {/* HEADER */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl md:text-4xl font-semibold text-gray-800">
           Featured Products
         </h2>
-        <Swiper
-          modules={[Navigation]}
-          navigation
-          spaceBetween={16}
-          slidesPerView={5}
-          breakpoints={{
-            320: { slidesPerView: 2 },
-            520: { slidesPerView: 2 },
-            640: { slidesPerView: 2.5 },
-            1024: { slidesPerView: 4 },
-            1280: { slidesPerView: 5 },
-          }}
-        >
-          {products.map((item, i) => (
-            <SwiperSlide key={i}>
+      </div>
+
+      <Swiper
+        modules={[Navigation,Autoplay]}
+        autoplay={{ delay: 1500, disableOnInteraction: false }}
+        loop
+        navigation
+        spaceBetween={20}
+        slidesPerView={5}
+        breakpoints={{
+          320: { slidesPerView: 2 },
+          520: { slidesPerView: 2 },
+          640: { slidesPerView: 2.5 },
+          1024: { slidesPerView: 4 },
+          1280: { slidesPerView: 5 },
+        }}
+      >
+        {products.map((item, i) => (
+          <SwiperSlide key={i}>
+
+            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] overflow-hidden">
+
+         
+
+              {/* IMAGE */}
               <Link href={item.href}>
-                <div className="bg-white rounded-xl h-[340px] p-2 md:p-4 relative border hover:shadow-md transition flex flex-col overflow-hidden">
-                  {/* IMAGE */}
-                  <div className="relative w-full h-40 md:h-44 flex-shrink-0">
-                    <Image
-                      src={item.img}
-                      fill
-                      alt={item.title}
-                      className="object-contain"
-                    />
-                  </div>
+                <div className="relative w-full h-[210px] bg-gray-50 flex items-center justify-center overflow-hidden">
 
-                  {/* ADD BUTTON */}
-                  <button className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl hover:bg-gray-200">
-                    +
-                  </button>
+                  <Image
+                    src={item.img}
+                    fill
+                    alt={item.title}
+                    className="object-contain md:object-cover  group-hover:scale-105 transition duration-300"
+                  />
 
-                  {/* CONTENT */}
-                  <div className="flex flex-col flex-1 justify-between mt-2">
-                    {/* TOP CONTENT */}
-                    <div>
-                      {/* TITLE */}
-                      <p className="text-sm text-gray-800 line-clamp-2 mb-1">
-                        {item.title}
-                      </p>
-
-                      {/* RATING */}
-                      <div className="flex items-center gap-1 text-sm mb-1">
-                        <span className="text-green-600">★</span>
-                        <span>{item.rating}</span>
-                        <span className="text-gray-500">({item.reviews})</span>
-                      </div>
-
-                      {/* PRICE */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold">
-                          Rs {item.price}
-                        </span>
-
-                        {item.old && (
-                          <span className="line-through text-gray-400 text-sm">
-                            {item.old}
-                          </span>
-                        )}
-
-                        {item.discount && (
-                          <span className="text-green-600 text-sm font-semibold">
-                            {item.discount}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* CTA */}
-                    <div className="mt-2 bg-blue-700 text-white text-xs font-semibold py-2 px-3 rounded-md text-center">
-                      ⚡ GET IN 1 HR 4 MINS
-                    </div>
-                  </div>
+                  {/* Discount Badge */}
+                  {item.discount && (
+                    <span className="absolute top-3 left-3 bg-green-600 text-white text-xs px-2 py-1 rounded-md">
+                      {item.discount}
+                    </span>
+                  )}
                 </div>
               </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </>
+
+              {/* CONTENT */}
+              <div className="flex flex-col justify-between flex-1 p-4">
+
+                <Link href={item.href}>
+                  <div>
+                    {/* TITLE */}
+                    <h3 className="text-md font-medium text-gray-900 line-clamp-2 ">
+                      {item.title}
+                    </h3>
+
+                 
+
+                    {/* PRICE */}
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-lg font-semibold text-gray-900">
+                        ₹{item.price}
+                      </span>
+
+                      {item.old && (
+                        <span className="line-through text-gray-400 text-sm">
+                          ₹{item.old}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+
+
+<div className="flex  items-center justify-center">
+
+
+                {/* BUTTON */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    addToCart(
+                      {
+                        ...item,
+                        name: item.title,
+                        images: [item.img],
+                        price: Number(String(item.price).replace(/,/g, "")),
+                      },
+                      1
+                    );
+
+                    toast.success("Added to cart");
+                  }}
+                  className="cursor-pointer flex items-center justify-center gap-2 mt-4 w-full bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
+                >
+                  <ShoppingBagIcon size={17}/>
+                  Add to Cart
+                </button>
+</div>
+
+              </div>
+            </div>
+
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 }

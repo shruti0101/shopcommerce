@@ -23,8 +23,8 @@ export default function CategoryPage() {
   const addToCart = useCartStore((state) => state.addToCart);
 
   const slides = [
-    { image: "/catbg1.avif" },
-    { image: "/catbg2.avif" },
+    { image: "/slider1.png" },
+    { image: "/slider-2.png" },
   ];
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function CategoryPage() {
           >
             {slides.map((s, i) => (
               <SwiperSlide key={i}>
-                <div className="sm:h-[240px] md:h-[300px] lg:h-[340px]">
+                <div className="sm:h-[240px] md:h-[300px] lg:h-[350px]">
                   <img
                     src={s.image}
                     className="max-w-full h-auto md:w-full md:h-full object-cover"

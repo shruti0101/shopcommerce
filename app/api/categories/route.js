@@ -35,10 +35,11 @@ export async function PUT(req) {
   await connectDB();
 
   const data = await req.json();
-
   const updated = await Category.findByIdAndUpdate(
     data._id,
     data,
     { new: true }
   );
+
+  return Response.json(updated); 
 }

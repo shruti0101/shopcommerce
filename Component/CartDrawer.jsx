@@ -77,7 +77,7 @@ export default function CartDrawer() {
                 </h3>
 
                 <p className="text-gray-500 text-sm mt-1">
-                  ₹{item.price.toLocaleString("en-IN")}
+                 ₹{Number(String(item.price).replace(/,/g, "")).toLocaleString("en-IN")}
                 </p>
 
                 {/* quantity */}
