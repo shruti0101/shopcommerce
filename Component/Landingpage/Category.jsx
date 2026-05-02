@@ -194,7 +194,7 @@ export default function ProductSlider() {
         autoplay={{ delay: 1500, disableOnInteraction: false }}
         loop
         navigation
-        spaceBetween={20}
+        spaceBetween={10}
         slidesPerView={5}
         breakpoints={{
           320: { slidesPerView: 2 },
@@ -206,10 +206,10 @@ export default function ProductSlider() {
       >
         {products.map((item, i) => (
           <SwiperSlide key={i}>
-            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[420px] overflow-hidden">
+            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[420px] overflow-hidden">
               {/* IMAGE */}
               <Link href={item.href}>
-                <div className="relative w-full h-[220px] bg-gray-50 overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-[190px] md:h-[220px] bg-gray-50 overflow-hidden flex items-center justify-center">
                   <Image
                     src={item.img}
                     fill
