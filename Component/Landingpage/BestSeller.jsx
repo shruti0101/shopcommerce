@@ -169,7 +169,7 @@ export default function Bestsellers() {
                   }}
                   className="mt-auto flex items-center justify-center gap-2 w-full bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
                 >
-                  <ShoppingBagIcon size={17} />
+                  <ShoppingBagIcon className="hidden md:block" size={17} />
                   Add to Cart
                 </button>
               </div>
