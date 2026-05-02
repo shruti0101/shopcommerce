@@ -23,7 +23,7 @@ import Clientele from "./Clientele";
 import Catslider from "./Catslider";
 import Bestsellers from "./BestSeller";
 import Whychoose from "./Whychoose";
-
+import TestimonialSlider from "./Testimonial";
 export default function Hero() {
 
 
@@ -251,6 +251,8 @@ const mobileBanners = [
       </div>
     </div>
   </section>
+
+  <TestimonialSlider></TestimonialSlider>
 
   {/* CATEGORIES */}
   <section className="py-12 ">
