@@ -102,9 +102,9 @@ const mobileBanners = [
       <Category></Category>
 
       <section className="w-full bg-[#f6f6f6]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-center md:gap-6 h-full">
           {/* LEFT CONTENT */}
-          <div className="px-8 p-5 lg:col-span-4 flex flex-col justify-center">
+          <div className="md:px-8 p-5 lg:col-span-4 flex flex-col justify-center">
             <p className="text-xs tracking-[3px] text-gray-500 mb-2">
               NEW COLLECTION
             </p>
@@ -126,7 +126,7 @@ const mobileBanners = [
           </div>
 
           {/* RIGHT SLIDER */}
-          <div className="relative lg:col-span-8 h-[400px] md:h-[500px] lg:h-full overflow-hidden">
+          <div className="relative lg:col-span-8 h-[160px] md:h-[500px] lg:h-full overflow-hidden">
             <Swiper
               modules={[Autoplay, Pagination]}
               autoplay={{ delay: 3500, disableOnInteraction: false }}
@@ -141,7 +141,7 @@ const mobileBanners = [
                       src={img}
                       fill
                       alt="slide"
-                      className="object-cover"
+                      className="object-contain md:object-cover"
                       priority={i === 0}
                     />
                   </div>
