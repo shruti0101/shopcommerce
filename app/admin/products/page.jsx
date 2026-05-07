@@ -55,35 +55,46 @@ const removeSpec = (index) => {
 
 
   // ✅ Upload Images
-  const uploadImages = async (files) => {
-    setUploading(true);
-    const toastId = toast.loading("Uploading images...");
+const uploadImages = async (files) => {
+  setUploading(true);
 
-    let uploadedUrls = [];
+  const toastId = toast.loading("Uploading images...");
 
-    for (let file of files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+  try {
+    const formData = new FormData();
 
-      await new Promise((resolve) => {
-        reader.onloadend = async () => {
-          const res = await fetch("/api/upload", {
-            method: "POST",
-            body: JSON.stringify({ image: reader.result }),
-          });
+    files.forEach((file) => {
+      formData.append("files", file);
+    });
 
-          const data = await res.json();
-          uploadedUrls.push(data.url);
-          resolve();
-        };
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setImages((prev) => [...prev, ...data.urls]);
+
+      toast.success("Images uploaded", {
+        id: toastId,
+      });
+    } else {
+      toast.error("Upload failed", {
+        id: toastId,
       });
     }
+  } catch (err) {
+    console.log(err);
 
-  setImages((prev) => [...prev, ...uploadedUrls]);
-    setUploading(false);
+    toast.error("Upload failed", {
+      id: toastId,
+    });
+  }
 
-    toast.success("Images uploaded", { id: toastId });
-  };
+  setUploading(false);
+};
 
   // ✅ Create / Update
   const handleSubmit = async () => {
@@ -356,9 +367,21 @@ const filteredProducts = products.filter((p) => {
                 />
 
                 <button
-                  onClick={() =>
-                    setImages(images.filter((_, idx) => idx !== i))
-                  }
+              onClick={async () => {
+  const imageToDelete = images[i];
+
+  await fetch("/api/delete-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      imageUrl: imageToDelete,
+    }),
+  });
+
+  setImages(images.filter((_, idx) => idx !== i));
+}}
                   className="absolute top-1 right-1 bg-black text-white text-xs px-1 rounded"
                 >
                   ✕
