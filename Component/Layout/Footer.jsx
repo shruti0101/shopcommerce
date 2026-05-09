@@ -2,6 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -30,6 +37,57 @@ const Footer = () => {
               A reliable eCommerce platform offering high-quality industrial
               supplies and equipment for businesses and bulk buyers.
             </p>
+
+
+{/* Social Icons */}
+<div className="flex items-center gap-3 mt-6">
+  <a
+    href="https://facebook.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/20 hover:bg-[#039c98] transition flex items-center justify-center border border-white/10 hover:scale-110"
+  >
+    <FaFacebookF className="text-white text-sm" />
+  </a>
+
+  <a
+    href="https://instagram.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/20 hover:bg-pink-600 transition flex items-center justify-center border border-white/10 hover:scale-110"
+  >
+    <FaInstagram className="text-white text-sm" />
+  </a>
+
+  <a
+    href="https://linkedin.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/20 hover:bg-blue-600 transition flex items-center justify-center border border-white/10 hover:scale-110"
+  >
+    <FaLinkedinIn className="text-white text-sm" />
+  </a>
+
+  <a
+    href="https://youtube.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/20 hover:bg-red-600 transition flex items-center justify-center border border-white/10 hover:scale-110"
+  >
+    <FaYoutube className="text-white text-sm" />
+  </a>
+
+  <a
+    href="https://wa.me/919999999999"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/20 hover:bg-green-500 transition flex items-center justify-center border border-white/10 hover:scale-110"
+  >
+    <FaWhatsapp className="text-white text-sm" />
+  </a>
+</div>
+
+
           </div>
 
           {/* Support */}

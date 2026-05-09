@@ -5,10 +5,10 @@ const ProductSchema = new mongoose.Schema({
   slug: String,
 
   price: Number,
-  oldPrice: Number, // 🔥 discount price
+  oldPrice: Number, 
 
   description: String,
-  features: [String], // 🔥 bullet points
+  features: [String],
 
   longdescription: {
     type: String,
@@ -22,9 +22,16 @@ const ProductSchema = new mongoose.Schema({
       key: String,
       value: String,
     }
-  ], // 🔥 NEW
+  ], 
 
   images: [String],
+
+ 
+    youtubeLink: {
+      type: String,
+      default: "",
+    },
+
 
   category: {
     type: mongoose.Schema.Types.ObjectId,

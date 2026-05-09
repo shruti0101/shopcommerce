@@ -38,45 +38,22 @@ export default function page(){
           </h2>
           <ul className="space-y-2 text-lg list-disc pl-5  md:text-xl leading-relaxed">
             <li>
-              Products can be returned within{" "}
-              <span className="font-medium">7 days of delivery</span> if they are
-              defective, damaged, or incorrect.
+           All sales are generally non-returnable and non-refundable. However, if you receive a damaged, defective, or incorrect product, you may request a replacement (not a refund) by contacting us within 48 hours of delivery.
+
+
             </li>
             <li>
-              Items must be unused and in original condition with packaging and
-              accessories.
+        The item must be unused, in its original condition, and must include all original packaging materials.
             </li>
             <li>Proof of purchase is required (invoice/order confirmation).</li>
             <li>
-              Returns are not accepted for used products, customized items, or
-              items returned without approval.
+              Exchange are not accepted for used products, customized items, or
+              items Exchanged without approval.
             </li>
           </ul>
         </div>
 
-        {/* REFUNDS */}
-        <div className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 mb-4">
-            Refunds
-          </h2>
-          <ul className="space-y-2 list-disc pl-5 text-lg md:text-xl leading-relaxed">
-            <li>
-              Once your return is received and inspected, we will notify you of
-              the approval status.
-            </li>
-            <li>
-              Approved refunds are processed within{" "}
-              <span className="font-medium">5–7 business days</span>.
-            </li>
-            <li>
-              Refunds are credited to the original payment method.
-            </li>
-            <li>
-              Shipping charges are non-refundable unless the return is due to
-              our error.
-            </li>
-          </ul>
-        </div>
+    
 
         {/* EXCHANGE */}
         <div className="mb-10">

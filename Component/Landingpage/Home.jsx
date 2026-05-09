@@ -307,19 +307,9 @@ const mobileBanners = [
               "These elements help create a visually appealing and welcoming environment.",
             ],
           },
+        
           {
-            title: "5. Industrial & Utility Solutions",
-            content: [
-              "J L Industries Hub Private Limited is not limited to home products—we also cater to industrial and commercial needs:",
-              "● Custom hardware solutions",
-              "● Industrial components",
-              "● Utility equipment",
-              "● Bulk supply services",
-              "Our expertise allows us to serve both individual customers and large-scale businesses.",
-            ],
-          },
-          {
-            title: "6. Fitness & Health Products",
+            title: "5. Fitness & Health Products",
             content: [
               "Stay active and maintain a healthy lifestyle with our range of fitness and health products:",
               "● Home workout equipment",

@@ -90,7 +90,7 @@ export default function Navbar() {
       }`}
     >
       {/* TOP BAR */}
-      <div className="bg-[#FFED00] min-h-[60px] flex items-center px-3 sm:px-4 md:px-15 justify-between">
+      <div className="bg-gray-200 min-h-[60px] flex items-center px-3 sm:px-4 md:px-15 justify-between">
         <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
           <button className="md:hidden" onClick={() => setMenuOpen(true)}>
             <Menu />
@@ -169,7 +169,7 @@ export default function Navbar() {
               <span>
                 {user ? `Hi, ${user.name?.split(" ")[0]} 👋` : "Login / Register"}
               </span>
-            </div>
+            </div>  
 
             {/* DROPDOWN */}
             <div className="absolute right-0 mt-2 w-54 bg-white shadow-lg rounded-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
@@ -351,7 +351,7 @@ export default function Navbar() {
             shadow-sm
             transition-all duration-300
             hover:shadow-md hover:-translate-y-[1px]
-            hover:bg-yellow-300 hover:text-black
+            hover:bg-yellow-50 hover:text-black
           "
         >
           {/* subtle glow */}

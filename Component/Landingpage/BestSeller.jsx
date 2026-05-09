@@ -22,16 +22,18 @@ export default function Bestsellers() {
       reviews: "33.8K",
       img: "/best-seller/chair.webp",
     },
+
     {
-      title: "DUMBELL BOTTLE",
-      href: "/product/dumbell-bottle-",
-      price: "199",
-      old: "499",
+      title: "SHIP HUMDIFIER",
+      href: "/product/ship-humdifier",
+      price: "1699",
+      old: "1100",
       discount: "35%",
       rating: "4.5",
       reviews: "13K",
-      img: "/best-seller/bottle.webp",
+      img: "/best-seller/1.webp",
     },
+
     {
       title: "PANDA LAMP",
       href: "/product/panda-lamp",
@@ -72,6 +74,17 @@ export default function Bestsellers() {
       reviews: "20.1K",
       img: "/featured-products/jet.webp",
     },
+
+        {
+      title: "MATKA SHAPED AROMA DIFFUSER",
+      href: "/product/matka-shaped-aroma-diffuser",
+      price: "900",
+      old: "1200",
+      discount: "",
+      rating: "4.5",
+      reviews: "20.1K",
+      img: "/best-seller/2.webp",
+    },
   ];
 
   const addToCart = useCartStore((state) => state.addToCart);
@@ -102,12 +115,13 @@ export default function Bestsellers() {
             <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[420px] overflow-hidden">
               {/* IMAGE */}
               <Link href={item.href}>
-                <div className="relative w-full h-[180px] md:h-[200px] flex items-center justify-center overflow-hidden bg-gray-50">
+                <div className="relative w-full h-[180px] pt-5 md:h-[250px] flex items-center justify-center overflow-hidden bg-gray-50">
                   <Image
                     src={item.img}
-                    fill
+                    width={300}
+                    height={300}
                     alt={item.title}
-                    className="object-contain group-hover:scale-105 transition duration-300"
+                    className="object-cover group-hover:scale-105 transition duration-300"
                   />
 
                   {/* Discount Badge */}

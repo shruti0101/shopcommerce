@@ -20,6 +20,7 @@ const [longdescription, setLongdescription] = useState("");
 const [features, setFeatures] = useState("");
 const [stock, setStock] = useState(true);
 
+const [youtubeLink, setYoutubeLink] = useState("");
 const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
@@ -113,6 +114,7 @@ price: Number(price),
   stock,
   category,
   images,
+    youtubeLink,
   longdescription,
   specifications: specs,
 };
@@ -140,6 +142,7 @@ price: Number(price),
     setPrice("");
     setCategory("");
     setImages([]);
+    setYoutubeLink("");
     setEditingId(null);
   };
 
@@ -158,6 +161,7 @@ const handleEdit = (p) => {
   setStock(p.stock);
   setCategory(p.category?._id || p.category);
   setImages(p.images);
+setYoutubeLink(p.youtubeLink?.trim() || "");
   setLongdescription(p.longdescription || "");
   setSpecs(p.specifications || [{ key: "", value: "" }]);
 
@@ -250,6 +254,8 @@ const filteredProducts = products.filter((p) => {
             ))}
           </select>
         </div>
+
+
 
         {/* DESCRIPTION */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
@@ -345,6 +351,27 @@ const filteredProducts = products.filter((p) => {
             <option value="true">In Stock</option>
             <option value="false">Out of Stock</option>
           </select>
+        </div>
+
+        <div className="bg-white p-5 rounded-md border shadow-sm">
+
+
+         <label className="font-bold text-lg">Add Youtube Link here</label>
+ 
+     <div className="relative mt-3">
+
+     
+  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-red-500">
+    ▶
+  </span>
+
+  <input
+    className="w-full border p-3 pl-10 rounded-lg"
+    placeholder="https://youtube.com/..."
+    value={youtubeLink}
+    onChange={(e) => setYoutubeLink(e.target.value)}
+  />
+</div>
         </div>
 
         {/* IMAGE UPLOAD */}

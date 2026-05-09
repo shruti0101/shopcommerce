@@ -135,6 +135,11 @@
 }
 
 
+.font-caladea {
+  font-family: var(--font-caladea);
+}
+
+
 @keyframes pop {
   0% {
     transform: scale(1);
