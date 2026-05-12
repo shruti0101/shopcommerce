@@ -5,6 +5,7 @@ import JoditEditor from "jodit-react";
 import { useRef } from "react";
 
 
+
 export default function Products() {
 const [search, setSearch] = useState("");
 const [filterCategory, setFilterCategory] = useState("");
@@ -31,7 +32,7 @@ const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
-
+const [editorKey, setEditorKey] = useState(0);
   // ✅ Fetch data
   useEffect(() => {
     fetch("/api/categories").then(res => res.json()).then(setCategories);
@@ -106,9 +107,8 @@ const uploadImages = async (files) => {
    const payload = {
   name,
   slug: name.toLowerCase().replace(/\s+/g, "-"),
-  price,
-oldPrice: oldPrice ? Number(oldPrice) : 0,
 price: Number(price),
+oldPrice: oldPrice ? Number(oldPrice) : 0,
   description,
   features: features.split(","),
   stock,
@@ -137,20 +137,29 @@ price: Number(price),
     refreshProducts();
   };
 
-  const resetForm = () => {
-    setName("");
-    setPrice("");
-    setCategory("");
-    setImages([]);
-    setYoutubeLink("");
-    setEditingId(null);
-  };
+ const resetForm = () => {
+  setName("");
+  setPrice("");
+  setCategory("");
+  setImages([]);
+  setYoutubeLink("");
+  setEditingId(null);
+  setOldPrice("");
+  setDescription("");
+  setFeatures("");
+  setStock(true);
+  setLongdescription("");
+  setSpecs([{ key: "", value: "" }]);
+
+  // force Jodit reset
+  setEditorKey(prev => prev + 1);
+};
 
   const refreshProducts = () => {
     fetch("/api/product").then(res => res.json()).then(setProducts);
   };
 
-  // ✅ Edit
+  //  Edit
 const handleEdit = (p) => {
   setEditingId(p._id);
   setName(p.name);
@@ -165,9 +174,14 @@ setYoutubeLink(p.youtubeLink?.trim() || "");
   setLongdescription(p.longdescription || "");
   setSpecs(p.specifications || [{ key: "", value: "" }]);
 
+  window.scrollTo({
+  top: 0,
+  behavior: "smooth",
+});
+
 };
 
-  // ✅ Delete
+  //  Delete
   const handleDelete = async (id) => {
     const toastId = toast.loading("Deleting...");
 
@@ -281,11 +295,12 @@ const filteredProducts = products.filter((p) => {
             </p>
 
             <div className="border rounded-lg overflow-hidden">
-              <JoditEditor
-                ref={editor}
-                value={longdescription}
-                onChange={(newContent) => setLongdescription(newContent)}
-              />
+             <JoditEditor
+  key={editorKey}
+  ref={editor}
+  value={longdescription}
+  onChange={(newContent) => setLongdescription(newContent)}
+/>
             </div>
           </div>
         </div>

@@ -431,10 +431,10 @@ setZoomStyle({
   };
 
   return (
-    <div className="bg-white font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
+    <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* left */}
-        <div>
+    <div className="sticky top-20 self-start">
           <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm">
             Home / <span className="uppercase">{product.category?.name}</span> /{" "}
             <span className="text-red-500 font-caladea capitalize">
@@ -445,7 +445,8 @@ setZoomStyle({
           
         {/* main image div */}
 <div
-  className={`overflow-hidden bg-white rounded-2xl border relative ${
+
+  className={`overflow-hidden bg-white rounded-2xl border relative ${ 
     activeMedia.type === "image"
       ? "cursor-zoom-in"
       : "cursor-default"
@@ -552,23 +553,23 @@ setZoomStyle({
 
         {/* right */}
         <div>
-          <p className="text-xs text-gray-500 uppercase font-caladea">
-            {product.category?.name}
-          </p>
+       
 
-          <h1 className="text-xl font-caladea sm:text-2xl md:text-3xl font-semibold mt-2">
-            {product.name}
-          </h1>
+          <h2 className="text-xl font-caladea sm:text-2xl md:text-3xl font-semibold mt-2">
+            {product.name} {" "} 
+          </h2>
 
-          <div className="mt-3 text-yellow-500 text-sm sm:text-base">
-            ⭐⭐⭐⭐☆
-          </div>
+    
 
           {/* pricing */}
           <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
+            
             <span className="text-xl sm:text-2xl font-bold">
               ₹{product.price}
             </span>
+            
+
+
 
             {product.oldPrice > 0 && (
               <>
@@ -585,7 +586,12 @@ setZoomStyle({
                 </span>
               </>
             )}
+
+              <p className="text-red-500  text-sm capitalize ">
+            (inclusive of all taxes)
+          </p>
           </div>
+         
 
           {/* stick */}
           <p className="mt-2 text-sm">
@@ -596,32 +602,40 @@ setZoomStyle({
             )}
           </p>
 
-          <p className="text-red-500 text-sm capitalize mt-2">
-            inclusive of all taxes
-          </p>
+      
 
           {/* DESCRIPTION */}
           <p className="mt-2 text-gray-700 text-[15px] ">
             {product.description}
           </p>
 
-          {/* FEATURES */}
-          <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {product.features?.map((f, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2 bg-gray-50 hover:bg-gray-100 transition p-1 rounded-lg border"
-              >
-                {/* ICON */}
-                <span className="text-red-600 mt-[2px]">✔</span>
+       
 
-                {/* TEXT */}
-                <span className="text-xs sm:text-[16px] text-gray-900 leading-relaxed">
-                  {f}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {/* SPECIFICATIONS */}
+{product?.specifications?.length > 0 && (
+  <div className="mt-6 border-t pt-5">
+    <h3 className="text-lg font-semibold mb-4">
+      Specifications
+    </h3>
+
+    <div className="space-y-1">
+      {product.specifications.map((spec, index) => (
+        <div
+          key={index}
+          className="grid grid-cols-2 gap-4 border rounded-xl p-3 bg-[#fafafa]"
+        >
+          <p className="font-medium text-gray-700">
+            {spec.key}
+          </p>
+
+          <p className="text-gray-600">
+            {spec.value}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
           <div className="mt-3 flex flex-col font-bold">
             Quantity:
@@ -703,7 +717,7 @@ setZoomStyle({
       {/* TABS */}
       <div className="mt-10 md:mt-13 max-w-4xl">
         <div className="flex gap-4 sm:gap-12 capitalize border-b mb-4 overflow-x-auto">
-          {["description", "specifications"].map((tab) => (
+          {["description", "specifications","features"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -739,6 +753,29 @@ setZoomStyle({
             )}
           </div>
         )}
+
+
+
+{activeTab === "features" && (
+     
+          <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {product.features?.map((f, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2 bg-gray-50 hover:bg-gray-100 transition p-1 rounded-lg border"
+              >
+                {/* ICON */}
+                <span className="text-red-600 mt-[2px]">✔</span>
+
+                {/* TEXT */}
+                <span className="text-xs sm:text-[16px] text-gray-900 leading-relaxed">
+                  {f}
+                </span>
+              </li>
+            ))}
+          </ul>
+)}
+
       </div>
 
       {/* RELATED PRODUCTS */}
