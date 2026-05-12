@@ -442,7 +442,7 @@ setZoomStyle({
             </span>
           </p>
 
-          {/* main image div */}
+          
         {/* main image div */}
 <div
   className={`overflow-hidden bg-white rounded-2xl border relative ${
