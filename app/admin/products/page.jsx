@@ -36,37 +36,54 @@ function SortableImage({ img, i, images, setImages }) {
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
-      className="relative cursor-grab active:cursor-grabbing"
+      className="relative group"
     >
+      {/* IMAGE */}
       <img
         src={img}
-        className="w-full h-20 object-cover rounded-lg border"
+        className="w-full h-28 object-cover rounded-2xl border border-gray-200 shadow-sm group-hover:shadow-md transition"
       />
 
+      {/* DELETE BUTTON */}
       <button
+        type="button"
         onClick={async (e) => {
           e.stopPropagation();
 
-          const imageToDelete = images[i];
+          try {
+            const imageToDelete = images[i];
 
-          await fetch("/api/delete-image", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              imageUrl: imageToDelete,
-            }),
-          });
+            await fetch("/api/delete-image", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                imageUrl: imageToDelete,
+              }),
+            });
 
-          setImages(images.filter((_, idx) => idx !== i));
+            setImages(images.filter((_, idx) => idx !== i));
+
+            toast.success("Image removed");
+          } catch (err) {
+            console.log(err);
+            toast.error("Failed to delete");
+          }
         }}
-        className="absolute top-1 right-1 bg-black text-white text-xs px-1 rounded"
+        className="absolute top-2 right-2 z-20 bg-black/80 backdrop-blur text-white w-7 h-7 rounded-full text-xs flex items-center justify-center hover:scale-110 transition"
       >
         ✕
       </button>
+
+      {/* DRAG HANDLE */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute bottom-2 right-2 z-10 bg-white/90 backdrop-blur border shadow-sm rounded-lg px-2 py-1 text-xs cursor-grab active:cursor-grabbing"
+      >
+        ↕
+      </div>
     </div>
   );
 }
@@ -92,7 +109,7 @@ const handleDragEnd = (event) => {
 
 
 
-
+const [loadingProducts, setLoadingProducts] = useState(true);
 const [search, setSearch] = useState("");
 const [filterCategory, setFilterCategory] = useState("");
   const editor = useRef(null);
@@ -119,12 +136,22 @@ const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [editingId, setEditingId] = useState(null);
 
 const [editorKey, setEditorKey] = useState(0);
-  // ✅ Fetch data
-  useEffect(() => {
-    fetch("/api/categories").then(res => res.json()).then(setCategories);
-    fetch("/api/product").then(res => res.json()).then(setProducts);
-  }, []);
 
+  //  Fetch data
+ useEffect(() => {
+  fetch("/api/categories")
+    .then((res) => res.json())
+    .then(setCategories);
+
+  fetch("/api/product")
+    .then((res) => res.json())
+    .then((data) => {
+      setProducts(data);
+    })
+    .finally(() => {
+      setLoadingProducts(false);
+    });
+}, []);
 
 
 const addSpec = () => {
@@ -292,7 +319,7 @@ const filteredProducts = products.filter((p) => {
 });
 
   return (
-  <div className="p-8 bg-[#F6F7FB] min-h-screen">
+  <div className="p-8 bg-[#eeeff1] min-h-screen">
 
     {/* HEADER */}
     <div className="flex justify-between items-center mb-8">
@@ -303,7 +330,7 @@ const filteredProducts = products.filter((p) => {
       {editingId && (
         <button
           onClick={resetForm}
-          className="text-sm bg-gray-200 px-4 py-2 rounded-lg"
+          className="text-md text-white bg-black px-4 py-2 rounded-lg"
         >
           Cancel Edit
         </button>
@@ -318,25 +345,25 @@ const filteredProducts = products.filter((p) => {
 
         {/* BASIC INFO */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
-          <h2 className="font-semibold mb-4 text-gray-700">Basic Info</h2>
+          <h2 className="font-semibold mb-4 text-black">Basic Info</h2>
 
           <input
-            className="w-full border p-3 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-black/20"
+            className="w-full border p-3  border-black rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-black/20"
             placeholder="Product Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 ">
             <input
-              className="border p-3 rounded-lg"
+              className="border p-3 rounded-lg border-black"
               placeholder="Sale Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
 
             <input
-              className="border p-3 rounded-lg"
+              className="border p-3 rounded-lg border-black"
               placeholder="Regular Price"
               value={oldPrice}
               onChange={(e) => setOldPrice(e.target.value)}
@@ -346,7 +373,7 @@ const filteredProducts = products.filter((p) => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full border p-3 rounded-lg mt-3"
+            className="w-full border border-black p-3 rounded-lg mt-3"
           >
             <option>Select Category</option>
             {categories.map((c) => (
@@ -358,25 +385,25 @@ const filteredProducts = products.filter((p) => {
 
 
         {/* DESCRIPTION */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm">
-          <h2 className="font-semibold mb-4 text-gray-700">Product Content</h2>
+        <div className="bg-white p-6 rounded-2xl shadow-sm ">
+          <h2 className="font-semibold mb-4 text-black">Product Content</h2>
 
           <textarea
-            className="w-full border p-3 rounded-lg mb-3"
+            className="w-full border p-3 rounded-lg mb-3 border-black"
             placeholder="Short Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
 
           <textarea
-            className="w-full border p-3 rounded-lg mb-3"
+            className="w-full border p-3 rounded-lg mb-3 border-black"
             placeholder="Features (comma separated)"
             value={features}
             onChange={(e) => setFeatures(e.target.value)}
           />
 
           <div>
-            <p className="mb-2 text-sm font-medium text-gray-600">
+            <p className="mb-2 text-sm font-medium text-gray-600 ">
               Full Description
             </p>
 
@@ -394,13 +421,13 @@ const filteredProducts = products.filter((p) => {
         {/* SPECIFICATIONS */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-gray-700">Specifications</h2>
+            <h2 className="font-semibold text-black">Specifications</h2>
 
             <button
               onClick={addSpec}
-              className="text-sm bg-black text-white px-3 py-1 rounded-lg"
+              className="text-sm bg-black text-white px-4 py-2 rounded-lg"
             >
-              + Add
+              + Add More
             </button>
           </div>
 
@@ -414,14 +441,14 @@ const filteredProducts = products.filter((p) => {
                   placeholder="Key"
                   value={spec.key}
                   onChange={(e) => updateSpec(i, "key", e.target.value)}
-                  className="col-span-2 border p-2 rounded-lg"
+                  className="col-span-2 border p-2 border-black rounded-lg"
                 />
 
                 <input
                   placeholder="Value"
                   value={spec.value}
                   onChange={(e) => updateSpec(i, "value", e.target.value)}
-                  className="col-span-2 border p-2 rounded-lg"
+                  className="col-span-2 border border-black p-2 rounded-lg"
                 />
 
                 <button
@@ -447,17 +474,17 @@ const filteredProducts = products.filter((p) => {
           <select
             value={stock}
             onChange={(e) => setStock(e.target.value === "true")}
-            className="w-full border p-3 rounded-lg"
+            className="w-full border p-3 rounded-lg border-black"
           >
             <option value="true">In Stock</option>
             <option value="false">Out of Stock</option>
           </select>
         </div>
 
-        <div className="bg-white p-5 rounded-md border shadow-sm">
+        <div className="bg-white p-5 rounded-md border shadow-sm " >
 
 
-         <label className="font-bold text-lg">Add Youtube Link here</label>
+         <label className="font-bold text-lg border-black">Add Youtube Link here</label>
  
      <div className="relative mt-3">
 
@@ -467,7 +494,7 @@ const filteredProducts = products.filter((p) => {
   </span>
 
   <input
-    className="w-full border p-3 pl-10 rounded-lg"
+    className="w-full border p-3 pl-10 rounded-lg border-black"
     placeholder="https://youtube.com/..."
     value={youtubeLink}
     onChange={(e) => setYoutubeLink(e.target.value)}
@@ -477,14 +504,29 @@ const filteredProducts = products.filter((p) => {
 
         {/* IMAGE UPLOAD */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
-          <h2 className="font-semibold mb-4 text-gray-700">Images</h2>
+          <h2 className="font-semibold mb-4 text-black">Images</h2>
 
-          <input
-            type="file"
-            multiple
-            onChange={(e) => uploadImages([...e.target.files])}
-            className="mb-3"
-          />
+     <label className="border-2 border-dashed border-black hover:border-black/40 transition rounded-2xl p-6 flex flex-col items-center justify-center bg-gray-50 cursor-pointer">
+
+  <span className="text-4xl mb-3">
+    🖼️
+  </span>
+
+  <p className="text-sm font-semibold text-gray-700">
+    Click to upload product images
+  </p>
+
+  <p className="text-xs text-gray-800 mt-1 text-center">
+    PNG, JPG, WEBP • Multiple images supported
+  </p>
+
+  <input
+    type="file"
+    multiple
+    className="hidden"
+    onChange={(e) => uploadImages([...e.target.files])}
+  />
+</label>
 
 
       <DndContext
@@ -495,7 +537,7 @@ const filteredProducts = products.filter((p) => {
     items={images}
     strategy={rectSortingStrategy}
   >
-    <div className="grid grid-cols-3 gap-2">
+   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
       {images.map((img, i) => (
         <SortableImage
           key={img}
@@ -597,46 +639,95 @@ const filteredProducts = products.filter((p) => {
     <div className="mt-12">
      
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-     {filteredProducts.map((p) => (
-          <div
-            key={p._id}
-            className="bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition"
-          >
-            <img
-              src={p.images?.[0]}
-              className="w-full h-32 object-cover rounded-lg"
-            />
+   {loadingProducts ? (
 
-            <h3 className="mt-2 text-sm font-medium">{p.name}</h3>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
 
-            <div className="flex items-center gap-2">
-              <p className="text-sm font-semibold">₹{p.price}</p>
-              {p.oldPrice > 0 && (
-                <span className="text-xs line-through text-gray-400">
-                  ₹{p.oldPrice}
-                </span>
-              )}
-            </div>
+    {[...Array(8)].map((_, i) => (
+      <div
+        key={i}
+        className="bg-white p-3 rounded-xl shadow-sm animate-pulse"
+      >
+        <div className="w-full h-32 bg-gray-200 rounded-lg"></div>
 
-            <div className="flex gap-2 mt-3">
-              <button
-                onClick={() => handleEdit(p)}
-                className="flex-1 bg-gray-100 py-1 rounded text-sm"
-              >
-                Edit
-              </button>
+        <div className="h-4 bg-gray-200 rounded mt-3 w-3/4"></div>
 
-              <button
-                onClick={() => handleDelete(p._id)}
-                className="flex-1 bg-red-500 text-white py-1 rounded text-sm"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+        <div className="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+
+        <div className="flex gap-2 mt-4">
+          <div className="flex-1 h-8 bg-gray-200 rounded"></div>
+          <div className="flex-1 h-8 bg-gray-200 rounded"></div>
+        </div>
       </div>
+    ))}
+
+  </div>
+
+) : filteredProducts.length === 0 ? (
+
+  <div className="bg-white rounded-2xl p-10 text-center shadow-sm">
+    <div className="text-5xl mb-3">📦</div>
+
+    <h3 className="text-xl font-semibold text-gray-700">
+      No Products Found
+    </h3>
+
+    <p className="text-gray-500 mt-2">
+      Try changing search or category filter
+    </p>
+  </div>
+
+) : (
+
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+
+    {filteredProducts.map((p) => (
+      <div
+        key={p._id}
+        className="bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition"
+      >
+        <img
+          src={p.images?.[0]}
+          className="w-full h-32 object-cover rounded-lg"
+        />
+
+        <h3 className="mt-2 text-sm font-medium">
+          {p.name}
+        </h3>
+
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-semibold">
+            ₹{p.price}
+          </p>
+
+          {p.oldPrice > 0 && (
+            <span className="text-xs line-through text-gray-400">
+              ₹{p.oldPrice}
+            </span>
+          )}
+        </div>
+
+        <div className="flex gap-2 mt-3">
+          <button
+            onClick={() => handleEdit(p)}
+            className="flex-1 bg-gray-100 py-1 rounded text-sm"
+          >
+            Edit
+          </button>
+
+          <button
+            onClick={() => handleDelete(p._id)}
+            className="flex-1 bg-red-500 text-white py-1 rounded text-sm"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ))}
+
+  </div>
+
+)}
     </div>
 
   </div>
