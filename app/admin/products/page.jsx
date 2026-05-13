@@ -3,10 +3,96 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import JoditEditor from "jodit-react";
 import { useRef } from "react";
+import {
+  DndContext,
+  closestCenter,
+} from "@dnd-kit/core";
+
+import {
+  arrayMove,
+  SortableContext,
+  rectSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+
+import { CSS } from "@dnd-kit/utilities";
 
 
+function SortableImage({ img, i, images, setImages }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: img });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="relative cursor-grab active:cursor-grabbing"
+    >
+      <img
+        src={img}
+        className="w-full h-20 object-cover rounded-lg border"
+      />
+
+      <button
+        onClick={async (e) => {
+          e.stopPropagation();
+
+          const imageToDelete = images[i];
+
+          await fetch("/api/delete-image", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              imageUrl: imageToDelete,
+            }),
+          });
+
+          setImages(images.filter((_, idx) => idx !== i));
+        }}
+        className="absolute top-1 right-1 bg-black text-white text-xs px-1 rounded"
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
 
 export default function Products() {
+
+
+
+
+const handleDragEnd = (event) => {
+  const { active, over } = event;
+
+  if (!over || active.id === over.id) return;
+
+  setImages((items) => {
+    const oldIndex = items.indexOf(active.id);
+    const newIndex = items.indexOf(over.id);
+
+    return arrayMove(items, oldIndex, newIndex);
+  });
+};
+
+
+
+
+
 const [search, setSearch] = useState("");
 const [filterCategory, setFilterCategory] = useState("");
   const editor = useRef(null);
@@ -400,37 +486,30 @@ const filteredProducts = products.filter((p) => {
             className="mb-3"
           />
 
-          <div className="grid grid-cols-3 gap-2">
-            {images.map((img, i) => (
-              <div key={i} className="relative">
-                <img
-                  src={img}
-                  className="w-full h-20 object-cover rounded-lg"
-                />
 
-                <button
-              onClick={async () => {
-  const imageToDelete = images[i];
+      <DndContext
+  collisionDetection={closestCenter}
+  onDragEnd={handleDragEnd}
+>
+  <SortableContext
+    items={images}
+    strategy={rectSortingStrategy}
+  >
+    <div className="grid grid-cols-3 gap-2">
+      {images.map((img, i) => (
+        <SortableImage
+          key={img}
+          img={img}
+          i={i}
+          images={images}
+          setImages={setImages}
+        />
+      ))}
+    </div>
+  </SortableContext>
+</DndContext>
 
-  await fetch("/api/delete-image", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      imageUrl: imageToDelete,
-    }),
-  });
 
-  setImages(images.filter((_, idx) => idx !== i));
-}}
-                  className="absolute top-1 right-1 bg-black text-white text-xs px-1 rounded"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* SUBMIT */}

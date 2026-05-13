@@ -376,6 +376,7 @@ const mobileBanners = [
     <div className=" mx-auto px-10">
       <h2 className="text-3xl md:text-5xl font-semibold mb-2">
         Gifts for Every Occasion
+        
       </h2>
 
       <p className="text-lg text-black mb-5">
