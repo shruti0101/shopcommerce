@@ -82,7 +82,7 @@ export default function AdminLayout({ children }) {
               ${
                 pathname === item.path
                   ? "bg-black text-white shadow-md"
-                  : "hover:bg-gray-100 text-gray-700"
+                  : "hover:bg-gray-100 text-black"
               }`}
             >
               <span>{item.icon}</span>

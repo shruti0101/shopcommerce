@@ -3,7 +3,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Layoutwrapper from "@/Component/Layout/Layoutwrapper";
 import CartDrawer from "@/Component/CartDrawer";
-import Whatsapp from "@/Component/Whatsapp"
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
         />
 
         <Layoutwrapper>
-          <Whatsapp/>
+  
           {children}
         </Layoutwrapper>
 
