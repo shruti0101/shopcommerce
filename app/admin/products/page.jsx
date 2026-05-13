@@ -82,7 +82,7 @@ function SortableImage({ img, i, images, setImages }) {
         {...listeners}
         className="absolute bottom-2 right-2 z-10 bg-white/90 backdrop-blur border shadow-sm rounded-lg px-2 py-1 text-xs cursor-grab active:cursor-grabbing"
       >
-        ↕
+        ↕reorder
       </div>
     </div>
   );
@@ -319,11 +319,11 @@ const filteredProducts = products.filter((p) => {
 });
 
   return (
-  <div className="p-8 bg-[#eeeff1] min-h-screen">
+  <div className="w-full px-10 py-10 bg-[#eeeff1] min-h-screen">
 
     {/* HEADER */}
     <div className="flex justify-between items-center mb-8">
-      <h1 className="text-2xl font-semibold text-gray-800">
+      <h1 className="text-3xl font-semibold text-gray-800">
         {editingId ? "Edit Product" : "Add Product"}
       </h1>
 
@@ -338,7 +338,7 @@ const filteredProducts = products.filter((p) => {
     </div>
 
     {/* MAIN GRID */}
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="grid md:grid-cols-2 gap-6">
 
       {/* LEFT FORM */}
       <div className="md:col-span-2 space-y-6">
@@ -467,6 +467,9 @@ const filteredProducts = products.filter((p) => {
       {/* RIGHT PANEL */}
       <div className="space-y-6">
 
+
+
+
         {/* STATUS */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
           <h2 className="font-semibold mb-4 text-gray-700">Status</h2>
@@ -502,7 +505,11 @@ const filteredProducts = products.filter((p) => {
 </div>
         </div>
 
-        {/* IMAGE UPLOAD */}
+   
+
+
+
+     {/* IMAGE UPLOAD */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
           <h2 className="font-semibold mb-4 text-black">Images</h2>
 
@@ -572,13 +579,13 @@ const filteredProducts = products.filter((p) => {
     </div>
 
 
- <h2 className="text-xl md:text-4xl  mt-10 font-semibold mb-4 text-gray-800">
+ <h2 className="text-xl md:text-4xl  mt-15   font-semibold mb-4 text-gray-800">
         All Products Listed Below
       </h2>
 
 {/* SEARCH + CATEGORY FILTER */}
 {/* SEARCH + CATEGORY FILTER (PREMIUM UI) */}
-<div className="mt-10 flex flex-col md:flex-row gap-3 items-stretch">
+<div className="mt-6 flex flex-col md:flex-row gap-3 items-stretch">
 
   {/* SEARCH */}
   <div className="flex-1 relative">

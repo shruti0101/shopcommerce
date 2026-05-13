@@ -164,11 +164,11 @@ export default function Categories() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F7FB] p-5 md:p-8">
+    <div className="min-h-screen bg-[#F6F7FB] px-10 py-10">
 
       {/* HEADER */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
+      <div className="flex items-center justify-between mb-8 ">
+        <div className="">
           <h1 className="text-3xl font-bold text-gray-800">
             {editingId ? "Edit Category" : "Add Category"}
           </h1>
@@ -181,7 +181,7 @@ export default function Categories() {
         {editingId && (
           <button
             onClick={resetForm}
-            className="px-5 py-2 rounded-xl bg-white border border-gray-200 text-sm font-medium shadow-sm hover:shadow-md transition"
+            className="px-5 py-2 rounded-xl bg-black text-white border border-gray-200 text-md font-medium shadow-sm hover:shadow-md transition"
           >
             Cancel Edit
           </button>
@@ -189,10 +189,10 @@ export default function Categories() {
       </div>
 
       {/* MAIN GRID */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-2 gap-6">
 
         {/* LEFT FORM */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 ">
 
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
 
@@ -268,7 +268,7 @@ export default function Categories() {
         </div>
 
         {/* RIGHT LIST */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 mt-10">
 
           <div className="flex items-center justify-between mb-5">
             <div>
