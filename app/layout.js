@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Caladea } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Layoutwrapper from "@/Component/Layout/Layoutwrapper";
@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const caladea = Caladea({
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-caladea",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 export const metadata = {
   title: "Create Next App",
@@ -28,8 +28,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${caladea.variable} h-full antialiased`}
-    >
+className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}    >
       <body className="min-h-full flex flex-col">
         <Toaster
           position="top-right"

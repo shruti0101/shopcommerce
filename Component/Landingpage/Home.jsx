@@ -5,12 +5,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import {
   CheckCircle,
-  Home,
-  Utensils,
-  Bath,
-  Sparkles,
-  Factory,
-  HeartPulse,
+  
 } from "lucide-react";
 
 import Image from "next/image";
@@ -29,7 +24,7 @@ export default function Hero() {
 
 // ✅ ADD YOUR IMAGES HERE
 const desktopBanners = [
-  "/banner/banner3.png",
+  "/banner4.webp",
   "/banner/banner5.png",
 ];
 
@@ -376,7 +371,7 @@ const mobileBanners = [
     <div className=" mx-auto px-10">
       <h2 className="text-3xl md:text-5xl font-semibold mb-2">
         Gifts for Every Occasion
-        
+
       </h2>
 
       <p className="text-lg text-black mb-5">

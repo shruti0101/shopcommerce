@@ -362,6 +362,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import Link from "next/link";
 import { Heart, Minus, Plus } from "lucide-react";
@@ -435,9 +436,9 @@ setZoomStyle({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* left */}
     <div className="sticky top-20 self-start">
-          <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm">
-            Home / <span className="uppercase">{product.category?.name}</span> /{" "}
-            <span className="text-red-500 font-caladea capitalize">
+          <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm font-poppins" >
+            Home / <span className="uppercase ">{product.category?.name}</span> /{" "}
+            <span className="text-red-500   capitalize">
               {product.name}
             </span>
           </p>
@@ -555,16 +556,16 @@ setZoomStyle({
         <div>
        
 
-          <h2 className="text-xl font-caladea sm:text-2xl md:text-3xl font-semibold mt-2">
+          <h2 className="text-3xl font-caladea sm:text-2xl md:text-4xl font-semibold ">
             {product.name} {" "} 
           </h2>
 
     
 
           {/* pricing */}
-          <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
             
-            <span className="text-xl sm:text-2xl font-bold">
+            <span className="text-xl sm:text-2xl font-bold  font-caladea">
               ₹{product.price}
             </span>
             
@@ -573,11 +574,11 @@ setZoomStyle({
 
             {product.oldPrice > 0 && (
               <>
-                <span className="line-through text-gray-400 text-sm">
+                <span className="line-through  font-caladea text-gray-400 text-sm">
                   ₹{product.oldPrice}
                 </span>
 
-                <span className="text-red-500 text-xs sm:text-sm">
+                <span className="text-red-500  font-caladea text-xs sm:text-sm">
                   {Math.round(
                     ((product.oldPrice - product.price) / product.oldPrice) *
                       100,
@@ -587,16 +588,16 @@ setZoomStyle({
               </>
             )}
 
-              <p className="text-red-500  text-sm capitalize ">
+              <p className="text-red-500  font-caladea  text-sm capitalize ">
             (inclusive of all taxes)
           </p>
           </div>
          
 
           {/* stick */}
-          <p className="mt-2 text-sm">
+          <p className="mt-2 text-sm font-caladea">
             {product.stock ? (
-              <span className="text-green-600">Availability : In Stock</span>
+              <span className="text-green-600 ">Availability : In Stock</span>
             ) : (
               <span className="text-red-500">Out of Stock</span>
             )}
@@ -605,7 +606,7 @@ setZoomStyle({
       
 
           {/* DESCRIPTION */}
-          <p className="mt-2 text-gray-700 text-[15px] ">
+          <p className="mt-2 text-gray-700 font-caladea text-[17px] ">
             {product.description}
           </p>
 
@@ -613,7 +614,7 @@ setZoomStyle({
 
           {/* SPECIFICATIONS */}
 {product?.specifications?.length > 0 && (
-  <div className="mt-6 border-t pt-5">
+  <div className="mt-6 border-t pt-5 font-caladea">
     <h3 className="text-lg font-semibold mb-4">
       Specifications
     </h3>
@@ -624,11 +625,11 @@ setZoomStyle({
           key={index}
           className="grid grid-cols-2 gap-4 border rounded-xl p-3 bg-[#fafafa]"
         >
-          <p className="font-medium text-gray-700">
+          <p className="font-medium text-black">
             {spec.key}
           </p>
 
-          <p className="text-gray-600">
+          <p className="text-gray-800">
             {spec.value}
           </p>
         </div>
@@ -637,7 +638,7 @@ setZoomStyle({
   </div>
 )}
 
-          <div className="mt-3 flex flex-col font-bold">
+          <div className="mt-3 flex flex-col font-bold font-caladea">
             Quantity:
             <div className="flex items-center gap-6 mt-3">
               {/* quantity */}
@@ -780,7 +781,7 @@ setZoomStyle({
 
       {/* RELATED PRODUCTS */}
       <div className="mt-10 md:mt-12">
-        <h2 className="text-xl sm:text-2xl font-semibold mb-6">
+        <h2 className="text-xl sm:text-3xl font-semibold mb-6">
           Related Products
         </h2>
 
@@ -794,16 +795,33 @@ setZoomStyle({
             ))}
           </div>
         ) : relatedProducts.length ? (
-          <Swiper
-            spaceBetween={16}
-            breakpoints={{
-              320: { slidesPerView: 2 },
-              480: { slidesPerView: 2 },
-              640: { slidesPerView: 2 },
-              768: { slidesPerView: 3 },
-              1024: { slidesPerView: 4 },
-            }}
-          >
+        <Swiper
+  modules={[Autoplay]}
+  autoplay={{
+    delay: 1000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  }}
+  loop={true}
+  speed={800}
+  spaceBetween={20}
+  observer={true}
+  observeParents={true}
+  breakpoints={{
+    320: {
+      slidesPerView: 2,
+    },
+    640: {
+      slidesPerView: 2,
+    },
+    768: {
+      slidesPerView: 3,
+    },
+    1024: {
+      slidesPerView: 4,
+    },
+  }}
+>
             {relatedProducts.map((item) => (
               <SwiperSlide key={item._id}>
                 <Link
@@ -823,6 +841,11 @@ setZoomStyle({
                   </h3>
 
                   <p className="font-semibold mt-1 text-sm">₹{item.price}</p>
+
+                      {/* BUTTON */}
+              <button className="w-full mt-4 bg-black text-white py-2.5 rounded-xl text-sm font-medium hover:opacity-90 transition">
+                View Product
+              </button>
                 </Link>
               </SwiperSlide>
             ))}
