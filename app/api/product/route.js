@@ -1,24 +1,34 @@
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
-
-// ✅ CREATE
+import slugify from "slugify";
+//  CREATE
 export async function POST(req) {
   await connectDB();
   const data = await req.json();
 
    console.log("DATA RECEIVED:", data); 
 
-  const product = await Product.create({
-    ...data,
-    price: Number(data.price),
-    oldPrice: data.oldPrice ? Number(data.oldPrice) : 0, // 🔥 FIX
-  });
+const product = await Product.create({
+  ...data,
+
+  slug: slugify(data.name, {
+    lower: true,
+    strict: true,
+    trim: true,
+  }),
+
+  price: Number(data.price),
+
+  oldPrice: data.oldPrice
+    ? Number(data.oldPrice)
+    : 0,
+});
 
   return Response.json(product);
 }
 
-// ✅ READ
+//  READ
 export async function GET(req) {
   await connectDB();
 
@@ -51,15 +61,25 @@ export async function PUT(req) {
 
   const data = await req.json();
 
-  const updated = await Product.findByIdAndUpdate(
-    data._id,
-    {
-      ...data,
-      price: Number(data.price),
-      oldPrice: data.oldPrice ? Number(data.oldPrice) : 0, // 🔥 FIX
-    },
-    { new: true }
-  );
+const updated = await Product.findByIdAndUpdate(
+  data._id,
+  {
+    ...data,
+
+    slug: slugify(data.name, {
+      lower: true,
+      strict: true,
+      trim: true,
+    }),
+
+    price: Number(data.price),
+
+    oldPrice: data.oldPrice
+      ? Number(data.oldPrice)
+      : 0,
+  },
+  { new: true }
+);
 
   return Response.json(updated);
 }

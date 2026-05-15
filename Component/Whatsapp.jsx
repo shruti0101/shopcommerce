@@ -11,7 +11,7 @@ const Whatsapp = () => {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp "
-        className="fixed bottom-5 right-4 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition animate-bounce"
+        className="hidden md:block fixed bottom-5 right-4 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition animate-bounce"
       >
         <FaWhatsapp size={30} />
       </a>
@@ -20,7 +20,7 @@ const Whatsapp = () => {
       <a
         href="tel:+918130385561"
         aria-label="Call Us"
-        className="fixed bottom-25 right-4 z-50   p-3 rounded-full shadow-lg bg-white text-green-600 transition animate-bounce"
+        className="fixed bottom-22 right-4 z-50   p-3 rounded-full shadow-lg bg-white text-green-600 transition animate-bounce"
       >
         <Image src="/561253.png" alt="Phone Icon" width={30} height={30} />
       </a>

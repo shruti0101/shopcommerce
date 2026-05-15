@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Whatsapp from "@/Component/Whatsapp";
+import Stickyfooter from "@/Component/Stickyfooter";
 
 const Layoutwrapper = ({children}) => {
   const pathname = usePathname();
@@ -19,6 +20,7 @@ const Layoutwrapper = ({children}) => {
   {!shouldHideHeader && <Navbar />}
      
 {!shouldHideHeader &&  <Whatsapp/>}
+{!shouldHideHeader &&  <Stickyfooter/>}
   {children}
 
   
