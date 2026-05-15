@@ -13,7 +13,7 @@ const Whatsapp = () => {
         aria-label="Chat on WhatsApp "
         className="fixed bottom-5 right-4 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition animate-bounce"
       >
-        <FaWhatsapp size={40} />
+        <FaWhatsapp size={30} />
       </a>
 
 
@@ -22,7 +22,7 @@ const Whatsapp = () => {
         aria-label="Call Us"
         className="fixed bottom-25 right-4 z-50   p-3 rounded-full shadow-lg bg-white text-green-600 transition animate-bounce"
       >
-        <Image src="/561253.png" alt="Phone Icon" width={40} height={40} />
+        <Image src="/561253.png" alt="Phone Icon" width={30} height={30} />
       </a>
     </>
   );

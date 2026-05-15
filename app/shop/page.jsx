@@ -110,7 +110,7 @@ const Shop = () => {
           >
 
             {/* Image */}
-            <div className="relative overflow-hidden bg-white">
+            <Link href={`product/${product.slug}`} className="relative overflow-hidden bg-white">
 
               <Image
                 src={
@@ -137,7 +137,7 @@ const Shop = () => {
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
 
-            </div>
+            </Link>
 
             {/* Content */}
             <div className="flex flex-col flex-1 p-3 sm:p-4 md:p-5">
