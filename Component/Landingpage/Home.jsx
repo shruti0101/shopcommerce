@@ -50,7 +50,7 @@ const mobileBanners = [
             pagination={{ clickable: true }}
             autoplay={{ delay: 3500, disableOnInteraction: false }}
             loop
-            className="max-w-full h-auto xl:h-full xl:w-full"
+            className=" h-full w-full"
           >
             {desktopBanners.map((desk, i) => (
               <SwiperSlide key={i}>
@@ -62,7 +62,7 @@ const mobileBanners = [
                     alt="banner"
                     fill
                     priority={i === 0}
-                    className="hidden md:block object-cover"
+                    className="hidden xl:block object-cover"
                   />
 
                   {/* Mobile Image */}
@@ -71,7 +71,7 @@ const mobileBanners = [
                     alt="mobile banner"
                     fill
                     priority={i === 0}
-                    className="block md:hidden object-cover"
+                    className="block xl:hidden object-cover"
                   />
                 </div>
               </SwiperSlide>
