@@ -312,57 +312,172 @@ export default function Navbar() {
         </div>
 
         {/* ✅ FIXED MOBILE ACCOUNT */}
-        <div className="p-4 border-t">
-          <div
-            onClick={() => setAccountOpen(!accountOpen)}
-            className="flex items-center justify-between cursor-pointer"
+     {/* MOBILE ACCOUNT */}
+<div className="p-4 border-t">
+
+  {/* TOGGLE BUTTON */}
+  <button
+    type="button"
+    onClick={() =>
+      setAccountOpen((prev) => !prev)
+    }
+    className="
+      w-full
+      flex
+      items-center
+      justify-between
+      bg-gray-50
+      border
+      rounded-xl
+      px-4
+      py-3
+      active:scale-[0.98]
+      transition
+    "
+  >
+
+    <div className="flex items-center gap-3">
+
+      <div className="
+        w-9
+        h-9
+        rounded-full
+        bg-gradient-to-br
+        from-yellow-400
+        to-orange-500
+        text-white
+        flex
+        items-center
+        justify-center
+        text-sm
+        font-semibold
+      ">
+        {user
+          ? user.name?.charAt(0).toUpperCase()
+          : <User size={18} />
+        }
+      </div>
+
+      <span className="text-sm font-medium">
+        {user
+          ? `Hi, ${user.name?.split(" ")[0]} 👋`
+          : "Login / Register"
+        }
+      </span>
+
+    </div>
+
+    <span className="text-xs">
+      {accountOpen ? "▲" : "▼"}
+    </span>
+
+  </button>
+
+  {/* DROPDOWN */}
+  {accountOpen && (
+
+    <div className="
+      mt-3
+      bg-white
+      rounded-xl
+      border
+      shadow-sm
+      overflow-hidden
+      animate-in
+      slide-in-from-top-2
+      duration-200
+    ">
+
+      {user ? (
+        <>
+          <Link
+            href="/profile"
+            onClick={() => setMenuOpen(false)}
+            className="
+              block
+              px-4
+              py-3
+              text-sm
+              hover:bg-gray-100
+              transition
+            "
           >
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-white flex items-center justify-center text-[11px]">
-                {user ? user.name?.charAt(0).toUpperCase() : <User size={17} />}
-              </div>
+            Profile
+          </Link>
 
-              <span>
-                {user ? `Hi, ${user.name?.split(" ")[0]} 👋` : "Login / Register"}
-              </span>
-            </div>
+          <Link
+            href="/orders"
+            onClick={() => setMenuOpen(false)}
+            className="
+              block
+              px-4
+              py-3
+              text-sm
+              hover:bg-gray-100
+              transition
+            "
+          >
+            Orders
+          </Link>
 
-            <span>{accountOpen ? "▲" : "▼"}</span>
-          </div>
+          <button
+            onClick={() => {
+              handleLogout();
+              setMenuOpen(false);
+            }}
+            className="
+              w-full
+              text-left
+              px-4
+              py-3
+              text-sm
+              text-red-500
+              hover:bg-red-50
+              transition
+            "
+          >
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <Link
+            href="/login"
+            onClick={() => setMenuOpen(false)}
+            className="
+              block
+              px-4
+              py-3
+              text-sm
+              hover:bg-gray-100
+              transition
+            "
+          >
+            Login
+          </Link>
 
-          {accountOpen && (
-            <div className="mt-3 bg-gray-50 rounded-lg border overflow-hidden">
-              {user ? (
-                <>
-                  <Link href="/profile" onClick={() => setMenuOpen(false)} className="block px-4 py-2">
-                    Profile
-                  </Link>
-                  <Link href="/orders" onClick={() => setMenuOpen(false)} className="block px-4 py-2">
-                    Orders
-                  </Link>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setMenuOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-red-500"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link href="/login" onClick={() => setMenuOpen(false)} className="block px-4 py-2">
-                    Login
-                  </Link>
-                  <Link href="/register" onClick={() => setMenuOpen(false)} className="block px-4 py-2">
-                    Register
-                  </Link>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+          <Link
+            href="/register"
+            onClick={() => setMenuOpen(false)}
+            className="
+              block
+              px-4
+              py-3
+              text-sm
+              hover:bg-gray-100
+              transition
+            "
+          >
+            Register
+          </Link>
+        </>
+      )}
+
+    </div>
+
+  )}
+
+</div>
       </div>
 
     
