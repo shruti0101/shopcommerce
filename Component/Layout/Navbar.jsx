@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+
 import Image from "next/image";
 import {
   Search,
@@ -22,7 +23,7 @@ import Link from "next/link";
 export default function Navbar() {
   const [categories, setCategories] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false); // ✅ added
+  const [accountOpen, setAccountOpen] = useState(false); //  added
   const [user, setUser] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -106,9 +107,10 @@ export default function Navbar() {
             />
           </Link>
 
-          <div className="hidden sm:flex items-center gap-1 text-sm">
-            <MapPin size={16} />
-            <span>India</span>
+          <div className="hidden sm:flex items-center gap-6 ml-8 text-xl">
+        
+            <Link href="/">Home</Link>
+             <Link href="/shop">Shop</Link>
           </div>
         </div>
 
@@ -231,15 +233,50 @@ export default function Navbar() {
             Wishlist
           </Link>
 
-          <div onClick={openCart} className="relative flex items-center gap-1 cursor-pointer">
-            <ShoppingBag size={18} />
-            {mounted && totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] px-1.5 rounded-full">
-                {totalItems}
-              </span>
-            )}
-            Cart
-          </div>
+<div
+  onClick={openCart}
+  className="flex items-center gap-2 cursor-pointer"
+>
+
+  {/* Cart Wrapper */}
+  <div className="relative w-[42px] h-[42px]">
+
+    <Image
+      src="/cart.png"
+      alt="Cart"
+      fill
+      className="object-contain"
+    />
+
+    {/* Quantity */}
+    {mounted && (
+      <span
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+          text-[#ff5a1f]
+          text-[20px]
+          font-bold
+          z-10
+          pb-[15px]
+          animate-bounce
+        "
+      >
+        {totalItems}
+      </span>
+    )}
+
+  </div>
+
+  <p className="text-lg text-[#2f3b52]">
+    Cart
+  </p>
+
+</div>
+
         </div>
       </div>
 
