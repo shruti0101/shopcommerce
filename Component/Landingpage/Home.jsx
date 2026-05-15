@@ -38,7 +38,7 @@ const mobileBanners = [
 
    {/* HERO */}
       <section className="w-full bg-[#f7f7f7]">
-        <div className="relative w-full h-[400px] md:h-[500px] xl:h-[75vh] overflow-hidden">
+        <div className="relative w-full h-[400px] md:h-[350px] xl:h-[75vh] overflow-hidden">
 
           {/* ✅ ONE SWIPER (handles both desktop + mobile) */}
           <Swiper
@@ -60,7 +60,8 @@ const mobileBanners = [
                   <Image
                     src={desk}
                     alt="banner"
-                    fill
+                    width={2000}
+                    height={1500}
                     priority={i === 0}
                     className="hidden md:block max-w-full h-auto xl:h-full xl:w-full object-cover"
                   />
