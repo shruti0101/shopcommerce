@@ -38,7 +38,7 @@ const mobileBanners = [
 
    {/* HERO */}
       <section className="w-full bg-[#f7f7f7]">
-        <div className="relative w-full h-[400px] md:h-[350px] xl:h-[75vh] overflow-hidden">
+        <div className="relative w-full h-[400px] md:h-[400px] xl:h-[75vh] overflow-hidden">
 
           {/* ✅ ONE SWIPER (handles both desktop + mobile) */}
           <Swiper
