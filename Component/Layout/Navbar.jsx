@@ -262,7 +262,7 @@ export default function Navbar() {
           font-bold
           z-10
           pb-[15px]
-          animate-bounce
+          
         "
       >
         {totalItems}

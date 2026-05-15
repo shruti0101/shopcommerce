@@ -5,7 +5,7 @@ import Whatsapp from "@/Component/Whatsapp"
 export default function Page() {
   return (
  <>
-         <Whatsapp/>
+     
  <Popup/>
  <Home/>
  
