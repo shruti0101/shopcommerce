@@ -50,7 +50,7 @@ const mobileBanners = [
             pagination={{ clickable: true }}
             autoplay={{ delay: 3500, disableOnInteraction: false }}
             loop
-            className="h-full w-full"
+            className="max-w-full h-auto xl:h-full xl:w-full"
           >
             {desktopBanners.map((desk, i) => (
               <SwiperSlide key={i}>
