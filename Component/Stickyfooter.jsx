@@ -33,12 +33,13 @@ const totalItems = cart.reduce(
         </Link>
 
  {/* CART */}
+{/* CART */}
 <div
   onClick={() => useCartStore.getState().openCart()}
   className="flex flex-col items-center text-xs group cursor-pointer"
 >
 
-  <div className="relative w-[33px] h-[33px]">
+  <div className="relative w-[32px] h-[32px]">
 
     <Image
       width={32}
@@ -48,13 +49,12 @@ const totalItems = cart.reduce(
       className="object-contain"
     />
 
-    {/* Quantity Badge */}
-    {useCartStore.getState().cart.length > 0 && (
+    {totalItems > 0 && (
       <span
         className="
           absolute
-          -top-1
-          right-1
+          -top-2
+          -right-2
           min-w-[18px]
           h-[18px]
           px-1
@@ -69,15 +69,7 @@ const totalItems = cart.reduce(
           shadow-md
         "
       >
-        {
-          useCartStore
-            .getState()
-            .cart
-            .reduce(
-              (acc, item) => acc + item.quantity,
-              0
-            )
-        }
+        {totalItems}
       </span>
     )}
 
