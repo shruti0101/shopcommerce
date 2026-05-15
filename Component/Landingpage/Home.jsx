@@ -105,11 +105,11 @@ const mobileBanners = [
               NEW COLLECTION
             </p>
 
-            <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+            <h1 className="text-2xl xl:text-4xl font-semibold tracking-tight mb-4">
               OUR BESTSELLING COLLECTION
             </h1>
 
-            <p className="text-black text-md leading-relaxed mb-6 max-w-sm">
+            <p className="text-black text-md leading-relaxed mb-4 xl:mb-6 max-w-sm">
               Customize freely! Reli adapts to your child's changing passions
               with versatile fronts—choose smooth wardrobes or open, playful
               shelves.
