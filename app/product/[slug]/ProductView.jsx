@@ -83,7 +83,7 @@ setZoomStyle({
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* left */}
-    <div className="sticky top-20 self-start">
+    <div className="md:sticky md:top-20 self-start">
           <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm font-poppins" >
             Home / <span className="uppercase ">{product.category?.name}</span> /{" "}
             <span className="text-red-500   capitalize">
