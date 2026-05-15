@@ -137,7 +137,7 @@ const mobileBanners = [
                       src={img}
                       fill
                       alt="slide"
-                      className="object-contain md:object-cover"
+                      className="object-contain xl:object-cover"
                       priority={i === 0}
                     />
                   </div>
