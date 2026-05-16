@@ -143,7 +143,7 @@ const [sizes, setSizes] = useState([
     size: "",
     price: "",
     oldPrice: "",
-    stock: 0,
+    stock: "",
   },
 ]);
 
@@ -157,7 +157,7 @@ const addSize = () => {
       size: "",
       price: "",
       oldPrice: "",
-      stock: 0,
+      stock: "",
     },
   ]);
 };
@@ -287,7 +287,7 @@ oldPrice: oldPrice ? Number(oldPrice) : 0,
     refreshProducts();
   };
 
- const resetForm = () => {
+const resetForm = () => {
   setName("");
   setPrice("");
   setCategory("");
@@ -299,11 +299,21 @@ oldPrice: oldPrice ? Number(oldPrice) : 0,
   setFeatures("");
   setStock(true);
   setLongdescription("");
-  setSizes([{ size: "", stock: 0 }]);
+
+  // ✅ FIXED
+  setSizes([
+    {
+      size: "",
+      price: "",
+      oldPrice: "",
+      stock: "",
+    },
+  ]);
+
   setSpecs([{ key: "", value: "" }]);
 
   // force Jodit reset
-  setEditorKey(prev => prev + 1);
+  setEditorKey((prev) => prev + 1);
 };
 
   const refreshProducts = () => {
@@ -321,9 +331,27 @@ const handleEdit = (p) => {
   setStock(p.stock);
   setCategory(p.category?._id || p.category);
   setImages(p.images);
-  setSizes(
-  p.sizes || [{ size: "", stock: 0 }]
+
+
+ setSizes(
+  p.sizes?.length
+    ? p.sizes.map((s) => ({
+        size: s.size || "",
+        price: s.price || "",
+        oldPrice: s.oldPrice || "",
+        stock: s.stock || "",
+      }))
+    : [
+        {
+          size: "",
+          price: "",
+          oldPrice: "",
+          stock: "",
+        },
+      ]
 );
+
+
 setYoutubeLink(p.youtubeLink?.trim() || "");
   setLongdescription(p.longdescription || "");
   setSpecs(p.specifications || [{ key: "", value: "" }]);
@@ -533,7 +561,7 @@ const filteredProducts = products.filter((p) => {
         </label>
         <input
           placeholder="Enter Size"
-          value={item.size}
+       value={item.size || ""}
           onChange={(e) =>
             updateSize(i, "size", e.target.value)
           }
@@ -549,7 +577,7 @@ const filteredProducts = products.filter((p) => {
         <input
           type="number"
           placeholder="Enter Price"
-          value={item.price}
+    value={item.price || ""}
           onChange={(e) =>
             updateSize(i, "price", e.target.value)
           }
@@ -565,7 +593,7 @@ const filteredProducts = products.filter((p) => {
         <input
           type="number"
           placeholder="Enter Old Price"
-          value={item.oldPrice}
+        value={item.oldPrice || ""}
           onChange={(e) =>
             updateSize(i, "oldPrice", e.target.value)
           }
@@ -581,7 +609,7 @@ const filteredProducts = products.filter((p) => {
         <input
           type="number"
           placeholder="Enter Stock"
-          value={item.stock}
+        value={item.stock || ""}
           onChange={(e) =>
             updateSize(i, "stock", e.target.value)
           }
