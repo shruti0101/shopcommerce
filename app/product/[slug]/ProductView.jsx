@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 "use client";
 
 import { useState } from "react";
@@ -26,6 +19,7 @@ export default function ProductView({ product, relatedProducts }) {
   const [zoomStyle, setZoomStyle] = useState({});
   const [activeTab, setActiveTab] = useState("description");
   const [animate, setAnimate] = useState(false);
+ const [selectedSize, setSelectedSize] = useState("");
 
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQty = useCartStore((state) => state.updateQty);
@@ -39,6 +33,14 @@ export default function ProductView({ product, relatedProducts }) {
     (state) => state.removeFromWishlist,
   );
 
+
+
+
+const selectedSizeData =
+  product.sizes?.find(
+    (s) => s.size === selectedSize
+  ) || null;
+
   const isWishlisted = isInWishlist(product._id);
 
   const [quantity, setQuantity] = useState(1);
@@ -49,18 +51,18 @@ export default function ProductView({ product, relatedProducts }) {
 
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
-setZoomStyle({
-  transformOrigin: `${x}% ${y}%`,
-  transform: "scale(2.3)",
-});
+    setZoomStyle({
+      transformOrigin: `${x}% ${y}%`,
+      transform: "scale(2.3)",
+    });
   };
 
- const handleMouseLeave = () => {
-  setZoomStyle({
-    transform: "scale(1)",
-    transformOrigin: "center center",
-  });
-};
+  const handleMouseLeave = () => {
+    setZoomStyle({
+      transform: "scale(1)",
+      transformOrigin: "center center",
+    });
+  };
 
   // yt link
 
@@ -83,53 +85,43 @@ setZoomStyle({
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* left */}
-    <div className="md:sticky md:top-20 self-start">
-          <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm font-poppins" >
-            Home / <span className="uppercase ">{product.category?.name}</span> /{" "}
-            <span className="text-red-500   capitalize">
-              {product.name}
-            </span>
+        <div className="md:sticky md:top-20 self-start">
+          <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm font-poppins">
+            Home / <span className="uppercase ">{product.category?.name}</span>{" "}
+            / <span className="text-red-500   capitalize">{product.name}</span>
           </p>
 
-          
-        {/* main image div */}
-<div
-
-  className={`overflow-hidden bg-white rounded-2xl border relative ${ 
-    activeMedia.type === "image"
-      ? "cursor-zoom-in"
-      : "cursor-default"
-  }`}
-  onMouseMove={
-    activeMedia.type === "image"
-      ? handleMouseMove
-      : undefined
-  }
-  onMouseLeave={
-    activeMedia.type === "image"
-      ? handleMouseLeave
-      : undefined
-  }
->
-  {activeMedia.type === "image" ? (
-    <Image
-      src={activeMedia.value}
-      width={1500}
-      height={1000}
-      priority
-      className="w-full sm:h-[350px]   md:h-[560px] transition-transform duration-200 ease-out"
-      style={zoomStyle}
-      alt={product.name}
-    />
-  ) : (
-    <iframe
-      src={getYoutubeEmbedUrl(activeMedia.value)}
-      className="w-full h-[350px] md:h-[550px]"
-      allow="autoplay; encrypted-media"
-      allowFullScreen
-    />
-  )}
-</div>
+          {/* main image div */}
+          <div
+            className={`overflow-hidden bg-white rounded-2xl border relative ${
+              activeMedia.type === "image" ? "cursor-zoom-in" : "cursor-default"
+            }`}
+            onMouseMove={
+              activeMedia.type === "image" ? handleMouseMove : undefined
+            }
+            onMouseLeave={
+              activeMedia.type === "image" ? handleMouseLeave : undefined
+            }
+          >
+            {activeMedia.type === "image" ? (
+              <Image
+                src={activeMedia.value}
+                width={1500}
+                height={1000}
+                priority
+                className="w-full sm:h-[350px]   md:h-[560px] transition-transform duration-200 ease-out"
+                style={zoomStyle}
+                alt={product.name}
+              />
+            ) : (
+              <iframe
+                src={getYoutubeEmbedUrl(activeMedia.value)}
+                className="w-full h-[350px] md:h-[550px]"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              />
+            )}
+          </div>
 
           {/* THUMBNAILS */}
           <Swiper spaceBetween={12} slidesPerView={"auto"} className="mt-5">
@@ -202,45 +194,47 @@ setZoomStyle({
 
         {/* right */}
         <div>
-       
-
           <h2 className="text-3xl font-caladea sm:text-2xl md:text-4xl font-semibold ">
-            {product.name} {" "} 
+            {product.name}{" "}
           </h2>
-
-    
 
           {/* pricing */}
           <div className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
-            
             <span className="text-xl sm:text-2xl font-bold  font-caladea">
-              ₹{product.price}
+             ₹{
+  selectedSizeData?.price ||
+  product.price
+}
             </span>
-            
 
+          {(selectedSizeData?.oldPrice ||
+  product.oldPrice) > 0 && (
+  <>
+    <span className="line-through text-gray-400 text-sm">
+      ₹
+      {selectedSizeData?.oldPrice ||
+        product.oldPrice}
+    </span>
 
+    <span className="text-red-500 text-xs sm:text-sm">
+      {Math.round(
+        (((selectedSizeData?.oldPrice ||
+          product.oldPrice) -
+          (selectedSizeData?.price ||
+            product.price)) /
+          (selectedSizeData?.oldPrice ||
+            product.oldPrice)) *
+          100
+      )}
+      % OFF
+    </span>
+  </>
+)}
 
-            {product.oldPrice > 0 && (
-              <>
-                <span className="line-through  font-caladea text-gray-400 text-sm">
-                  ₹{product.oldPrice}
-                </span>
-
-                <span className="text-red-500  font-caladea text-xs sm:text-sm">
-                  {Math.round(
-                    ((product.oldPrice - product.price) / product.oldPrice) *
-                      100,
-                  )}
-                  % OFF
-                </span>
-              </>
-            )}
-
-              <p className="text-red-500  font-caladea  text-sm capitalize ">
-            (inclusive of all taxes)
-          </p>
+            <p className="text-red-500  font-caladea  text-sm capitalize ">
+              (inclusive of all taxes)
+            </p>
           </div>
-         
 
           {/* stick */}
           <p className="mt-2 text-sm font-caladea">
@@ -251,40 +245,53 @@ setZoomStyle({
             )}
           </p>
 
-      
-
           {/* DESCRIPTION */}
           <p className="mt-2 text-gray-700 font-caladea text-[17px] ">
             {product.description}
           </p>
 
-       
+          {/* SIZES */}
+          {product?.sizes?.length > 0 && (
+            <div className="mt-5">
+              <h3 className="font-semibold mb-3">Select Size</h3>
+
+              <div className="flex flex-wrap gap-3">
+                {product.sizes.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedSize(item.size)}
+                    className={`border px-5 py-2 font-semibold rounded-lg transition uppercase ${
+                      selectedSize === item.size
+                        ? "bg-black text-white border-black"
+                        : "bg-green-50 text-black"
+                    }`}
+                  >
+                    {item.size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* SPECIFICATIONS */}
-{product?.specifications?.length > 0 && (
-  <div className="mt-6 border-t pt-5 font-caladea">
-    <h3 className="text-lg font-semibold mb-4">
-      Specifications
-    </h3>
+          {product?.specifications?.length > 0 && (
+            <div className="mt-6 border-t pt-5 font-caladea">
+              <h3 className="text-lg font-semibold mb-4">Specifications</h3>
 
-    <div className="space-y-1">
-      {product.specifications.map((spec, index) => (
-        <div
-          key={index}
-          className="grid grid-cols-2 gap-4 border rounded-xl p-3 bg-[#fafafa]"
-        >
-          <p className="font-medium text-black">
-            {spec.key}
-          </p>
+              <div className="space-y-1">
+                {product.specifications.map((spec, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-2 gap-4 border rounded-xl p-3 bg-[#fafafa]"
+                  >
+                    <p className="font-medium text-black">{spec.key}</p>
 
-          <p className="text-gray-800">
-            {spec.value}
-          </p>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+                    <p className="text-gray-800">{spec.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-3 flex flex-col font-bold font-caladea">
             Quantity:
@@ -323,50 +330,95 @@ setZoomStyle({
           </div>
 
           {/* BUTTONS */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
-            <button
-              onClick={() => {
-                addToCart(product, quantity);
-                toast.success("Added to cart");
-              }}
-              className="flex-1 bg-black text-white py-2 rounded-lg text-sm sm:text-base"
-            >
-              Add to Cart
-            </button>
+         {/* BUTTONS */}
+<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
+  <button
+    onClick={() => {
 
-            <button className="bg-green-500 hover:bg-green-600 text-sm sm:text-base capitalize rounded-lg px-3 text-white py-2 cursor-pointer">
-              whatsapp now
-            </button>
+      // ✅ FORCE SIZE SELECTION
+      if (
+        product?.sizes?.length > 0 &&
+        !selectedSize
+      ) {
+        toast.error("Please select size first");
 
-            <button
-              onClick={() => {
-                setAnimate(true);
-                setTimeout(() => setAnimate(false), 300);
+        return;
+      }
 
-                if (isWishlisted) {
-                  removeFromWishlist(product._id);
-                } else {
-                  addToWishlist(product);
-                }
-              }}
-              className="border px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-sm"
-            >
-              <Heart
-                size={18}
-                className={`transition ${
-                  isWishlisted ? "fill-red-500 text-red-500" : "text-gray-500"
-                }`}
-              />
-              {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
-            </button>
-          </div>
+      // ✅ GET SELECTED SIZE DATA
+      const selectedSizeData =
+        product?.sizes?.find(
+          (s) => s.size === selectedSize
+        );
+
+      // ✅ ADD TO CART
+      addToCart(
+        {
+          ...product,
+
+          selectedSize,
+
+          // ✅ PRICE CHANGE ACCORDING TO SIZE
+          price:
+            selectedSizeData?.price ||
+            product.price,
+
+          oldPrice:
+            selectedSizeData?.oldPrice ||
+            product.oldPrice,
+
+          sizeStock:
+            selectedSizeData?.stock || 0,
+        },
+        quantity
+      );
+
+      toast.success("Added to cart");
+    }}
+    className="flex-1 bg-black text-white py-2 rounded-lg text-sm sm:text-base"
+  >
+    Add to Cart
+  </button>
+
+  <button className="bg-green-500 hover:bg-green-600 text-sm sm:text-base capitalize rounded-lg px-3 text-white py-2 cursor-pointer">
+    whatsapp now
+  </button>
+
+  <button
+    onClick={() => {
+      setAnimate(true);
+
+      setTimeout(() => setAnimate(false), 300);
+
+      if (isWishlisted) {
+        removeFromWishlist(product._id);
+      } else {
+        addToWishlist(product);
+      }
+    }}
+    className="border px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-sm"
+  >
+    <Heart
+      size={18}
+      className={`transition ${
+        isWishlisted
+          ? "fill-red-500 text-red-500"
+          : "text-gray-500"
+      }`}
+    />
+
+    {isWishlisted
+      ? "Remove from Wishlist"
+      : "Add to Wishlist"}
+  </button>
+</div>
         </div>
       </div>
 
       {/* TABS */}
       <div className="mt-10 md:mt-13 max-w-4xl">
         <div className="flex gap-4 sm:gap-12 capitalize border-b mb-4 overflow-x-auto">
-          {["description", "specifications","features"].map((tab) => (
+          {["description", "specifications", "features"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -403,10 +455,7 @@ setZoomStyle({
           </div>
         )}
 
-
-
-{activeTab === "features" && (
-     
+        {activeTab === "features" && (
           <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {product.features?.map((f, i) => (
               <li
@@ -423,8 +472,7 @@ setZoomStyle({
               </li>
             ))}
           </ul>
-)}
-
+        )}
       </div>
 
       {/* RELATED PRODUCTS */}
@@ -443,33 +491,33 @@ setZoomStyle({
             ))}
           </div>
         ) : relatedProducts.length ? (
-        <Swiper
-  modules={[Autoplay]}
-  autoplay={{
-    delay: 1000,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  }}
-  loop={true}
-  speed={800}
-  spaceBetween={20}
-  observer={true}
-  observeParents={true}
-  breakpoints={{
-    320: {
-      slidesPerView: 2,
-    },
-    640: {
-      slidesPerView: 2,
-    },
-    768: {
-      slidesPerView: 3,
-    },
-    1024: {
-      slidesPerView: 4,
-    },
-  }}
->
+          <Swiper
+            modules={[Autoplay]}
+            autoplay={{
+              delay: 1000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            loop={true}
+            speed={800}
+            spaceBetween={20}
+            observer={true}
+            observeParents={true}
+            breakpoints={{
+              320: {
+                slidesPerView: 2,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+          >
             {relatedProducts.map((item) => (
               <SwiperSlide key={item._id}>
                 <Link
@@ -490,10 +538,10 @@ setZoomStyle({
 
                   <p className="font-semibold mt-1 text-sm">₹{item.price}</p>
 
-                      {/* BUTTON */}
-              <button className="w-full mt-4 bg-black text-white py-2.5 rounded-xl text-sm font-medium hover:opacity-90 transition">
-                View Product
-              </button>
+                  {/* BUTTON */}
+                  <button className="w-full mt-4 bg-black text-white py-2.5 rounded-xl text-sm font-medium hover:opacity-90 transition">
+                    View Product
+                  </button>
                 </Link>
               </SwiperSlide>
             ))}

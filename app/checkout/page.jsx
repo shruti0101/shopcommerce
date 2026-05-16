@@ -248,6 +248,12 @@ export default function CheckoutPage() {
                       <p className="font-medium text-sm">
                         {item.name}
                       </p>
+
+                      {item.selectedSize && (
+  <p className="text-sm text-gray-500">
+    Size: {item.selectedSize}
+  </p>
+)}
                       <p className="text-xs text-gray-500">
                         ₹{item.price} × {item.quantity}
                       </p>

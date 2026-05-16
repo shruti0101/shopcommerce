@@ -20,6 +20,16 @@ export default function CategoryPage() {
   const [sort, setSort] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // for sizez logic
+
+  const [sizeModal, setSizeModal] = useState(false);
+
+const [selectedProduct, setSelectedProduct] =
+  useState(null);
+
+const [selectedSize, setSelectedSize] =
+  useState("");
+
   const addToCart = useCartStore((state) => state.addToCart);
 
   const slides = [
@@ -145,25 +155,49 @@ export default function CategoryPage() {
                   />
 
                   {/* ADD TO CART */}
-                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition flex items-center p-2 sm:p-3">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        addToCart({
-                          _id: p._id,
-                          name: p.name,
-                          price: p.price,
-                          images: p.images,
-                          quantity: 1,
-                        });
-                        toast.success("Added to cart 🛒");
-                      }}
-                      className="w-full sm:w-fit mx-auto px-4 sm:px-8 md:px-12 bg-yellow-400 text-black py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-md flex items-center justify-center gap-2"
-                    >
-                      <ShoppingCart size={14} />
-                      Add to Cart
-                    </button>
-                  </div>
+               {/* ADD TO CART */}
+<div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition flex items-center p-2 sm:p-3">
+
+  <button
+    onClick={(e) => {
+
+      e.preventDefault();
+
+      // ✅ HAS SIZES
+      if (p?.sizes?.length > 0) {
+
+        setSelectedProduct(p);
+
+        setSelectedSize("");
+
+        setSizeModal(true);
+
+        return;
+      }
+
+      // ✅ NORMAL PRODUCT
+      addToCart({
+        _id: p._id,
+        name: p.name,
+        slug: p.slug,
+        price: p.price,
+        oldPrice: p.oldPrice,
+        images: p.images,
+        quantity: 1,
+      });
+
+      toast.success("Added to cart 🛒");
+    }}
+    className="w-full sm:w-fit mx-auto px-4 sm:px-8 md:px-12 bg-yellow-400 text-black py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-md flex items-center justify-center gap-2"
+  >
+    <ShoppingCart size={14} />
+
+    Add to Cart
+  </button>
+
+</div>
+
+
 
                   {/* DISCOUNT */}
                   {p.oldPrice > 0 && (
@@ -201,17 +235,227 @@ export default function CategoryPage() {
         )}
       </div>
 
-      {/* ✅ SHIMMER KEYFRAME */}
-      <style jsx>{`
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
+
+      {/* SIZE MODAL */}
+
+
+{/* SIZE MODAL */}
+{sizeModal && selectedProduct && (
+
+  <div className="fixed top-20 inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+
+    <div className="bg-white w-full max-w-md rounded-2xl p-5 relative">
+
+      {/* CLOSE */}
+      <button
+        onClick={() => {
+
+          setSizeModal(false);
+
+          setSelectedProduct(null);
+
+          setSelectedSize("");
+
+        }}
+        className="absolute top-3 right-3"
+      >
+        ✕
+      </button>
+
+      {/* IMAGE */}
+      <img
+        src={selectedProduct.images?.[0]}
+        className="w-full h-64 object-cover rounded-xl"
+      />
+
+      {/* NAME */}
+      <h2 className="mt-4 text-xl font-semibold">
+        {selectedProduct.name}
+      </h2>
+
+      {/* SIZE TITLE */}
+      <h3 className="mt-5 font-medium">
+        Select Size
+      </h3>
+
+      {/* SIZES */}
+      <div className="flex flex-wrap gap-3 mt-3">
+
+        {selectedProduct.sizes.map((size, i) => (
+
+          <button
+            key={i}
+            onClick={() =>
+              setSelectedSize(size.size)
+            }
+            className={`px-5 py-2 rounded-lg border uppercase transition ${
+              selectedSize === size.size
+                ? "bg-black text-white border-black"
+                : "bg-white text-black hover:border-black"
+            }`}
+          >
+            {size.size}
+          </button>
+
+        ))}
+
+      </div>
+
+      {/* PRICE */}
+      {selectedSize && (
+
+        <div className="mt-5">
+
+          {(() => {
+
+            const sizeData =
+              selectedProduct.sizes.find(
+                (s) => s.size === selectedSize
+              );
+
+            return (
+
+              <div className="flex items-center gap-3 flex-wrap">
+
+                {/* PRICE */}
+                <span className="text-2xl font-bold">
+
+                  ₹
+                  {
+                    sizeData?.price ||
+                    selectedProduct.price
+                  }
+
+                </span>
+
+                {/* OLD PRICE */}
+                {(
+                  sizeData?.oldPrice ||
+                  selectedProduct.oldPrice
+                ) > 0 && (
+
+                  <>
+
+                    <span className="line-through text-gray-400">
+
+                      ₹
+                      {
+                        sizeData?.oldPrice ||
+                        selectedProduct.oldPrice
+                      }
+
+                    </span>
+
+                    {/* DISCOUNT */}
+                    <span className="text-red-500 text-sm">
+
+                      {Math.round(
+
+                        (
+                          (
+                            (
+                              sizeData?.oldPrice ||
+                              selectedProduct.oldPrice
+                            ) -
+
+                            (
+                              sizeData?.price ||
+                              selectedProduct.price
+                            )
+                          ) /
+
+                          (
+                            sizeData?.oldPrice ||
+                            selectedProduct.oldPrice
+                          )
+                        ) * 100
+
+                      )}
+
+                      % OFF
+
+                    </span>
+
+                  </>
+
+                )}
+
+              </div>
+
+            );
+          })()}
+
+        </div>
+
+      )}
+
+      {/* ADD BUTTON */}
+      <button
+        onClick={() => {
+
+          // ✅ SIZE REQUIRED
+          if (!selectedSize) {
+
+            toast.error(
+              "Please select size first"
+            );
+
+            return;
           }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-      `}</style>
+
+          // ✅ FIND SIZE DATA
+          const sizeData =
+            selectedProduct.sizes.find(
+              (s) => s.size === selectedSize
+            );
+
+          // ✅ ADD TO CART
+          addToCart({
+
+            _id: selectedProduct._id,
+
+            name: selectedProduct.name,
+
+            slug: selectedProduct.slug,
+
+            images: selectedProduct.images,
+
+            selectedSize,
+
+            price:
+              sizeData?.price ||
+              selectedProduct.price,
+
+            oldPrice:
+              sizeData?.oldPrice ||
+              selectedProduct.oldPrice,
+
+            quantity: 1,
+
+          });
+
+          toast.success("Added to cart 🛒");
+
+          // ✅ RESET
+          setSizeModal(false);
+
+          setSelectedProduct(null);
+
+          setSelectedSize("");
+
+        }}
+        className="w-full mt-6 bg-black hover:bg-gray-900 text-white py-3 rounded-xl transition"
+      >
+        Add To Cart
+      </button>
+
+    </div>
+
+  </div>
+
+)}
+
+  
     </>
   );
 }

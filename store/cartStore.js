@@ -11,79 +11,107 @@ export const useCartStore = create(
 
       openCart: () => set({ cartOpen: true }),
       closeCart: () => set({ cartOpen: false }),
-addToCart: (product, quantity = 1) => {
-  const cart = get().cart;
 
-  const existing = cart.find((item) => item._id === product._id);
+      // ✅ ADD TO CART
+      addToCart: (product, quantity = 1) => {
+        const cart = get().cart;
 
-  if (existing) {
-    const newQty = existing.quantity + quantity;
+        // ✅ CHECK ID + SIZE
+        const existing = cart.find(
+          (item) =>
+            item._id === product._id &&
+            item.selectedSize === product.selectedSize
+        );
 
-    if (newQty <= 0) {
-      // ❌ remove if 0 or negative
-      set({
-        cart: cart.filter((item) => item._id !== product._id),
-      });
-      return;
-    }
+        if (existing) {
+          const updated = cart.map((item) =>
+            item._id === product._id &&
+            item.selectedSize === product.selectedSize
+              ? {
+                  ...item,
+                  quantity: item.quantity + quantity,
+                }
+              : item
+          );
 
-    const updated = cart.map((item) =>
-      item._id === product._id
-        ? { ...item, quantity: newQty }
-        : item
-    );
+          set({ cart: updated });
+        } else {
+          set({
+            cart: [
+              ...cart,
+              {
+                ...product,
+                quantity,
+              },
+            ],
+          });
+        }
 
-    set({ cart: updated });
-  } else {
-    if (quantity > 0) {
-      set({
-        cart: [...cart, { ...product, quantity }],
-      });
-    }
-  }
+        set({ cartOpen: true });
+      },
 
-  set({ cartOpen: true });
-},
-
-      removeItem: (id) => {
+      // ✅ REMOVE ITEM
+      removeItem: (id, size) => {
         set({
-          cart: get().cart.filter((item) => item._id !== id),
+          cart: get().cart.filter(
+            (item) =>
+              !(
+                item._id === id &&
+                item.selectedSize === size
+              )
+          ),
         });
       },
 
-    updateQty: (id, qty) => {
-  if (qty <= 0) {
-    set({
-      cart: get().cart.filter((item) => item._id !== id),
-    });
-    return;
-  }
+      // ✅ UPDATE QTY
+      updateQty: (id, size, qty) => {
+        if (qty <= 0) {
+          set({
+            cart: get().cart.filter(
+              (item) =>
+                !(
+                  item._id === id &&
+                  item.selectedSize === size
+                )
+            ),
+          });
 
-  const updated = get().cart.map((item) =>
-    item._id === id
-      ? { ...item, quantity: Math.max(1, qty) } // 🔥 force minimum 1
-      : item
-  );
+          return;
+        }
 
-  set({ cart: updated });
-},
+        const updated = get().cart.map((item) =>
+          item._id === id &&
+          item.selectedSize === size
+            ? {
+                ...item,
+                quantity: Math.max(1, qty),
+              }
+            : item
+        );
+
+        set({ cart: updated });
+      },
 
       clearCart: () => set({ cart: [] }),
 
       totalPrice: () => {
         return get().cart.reduce(
-          (total, item) => total + item.price * item.quantity,
+          (total, item) =>
+            total + item.price * item.quantity,
           0
         );
       },
 
       totalItems: () => {
         return get().cart.reduce(
-          (total, item) => total + item.quantity,
+          (total, item) =>
+            total + item.quantity,
           0
         );
       },
     }),
-    { name: "cart-storage" }
+    {
+      name: "cart-storage",
+    }
   )
 );
