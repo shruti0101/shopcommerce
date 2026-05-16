@@ -76,7 +76,13 @@ export default function CartDrawer() {
                   {item.name}
                 </h3>
 
-                <p className="text-gray-500 text-sm mt-1">
+                {item.selectedSize && (
+  <p className="text-sm text-gray-600 capitalize ">
+    Size: {item.selectedSize}
+  </p>
+)}
+
+                <p className="text-gray-700 text-md ">
                  ₹{Number(String(item.price).replace(/,/g, "")).toLocaleString("en-IN")}
                 </p>
 
@@ -86,9 +92,9 @@ export default function CartDrawer() {
                   <button
                  onClick={() => {
   if (item.quantity > 1) {
-    updateQty(item._id, item.quantity - 1);
+    updateQty(item._id,   item.selectedSize, item.quantity - 1);
   } else {
-    removeItem(item._id); 
+    removeItem(item._id, item.selectedSize); 
   }
 }}
                     className="p-1 border rounded-md hover:bg-gray-100"
@@ -101,7 +107,7 @@ export default function CartDrawer() {
                   </span>
 
                   <button
-                    onClick={() => updateQty(item._id, item.quantity + 1)}
+                    onClick={() => updateQty(item._id,   item.selectedSize, item.quantity + 1)}
                     className="p-1 border rounded-md hover:bg-gray-100"
                   >
                     <Plus size={14} />
@@ -112,10 +118,10 @@ export default function CartDrawer() {
 
               {/* remove */}
               <button
-                onClick={() => removeItem(item._id)}
+                onClick={() => removeItem(item._id, item.selectedSize)}
                 className="text-gray-400 hover:text-red-500"
               >
-                <X size={16} />
+                <X size={20} />
               </button>
             </div>
           ))}
