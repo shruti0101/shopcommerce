@@ -257,7 +257,7 @@ const selectedSizeData =
 
               <div className="flex flex-wrap gap-3">
                 {product.sizes.map((item, i) => (
-                  <button
+                  <button 
                     key={i}
                     onClick={() => setSelectedSize(item.size)}
                     className={`border px-5 py-2 font-semibold rounded-lg transition uppercase ${
