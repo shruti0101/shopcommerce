@@ -138,14 +138,7 @@ const [specs, setSpecs] = useState([{ key: "", value: "" }]);
 const [editorKey, setEditorKey] = useState(0);
 
 // state for sizes and stock
-const [sizes, setSizes] = useState([
-  {
-    size: "",
-    price: "",
-    oldPrice: "",
-    stock: "",
-  },
-]);
+const [sizes, setSizes] = useState([]);
 
 
 // for sizes
@@ -263,7 +256,11 @@ oldPrice: oldPrice ? Number(oldPrice) : 0,
   stock,
   category,
   images,
-  sizes,
+sizes: sizes.filter(
+  (s) =>
+    s.size?.trim() &&
+    s.price !== ""
+),
     youtubeLink,
   longdescription,
   specifications: specs,
@@ -301,14 +298,7 @@ const resetForm = () => {
   setLongdescription("");
 
   // ✅ FIXED
-  setSizes([
-    {
-      size: "",
-      price: "",
-      oldPrice: "",
-      stock: "",
-    },
-  ]);
+setSizes([]);
 
   setSpecs([{ key: "", value: "" }]);
 
@@ -333,7 +323,7 @@ const handleEdit = (p) => {
   setImages(p.images);
 
 
- setSizes(
+setSizes(
   p.sizes?.length
     ? p.sizes.map((s) => ({
         size: s.size || "",
@@ -341,14 +331,7 @@ const handleEdit = (p) => {
         oldPrice: s.oldPrice || "",
         stock: s.stock || "",
       }))
-    : [
-        {
-          size: "",
-          price: "",
-          oldPrice: "",
-          stock: "",
-        },
-      ]
+    : []
 );
 
 
@@ -532,110 +515,148 @@ const filteredProducts = products.filter((p) => {
         </div>
 
 
-        {/* SIZES */}
-<div className="bg-white p-6 rounded-2xl shadow-sm">
-  <div className="flex justify-between items-center mb-4">
-    <h2 className="font-semibold text-black">
-      Sizes
-    </h2>
-
+<div className="mb-4">
+  {sizes.length === 0 ? (
     <button
       type="button"
-      onClick={addSize}
-      className="text-sm bg-black text-white px-4 py-2 rounded-lg"
+      onClick={() =>
+        setSizes([
+          {
+            size: "",
+            price: "",
+            oldPrice: "",
+            stock: "",
+          },
+        ])
+      }
+      className="bg-black text-white px-5 py-3 rounded-xl"
     >
-      + Add Size
+      Add Sizes
     </button>
-  </div>
-
-<div className="space-y-4">
-  {sizes.map((item, i) => (
-    <div
-      key={i}
-      className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end border p-4 rounded-xl"
+  ) : (
+    <button
+      type="button"
+      onClick={() => setSizes([])}
+      className="bg-red-500 text-white px-5 py-3 rounded-xl"
     >
-      {/* SIZE */}
-      <div className="md:col-span-3 flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Size
-        </label>
-        <input
-          placeholder="Enter Size"
-       value={item.size || ""}
-          onChange={(e) =>
-            updateSize(i, "size", e.target.value)
-          }
-          className="border p-2 rounded-lg border-black"
-        />
-      </div>
+      Remove Sizes
+    </button>
+  )}
+</div>
 
-      {/* PRICE */}
-      <div className="md:col-span-2 flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Price
-        </label>
-        <input
-          type="number"
-          placeholder="Enter Price"
-    value={item.price || ""}
-          onChange={(e) =>
-            updateSize(i, "price", e.target.value)
-          }
-          className="border p-2 rounded-lg border-black"
-        />
-      </div>
+{/* SIZES */}
+{sizes.length > 0 && (
+  <div className="bg-white p-6 rounded-2xl shadow-sm">
+    
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="font-semibold text-black">
+        Sizes
+      </h2>
 
-      {/* OLD PRICE */}
-      <div className="md:col-span-2 flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Old Price
-        </label>
-        <input
-          type="number"
-          placeholder="Enter Old Price"
-        value={item.oldPrice || ""}
-          onChange={(e) =>
-            updateSize(i, "oldPrice", e.target.value)
-          }
-          className="border p-2 rounded-lg border-black"
-        />
-      </div>
-
-      {/* STOCK */}
-      <div className="md:col-span-2 flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Stock
-        </label>
-        <input
-          type="number"
-          placeholder="Enter Stock"
-        value={item.stock || ""}
-          onChange={(e) =>
-            updateSize(i, "stock", e.target.value)
-          }
-          className="border p-2 rounded-lg border-black"
-        />
-      </div>
-
-      {/* DELETE */}
-      <div className="md:col-span-2 flex flex-col">
-        <label className="text-sm font-medium text-transparent mb-1">
-          Delete
-        </label>
-        <button
-          type="button"
-          onClick={() => removeSize(i)}
-          className="bg-red-100 text-red-600 rounded-lg h-10 hover:bg-red-200 transition"
-        >
-          ✕ Remove
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={addSize}
+        className="text-sm bg-black text-white px-4 py-2 rounded-lg"
+      >
+        + Add Size
+      </button>
     </div>
-  ))}
-</div>
 
+    <div className="space-y-4">
+      {sizes.map((item, i) => (
+        <div
+          key={i}
+          className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end border p-4 rounded-xl"
+        >
+          
+          {/* SIZE */}
+          <div className="md:col-span-3 flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-1">
+              Size
+            </label>
 
-</div>
+            <input
+              placeholder="Enter Size"
+              value={item.size || ""}
+              onChange={(e) =>
+                updateSize(i, "size", e.target.value)
+              }
+              className="border p-2 rounded-lg border-black"
+            />
+          </div>
+
+          {/* PRICE */}
+          <div className="md:col-span-2 flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-1">
+              Price
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter Price"
+              value={item.price || ""}
+              onChange={(e) =>
+                updateSize(i, "price", e.target.value)
+              }
+              className="border p-2 rounded-lg border-black"
+            />
+          </div>
+
+          {/* OLD PRICE */}
+          <div className="md:col-span-2 flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-1">
+              Old Price
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter Old Price"
+              value={item.oldPrice || ""}
+              onChange={(e) =>
+                updateSize(i, "oldPrice", e.target.value)
+              }
+              className="border p-2 rounded-lg border-black"
+            />
+          </div>
+
+          {/* STOCK */}
+          <div className="md:col-span-2 flex flex-col">
+            <label className="text-sm font-medium text-gray-700 mb-1">
+              Stock
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter Stock"
+              value={item.stock || ""}
+              onChange={(e) =>
+                updateSize(i, "stock", e.target.value)
+              }
+              className="border p-2 rounded-lg border-black"
+            />
+          </div>
+
+          {/* DELETE */}
+          <div className="md:col-span-2 flex flex-col">
+            <label className="text-sm font-medium text-transparent mb-1">
+              Delete
+            </label>
+
+            <button
+              type="button"
+              onClick={() => removeSize(i)}
+              className="bg-red-100 text-red-600 rounded-lg h-10 hover:bg-red-200 transition"
+            >
+              ✕ Remove
+            </button>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+)}
 
       </div>
 
