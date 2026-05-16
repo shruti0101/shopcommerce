@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+
 import Image from "next/image";
 import {
   Search,
@@ -22,7 +23,7 @@ import Link from "next/link";
 export default function Navbar() {
   const [categories, setCategories] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false); // ✅ added
+  const [accountOpen, setAccountOpen] = useState(false); //  added
   const [user, setUser] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -106,9 +107,10 @@ export default function Navbar() {
             />
           </Link>
 
-          <div className="hidden sm:flex items-center gap-1 text-sm">
-            <MapPin size={16} />
-            <span>India</span>
+          <div className="hidden sm:flex items-center gap-6 ml-8 text-xl">
+        
+            <Link href="/">Home</Link>
+             <Link href="/shop">Shop</Link>
           </div>
         </div>
 
@@ -154,68 +156,227 @@ export default function Navbar() {
 
 
       {/* USER */}
-          <div className="relative group">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-white flex items-center justify-center text-[11px] font-semibold shadow-sm">
-                  {user ? user.name?.charAt(0).toUpperCase() : <User size={17} />}
-                </div>
+       {/* USER */}
+<div className="relative group">
 
-                {user && (
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 border border-white rounded-full"></span>
-                )}
-              </div>
+  {/* USER BUTTON */}
+  <button
+    type="button"
+    className="
+      flex
+      items-center
+      gap-2
+      cursor-pointer
+      px-2
+      py-1.5
+      rounded-full
+      hover:bg-gray-100
+      transition-all
+      duration-200
+    "
+  >
 
-              <span>
-                {user ? `Hi, ${user.name?.split(" ")[0]} 👋` : "Login / Register"}
-              </span>
-            </div>  
+    {/* Avatar */}
+    <div className="relative">
 
-            {/* DROPDOWN */}
-            <div className="absolute right-0 mt-2 w-54 bg-white shadow-lg rounded-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-              {user ? (
-                <>
-                  <div className="px-4 py-2 text-sm text-gray-500 border-b">
-                    Signed in as
-                    <p className="text-black font-medium truncate">
-                      {user.name}
-                    </p>
-                  </div>
+      <div className="
+        w-9
+        h-9
+        rounded-full
+        bg-gradient-to-br
+        from-yellow-400
+        to-orange-500
+        text-white
+        flex
+        items-center
+        justify-center
+        text-[12px]
+        font-semibold
+        shadow-sm
+      ">
 
-                  <div className="px-4 py-2 text-sm border-t border-b text-gray-500">
-                    <p className="text-black font-medium truncate">
-                      {user.email}
-                    </p>
-                  </div>
+        {user
+          ? user.name?.charAt(0).toUpperCase()
+          : <User size={18} />
+        }
 
-                  <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Profile
-                  </Link>
+      </div>
 
-                  <Link href="/orders" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Orders
-                  </Link>
+      {/* Online Dot */}
+      {user && (
+        <span className="
+          absolute
+          -bottom-0.5
+          -right-0.5
+          w-3
+          h-3
+          bg-green-500
+          border-2
+          border-white
+          rounded-full
+        " />
+      )}
 
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-500 text-sm"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link href="/login" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Login
-                  </Link>
+    </div>
 
-                  <Link href="/register" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Register
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
+    {/* Name */}
+    <span className="
+      hidden
+      lg:block
+      text-[15px]
+      font-medium
+      text-[#2f3b52]
+    ">
+      {user
+        ? `Hi, ${user.name?.split(" ")[0]} 👋`
+        : "Login / Register"
+      }
+    </span>
+
+  </button>
+
+  {/* DROPDOWN */}
+  <div
+    className="
+      absolute
+      right-0
+      top-full
+      mt-3
+      w-[260px]
+      bg-white
+      rounded-2xl
+      border
+      border-gray-100
+      shadow-[0_15px_40px_rgba(0,0,0,0.12)]
+      opacity-0
+      invisible
+      translate-y-2
+      group-hover:opacity-100
+      group-hover:visible
+      group-hover:translate-y-0
+      transition-all
+      duration-300
+      z-50
+      overflow-hidden
+    "
+  >
+
+    {user ? (
+      <>
+
+        {/* USER INFO */}
+        <div className="px-5 py-4 bg-gray-50 border-b">
+
+          <p className="text-xs text-gray-500 mb-1">
+            Signed in as
+          </p>
+
+          <p className="font-semibold text-black truncate">
+            {user.name}
+          </p>
+
+          <p className="text-sm text-gray-500 truncate mt-1">
+            {user.email}
+          </p>
+
+        </div>
+
+        {/* LINKS */}
+        <div className="py-2">
+
+          <Link
+            href="/profile"
+            className="
+              block
+              px-5
+              py-3
+              text-sm
+              text-gray-700
+              hover:bg-gray-100
+              transition
+            "
+          >
+            Profile
+          </Link>
+
+          <Link
+            href="/orders"
+            className="
+              block
+              px-5
+              py-3
+              text-sm
+              text-gray-700
+              hover:bg-gray-100
+              transition
+            "
+          >
+            Orders
+          </Link>
+
+        </div>
+
+        {/* LOGOUT */}
+        <div className="border-t">
+
+          <button
+            onClick={handleLogout}
+            className="
+              w-full
+              text-left
+              px-5
+              py-3
+              text-sm
+              text-red-500
+              hover:bg-red-50
+              transition
+            "
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </>
+    ) : (
+      <div className="py-2">
+
+        <Link
+          href="/login"
+          className="
+            block
+            px-5
+            py-3
+            text-sm
+            text-gray-700
+            hover:bg-gray-100
+            transition
+          "
+        >
+          Login
+        </Link>
+
+        <Link
+          href="/register"
+          className="
+            block
+            px-5
+            py-3
+            text-sm
+            text-gray-700
+            hover:bg-gray-100
+            transition
+          "
+        >
+          Register
+        </Link>
+
+      </div>
+    )}
+
+  </div>
+
+</div>
 
 
 
@@ -231,15 +392,50 @@ export default function Navbar() {
             Wishlist
           </Link>
 
-          <div onClick={openCart} className="relative flex items-center gap-1 cursor-pointer">
-            <ShoppingBag size={18} />
-            {mounted && totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] px-1.5 rounded-full">
-                {totalItems}
-              </span>
-            )}
-            Cart
-          </div>
+<div
+  onClick={openCart}
+  className="flex items-center gap-2 cursor-pointer"
+>
+
+  {/* Cart Wrapper */}
+  <div className="relative w-[42px] h-[42px]">
+
+    <Image
+      src="/cart.png"
+      alt="Cart"
+      fill
+      className="object-contain"
+    />
+
+    {/* Quantity */}
+    {mounted && (
+      <span
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+          text-[#ff5a1f]
+          text-[20px]
+          font-bold
+          z-10
+          pb-[15px]
+          
+        "
+      >
+        {totalItems}
+      </span>
+    )}
+
+  </div>
+
+  <p className="text-lg text-[#2f3b52]">
+    Cart
+  </p>
+
+</div>
+
         </div>
       </div>
 

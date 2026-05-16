@@ -34,3 +34,47 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Phone number	Verification code	
+<!-- +91 75218 12155 -->
+
+
+
+<!-- 234567 -->
+
+
+
+<!-- import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+
+export function proxy(req) {
+  const token = req.cookies.get("adminToken")?.value;
+
+  // protect all admin routes
+  if (req.nextUrl.pathname.startsWith("/admin")) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+  }
+
+  return NextResponse.next();
+}
+
+
+export const config = {
+  matcher: ["/admin/:path*"],
+}; -->

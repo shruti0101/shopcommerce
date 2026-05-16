@@ -5,12 +5,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import {
   CheckCircle,
-  Home,
-  Utensils,
-  Bath,
-  Sparkles,
-  Factory,
-  HeartPulse,
+  
 } from "lucide-react";
 
 import Image from "next/image";
@@ -29,7 +24,7 @@ export default function Hero() {
 
 // ✅ ADD YOUR IMAGES HERE
 const desktopBanners = [
-  "/banner/banner3.png",
+  "/banner4.webp",
   "/banner/banner5.png",
 ];
 
@@ -43,7 +38,7 @@ const mobileBanners = [
 
    {/* HERO */}
       <section className="w-full bg-[#f7f7f7]">
-        <div className="relative w-full h-[400px] md:h-[400px] lg:h-[75vh] overflow-hidden">
+        <div className="relative w-full h-[400px] md:h-[400px] xl:h-[75vh] overflow-hidden">
 
           {/* ✅ ONE SWIPER (handles both desktop + mobile) */}
           <Swiper
@@ -55,7 +50,7 @@ const mobileBanners = [
             pagination={{ clickable: true }}
             autoplay={{ delay: 3500, disableOnInteraction: false }}
             loop
-            className="h-full w-full"
+            className=" h-full w-full"
           >
             {desktopBanners.map((desk, i) => (
               <SwiperSlide key={i}>
@@ -65,9 +60,10 @@ const mobileBanners = [
                   <Image
                     src={desk}
                     alt="banner"
-                    fill
+                    width={2000}
+                    height={1500}
                     priority={i === 0}
-                    className="hidden md:block object-cover"
+                    className="hidden md:block max-w-full h-auto xl:h-full xl:w-full object-cover"
                   />
 
                   {/* Mobile Image */}
@@ -109,11 +105,11 @@ const mobileBanners = [
               NEW COLLECTION
             </p>
 
-            <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+            <h1 className="text-2xl xl:text-4xl font-semibold tracking-tight mb-4">
               OUR BESTSELLING COLLECTION
             </h1>
 
-            <p className="text-black text-md leading-relaxed mb-6 max-w-sm">
+            <p className="text-black text-md leading-relaxed mb-4 xl:mb-6 max-w-sm">
               Customize freely! Reli adapts to your child's changing passions
               with versatile fronts—choose smooth wardrobes or open, playful
               shelves.
@@ -141,7 +137,7 @@ const mobileBanners = [
                       src={img}
                       fill
                       alt="slide"
-                      className="object-contain md:object-cover"
+                      className="object-contain xl:object-cover"
                       priority={i === 0}
                     />
                   </div>
@@ -376,6 +372,7 @@ const mobileBanners = [
     <div className=" mx-auto px-10">
       <h2 className="text-3xl md:text-5xl font-semibold mb-2">
         Gifts for Every Occasion
+
       </h2>
 
       <p className="text-lg text-black mb-5">

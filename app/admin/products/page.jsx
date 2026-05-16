@@ -3,9 +3,113 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import JoditEditor from "jodit-react";
 import { useRef } from "react";
+import {
+  DndContext,
+  closestCenter,
+} from "@dnd-kit/core";
 
+import {
+  arrayMove,
+  SortableContext,
+  rectSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+
+import { CSS } from "@dnd-kit/utilities";
+
+
+function SortableImage({ img, i, images, setImages }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: img });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="relative group"
+    >
+      {/* IMAGE */}
+      <img
+        src={img}
+        className="w-full h-28 object-cover rounded-2xl border border-gray-200 shadow-sm group-hover:shadow-md transition"
+      />
+
+      {/* DELETE BUTTON */}
+      <button
+        type="button"
+        onClick={async (e) => {
+          e.stopPropagation();
+
+          try {
+            const imageToDelete = images[i];
+
+            await fetch("/api/delete-image", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                imageUrl: imageToDelete,
+              }),
+            });
+
+            setImages(images.filter((_, idx) => idx !== i));
+
+            toast.success("Image removed");
+          } catch (err) {
+            console.log(err);
+            toast.error("Failed to delete");
+          }
+        }}
+        className="absolute top-2 right-2 z-20 bg-black/80 backdrop-blur text-white w-7 h-7 rounded-full text-xs flex items-center justify-center hover:scale-110 transition"
+      >
+        ✕
+      </button>
+
+      {/* DRAG HANDLE */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute bottom-2 right-2 z-10 bg-white/90 backdrop-blur border shadow-sm rounded-lg px-2 py-1 text-xs cursor-grab active:cursor-grabbing"
+      >
+        ↕reorder
+      </div>
+    </div>
+  );
+}
 
 export default function Products() {
+
+
+
+
+const handleDragEnd = (event) => {
+  const { active, over } = event;
+
+  if (!over || active.id === over.id) return;
+
+  setImages((items) => {
+    const oldIndex = items.indexOf(active.id);
+    const newIndex = items.indexOf(over.id);
+
+    return arrayMove(items, oldIndex, newIndex);
+  });
+};
+
+
+
+
+const [loadingProducts, setLoadingProducts] = useState(true);
 const [search, setSearch] = useState("");
 const [filterCategory, setFilterCategory] = useState("");
   const editor = useRef(null);
@@ -31,13 +135,23 @@ const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
+const [editorKey, setEditorKey] = useState(0);
 
-  // ✅ Fetch data
-  useEffect(() => {
-    fetch("/api/categories").then(res => res.json()).then(setCategories);
-    fetch("/api/product").then(res => res.json()).then(setProducts);
-  }, []);
+  //  Fetch data
+ useEffect(() => {
+  fetch("/api/categories")
+    .then((res) => res.json())
+    .then(setCategories);
 
+  fetch("/api/product")
+    .then((res) => res.json())
+    .then((data) => {
+      setProducts(data);
+    })
+    .finally(() => {
+      setLoadingProducts(false);
+    });
+}, []);
 
 
 const addSpec = () => {
@@ -106,9 +220,8 @@ const uploadImages = async (files) => {
    const payload = {
   name,
   slug: name.toLowerCase().replace(/\s+/g, "-"),
-  price,
-oldPrice: oldPrice ? Number(oldPrice) : 0,
 price: Number(price),
+oldPrice: oldPrice ? Number(oldPrice) : 0,
   description,
   features: features.split(","),
   stock,
@@ -137,20 +250,29 @@ price: Number(price),
     refreshProducts();
   };
 
-  const resetForm = () => {
-    setName("");
-    setPrice("");
-    setCategory("");
-    setImages([]);
-    setYoutubeLink("");
-    setEditingId(null);
-  };
+ const resetForm = () => {
+  setName("");
+  setPrice("");
+  setCategory("");
+  setImages([]);
+  setYoutubeLink("");
+  setEditingId(null);
+  setOldPrice("");
+  setDescription("");
+  setFeatures("");
+  setStock(true);
+  setLongdescription("");
+  setSpecs([{ key: "", value: "" }]);
+
+  // force Jodit reset
+  setEditorKey(prev => prev + 1);
+};
 
   const refreshProducts = () => {
     fetch("/api/product").then(res => res.json()).then(setProducts);
   };
 
-  // ✅ Edit
+  //  Edit
 const handleEdit = (p) => {
   setEditingId(p._id);
   setName(p.name);
@@ -165,9 +287,14 @@ setYoutubeLink(p.youtubeLink?.trim() || "");
   setLongdescription(p.longdescription || "");
   setSpecs(p.specifications || [{ key: "", value: "" }]);
 
+  window.scrollTo({
+  top: 0,
+  behavior: "smooth",
+});
+
 };
 
-  // ✅ Delete
+  //  Delete
   const handleDelete = async (id) => {
     const toastId = toast.loading("Deleting...");
 
@@ -192,18 +319,18 @@ const filteredProducts = products.filter((p) => {
 });
 
   return (
-  <div className="p-8 bg-[#F6F7FB] min-h-screen">
+  <div className="w-full px-10 py-10 bg-[#eeeff1] min-h-screen">
 
     {/* HEADER */}
     <div className="flex justify-between items-center mb-8">
-      <h1 className="text-2xl font-semibold text-gray-800">
+      <h1 className="text-3xl font-semibold text-gray-800">
         {editingId ? "Edit Product" : "Add Product"}
       </h1>
 
       {editingId && (
         <button
           onClick={resetForm}
-          className="text-sm bg-gray-200 px-4 py-2 rounded-lg"
+          className="text-md text-white bg-black px-4 py-2 rounded-lg"
         >
           Cancel Edit
         </button>
@@ -211,32 +338,32 @@ const filteredProducts = products.filter((p) => {
     </div>
 
     {/* MAIN GRID */}
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="grid md:grid-cols-2 gap-6">
 
       {/* LEFT FORM */}
       <div className="md:col-span-2 space-y-6">
 
         {/* BASIC INFO */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
-          <h2 className="font-semibold mb-4 text-gray-700">Basic Info</h2>
+          <h2 className="font-semibold mb-4 text-black">Basic Info</h2>
 
           <input
-            className="w-full border p-3 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-black/20"
+            className="w-full border p-3  border-black rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-black/20"
             placeholder="Product Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 ">
             <input
-              className="border p-3 rounded-lg"
+              className="border p-3 rounded-lg border-black"
               placeholder="Sale Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
 
             <input
-              className="border p-3 rounded-lg"
+              className="border p-3 rounded-lg border-black"
               placeholder="Regular Price"
               value={oldPrice}
               onChange={(e) => setOldPrice(e.target.value)}
@@ -246,7 +373,7 @@ const filteredProducts = products.filter((p) => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full border p-3 rounded-lg mt-3"
+            className="w-full border border-black p-3 rounded-lg mt-3"
           >
             <option>Select Category</option>
             {categories.map((c) => (
@@ -258,34 +385,35 @@ const filteredProducts = products.filter((p) => {
 
 
         {/* DESCRIPTION */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm">
-          <h2 className="font-semibold mb-4 text-gray-700">Product Content</h2>
+        <div className="bg-white p-6 rounded-2xl shadow-sm ">
+          <h2 className="font-semibold mb-4 text-black">Product Content</h2>
 
           <textarea
-            className="w-full border p-3 rounded-lg mb-3"
+            className="w-full border p-3 rounded-lg mb-3 border-black"
             placeholder="Short Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
 
           <textarea
-            className="w-full border p-3 rounded-lg mb-3"
+            className="w-full border p-3 rounded-lg mb-3 border-black"
             placeholder="Features (comma separated)"
             value={features}
             onChange={(e) => setFeatures(e.target.value)}
           />
 
           <div>
-            <p className="mb-2 text-sm font-medium text-gray-600">
+            <p className="mb-2 text-sm font-medium text-gray-600 ">
               Full Description
             </p>
 
             <div className="border rounded-lg overflow-hidden">
-              <JoditEditor
-                ref={editor}
-                value={longdescription}
-                onChange={(newContent) => setLongdescription(newContent)}
-              />
+             <JoditEditor
+  key={editorKey}
+  ref={editor}
+  value={longdescription}
+  onChange={(newContent) => setLongdescription(newContent)}
+/>
             </div>
           </div>
         </div>
@@ -293,13 +421,13 @@ const filteredProducts = products.filter((p) => {
         {/* SPECIFICATIONS */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-gray-700">Specifications</h2>
+            <h2 className="font-semibold text-black">Specifications</h2>
 
             <button
               onClick={addSpec}
-              className="text-sm bg-black text-white px-3 py-1 rounded-lg"
+              className="text-sm bg-black text-white px-4 py-2 rounded-lg"
             >
-              + Add
+              + Add More
             </button>
           </div>
 
@@ -313,14 +441,14 @@ const filteredProducts = products.filter((p) => {
                   placeholder="Key"
                   value={spec.key}
                   onChange={(e) => updateSpec(i, "key", e.target.value)}
-                  className="col-span-2 border p-2 rounded-lg"
+                  className="col-span-2 border p-2 border-black rounded-lg"
                 />
 
                 <input
                   placeholder="Value"
                   value={spec.value}
                   onChange={(e) => updateSpec(i, "value", e.target.value)}
-                  className="col-span-2 border p-2 rounded-lg"
+                  className="col-span-2 border border-black p-2 rounded-lg"
                 />
 
                 <button
@@ -339,6 +467,9 @@ const filteredProducts = products.filter((p) => {
       {/* RIGHT PANEL */}
       <div className="space-y-6">
 
+
+
+
         {/* STATUS */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
           <h2 className="font-semibold mb-4 text-gray-700">Status</h2>
@@ -346,17 +477,17 @@ const filteredProducts = products.filter((p) => {
           <select
             value={stock}
             onChange={(e) => setStock(e.target.value === "true")}
-            className="w-full border p-3 rounded-lg"
+            className="w-full border p-3 rounded-lg border-black"
           >
             <option value="true">In Stock</option>
             <option value="false">Out of Stock</option>
           </select>
         </div>
 
-        <div className="bg-white p-5 rounded-md border shadow-sm">
+        <div className="bg-white p-5 rounded-md border shadow-sm " >
 
 
-         <label className="font-bold text-lg">Add Youtube Link here</label>
+         <label className="font-bold text-lg border-black">Add Youtube Link here</label>
  
      <div className="relative mt-3">
 
@@ -366,7 +497,7 @@ const filteredProducts = products.filter((p) => {
   </span>
 
   <input
-    className="w-full border p-3 pl-10 rounded-lg"
+    className="w-full border p-3 pl-10 rounded-lg border-black"
     placeholder="https://youtube.com/..."
     value={youtubeLink}
     onChange={(e) => setYoutubeLink(e.target.value)}
@@ -374,48 +505,60 @@ const filteredProducts = products.filter((p) => {
 </div>
         </div>
 
-        {/* IMAGE UPLOAD */}
+   
+
+
+
+     {/* IMAGE UPLOAD */}
         <div className="bg-white p-6 rounded-2xl shadow-sm">
-          <h2 className="font-semibold mb-4 text-gray-700">Images</h2>
+          <h2 className="font-semibold mb-4 text-black">Images</h2>
 
-          <input
-            type="file"
-            multiple
-            onChange={(e) => uploadImages([...e.target.files])}
-            className="mb-3"
-          />
+     <label className="border-2 border-dashed border-black hover:border-black/40 transition rounded-2xl p-6 flex flex-col items-center justify-center bg-gray-50 cursor-pointer">
 
-          <div className="grid grid-cols-3 gap-2">
-            {images.map((img, i) => (
-              <div key={i} className="relative">
-                <img
-                  src={img}
-                  className="w-full h-20 object-cover rounded-lg"
-                />
+  <span className="text-4xl mb-3">
+    🖼️
+  </span>
 
-                <button
-              onClick={async () => {
-  const imageToDelete = images[i];
+  <p className="text-sm font-semibold text-gray-700">
+    Click to upload product images
+  </p>
 
-  await fetch("/api/delete-image", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      imageUrl: imageToDelete,
-    }),
-  });
+  <p className="text-xs text-gray-800 mt-1 text-center">
+    PNG, JPG, WEBP • Multiple images supported
+  </p>
 
-  setImages(images.filter((_, idx) => idx !== i));
-}}
-                  className="absolute top-1 right-1 bg-black text-white text-xs px-1 rounded"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
+  <input
+    type="file"
+    multiple
+    className="hidden"
+    onChange={(e) => uploadImages([...e.target.files])}
+  />
+</label>
+
+
+      <DndContext
+  collisionDetection={closestCenter}
+  onDragEnd={handleDragEnd}
+>
+  <SortableContext
+    items={images}
+    strategy={rectSortingStrategy}
+  >
+   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
+      {images.map((img, i) => (
+        <SortableImage
+          key={img}
+          img={img}
+          i={i}
+          images={images}
+          setImages={setImages}
+        />
+      ))}
+    </div>
+  </SortableContext>
+</DndContext>
+
+
         </div>
 
         {/* SUBMIT */}
@@ -436,13 +579,13 @@ const filteredProducts = products.filter((p) => {
     </div>
 
 
- <h2 className="text-xl md:text-4xl  mt-10 font-semibold mb-4 text-gray-800">
+ <h2 className="text-xl md:text-4xl  mt-15   font-semibold mb-4 text-gray-800">
         All Products Listed Below
       </h2>
 
 {/* SEARCH + CATEGORY FILTER */}
 {/* SEARCH + CATEGORY FILTER (PREMIUM UI) */}
-<div className="mt-10 flex flex-col md:flex-row gap-3 items-stretch">
+<div className="mt-6 flex flex-col md:flex-row gap-3 items-stretch">
 
   {/* SEARCH */}
   <div className="flex-1 relative">
@@ -503,46 +646,95 @@ const filteredProducts = products.filter((p) => {
     <div className="mt-12">
      
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-     {filteredProducts.map((p) => (
-          <div
-            key={p._id}
-            className="bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition"
-          >
-            <img
-              src={p.images?.[0]}
-              className="w-full h-32 object-cover rounded-lg"
-            />
+   {loadingProducts ? (
 
-            <h3 className="mt-2 text-sm font-medium">{p.name}</h3>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
 
-            <div className="flex items-center gap-2">
-              <p className="text-sm font-semibold">₹{p.price}</p>
-              {p.oldPrice > 0 && (
-                <span className="text-xs line-through text-gray-400">
-                  ₹{p.oldPrice}
-                </span>
-              )}
-            </div>
+    {[...Array(8)].map((_, i) => (
+      <div
+        key={i}
+        className="bg-white p-3 rounded-xl shadow-sm animate-pulse"
+      >
+        <div className="w-full h-32 bg-gray-200 rounded-lg"></div>
 
-            <div className="flex gap-2 mt-3">
-              <button
-                onClick={() => handleEdit(p)}
-                className="flex-1 bg-gray-100 py-1 rounded text-sm"
-              >
-                Edit
-              </button>
+        <div className="h-4 bg-gray-200 rounded mt-3 w-3/4"></div>
 
-              <button
-                onClick={() => handleDelete(p._id)}
-                className="flex-1 bg-red-500 text-white py-1 rounded text-sm"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+        <div className="h-4 bg-gray-200 rounded mt-2 w-1/2"></div>
+
+        <div className="flex gap-2 mt-4">
+          <div className="flex-1 h-8 bg-gray-200 rounded"></div>
+          <div className="flex-1 h-8 bg-gray-200 rounded"></div>
+        </div>
       </div>
+    ))}
+
+  </div>
+
+) : filteredProducts.length === 0 ? (
+
+  <div className="bg-white rounded-2xl p-10 text-center shadow-sm">
+    <div className="text-5xl mb-3">📦</div>
+
+    <h3 className="text-xl font-semibold text-gray-700">
+      No Products Found
+    </h3>
+
+    <p className="text-gray-500 mt-2">
+      Try changing search or category filter
+    </p>
+  </div>
+
+) : (
+
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+
+    {filteredProducts.map((p) => (
+      <div
+        key={p._id}
+        className="bg-white p-3 rounded-xl shadow-sm hover:shadow-md transition"
+      >
+        <img
+          src={p.images?.[0]}
+          className="w-full h-32 object-cover rounded-lg"
+        />
+
+        <h3 className="mt-2 text-sm font-medium">
+          {p.name}
+        </h3>
+
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-semibold">
+            ₹{p.price}
+          </p>
+
+          {p.oldPrice > 0 && (
+            <span className="text-xs line-through text-gray-400">
+              ₹{p.oldPrice}
+            </span>
+          )}
+        </div>
+
+        <div className="flex gap-2 mt-3">
+          <button
+            onClick={() => handleEdit(p)}
+            className="flex-1 bg-gray-100 py-1 rounded text-sm"
+          >
+            Edit
+          </button>
+
+          <button
+            onClick={() => handleDelete(p._id)}
+            className="flex-1 bg-red-500 text-white py-1 rounded text-sm"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ))}
+
+  </div>
+
+)}
     </div>
 
   </div>

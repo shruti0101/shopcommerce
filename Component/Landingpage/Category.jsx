@@ -213,6 +213,7 @@ export default function ProductSlider() {
                   <Image
                     src={item.img}
                     fill
+                    
                     alt={item.title}
                     className="object-cover group-hover:scale-105 transition duration-300"
                   />
