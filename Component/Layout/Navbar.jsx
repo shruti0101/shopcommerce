@@ -1,7 +1,10 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Autoplay } from "swiper/modules";
+
 import "swiper/css";
+import "swiper/css/free-mode";
 
 
 import Image from "next/image";
@@ -367,11 +370,22 @@ export default function Navbar() {
 
     
     {/* CATEGORY NAV */}
+{/* CATEGORY NAV */}
 <div className="h-[60px] flex items-center px-3 sm:px-4 md:px-6 bg-white/90 backdrop-blur-md border-y border-gray-100 shadow-sm overflow-hidden">
+  
   <Swiper
+    modules={[FreeMode, Autoplay]}
     slidesPerView="auto"
-    spaceBetween={12}
-    freeMode
+    spaceBetween={9}
+    freeMode={true}
+    loop={true}
+    speed={4000}
+    autoplay={{
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+    }}
+    allowTouchMove={true}
     className="flex-1"
   >
     {categories.map((cat) => (
@@ -383,22 +397,24 @@ export default function Navbar() {
             text-[13px] sm:text-[15px] md:text-[16px]
             font-medium whitespace-nowrap
             px-4 py-2 rounded-full
-            bg-gradient-to-br from-yellow-100/ to-yellow-50
+            bg-yellow-50
             border border-yellow-200
             shadow-sm
             transition-all duration-300
             hover:shadow-md hover:-translate-y-[1px]
-            hover:bg-yellow-50 hover:text-black
+            hover:bg-yellow-100 hover:text-black
           "
         >
-          {/* subtle glow */}
           <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 bg-yellow-300/20 blur-md transition"></span>
 
-          <span className="relative z-10">{cat.name}</span>
+          <span className="relative z-10">
+            {cat.name}
+          </span>
         </Link>
       </SwiperSlide>
     ))}
   </Swiper>
+
 </div>
 
 
