@@ -38,8 +38,12 @@ const mobileBanners = [
     <>
 
    {/* HERO */}
+
+
+{/* h-[400px] sm:h-[25vh] md:h-[30vh] xl:h-[85vh]  */}
+
       <section className="w-full bg-[#f7f7f7]">
-        <div className="relative w-full h-[400px] md:h-[25vh] xl:h-[75vh] overflow-hidden">
+        <div className="relative  h-full w-full overflow-hidden">
 
           {/* ✅ ONE SWIPER (handles both desktop + mobile) */}
           <Swiper
@@ -55,7 +59,7 @@ const mobileBanners = [
           >
             {desktopBanners.map((desk, i) => (
               <SwiperSlide key={i}>
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full ">
                   
                   {/* Desktop Image */}
                   <Image
@@ -64,7 +68,7 @@ const mobileBanners = [
                     width={2000}
                     height={1500}
                     priority={i === 0}
-                    className="hidden md:block max-w-full h-auto xl:h-full xl:w-full "
+                    className="hidden md:block max-w-full h-auto  xl:hfull w-full"
                   />
 
                   {/* Mobile Image */}
