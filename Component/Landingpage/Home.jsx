@@ -45,7 +45,7 @@ const mobileBanners = [
       <section className="w-full bg-[#f7f7f7]">
         <div className="relative h-[400px]  md:h-full md:w-full overflow-hidden">
 
-          {/* ✅ ONE SWIPER (handles both desktop + mobile) */}
+          {/* ONE SWIPER (handles both desktop + mobile) */}
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation={{

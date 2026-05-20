@@ -93,149 +93,269 @@ export default function Navbar() {
         scrolled ? "shadow-lg bg-white" : "bg-transparent"
       }`}
     >
-      {/* TOP BAR */}
-      <div className="bg-gray-200 min-h-[60px] flex items-center px-3 sm:px-4 md:px-15 justify-between">
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-          <button className="md:hidden" onClick={() => setMenuOpen(true)}>
-            <Menu />
-          </button>
+    {/* TOP BAR */}
+<div className="bg-[#071B31] h-[42px] flex items-center px-3 sm:px-4 md:px-12 justify-between">
 
-          <Link href="/">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              width={220}
-              height={160}
-              className="object-contain w-[140px] sm:w-[180px] md:w-[220px]"
-            />
-          </Link>
+  {/* LEFT */}
+  <div className="hidden md:flex items-center gap-3 text-[13px] tracking-[0.02em] text-[#c7c7c7] font-medium">
+    <span>IN Free shipping on orders above ₹999</span>
 
-          <div className="hidden sm:flex items-center gap-6 ml-8 text-xl">
-        
-            <Link href="/">Home</Link>
-             <Link href="/shop">Shop</Link>
-          </div>
+    <span className="opacity-40">|</span>
+
+    <span>Trusted Importer & Wholesaler since 2005</span>
+  </div>
+
+  {/* RIGHT */}
+  <div className="ml-auto flex items-center gap-6 md:gap-10 text-[14px] font-medium text-[#E8B949]">
+    <Link href="/">Track Order</Link>
+    <Link href="/">Bulk Enquiry</Link>
+    <Link href="/">Contact Us</Link>
+  </div>
+</div>
+
+{/* MAIN NAVBAR */}
+<div className="bg-white border-b-2 border-[#e2cd95]">
+
+  <div className="h-[70px] flex items-center justify-between px-3 sm:px-4 md:px-12">
+
+    {/* LEFT */}
+    <div className="flex items-center gap-6 lg:gap-12">
+
+      {/* MOBILE MENU */}
+      <button className="md:hidden" onClick={() => setMenuOpen(true)}>
+        <Menu className="w-7 h-7 text-[#071B31]" />
+      </button>
+
+      {/* LOGO */}
+      <Link href="/" className="">
+
+       <Image src="/logo.png" alt="Logo" width={250} height={250} />
+
+    
+      </Link>
+
+      {/* NAV LINKS */}
+      <div className="hidden lg:flex items-center gap-12 text-[17px]">
+
+        <Link
+          href="/"
+          className="
+            relative
+            font-semibold
+            text-[#071B31]
+            after:absolute
+            after:left-0
+            after:-bottom-[16px]
+            after:w-full
+            after:h-[2px]
+            after:bg-[#D6AE45]
+          "
+        >
+          Home
+        </Link>
+
+        <Link
+          href="/shop"
+          className="font-medium text-[#071B31]"
+        >
+          Shop
+        </Link>
+
+        <Link
+          href="/deals"
+          className="font-medium text-[#071B31]"
+        >
+          Deals
+        </Link>
+
+        <Link
+          href="/about"
+          className="font-medium text-[#071B31]"
+        >
+          About
+        </Link>
+      </div>
+    </div>
+
+    {/* SEARCH */}
+    <div className="flex-1 px-2 sm:px-3 md:px-8">
+
+      <div className="max-w-[500px] xl:max-w-[560px] mx-auto relative w-full">
+
+        <div
+          className="
+            flex items-center
+            bg-[#F3EFEA]
+            border border-[#DDD4CB]
+            rounded-[18px]
+            px-5
+            h-[52px]
+          "
+        >
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setShowResults(true)}
+            placeholder="Search products, brands, categories..."
+            className="
+              w-full bg-transparent outline-none
+              text-[16px]
+              text-[#071B31]
+              placeholder:text-[#7D7B78]
+            "
+          />
+
+          <Search className="w-5 h-5 text-[#6B6870]" />
         </div>
 
-        {/* SEARCH */}
-        <div className="flex-1 px-2 sm:px-3 md:px-6">
-          <div className="max-w-[600px] mx-auto relative w-full">
-            <div className="flex items-center bg-gray-100 rounded-full px-4 h-[40px]">
-              <Search size={16} />
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => setShowResults(true)}
-                placeholder="Search products..."
-                className="ml-2 w-full bg-transparent outline-none text-sm sm:text-base"
-              />
+        {/* SEARCH RESULTS */}
+        {showResults && results.length > 0 && (
+          <div
+            className="
+              absolute top-[62px] left-0 w-full
+              bg-white rounded-[18px]
+              shadow-xl border border-[#e5ded5]
+              z-50 max-h-[300px] overflow-y-auto
+            "
+          >
+            {results.map((item) => (
+              <Link
+                key={item._id}
+                href={`/product/${item.slug}`}
+                onClick={() => {
+                  setShowResults(false);
+                  setQuery("");
+                }}
+                className="
+                  flex items-center gap-3
+                  px-4 py-3
+                  hover:bg-[#faf7f2]
+                "
+              >
+                <img
+                  src={item.images?.[0]}
+                  className="w-11 h-11 rounded-xl object-cover"
+                />
 
-              {showResults && results.length > 0 && (
-                <div className="absolute top-[50px] left-0 w-full bg-white shadow-lg rounded-lg z-50 max-h-[300px] overflow-y-auto">
-                  {results.map((item) => (
-                    <Link
-                      key={item._id}
-                      href={`/product/${item.slug}`}
-                      onClick={() => {
-                        setShowResults(false);
-                        setQuery("");
-                      }}
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
-                    >
-                      <img src={item.images?.[0]} className="w-10 h-10 rounded" />
-                      <span className="text-sm">{item.name}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+                <span className="text-[15px] text-[#071B31]">
+                  {item.name}
+                </span>
+              </Link>
+            ))}
           </div>
-        </div>
+        )}
+      </div>
+    </div>
 
-        {/* RIGHT (unchanged) */}
-        <div className="hidden md:flex items-center gap-4 lg:gap-6 text-sm">
-
-
+    {/* RIGHT */}
+    <div className="hidden md:flex items-center">
 
       {/* USER */}
-          <div className="relative group">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-white flex items-center justify-center text-[11px] font-semibold shadow-sm">
-                  {user ? user.name?.charAt(0).toUpperCase() : <User size={17} />}
-                </div>
+      <div className="relative group px-6">
 
-                {user && (
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 border border-white rounded-full"></span>
-                )}
-              </div>
+        <div className="flex items-center gap-3 cursor-pointer">
 
-              <span>
-                {user ? `Hi, ${user.name?.split(" ")[0]} 👋` : "Login / Register"}
-              </span>
-            </div>  
-
-            {/* DROPDOWN */}
-            <div className="absolute right-0 mt-2 w-54 bg-white shadow-lg rounded-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+          <div className="relative">
+            <div
+              className="
+                w-9 h-9 rounded-full
+                border border-[#d7d0c8]
+                flex items-center justify-center
+                bg-white
+              "
+            >
               {user ? (
-                <>
-                  <div className="px-4 py-2 text-sm text-gray-500 border-b">
-                    Signed in as
-                    <p className="text-black font-medium truncate">
-                      {user.name}
-                    </p>
-                  </div>
-
-                  <div className="px-4 py-2 text-sm border-t border-b text-gray-500">
-                    <p className="text-black font-medium truncate">
-                      {user.email}
-                    </p>
-                  </div>
-
-                  <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Profile
-                  </Link>
-
-                  <Link href="/orders" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Orders
-                  </Link>
-
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-500 text-sm"
-                  >
-                    Logout
-                  </button>
-                </>
+                <span className="text-[12px] font-semibold text-[#071B31]">
+                  {user.name?.charAt(0).toUpperCase()}
+                </span>
               ) : (
-                <>
-                  <Link href="/login" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Login
-                  </Link>
-
-                  <Link href="/register" className="block px-4 py-2 hover:bg-gray-100 text-sm">
-                    Register
-                  </Link>
-                </>
+                <User size={18} className="text-[#071B31]" />
               )}
             </div>
+
+            {user && (
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-500 border border-white" />
+            )}
           </div>
 
+          <span className="text-[17px] font-medium text-[#071B31]">
+            {user ? `Hi, ${user.name?.split(" ")[0]} 👋` : "Login"}
+          </span>
+        </div>
 
+        {/* DROPDOWN */}
+        <div className="absolute right-0 mt-5 w-56 bg-white shadow-xl rounded-2xl border border-[#ece4dc] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+          {user ? (
+            <>
+              <div className="px-4 py-3 text-sm text-gray-500 border-b">
+                Signed in as
+                <p className="text-black font-medium truncate">
+                  {user.name}
+                </p>
+              </div>
 
+              <div className="px-4 py-3 text-sm border-b text-gray-500">
+                <p className="text-black font-medium truncate">
+                  {user.email}
+                </p>
+              </div>
 
+              <Link href="/profile" className="block px-4 py-3 hover:bg-[#faf7f2] text-sm">
+                Profile
+              </Link>
 
-          <Link href="/wishlist" className="relative flex items-center gap-1">
-            <Heart size={18} />
-            {mounted && wishlist.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
-                {wishlist.length}
-              </span>
-            )}
-            Wishlist
-          </Link>
+              <Link href="/orders" className="block px-4 py-3 hover:bg-[#faf7f2] text-sm">
+                Orders
+              </Link>
 
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-500 text-sm"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="block px-4 py-3 hover:bg-[#faf7f2] text-sm">
+                Login
+              </Link>
+
+              <Link href="/register" className="block px-4 py-3 hover:bg-[#faf7f2] text-sm">
+                Register
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* DIVIDER */}
+      <div className="h-[34px] w-[1px] bg-[#DDD4CB]" />
+
+      {/* WISHLIST */}
+      <Link
+        href="/wishlist"
+        className="relative flex items-center gap-2 px-6"
+      >
+        <Heart size={20} className="text-[#6E6874]" />
+
+        <span className="text-[17px] font-medium text-[#6E6874]">
+          Wishlist
+        </span>
+
+        {mounted && wishlist.length > 0 && (
+          <span className="absolute top-0 right-3 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
+            {wishlist.length}
+          </span>
+        )}
+      </Link>
+
+      {/* DIVIDER */}
+      <div className="h-[34px] w-[1px] bg-[#DDD4CB]" />
+
+      {/* CART */}
+    
 <div
   onClick={openCart}
   className="flex items-center gap-2 cursor-pointer"
@@ -280,8 +400,59 @@ export default function Navbar() {
 
 </div>
 
-        </div>
-      </div>
+    </div>
+  </div>
+</div>
+
+{/* CATEGORY NAV */}
+<div className="h-[65px] flex items-center px-3 sm:px-4  bg-[#FAF7F2] border-b border-[#d9d0c7] overflow-hidden">
+
+  <Swiper
+    modules={[FreeMode, Autoplay]}
+    slidesPerView="auto"
+    spaceBetween={10}
+    freeMode={true}
+    loop={true}
+    speed={4000}
+    autoplay={{
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+    }}
+    allowTouchMove={true}
+    className="flex-1"
+  >
+
+
+
+    {categories.map((cat) => (
+      <SwiperSlide key={cat._id} className="!w-auto">
+
+        <Link
+          href={`/category/${cat.slug}`}
+          className="
+            inline-flex items-center
+            h-[38px]
+            px-7
+            rounded-full
+            border border-[#DDCFB5]
+            bg-[#FAF7F2]
+            text-[16px]
+            font-medium
+            text-black
+            whitespace-nowrap
+            hover:bg-[#071b31]
+            hover:text-white
+            transition-all duration-200
+          "
+        >
+          {cat.name}
+        </Link>
+
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
       {/* MOBILE OVERLAY */}
       {menuOpen && (
@@ -304,14 +475,51 @@ export default function Navbar() {
           <Link href="/orders">Orders</Link>
           <Link href="/wishlist">Wishlist</Link>
 
-          <div
-            onClick={() => {
-              openCart();
-              setMenuOpen(false);
-            }}
-          >
-            Cart
-          </div>
+         
+<div
+  onClick={openCart}
+  className="flex items-center gap-2 cursor-pointer"
+>
+
+  {/* Cart Wrapper */}
+  <div className="relative w-[42px] h-[42px]">
+
+    <Image
+      src="/cart.png"
+      alt="Cart"
+      fill
+      className="object-contain"
+    />
+
+    {/* Quantity */}
+    {mounted && (
+      <span
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+          text-[#ff5a1f]
+          text-[20px]
+          font-bold
+          z-10
+          pb-[15px]
+          
+        "
+      >
+        {totalItems}
+      </span>
+    )}
+
+  </div>
+
+  <p className="text-lg text-[#2f3b52]">
+    Cart
+  </p>
+
+</div>
+
         </div>
 
         {/* ✅ FIXED MOBILE ACCOUNT */}
@@ -371,7 +579,7 @@ export default function Navbar() {
     
     {/* CATEGORY NAV */}
 {/* CATEGORY NAV */}
-<div className="h-[60px] flex items-center px-3 sm:px-4 md:px-6 bg-white/90 backdrop-blur-md border-y border-gray-100 shadow-sm overflow-hidden">
+{/* <div className="h-[60px] flex items-center px-3 sm:px-4 md:px-6 bg-white/90 backdrop-blur-md border-y border-gray-100 shadow-sm overflow-hidden">
   
   <Swiper
     modules={[FreeMode, Autoplay]}
@@ -415,7 +623,7 @@ export default function Navbar() {
     ))}
   </Swiper>
 
-</div>
+</div> */}
 
 
     </div>
