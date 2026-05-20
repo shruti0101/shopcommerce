@@ -43,7 +43,7 @@ const mobileBanners = [
 {/* h-[400px] sm:h-[25vh] md:h-[30vh] xl:h-[85vh]  */}
 
       <section className="w-full bg-[#f7f7f7]">
-        <div className="relative h-[500px]  md:h-full md:w-full overflow-hidden">
+        <div className="relative h-[400px]  md:h-full md:w-full overflow-hidden">
 
           {/* ✅ ONE SWIPER (handles both desktop + mobile) */}
           <Swiper
@@ -77,7 +77,7 @@ const mobileBanners = [
                     alt="mobile banner"
                     fill
                     priority={i === 0}
-                    className="block md:hidden object-cover"
+                    className="block md:hidden max-w-full h-auto"
                   />
                 </div>
               </SwiperSlide>
