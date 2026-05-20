@@ -206,16 +206,17 @@ export default function ProductSlider() {
       >
         {products.map((item, i) => (
           <SwiperSlide key={i}>
-            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[420px] overflow-hidden">
+            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[480px] overflow-hidden">
               {/* IMAGE */}
               <Link href={item.href}>
-                <div className="relative w-full h-[190px] md:h-[220px] bg-gray-50 overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-[190px] md:h-[300px] bg-white overflow-hidden flex items-center justify-center">
                   <Image
                     src={item.img}
-                    fill
+                    width={300}
+                    height={300}
                     
                     alt={item.title}
-                    className="object-cover group-hover:scale-105 transition duration-300"
+                    className="object-contain group-hover:scale-105 transition duration-300"
                   />
 
                   {/* Discount Badge */}
@@ -232,7 +233,7 @@ export default function ProductSlider() {
                 <Link href={item.href}>
                   <div>
                     {/* TITLE */}
-                    <h3 className="text-md font-medium text-gray-900 line-clamp-2 min-h-[48px]">
+                    <h3 className="text-md  md:text-xl font-medium text-gray-900 line-clamp-2 ">
                       {item.title}
                     </h3>
 
@@ -268,7 +269,7 @@ export default function ProductSlider() {
 
                     toast.success("Added to cart");
                   }}
-                  className="mt-4 w-full flex items-center justify-center gap-2 bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
+                  className="w-full flex items-center justify-center gap-2 bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
                 >
                   <ShoppingBagIcon className="hidden md:block" size={17} />
                   Add to Cart
