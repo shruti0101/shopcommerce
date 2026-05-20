@@ -161,12 +161,6 @@ export default function Navbar() {
           Shop
         </Link>
 
-        <Link
-          href="/deals"
-          className="font-medium text-[#071B31]"
-        >
-          Deals
-        </Link>
 
         <Link
           href="/about"
@@ -340,7 +334,7 @@ export default function Navbar() {
       >
         <Heart size={20} className="text-[#6E6874]" />
 
-        <span className="text-[17px] font-medium text-[#6E6874]">
+        <span className="text-[17px] font-medium text-black">
           Wishlist
         </span>
 
