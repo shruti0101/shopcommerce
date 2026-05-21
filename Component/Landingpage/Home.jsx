@@ -231,7 +231,7 @@ const mobileBanners = [
 
   {/* WHY SECTION */}
   <section className="py-10 ">
-    <div className=" mx-auto px-10">
+    <div className=" mx-auto px-5 md:px-12">
       <h2 className="text-3xl md:text-5xl font-semibold leading-tight mb-4">
         Why J L Industries Hub Private Limited is a Preferred Choice?
       </h2>
@@ -267,7 +267,7 @@ const mobileBanners = [
 
   {/* USE CASES */}
   <section className="bg-[#fafafa] py-12 ">
-    <div className=" mx-auto px-10">
+    <div className=" mx-auto px-8 md:px-12">
       <h2 className="text-3xl md:text-5xl font-semibold mb-5">
         Perfect for Every Space
       </h2>
@@ -302,7 +302,7 @@ const mobileBanners = [
 
   {/* GIFTS */}
   <section className="py-12 ">
-    <div className=" mx-auto px-10">
+    <div className=" mx-auto px-8 md:px-12">
       <h2 className="text-3xl md:text-5xl font-semibold mb-2">
         Gifts for Every Occasion
 
@@ -330,7 +330,7 @@ const mobileBanners = [
 
   {/* SHOPPING */}
   <section className="bg-[#f9f9f9] py-10 ">
-    <div className=" mx-auto px-10">
+    <div className=" mx-auto px-8 md:px-12">
       <h2 className="text-3xl md:text-5xl font-semibold mb-3">
         Easy and Convenient Shopping Experience
       </h2>

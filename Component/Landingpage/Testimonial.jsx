@@ -72,11 +72,11 @@ const testimonials = [
 export default function TestimonialSlider() {
   return (
     <section className="bg-[#f9fafb] py-12 md:py-16">
-      <div className=" mx-auto px-14">
+      <div className=" mx-auto px-10 md:px-15">
 
         {/* HEADING */}
-        <div className="text-start mb-10">
-          <h2 className="text-3xl md:text-4xl font-semibold">
+        <div className="text-start mb-5">
+          <h2 className="text-2xl md:text-4xl font-semibold">
             What Our Customers Say
           </h2>
           <p className="text-gray-600 mt-3 text-lg">
