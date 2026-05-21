@@ -145,9 +145,10 @@ const mobileBanners = [
               {["/slider1.png", "/slider-2.png"].map((img, i) => (
                 <SwiperSlide key={i}>
                   <div className="relative w-full h-full">
-                    <img
+                    <Image
                       src={img}
-                
+                      width={1200}
+                      height={700}
                       alt="slide"
                       className="max-w-full h-auto"
                       priority={i === 0}
