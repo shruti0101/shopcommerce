@@ -181,11 +181,11 @@ export default function ProductSlider() {
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
-    <div className="px-4 md:px-8 py-8 bg-[#fafafa]">
+    <div className="px-4 md:px-8 py-8 bg-white">
       {/* HEADER */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl md:text-4xl font-semibold text-gray-800">
-          Featured Products
+      <div className="flex justify-center items-center my-6">
+        <h2 className="text-2xl tracking-wider text-center md:text-5xl font-bold font-bebas text-black">
+         Featured Products
         </h2>
       </div>
 
@@ -206,7 +206,7 @@ export default function ProductSlider() {
       >
         {products.map((item, i) => (
           <SwiperSlide key={i}>
-            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[480px] overflow-hidden">
+            <div className="group bg-white rounded-2xl border mt-3 border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[480px] overflow-hidden">
               {/* IMAGE */}
               <Link href={item.href}>
                 <div className="relative w-full h-[190px] md:h-[300px] bg-white overflow-hidden flex items-center justify-center">

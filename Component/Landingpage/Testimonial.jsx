@@ -76,7 +76,7 @@ export default function TestimonialSlider() {
 
         {/* HEADING */}
         <div className="text-start mb-5">
-          <h2 className="text-2xl md:text-4xl font-semibold">
+          <h2 className="text-2xl md:text-4xl  font-bebas tracking-wide">
             What Our Customers Say
           </h2>
           <p className="text-gray-600 mt-3 text-lg">

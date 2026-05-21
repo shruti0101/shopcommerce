@@ -109,14 +109,10 @@ export default function WhyChooseUs() {
 
           leading-[1.05]
 
-          tracking-[-1px]
-          md:tracking-[-2px]
-
-          text-white
+       tracking-wide
+          text-white font-bebas
         "
-        style={{
-          fontFamily: "Georgia, serif",
-        }}
+     
       >
         The Preferred Choice
 
@@ -169,14 +165,14 @@ export default function WhyChooseUs() {
       key={index}
       className="
         group relative
-        min-h-[220px] md:min-h-[260px]
+        min-h-[220px] md:min-h-[180px]
         border-b
         border-r
         border-[#DED8D0]
         bg-[#F5F5F5]
 
         px-4
-        py-5
+        py-3
 
         sm:px-6
         md:px-8
@@ -224,7 +220,7 @@ export default function WhyChooseUs() {
         className="
           relative z-10
 
-          mt-2 md:mt-6
+          mt-2 
 
           flex
           h-[42px] w-[42px]
@@ -280,7 +276,7 @@ export default function WhyChooseUs() {
 
           mt-2
 
-          max-w-[420px]
+          max-w-[400px]
 
           text-[12px]
           sm:text-[14px]

@@ -149,7 +149,7 @@ export default function Navbar() {
 
       tracking-[0.02em]
 
-      text-[#c7c7c7]
+      text-white
       font-medium
     "
   >
@@ -158,7 +158,7 @@ export default function Navbar() {
       GST No. 07AAGCJ7313Q1Z2
     </span>
 
-    <span className="opacity-40 hidden sm:block">
+    <span className=" hidden sm:block">
       |
     </span>
 
@@ -186,7 +186,7 @@ export default function Navbar() {
       md:text-[14px]
 
       font-medium
-      text-[#E8B949]
+      text-white
 
       whitespace-nowrap
     "

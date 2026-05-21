@@ -19,8 +19,11 @@ export default function CatSlider() {
   }, []);
 
   return (
-    <section className="bg-[#f3f4f6] py-3 md:py-8">
-      <div className="max-w-[1440] px-2 mx-auto relative">
+    <section className="bg-[#faf7f2] py-3 md:py-5">
+      <div className="w-full px-2 md:px-10 mx-auto relative">
+   <h2 className="text-2xl font-bebas tracking-wide text-center md:text-5xl  text-black my-4">
+        Our Favourite categories
+      </h2>
 
     
 
@@ -37,8 +40,8 @@ export default function CatSlider() {
             320: { slidesPerView: 2 },
             480: { slidesPerView: 3 },
             768: { slidesPerView: 5 },
-            1024: { slidesPerView: 7 },
-            1280: { slidesPerView: 9 },
+            1024: { slidesPerView: 8 },
+           
           }}
         >
           {categories.map((item) => (
@@ -49,7 +52,7 @@ export default function CatSlider() {
                   {/* CARD */}
                   <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-3">
 
-                    <div className="w-full h-[110px] flex items-center justify-center overflow-hidden rounded-xl">
+                    <div className="w-full h-[140px] flex items-center justify-center overflow-hidden rounded-xl">
                       <img
                         src={item.image || "/placeholder.png"}
                         alt={item.name}

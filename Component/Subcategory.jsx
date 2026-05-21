@@ -151,11 +151,12 @@ export default function CategoryProductSections() {
 
               <h2
                 className="
-                  text-[20px] md:text-[28px]
-                  font-bold
+                  text-[20px] md:text-[35px]
+                 
                   tracking-[-0.5px]
                   text-[#1A1230]
                   capitalize
+                  font-bebas tracking-wide
                 "
               >
                 {category.name}
@@ -167,7 +168,7 @@ export default function CategoryProductSections() {
                   flex items-center gap-1
                   text-[18px]
                   font-semibold
-                  text-[#FF2D6F]
+                  text-green-700
                 "
               >
                 See All
@@ -188,7 +189,7 @@ export default function CategoryProductSections() {
 
               {category.products?.length > 0 ? (
 
-               category.products.slice(0, 8).map((p) => {
+               category.products.slice(0, 7).map((p) => {
 
                   const discount =
                     p.oldPrice > 0
@@ -262,17 +263,19 @@ export default function CategoryProductSections() {
                               min-w-[72px]
                               rounded-[14px]
                               border-2
-                              border-[#FF2D6F]
-                              bg-white
+                              border-white
+                          
                               px-4
                               text-[16px]
                               font-bold
                               tracking-[0.03em]
-                              text-[#FF2D6F]
+                             
                               shadow-[3px_3px_0px_#0033A1]
                               transition
-                              hover:bg-[#FF2D6F]
-                              hover:text-white
+                             bg-black
+                             text-white
+                             hover:bg-[#1D8F2F]
+                             hover:shadow-[5px_5px_0px_#1D8F2F]
                             "
                           >
                             ADD

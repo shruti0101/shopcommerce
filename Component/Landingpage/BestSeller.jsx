@@ -13,14 +13,14 @@ import { ShoppingBagIcon } from "lucide-react";
 export default function Bestsellers() {
   const products = [
     {
-      title: "Inflatable Lounge Chair",
-      href: "/product/inflatable-lounge-chair",
+      title: "Mobile Holder",
+      href: "/product/mobile-holder",
       price: "899",
       old: "1299",
       discount: "14%",
       rating: "4.6",
       reviews: "33.8K",
-      img: "/best-seller/chair.webp",
+      img: "/f1.jpg",
     },
 
     {
@@ -42,7 +42,7 @@ export default function Bestsellers() {
       discount: "12%",
       rating: "4.6",
       reviews: "1.6K",
-      img: "/best-seller/panda.webp",
+      img: "/f2.webp",
     },
     {
       title: "Jellyfish Lamp Bluetooth Speaker",
@@ -52,7 +52,7 @@ export default function Bestsellers() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/best-seller/jellyfish.webp",
+      img: "/f3.jpg",
     },
     {
       title: "MINI AIR CONDITIONER",
@@ -62,7 +62,7 @@ export default function Bestsellers() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/best-seller/cooler.webp",
+      img: "/f4.jpg",
     },
     {
       title: "KIDS FIGHTER JET",
@@ -72,7 +72,7 @@ export default function Bestsellers() {
       discount: "",
       rating: "4.5",
       reviews: "20.1K",
-      img: "/featured-products/jet.webp",
+      img: "/f6.avif",
     },
 
         {
@@ -83,18 +83,22 @@ export default function Bestsellers() {
       discount: "",
       rating: "4.5",
       reviews: "20.1K",
-      img: "/best-seller/2.webp",
+      img: "/new1.jpg",
     },
   ];
 
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
-    <div className="px-4 md:px-8 py-8 bg-[#fafafa]">
+    <div className="px-4 md:px-8 py-8 bg-[#faf7f2]">
       {/* HEADER */}
-      <h2 className="text-2xl font-bebas md:text-4xl font-semibold text-gray-800 mb-6">
-        Our Bestseller
+      <h2 className="text-2xl tracking-wide font-bebas text-center md:text-5xl font-bold text-black my-4">
+        Our Bestsellers
       </h2>
+
+      <p className="text-center text-gray-800 text-lg mb-3">
+        Top Picks For Everyday Living
+      </p>
 
       <Swiper
         modules={[Navigation, Autoplay]}
@@ -112,16 +116,16 @@ export default function Bestsellers() {
       >
         {products.map((item, i) => (
           <SwiperSlide key={i}>
-            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[420px] overflow-hidden">
+            <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[480px] overflow-hidden">
               {/* IMAGE */}
               <Link href={item.href}>
-                <div className="relative w-full h-[180px] pt-5 md:h-[250px] flex items-center justify-center overflow-hidden bg-gray-50">
+                <div className="relative w-full h-[180px] pt-5 md:h-[280px] flex items-center justify-center overflow-hidden bg-gray-50">
                   <Image
                     src={item.img}
                     width={300}
                     height={300}
                     alt={item.title}
-                    className="object-cover group-hover:scale-105 transition duration-300"
+                    className="object-contain group-hover:scale-105 transition duration-300"
                   />
 
                   {/* Discount Badge */}

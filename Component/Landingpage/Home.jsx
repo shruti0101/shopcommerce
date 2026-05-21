@@ -109,15 +109,15 @@ const mobileBanners = [
 
       <Category></Category>
 
-      <section className="w-full bg-[#f6f6f6]">
+      <section className="w-full bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center md:gap-6 h-full">
           {/* LEFT CONTENT */}
           <div className="md:px-8 p-5 lg:col-span-4 flex flex-col justify-center">
-            <p className="text-xs tracking-[3px] text-gray-500 mb-2">
+            <p className="text-xs font-bebas tracking-[3px] text-gray-500 mb-2">
               NEW COLLECTION
             </p>
 
-            <h1 className="text-2xl xl:text-4xl  font-semibold tracking-tight mb-4">
+            <h1 className="text-2xl xl:text-5xl font-bebas  font-semibold tracking-wide mb-4">
               OUR BESTSELLING COLLECTION
             </h1>
 
@@ -233,7 +233,7 @@ const mobileBanners = [
   {/* WHY SECTION */}
   <section className="py-10 ">
     <div className=" mx-auto px-5 md:px-12">
-      <h2 className="text-3xl md:text-5xl font-semibold leading-tight mb-4">
+      <h2 className="text-3xl md:text-5xl font-bebas tracking-wide leading-tight mb-4">
         Why J L Industries Hub Private Limited is a Preferred Choice?
       </h2>
 
@@ -267,7 +267,7 @@ const mobileBanners = [
 <Subcategory></Subcategory>
 
   {/* USE CASES */}
-  <section className="bg-[#fafafa] py-12 ">
+  {/* <section className="bg-[#fafafa] py-12 ">
     <div className=" mx-auto px-8 md:px-12">
       <h2 className="text-3xl md:text-5xl font-semibold mb-5">
         Perfect for Every Space
@@ -299,12 +299,12 @@ const mobileBanners = [
         ))}
       </div>
     </div>
-  </section>
+  </section> */}
 
   {/* GIFTS */}
   <section className="py-12 ">
     <div className=" mx-auto px-8 md:px-12">
-      <h2 className="text-3xl md:text-5xl font-semibold mb-2">
+      <h2 className="text-3xl md:text-5xl font-bebas tracking-wide mb-2">
         Gifts for Every Occasion
 
       </h2>
@@ -332,7 +332,7 @@ const mobileBanners = [
   {/* SHOPPING */}
   <section className="bg-[#f9f9f9] py-10 ">
     <div className=" mx-auto px-8 md:px-12">
-      <h2 className="text-3xl md:text-5xl font-semibold mb-3">
+      <h2 className="text-3xl md:text-5xl  mb-3 font-bebas tracking-wide">
         Easy and Convenient Shopping Experience
       </h2>
 

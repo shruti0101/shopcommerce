@@ -16,12 +16,12 @@ export default function Clientele() {
     "/brand6.jpeg",
     "/brand2.png",
     "/brand7.jpeg",
-    "/brand1.png",
+
   ];
 
   return (
-    <section className="w-full bg-[#f5f5f5] py-5 px-6 md:px-16 rounded-lg">
-      <h1 className="text-center text-3xl  md:text-6xl">Our Partners</h1>
+    <section className="w-full bg-white py-8 px-6 md:px-16 rounded-lg">
+      <h1 className="text-center text-3xl font-bebas  md:text-6xl">Our Partners</h1>
 
       <div className="relative flex-1 h-[170px] rounded-md  gap-2overflow-hidden">
         <Swiper
