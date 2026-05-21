@@ -114,32 +114,98 @@ export default function Navbar() {
     >
 
       {/* TOP BAR */}
-      <div className="bg-[#071B31] min-h-[42px] flex items-center px-3 sm:px-4 md:px-12 justify-between py-2 gap-2">
+   {/* TOP BAR */}
+<div
+  className="
+    bg-[#071B31]
 
-        {/* LEFT */}
-        <div className="hidden md:flex items-center gap-3 text-[13px] tracking-[0.02em] text-[#c7c7c7] font-medium">
+    flex flex-col
+    sm:flex-row
 
-          <span>GST No. 07AAGCJ7313Q1Z2</span>
+    sm:items-center
+    justify-between
 
-          <span className="opacity-40">|</span>
+    px-3
+    sm:px-4
+    md:px-12
 
-          <span>
-            Trusted Importer & Wholesaler since 2005
-          </span>
+    py-2
 
-        </div>
+    gap-2
+  "
+>
 
-        {/* RIGHT */}
-        <div className="ml-auto flex items-center gap-3 sm:gap-5 md:gap-10 text-[11px] sm:text-[13px] md:text-[14px] font-medium text-[#E8B949] whitespace-nowrap">
+  {/* LEFT */}
+  <div
+    className="
+      flex flex-wrap items-center
 
-          <Link href="/">Track Order</Link>
+      gap-1
+      sm:gap-3
 
-          <Link href="/">Bulk Enquiry</Link>
+      text-[10px]
+      sm:text-[11px]
+      md:text-[13px]
 
-          <Link href="/">Contact Us</Link>
+      tracking-[0.02em]
 
-        </div>
-      </div>
+      text-[#c7c7c7]
+      font-medium
+    "
+  >
+
+    <span className="whitespace-nowrap">
+      GST No. 07AAGCJ7313Q1Z2
+    </span>
+
+    <span className="opacity-40 hidden sm:block">
+      |
+    </span>
+
+    <span className="whitespace-nowrap">
+      Trusted Importer & Wholesaler since 2005
+    </span>
+
+  </div>
+
+  {/* RIGHT */}
+  <div
+    className="
+      flex flex-wrap
+      items-center
+
+      justify-start
+      sm:justify-end
+
+      gap-3
+      sm:gap-5
+      md:gap-10
+
+      text-[10px]
+      sm:text-[12px]
+      md:text-[14px]
+
+      font-medium
+      text-[#E8B949]
+
+      whitespace-nowrap
+    "
+  >
+
+    <Link href="/">
+      Track Order
+    </Link>
+
+    <Link href="/">
+      Bulk Enquiry
+    </Link>
+
+    <Link href="/">
+      Contact Us
+    </Link>
+
+  </div>
+</div>
 
       {/* MAIN NAVBAR */}
       <div className="bg-white border-b-2 border-[#e2cd95]">
