@@ -30,6 +30,7 @@ const desktopBanners = [
   "/banner/banner5.png",
   "/banner/banner-2.png",
   "/banner/banner-1.png",
+  "/banner/banner6.png",
   
 ];
 
@@ -38,6 +39,7 @@ const mobileBanners = [
   "/banner/mob2.png",
    "/banner/mob3.png",
     "/banner/mob4.png",
+    "/banner/mob6.png",
 ];
 
 
