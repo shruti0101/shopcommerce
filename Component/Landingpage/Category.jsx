@@ -93,7 +93,7 @@ export default function ProductSlider() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/featured-products/tumbler.webp",
+      img: "/tumbler.webp",
     },
     {
       title: "Wooden Door Chime with Brass Bell",
@@ -103,7 +103,7 @@ export default function ProductSlider() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/new2.png",
+      img: "/Premium-Wooden-Brass-Bell-Chime.webp",
     },
     {
       title: "Glass Coffee Mug",
@@ -153,7 +153,7 @@ export default function ProductSlider() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/featured-products/black.webp",
+      img: "/vaccumeset.webp",
     },
     {
       title: "Silicone Foldable kettle",
@@ -163,7 +163,7 @@ export default function ProductSlider() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/featured-products/kettle.webp",
+      img: "/foldable.jpg",
     },
     {
       title: "Pooja Thali",
@@ -173,7 +173,7 @@ export default function ProductSlider() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/featured-products/pooja.webp",
+      img: "/poojathali.webp",
     },
   ];
 
@@ -183,102 +183,245 @@ export default function ProductSlider() {
   return (
     <div className="px-4 md:px-8 py-8 bg-white">
       {/* HEADER */}
-      <div className="flex justify-center items-center my-3 md:my-6">
-        <h2 className="text-3xl tracking-wider text-center md:text-5xl font-bold font-bebas text-black">
-         Featured Products
-        </h2>
-      </div>
+    <div className="mb-8 flex flex-col items-center justify-center text-center">
 
-      <Swiper
-        modules={[Navigation, Autoplay]}
-        autoplay={{ delay: 1500, disableOnInteraction: false }}
-        loop
-        navigation
-        spaceBetween={10}
-        slidesPerView={5}
-        breakpoints={{
-          320: { slidesPerView: 2 },
-          520: { slidesPerView: 2 },
-          640: { slidesPerView: 2.5 },
-          1024: { slidesPerView: 4 },
-          1280: { slidesPerView: 5 },
-        }}
+          <span className="mb-2 rounded-full border border-[#d9c7a5] bg-white px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#9f7a3d] shadow-sm">
+            Premium Selection
+          </span>
+
+          <h2 className="font-bebas text-4xl leading-none tracking-wide text-[#111] md:text-7xl">
+            Featured Products
+          </h2>
+
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-[#5c5c5c] md:text-[20px]">
+            Discover trending products crafted to elevate your lifestyle
+            with style, innovation, and everyday convenience.
+          </p>
+        </div>
+
+    <Swiper
+  modules={[Navigation, Autoplay]}
+  autoplay={{ delay: 1500, disableOnInteraction: false }}
+  loop
+  navigation
+  spaceBetween={16}
+  slidesPerView={5}
+  breakpoints={{
+    320: { slidesPerView: 2 },
+    520: { slidesPerView: 2 },
+    640: { slidesPerView: 2.5 },
+    1024: { slidesPerView: 4 },
+    1280: { slidesPerView: 5 },
+  }}
+>
+  {products.map((product, i) => (
+    <SwiperSlide key={i}>
+
+      <div
+        className="
+          group
+          relative
+          mt-3
+          flex
+          h-[380px]
+          md:h-[530px]
+          flex-col
+          overflow-hidden
+          rounded-[30px]
+          border
+          border-[#f1ece5]
+          bg-white
+          shadow-[0_8px_30px_rgba(0,0,0,0.05)]
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_20px_60px_rgba(0,0,0,0.10)]
+        "
       >
-        {products.map((item, i) => (
-          <SwiperSlide key={i}>
-            <div className="group bg-white rounded-2xl border mt-3 border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-[380px] md:h-[480px] overflow-hidden">
-              {/* IMAGE */}
-              <Link href={item.href}>
-                <div className="relative w-full h-[190px] md:h-[300px] bg-white overflow-hidden flex items-center justify-center">
-                  <Image
-                    src={item.img}
-                    width={300}
-                    height={300}
-                    
-                    alt={item.title}
-                    className="object-contain group-hover:scale-105 transition duration-300"
-                  />
 
-                  {/* Discount Badge */}
-                  {item.discount && (
-                    <span className="absolute top-3 left-3 bg-green-600 text-white text-xs px-2 py-1 rounded-md">
-                      {item.discount}
-                    </span>
-                  )}
-                </div>
+        {/* IMAGE */}
+        <Link href={product.href}>
+
+          <div className="relative flex h-[190px] md:h-[300px] w-full items-center justify-center overflow-hidden bg-white">
+
+            {/* GLOW */}
+            <div className="absolute w-[220px] h-[220px] rounded-full bg-[#f5ede1] blur-3xl opacity-60 group-hover:scale-125 transition duration-700" />
+
+            <Image
+              src={product.img}
+              width={300}
+              height={300}
+              alt={product.title}
+              className="relative z-10 object-contain group-hover:scale-105 transition duration-500"
+            />
+
+            {/* DISCOUNT */}
+            {product.discount && (
+              <span
+                className="
+                  absolute
+                  top-4
+                  left-4
+                  z-20
+                  rounded-full
+                  bg-black
+                  px-3
+                  py-1.5
+                  text-[11px]
+                  font-semibold
+                  text-white
+                  shadow-lg
+                "
+              >
+                {product.discount} OFF
+              </span>
+            )}
+
+          </div>
+
+        </Link>
+
+        {/* CONTENT */}
+        <div className="flex flex-1 flex-col justify-between px-5 pb-5 pt-3">
+
+          <Link href={product.href}>
+
+            <div>
+
+              {/* SMALL LABEL */}
+              <p className="text-[11px] uppercase tracking-[0.22em] text-[#9f7a3d] font-semibold">
+                Trending Now
+              </p>
+
+              {/* TITLE */}
+              <h3
+                className="
+                  mt-2
+                  line-clamp-2
+                  text-[16px]
+                  md:text-[21px]
+                  font-semibold
+                  leading-[1.45]
+                  text-[#111]
+                  transition
+                  duration-300
+                  group-hover:text-[#8c6239]
+                "
+              >
+                {product.title}
+              </h3>
+
+              {/* PRICE */}
+              <div className="mt-2 flex items-center gap-2">
+
+                <span className="text-2xl font-bold text-black">
+                  ₹{product.price}
+                </span>
+
+                {product.old && (
+                  <span className="text-sm text-gray-400 line-through">
+                    ₹{product.old}
+                  </span>
+                )}
+
+              </div>
+
+            </div>
+
+          </Link>
+
+          {/* BOTTOM */}
+          <div className="mt-2">
+
+            {/* LINE */}
+            <div className="mb-5 h-[1px] w-full bg-gradient-to-r from-transparent via-[#ebe2d6] to-transparent" />
+
+            {/* BUTTONS */}
+            <div className="flex items-center gap-3">
+
+              {/* ADD TO CART */}
+              <button
+                onClick={(e) => {
+
+                  e.preventDefault();
+
+                  addToCart(
+                    {
+                      ...product,
+                      name: product.title,
+                      images: [product.img],
+                      price: Number(
+                        String(product.price).replace(/,/g, "")
+                      ),
+                    },
+                    1
+                  );
+
+                  toast.success("Added to cart");
+
+                }}
+                className="
+                  flex-1
+                  h-[52px]
+                  rounded-2xl
+                  bg-black
+                  px-5
+                  text-sm
+                  font-semibold
+                  text-white
+                  shadow-lg
+                  transition-all
+                  duration-300
+                  hover:bg-[#1d1d1d]
+                  hover:shadow-xl
+                "
+              >
+
+                <span className="flex items-center justify-center gap-2">
+
+                  <ShoppingBagIcon size={17} />
+
+                  Add To Cart
+
+                </span>
+
+              </button>
+
+              {/* VIEW */}
+              <Link
+                href={product.href}
+                className="
+                  flex
+                  h-[52px]
+                  w-[52px]
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  border
+                  border-[#ece4d8]
+                  bg-white
+                  text-lg
+                  transition-all
+                  duration-300
+                  hover:border-black
+                  hover:bg-black
+                  hover:text-white
+                "
+              >
+                →
               </Link>
 
-              {/* CONTENT */}
-              <div className="flex flex-col flex-1 p-4 justify-between">
-                <Link href={item.href}>
-                  <div>
-                    {/* TITLE */}
-                    <h3 className="text-md  md:text-xl font-medium text-gray-900 line-clamp-2 ">
-                      {item.title}
-                    </h3>
-
-                    {/* PRICE */}
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-lg font-semibold text-gray-900">
-                        ₹{item.price}
-                      </span>
-
-                      {item.old && (
-                        <span className="line-through text-gray-400 text-sm">
-                          ₹{item.old}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-
-                {/* BUTTON */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-
-                    addToCart(
-                      {
-                        ...item,
-                        name: item.title,
-                        images: [item.img],
-                        price: Number(String(item.price).replace(/,/g, "")),
-                      },
-                      1,
-                    );
-
-                    toast.success("Added to cart");
-                  }}
-                  className="w-full flex items-center justify-center gap-2 bg-[#111] text-white px-5 py-2 rounded-lg text-md font-medium hover:bg-black transition"
-                >
-                  <ShoppingBagIcon className="hidden md:block" size={17} />
-                  Add to Cart
-                </button>
-              </div>
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </SwiperSlide>
+  ))}
+</Swiper>
     </div>
   );
 }

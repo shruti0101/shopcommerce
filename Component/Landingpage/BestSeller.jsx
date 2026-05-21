@@ -42,7 +42,7 @@ export default function Bestsellers() {
       discount: "12%",
       rating: "4.6",
       reviews: "1.6K",
-      img: "/f2.webp",
+      img: "/panda.png",
     },
     {
       title: "Jellyfish Lamp Bluetooth Speaker",
@@ -83,7 +83,7 @@ export default function Bestsellers() {
       discount: "",
       rating: "4.5",
       reviews: "20.1K",
-      img: "/new1.jpg",
+      img: "/MATKA.png",
     },
   ];
 
