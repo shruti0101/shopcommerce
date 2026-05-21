@@ -21,7 +21,7 @@ export default function CatSlider() {
   return (
     <section className="bg-[#faf7f2] py-3 md:py-1 md:pb-6">
       <div className="w-full px-2 md:px-10 mx-auto relative">
-   <h2 className="text-2xl font-bebas tracking-wide text-center md:text-6xl  text-black my-5">
+   <h2 className="text-3xl font-bebas tracking-wide text-center md:text-6xl  text-black my-5">
         Our Favourite categories
       </h2>
 

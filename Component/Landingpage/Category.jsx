@@ -183,8 +183,8 @@ export default function ProductSlider() {
   return (
     <div className="px-4 md:px-8 py-8 bg-white">
       {/* HEADER */}
-      <div className="flex justify-center items-center my-6">
-        <h2 className="text-2xl tracking-wider text-center md:text-5xl font-bold font-bebas text-black">
+      <div className="flex justify-center items-center my-3 md:my-6">
+        <h2 className="text-3xl tracking-wider text-center md:text-5xl font-bold font-bebas text-black">
          Featured Products
         </h2>
       </div>
