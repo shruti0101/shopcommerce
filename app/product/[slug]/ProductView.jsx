@@ -388,7 +388,7 @@ const selectedSizeData =
   <button
     onClick={() => {
 
-      // ✅ FORCE SIZE SELECTION
+      //  FORCE SIZE SELECTION
       if (
         product?.sizes?.length > 0 &&
         !selectedSize

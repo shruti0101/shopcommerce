@@ -28,6 +28,8 @@ export default function Hero() {
 const desktopBanners = [
   "/banner4.webp",
   "/banner/banner5.png",
+  "/banner/banner2.png",
+  "/banner/banner1.png",
 ];
 
 const mobileBanners = [
