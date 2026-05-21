@@ -98,7 +98,7 @@ export default function Navbar() {
 
   {/* LEFT */}
   <div className="hidden md:flex items-center gap-3 text-[13px] tracking-[0.02em] text-[#c7c7c7] font-medium">
-    <span>IN Free shipping on orders above ₹999</span>
+    <span>GST No. 07AAGCJ7313Q1Z2</span>
 
     <span className="opacity-40">|</span>
 

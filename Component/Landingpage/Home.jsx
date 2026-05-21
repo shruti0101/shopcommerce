@@ -19,7 +19,8 @@ import Catslider from "./Catslider";
 import Bestsellers from "./BestSeller";
 import Whychoose from "./Whychoose";
 import TestimonialSlider from "./Testimonial";
-import CategorySlider from "./CategorySlider";
+
+import Subcategory from "../Subcategory";
 export default function Hero() {
 
 
@@ -33,6 +34,12 @@ const mobileBanners = [
   "/banner/mob1.png",
   "/banner/mob2.png",
 ];
+
+
+
+
+
+
 
   return (
     <>
@@ -254,89 +261,9 @@ const mobileBanners = [
   </section>
 
   <TestimonialSlider></TestimonialSlider>
-  <CategorySlider></CategorySlider>
 
-  {/* CATEGORIES */}
-  <section className="py-12 ">
-    <div className=" mx-auto px-10">
-      <h2 className="text-3xl md:text-5xl font-semibold mb-5">
-        Explore Our Product Categories
-      </h2>
 
-      <div className="space-y-10">
-        {[
-          {
-            title: "1. Home Furnishing Products",
-            content: [
-              "Your living space reflects your personality. We offer a wide range of furnishing products that enhance comfort and style, including:",
-              "● Cushion covers and fillers",
-              "● Curtains and drapes",
-              "● Sofa covers and throws",
-              "● Decorative fabrics",
-              "These products are designed to add elegance while ensuring long-term usability.",
-            ],
-          },
-          {
-            title: "2. Kitchen & Utility Products",
-            content: [
-              "The kitchen is the heart of every home. Our kitchen range combines practicality with modern design:",
-              "● Storage containers",
-              "● Cookware and utensils",
-              "● Kitchen organizers",
-              "● Utility tools",
-              "Each product is crafted to improve efficiency and convenience in your daily routine.",
-            ],
-          },
-          {
-            title: "3. Bathroom Accessories",
-            content: [
-              "Transform your bathroom into a functional and stylish space with our range of:",
-              "● Towel holders and racks",
-              "● Soap dispensers and holders",
-              "● Bathroom fittings and accessories",
-              "● Utility storage solutions",
-              "Our products ensure hygiene, durability, and modern aesthetics.",
-            ],
-          },
-          {
-            title: "4. Home Decor Items",
-            content: [
-              "Enhance your interiors with thoughtfully designed decor products:",
-              "● Decorative lighting solutions",
-              "● Wall decor and art pieces",
-              "● Showpieces and accessories",
-              "● Functional decor items",
-              "These elements help create a visually appealing and welcoming environment.",
-            ],
-          },
-        
-          {
-            title: "5. Fitness & Health Products",
-            content: [
-              "Stay active and maintain a healthy lifestyle with our range of fitness and health products:",
-              "● Home workout equipment",
-              "● Yoga mats and accessories",
-              "● Fitness accessories",
-              "● Health and wellness products",
-              "Our products are designed to support your daily fitness routine and overall well-being.",
-            ],
-          },
-        ].map((item, i) => (
-          <div key={i}>
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">
-              {item.title}
-            </h3>
-
-            <div className="space-y-1 text-black text-xl leading-relaxed">
-              {item.content.map((line, idx) => (
-                <p key={idx}>{line}</p>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+<Subcategory></Subcategory>
 
   {/* USE CASES */}
   <section className="bg-[#fafafa] py-12 ">
