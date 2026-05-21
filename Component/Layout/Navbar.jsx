@@ -113,7 +113,6 @@ export default function Navbar() {
       }`}
     >
 
-      {/* TOP BAR */}
    {/* TOP BAR */}
 <div
   className="
@@ -538,7 +537,7 @@ export default function Navbar() {
       </div>
 
       {/* CATEGORY NAV */}
-      <div className="h-[54px] sm:h-[60px] md:h-[70px] flex items-center px-2 sm:px-4 bg-[#FAF7F2] border-b border-[#d9d0c7] overflow-hidden">
+      <div className="h-[54px] sm:h-[60px] md:h-[65px] flex items-center px-2 sm:px-4 bg-[#FAF7F2] border-b border-[#d9d0c7] overflow-hidden">
 
         <Swiper
           modules={[FreeMode, Autoplay]}
@@ -569,7 +568,7 @@ export default function Navbar() {
                   rounded-full
                   border border-[#DDCFB5]
                   bg-[#FAF7F2]
-                  text-[12px] sm:text-[14px] md:text-[20px]
+                  text-[12px] sm:text-[14px] md:text-[18px]
                   font-medium
                   text-black
                   whitespace-nowrap
