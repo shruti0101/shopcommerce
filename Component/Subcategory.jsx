@@ -151,7 +151,7 @@ export default function CategoryProductSections() {
 
               <h2
                 className="
-                  text-[28px]
+                  text-[20px] md:text-[28px]
                   font-bold
                   tracking-[-0.5px]
                   text-[#1A1230]
