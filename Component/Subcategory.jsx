@@ -135,7 +135,7 @@ export default function CategoryProductSections() {
   }, []);
 
   return (
-    <div className="bg-[#F7F7F7]">
+    <div className="bg-[#faf7f2]">
 
       {categories.map((category) => (
 
@@ -189,7 +189,7 @@ export default function CategoryProductSections() {
 
               {category.products?.length > 0 ? (
 
-               category.products.slice(0, 7).map((p) => {
+               category.products.slice(0, 6).map((p) => {
 
                   const discount =
                     p.oldPrice > 0

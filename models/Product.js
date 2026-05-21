@@ -37,6 +37,18 @@ const ProductSchema = new mongoose.Schema({
 ],
 
 
+colors: [
+  {
+    color: String,
+
+    code: {
+      type: String,
+      default: "",
+    },
+  },
+],
+
+
   specifications: [
     {
       key: String,

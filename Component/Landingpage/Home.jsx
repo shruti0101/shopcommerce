@@ -227,6 +227,7 @@ const mobileBanners = [
       </section> */}
 
       <Whychoose></Whychoose>
+      <Subcategory></Subcategory>
 
     <div className="bg-white">
 
@@ -264,7 +265,7 @@ const mobileBanners = [
   <TestimonialSlider></TestimonialSlider>
 
 
-<Subcategory></Subcategory>
+
 
   {/* USE CASES */}
   {/* <section className="bg-[#fafafa] py-12 ">
@@ -330,7 +331,7 @@ const mobileBanners = [
   </section>
 
   {/* SHOPPING */}
-  <section className="bg-[#f9f9f9] py-10 ">
+  <section className="bg-white py-10 ">
     <div className=" mx-auto px-8 md:px-12">
       <h2 className="text-3xl md:text-5xl  mb-3 font-bebas tracking-wide">
         Easy and Convenient Shopping Experience

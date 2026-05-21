@@ -123,7 +123,7 @@ const [longdescription, setLongdescription] = useState("");
 
 const [features, setFeatures] = useState("");
 const [stock, setStock] = useState(true);
-
+const [colors, setColors] = useState([]);
 const [youtubeLink, setYoutubeLink] = useState("");
 const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [categories, setCategories] = useState([]);
@@ -139,6 +139,37 @@ const [editorKey, setEditorKey] = useState(0);
 
 // state for sizes and stock
 const [sizes, setSizes] = useState([]);
+
+
+
+
+
+// for colors
+
+const addColor = () => {
+  setColors([
+    ...colors,
+    {
+      color: "",
+      code: "",
+    },
+  ]);
+};
+
+const updateColor = (index, field, value) => {
+  const updated = [...colors];
+
+  updated[index][field] = value;
+
+  setColors(updated);
+};
+
+const removeColor = (index) => {
+  setColors(colors.filter((_, i) => i !== index));
+};
+
+
+
 
 
 // for sizes
@@ -257,9 +288,13 @@ oldPrice: oldPrice ? Number(oldPrice) : 0,
   category,
   images,
 sizes: sizes.filter(
-  (s) =>
-    s.size?.trim() &&
-    s.price !== ""
+  (s) => s.size?.trim()
+),
+
+
+
+colors: colors.filter(
+  (c) => c.color?.trim()
 ),
     youtubeLink,
   longdescription,
@@ -296,8 +331,8 @@ const resetForm = () => {
   setFeatures("");
   setStock(true);
   setLongdescription("");
-
-  // ✅ FIXED
+setColors([]);
+ 
 setSizes([]);
 
   setSpecs([{ key: "", value: "" }]);
@@ -322,6 +357,15 @@ const handleEdit = (p) => {
   setCategory(p.category?._id || p.category);
   setImages(p.images);
 
+setColors(
+  p.colors?.length
+    ? p.colors.map((c) => ({
+        color: c.color || "",
+        code: c.code || "",
+      }))
+    : []
+);
+  
 
 setSizes(
   p.sizes?.length
@@ -658,7 +702,195 @@ const filteredProducts = products.filter((p) => {
   </div>
 )}
 
+
+
+
+
+{/* COLORS */}
+<div className="mb-4">
+
+  {colors.length === 0 ? (
+
+    <button
+      type="button"
+      onClick={() =>
+        setColors([
+          {
+            color: "",
+            code: "",
+          },
+        ])
+      }
+      className="bg-black text-white px-5 py-3 rounded-xl"
+    >
+      Add Colors
+    </button>
+
+  ) : (
+
+    <button
+      type="button"
+      onClick={() => setColors([])}
+      className="bg-red-500 text-white px-5 py-3 rounded-xl"
+    >
+      Remove Colors
+    </button>
+
+  )}
+
+</div>
+
+
+{/* COLOR SECTION */}
+{colors.length > 0 && (
+
+  <div className="bg-white p-6 rounded-2xl shadow-sm">
+
+    <div className="flex justify-between items-center mb-4">
+
+      <h2 className="font-semibold text-black">
+        Colors
+      </h2>
+
+      <button
+        type="button"
+        onClick={addColor}
+        className="text-sm bg-black text-white px-4 py-2 rounded-lg"
+      >
+        + Add Color
+      </button>
+
+    </div>
+
+    <div className="space-y-4">
+
+      {colors.map((item, i) => (
+
+        <div
+          key={i}
+          className="
+            grid
+            grid-cols-1
+            md:grid-cols-12
+            gap-4
+            border
+            p-4
+            rounded-xl
+          "
+        >
+
+          {/* COLOR NAME */}
+          <div className="md:col-span-4">
+
+            <label className="text-sm font-medium text-gray-700 mb-1 block">
+              Color Name
+            </label>
+
+            <input
+              placeholder="Black"
+              value={item.color}
+              onChange={(e) =>
+                updateColor(i, "color", e.target.value)
+              }
+              className="
+                border
+                p-3
+                rounded-lg
+                border-black
+                w-full
+              "
+            />
+
+          </div>
+
+          {/* COLOR PICKER */}
+          <div className="md:col-span-6">
+
+            <label className="text-sm font-medium text-gray-700 mb-1 block">
+              Select Color
+            </label>
+
+            <div className="flex items-center gap-3">
+
+              {/* PICKER */}
+              <input
+                type="color"
+                value={item.code || "#000000"}
+                onChange={(e) =>
+                  updateColor(i, "code", e.target.value)
+                }
+                className="
+                  w-16
+                  h-12
+                  border
+                  rounded-lg
+                  cursor-pointer
+                  bg-white
+                  p-1
+                "
+              />
+
+              {/* PREVIEW */}
+              <div
+                className="
+                  flex-1
+                  h-12
+                  rounded-lg
+                  border
+                "
+                style={{
+                  background:
+                    item.code || "#000000",
+                }}
+              />
+
+            </div>
+
+          </div>
+
+          {/* REMOVE */}
+          <div className="md:col-span-2">
+
+            <label className="text-sm text-transparent block mb-1">
+              Delete
+            </label>
+
+            <button
+              type="button"
+              onClick={() => removeColor(i)}
+              className="
+                bg-red-100
+                text-red-600
+                rounded-lg
+                h-12
+                w-full
+              "
+            >
+              ✕ Remove
+            </button>
+
+          </div>
+
+        </div>
+
+      ))}
+
+    </div>
+
+  </div>
+
+)}
+
       </div>
+
+
+
+
+
+
+
+
+
 
       {/* RIGHT PANEL */}
       <div className="space-y-6">

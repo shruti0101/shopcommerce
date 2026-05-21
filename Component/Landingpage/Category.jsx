@@ -96,14 +96,14 @@ export default function ProductSlider() {
       img: "/featured-products/tumbler.webp",
     },
     {
-      title: "Pelvic Massager",
-      href: "/product/silicone-wand-massager",
+      title: "Wooden Door Chime with Brass Bell",
+      href: "/product/wooden-door-chime-with-brass-bell",
       price: "799",
       old: "1,320",
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/featured-products/pelvic.webp",
+      img: "/new2.png",
     },
     {
       title: "Glass Coffee Mug",

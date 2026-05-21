@@ -451,7 +451,7 @@ const [selectedSize, setSelectedSize] = useState("");
 {/* SIZE MODAL */}
 {sizeModal && selectedProduct && (
 
-  <div className="fixed top-25 inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+<div className="fixed inset-0 z-[99999] bg-black/60 flex items-center justify-center p-4">
 
     <div className="bg-white w-full max-w-md rounded-2xl p-5 relative">
 

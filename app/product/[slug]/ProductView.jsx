@@ -20,7 +20,7 @@ export default function ProductView({ product, relatedProducts }) {
   const [activeTab, setActiveTab] = useState("description");
   const [animate, setAnimate] = useState(false);
  const [selectedSize, setSelectedSize] = useState("");
-
+const [selectedColor, setSelectedColor] = useState("");
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQty = useCartStore((state) => state.updateQty);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -34,6 +34,12 @@ export default function ProductView({ product, relatedProducts }) {
   );
 
 
+
+  // for colors
+  const selectedColorData =
+  product.colors?.find(
+    (c) => c.color === selectedColor
+  ) || null;
 
 
 const selectedSizeData =
@@ -273,6 +279,53 @@ const selectedSizeData =
             </div>
           )}
 
+
+
+          {/* COLORS */}
+{product?.colors?.length > 0 && (
+  <div className="mt-5">
+
+    <h3 className="font-semibold mb-3">
+      Select Color
+    </h3>
+
+    <div className="flex flex-wrap gap-3">
+
+      {product.colors.map((item, i) => (
+
+        <button
+          key={i}
+          onClick={() => setSelectedColor(item.color)}
+          className={`flex items-center gap-2 border rounded-xl px-4 py-2 transition ${
+            selectedColor === item.color
+              ? "border-black bg-black text-white"
+              : "border-gray-300 bg-white"
+          }`}
+        >
+
+          {/* COLOR DOT */}
+          <span
+            className="w-5 h-5 rounded-full border"
+            style={{
+              backgroundColor:
+                item.code || "#000",
+            }}
+          />
+
+          {/* NAME */}
+          <span className="text-sm font-medium">
+            {item.color}
+          </span>
+
+        </button>
+
+      ))}
+
+    </div>
+
+  </div>
+)}
+
           {/* SPECIFICATIONS */}
           {product?.specifications?.length > 0 && (
             <div className="mt-6 border-t pt-5 font-caladea">
@@ -345,20 +398,21 @@ const selectedSizeData =
         return;
       }
 
-      // ✅ GET SELECTED SIZE DATA
+      // GET SELECTED SIZE DATA
       const selectedSizeData =
         product?.sizes?.find(
           (s) => s.size === selectedSize
         );
 
-      // ✅ ADD TO CART
+      // ADD TO CART
       addToCart(
         {
           ...product,
 
           selectedSize,
+          selectedColor,
 
-          // ✅ PRICE CHANGE ACCORDING TO SIZE
+          // PRICE CHANGE ACCORDING TO SIZE
           price:
             selectedSizeData?.price ||
             product.price,

@@ -108,7 +108,7 @@ const [selectedSize, setSelectedSize] =
           </select>
         </div>
 
-        {/* ✅ SHIMMER SKELETON */}
+        {/*  SHIMMER SKELETON */}
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 pb-10">
             {[...Array(8)].map((_, i) => (
@@ -154,7 +154,7 @@ const [selectedSize, setSelectedSize] =
                     className="w-full h-[180px] sm:h-[220px] md:h-[260px] lg:h-[310px] object-cover group-hover:scale-110 transition duration-500"
                   />
 
-                  {/* ADD TO CART */}
+                
                {/* ADD TO CART */}
 <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition flex items-center p-2 sm:p-3">
 
@@ -163,7 +163,7 @@ const [selectedSize, setSelectedSize] =
 
       e.preventDefault();
 
-      // ✅ HAS SIZES
+      //  HAS SIZES
       if (p?.sizes?.length > 0) {
 
         setSelectedProduct(p);
@@ -175,7 +175,7 @@ const [selectedSize, setSelectedSize] =
         return;
       }
 
-      // ✅ NORMAL PRODUCT
+      //  NORMAL PRODUCT
       addToCart({
         _id: p._id,
         name: p.name,
@@ -242,7 +242,7 @@ const [selectedSize, setSelectedSize] =
 {/* SIZE MODAL */}
 {sizeModal && selectedProduct && (
 
-  <div className="fixed top-20 inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div className="fixed top-0 inset-0 z-99999 bg-black/60 flex items-center justify-center p-4">
 
     <div className="bg-white w-full max-w-md rounded-2xl p-5 relative">
 
