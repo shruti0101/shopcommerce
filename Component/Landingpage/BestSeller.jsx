@@ -92,7 +92,7 @@ export default function Bestsellers() {
   return (
     <div className="px-4 md:px-8 py-8 bg-[#fafafa]">
       {/* HEADER */}
-      <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-6">
+      <h2 className="text-2xl font-bebas md:text-4xl font-semibold text-gray-800 mb-6">
         Our Bestseller
       </h2>
 

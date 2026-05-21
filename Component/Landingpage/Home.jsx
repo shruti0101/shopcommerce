@@ -117,7 +117,7 @@ const mobileBanners = [
               NEW COLLECTION
             </p>
 
-            <h1 className="text-2xl xl:text-4xl font-semibold tracking-tight mb-4">
+            <h1 className="text-2xl xl:text-4xl  font-semibold tracking-tight mb-4">
               OUR BESTSELLING COLLECTION
             </h1>
 

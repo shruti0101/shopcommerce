@@ -52,12 +52,12 @@ export default function CategoryProductSections() {
                   return true;
                 }
 
-                // ✅ CATEGORY STRING
+                //  CATEGORY STRING
                 if (p.category === cat.slug) {
                   return true;
                 }
 
-                // ✅ FALLBACK FOR BROKEN PRODUCTS
+                //  FALLBACK FOR BROKEN PRODUCTS
                 // (category: null)
 
                 const productName =
