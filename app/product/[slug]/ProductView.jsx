@@ -91,150 +91,272 @@ const selectedSizeData =
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* left */}
-        <div className="md:sticky md:top-38 self-start">
-           <p className="text-gray-500 uppercase mb-5 text-xs sm:text-sm tracking-[2px] font-poppins">
-        Home /{" "}
-        <span className="uppercase">
-          {product.category?.name}
-        </span>{" "}
-        /{" "}
-        <span className="text-black capitalize font-semibold">
-          {product.name}
-        </span>
-      </p>
+      {/* LEFT */}
+<div className="md:sticky md:top-38 self-start">
 
-          {/* main image div */}
-       {/* MAIN IMAGE SLIDER */}
-<Swiper
-  modules={[Autoplay]}
-  autoplay={{
-    delay: 2500,
-    disableOnInteraction: false,
-  }}
-  loop={true}
-  spaceBetween={0}
-  className="overflow-hidden bg-white rounded-[32px] border border-gray-100 relative shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
->
-  {/* IMAGE SLIDES */}
-  {product.images?.map((img, i) => (
-    <SwiperSlide key={i}>
+  {/* BREADCRUMB */}
+  <p className="text-gray-500 uppercase mb-5 text-xs sm:text-sm tracking-[2px] font-poppins">
+    Home /{" "}
+    <span className="uppercase">
+      {product.category?.name}
+    </span>{" "}
+    /{" "}
+    <span className="text-black capitalize font-semibold">
+      {product.name}
+    </span>
+  </p>
 
-      <div
-        className={`relative overflow-hidden ${
-          activeMedia.type === "image"
-            ? "cursor-zoom-in"
-            : "cursor-default"
-        }`}
-        onMouseMove={
-          activeMedia.type === "image"
-            ? handleMouseMove
-            : undefined
-        }
-        onMouseLeave={
-          activeMedia.type === "image"
-            ? handleMouseLeave
-            : undefined
-        }
-      >
-      <Image src={activeMedia.value} width={1500} height={1000} priority className="w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" style={zoomStyle} alt={product.name} />
-      </div>
+  {/* MAIN SLIDER */}
+  <Swiper
+    modules={[Autoplay]}
+    autoplay={{
+      delay: 2500,
+      disableOnInteraction: false,
+    }}
+    loop={true}
+    spaceBetween={0}
+    onSlideChange={(swiper) => {
 
-    </SwiperSlide>
-  ))}
+      const realIndex = swiper.realIndex;
 
-  {/* YOUTUBE VIDEO */}
-  {product.youtubeLink && (
-    <SwiperSlide>
+      // IMAGE
+      if (
+        realIndex <
+        product.images?.length
+      ) {
 
-      <iframe
-        src={getYoutubeEmbedUrl(product.youtubeLink)}
-        className="w-full h-[350px] md:h-[620px]"
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-      />
+        setActiveMedia({
+          type: "image",
+          value: product.images[realIndex],
+        });
 
-    </SwiperSlide>
-  )}
-</Swiper>
+      }
 
-{/* THUMBNAILS */}
-<Swiper
-  spaceBetween={14}
-  slidesPerView={"auto"}
-  className="mt-6"
->
-  {/* IMAGE THUMBNAILS */}
-  {product.images?.map((img, i) => (
-    <SwiperSlide key={i} className="!w-auto">
+      // VIDEO
+      else if (product.youtubeLink) {
 
-      <div
-        onClick={() =>
-          setActiveMedia({
-            type: "image",
-            value: img,
-          })
-        }
-        className={`relative overflow-hidden rounded-2xl cursor-pointer border bg-white transition-all duration-300 shadow-sm ${
-          activeMedia.value === img
-            ? "border-black shadow-xl scale-105"
-            : "border-gray-200 hover:border-black hover:scale-105"
-        }`}
-      >
-        <img
-          src={img}
-          alt={`product-${i}`}
-          className="h-24 w-24 object-contain bg-white p-2"
+        setActiveMedia({
+          type: "video",
+          value: product.youtubeLink,
+        });
+
+      }
+
+    }}
+    className="
+      overflow-hidden
+      bg-white
+      rounded-[20px]
+      sm:rounded-[26px]
+      md:rounded-[32px]
+      border
+      border-gray-100
+      relative
+      shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+    "
+  >
+
+    {/* IMAGE SLIDES */}
+    {product.images?.map((img, i) => (
+
+      <SwiperSlide key={i}>
+
+        <div
+          className={`
+            relative
+            overflow-hidden
+            bg-white
+            ${
+              activeMedia.type === "image"
+                ? "cursor-zoom-in"
+                : "cursor-default"
+            }
+          `}
+          onMouseMove={
+            activeMedia.type === "image"
+              ? handleMouseMove
+              : undefined
+          }
+          onMouseLeave={
+            activeMedia.type === "image"
+              ? handleMouseLeave
+              : undefined
+          }
+        >
+
+          <Image
+            src={img}
+            width={1500}
+            height={1000}
+            priority
+            alt={product.name}
+            style={
+              activeMedia.value === img
+                ? zoomStyle
+                : {}
+            }
+            className="width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" 
+            
+          />
+        </div>
+
+      </SwiperSlide>
+
+    ))}
+
+    {/* VIDEO */}
+    {product.youtubeLink && (
+
+      <SwiperSlide>
+
+        <iframe
+          src={getYoutubeEmbedUrl(product.youtubeLink)}
+          className="
+            w-full
+            h-[300px]
+            sm:h-[420px]
+            md:h-[560px]
+          "
+          allow="autoplay; encrypted-media"
+          allowFullScreen
         />
 
-        {activeMedia.value === img && (
-          <div className="absolute inset-x-0 bottom-0 h-1 bg-black" />
-        )}
-      </div>
+      </SwiperSlide>
 
-    </SwiperSlide>
-  ))}
+    )}
 
-  {/* YOUTUBE THUMBNAIL */}
-  {product.youtubeLink && (
-    <SwiperSlide className="!w-auto">
+  </Swiper>
 
-      <div
-        onClick={() =>
-          setActiveMedia({
-            type: "video",
-            value: product.youtubeLink,
-          })
-        }
-        className={`relative flex items-center justify-center h-24 w-24 rounded-2xl cursor-pointer border bg-white transition-all duration-300 shadow-sm ${
-          activeMedia.type === "video"
-            ? "border-red-500 shadow-xl scale-105"
-            : "border-gray-200 hover:border-red-400 hover:scale-105"
-        }`}
+  {/* THUMBNAILS */}
+  <Swiper
+    spaceBetween={12}
+    slidesPerView={"auto"}
+    className="mt-5"
+  >
+
+    {/* IMAGE THUMBNAILS */}
+    {product.images?.map((img, i) => (
+
+      <SwiperSlide
+        key={i}
+        className="!w-auto"
       >
-        <img
-          src={`https://img.youtube.com/vi/${
-            getYoutubeEmbedUrl(product.youtubeLink)
-              .split("/embed/")[1]
-              ?.split("?")[0]
-          }/hqdefault.jpg`}
-          className="w-full h-full object-cover rounded-2xl"
-          alt="youtube-thumbnail"
-        />
 
-        {/* PLAY ICON */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-2xl">
+        <div
+          onClick={() =>
+            setActiveMedia({
+              type: "image",
+              value: img,
+            })
+          }
+          className={`
+            relative
+            overflow-hidden
+            rounded-2xl
+            cursor-pointer
+            border
+            bg-white
+            transition-all
+            duration-300
+            shadow-sm
+            ${
+              activeMedia.value === img
+                ? "border-black shadow-xl scale-105"
+                : "border-gray-200 hover:border-black hover:scale-105"
+            }
+          `}
+        >
 
-          <div className="bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg shadow-lg">
-            ▶
+          <img
+            src={img}
+            alt={`product-${i}`}
+            className="
+              h-20
+              w-20
+              sm:h-24
+              sm:w-24
+              object-contain
+              bg-white
+              p-2
+            "
+          />
+
+          {activeMedia.value === img && (
+
+            <div className="absolute inset-x-0 bottom-0 h-1 bg-black" />
+
+          )}
+
+        </div>
+
+      </SwiperSlide>
+
+    ))}
+
+    {/* VIDEO THUMB */}
+    {product.youtubeLink && (
+
+      <SwiperSlide className="!w-auto">
+
+        <div
+          onClick={() =>
+            setActiveMedia({
+              type: "video",
+              value: product.youtubeLink,
+            })
+          }
+          className={`
+            relative
+            flex
+            items-center
+            justify-center
+            h-20
+            w-20
+            sm:h-24
+            sm:w-24
+            rounded-2xl
+            cursor-pointer
+            border
+            bg-white
+            transition-all
+            duration-300
+            shadow-sm
+            ${
+              activeMedia.type === "video"
+                ? "border-red-500 shadow-xl scale-105"
+                : "border-gray-200 hover:border-red-400 hover:scale-105"
+            }
+          `}
+        >
+
+          <img
+            src={`https://img.youtube.com/vi/${
+              getYoutubeEmbedUrl(product.youtubeLink)
+                .split("/embed/")[1]
+                ?.split("?")[0]
+            }/hqdefault.jpg`}
+            className="w-full h-full object-cover rounded-2xl"
+            alt="youtube-thumbnail"
+          />
+
+          {/* PLAY ICON */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-2xl">
+
+            <div className="bg-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center text-sm shadow-lg">
+              ▶
+            </div>
+
           </div>
 
         </div>
-      </div>
 
-    </SwiperSlide>
-  )}
-</Swiper>
-        </div>
+      </SwiperSlide>
+
+    )}
+
+  </Swiper>
+
+</div>
 
         {/* right */}
        <div className="relative">
