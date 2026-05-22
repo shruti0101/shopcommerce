@@ -251,23 +251,23 @@ const selectedSizeData =
   </div>
 
   {/* PRODUCT TITLE */}
-  <h1 className="text-[34px] md:text-[48px] leading-[1.05] font-caladea font-semibold text-black max-w-xl">
+  <h1 className="text-[34px] md:text-[40px] leading-[1.05] font-caladea font-semibold text-black max-w-xl">
     {product.name}
   </h1>
 
   {/* PRICE SECTION */}
-  <div className="mt-7 flex items-end flex-wrap gap-4">
+  <div className="mt-4 flex items-end flex-wrap gap-4">
 
     <div className="flex items-end gap-3">
 
-      <span className="text-[38px] md:text-[40px] font-caladea font-semibold tracking-tight text-black">
+      <span className="text-[38px]   font-semibold tracking-tight text-black">
         ₹{selectedSizeData?.price || product.price}
       </span>
 
       {(selectedSizeData?.oldPrice ||
         product.oldPrice) > 0 && (
 
-        <span className="text-lg text-gray-400 line-through mb-2">
+        <span className="text-md text-gray-400 line-through mb-2">
           ₹
           {selectedSizeData?.oldPrice ||
             product.oldPrice}
@@ -311,7 +311,7 @@ const selectedSizeData =
   {/* DESCRIPTION */}
   <div className="mt-4">
 
-    <p className="text-[17px] leading-[32px] text-gray-700 font-caladea max-w-2xl">
+    <p className="text-[15px] ] text-gray-800 font-caladea max-w-2xl">
       {product.description}
     </p>
 
@@ -320,7 +320,7 @@ const selectedSizeData =
   {/* SIZE */}
   {product?.sizes?.length > 0 && (
 
-    <div className="mt-10">
+    <div className="mt-5">
 
       <div className="flex items-center justify-between mb-5">
 
@@ -328,9 +328,7 @@ const selectedSizeData =
           Select Size
         </h3>
 
-        <button className="text-sm text-gray-500 hover:text-black transition">
-          Size Guide
-        </button>
+      
 
       </div>
 
@@ -374,7 +372,7 @@ const selectedSizeData =
   {/* COLORS */}
   {product?.colors?.length > 0 && (
 
-    <div className="mt-10">
+    <div className="mt-7">
 
       <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-5">
         Select Color
@@ -431,10 +429,10 @@ const selectedSizeData =
   {/* SPECIFICATIONS */}
   {product?.specifications?.length > 0 && (
 
-    <div className="mt-12">
+    <div className="mt-10">
 
       <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-6">
-        Product Details
+        Product Specifications
       </h3>
 
       <div className="space-y-4">
@@ -465,7 +463,7 @@ const selectedSizeData =
   )}
 
   {/* QUANTITY */}
-  <div className="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+  <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
 
     {/* QUANTITY BOX */}
     <div>
@@ -519,7 +517,7 @@ const selectedSizeData =
   </div>
 
   {/* CTA BUTTONS */}
-  <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
 
     {/* CART */}
     <button

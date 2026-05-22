@@ -30,7 +30,7 @@ const desktopBanners = [
   "/banner/banner5.png",
     "/banner/banner-2.png",
     "/banner/banner-1.png",
-    // "/banner/banner6.png",
+    "/banner/banner6.png",
   
 ];
 
@@ -57,7 +57,7 @@ const mobileBanners = [
 {/* h-[400px] sm:h-[25vh] md:h-[30vh] xl:h-[85vh]  */}
 
       <section className="w-full bg-[#f7f7f7]">
-        <div className="relative h-[400px]  md:h-full md:w-full overflow-hidden">
+        <div className="relative h-[400px]  md:h-[75vh] md:w-full overflow-hidden">
 
           {/* ONE SWIPER (handles both desktop + mobile) */}
           <Swiper

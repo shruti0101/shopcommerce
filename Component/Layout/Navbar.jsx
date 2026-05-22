@@ -571,7 +571,7 @@ export default function Navbar() {
           rounded-full
           border border-[#DDCFB5]
           bg-[#FAF7F2]
-          text-[12px] sm:text-[14px] md:text-[18px]
+          text-[12px] sm:text-[14px] md:text-[16px]
           font-medium
           text-black
           whitespace-nowrap
