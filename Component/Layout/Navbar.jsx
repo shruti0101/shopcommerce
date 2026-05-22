@@ -533,54 +533,63 @@ export default function Navbar() {
       </div>
 
       {/* CATEGORY NAV */}
-      <div className="h-[54px] sm:h-[60px] md:h-[65px] flex items-center px-2 sm:px-4 bg-[#FAF7F2] border-b border-[#d9d0c7] overflow-hidden">
+{/* CATEGORY NAV */}
+<div className="h-[54px] sm:h-[60px] md:h-[65px] flex items-center px-2 sm:px-4 bg-[#FAF7F2] border-b border-[#d9d0c7] overflow-hidden">
 
-        <Swiper
-          modules={[FreeMode, Autoplay]}
-          slidesPerView="auto"
-          spaceBetween={10}
-          freeMode={true}
-          loop={true}
-          speed={4000}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: false,
-          }}
-          allowTouchMove={true}
-          className="flex-1"
+  <Swiper
+    modules={[FreeMode, Autoplay]}
+    slidesPerView="auto"
+    spaceBetween={10}
+    freeMode={{
+      enabled: true,
+      momentum: false,
+    }}
+    loop={true}
+    speed={3000}
+    autoplay={{
+      delay: 1,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+    }}
+    allowTouchMove={true}
+    grabCursor={true}
+    observer={true}
+    observeParents={true}
+    className="flex-1 category-swiper"
+  >
+
+    {categories.map((cat) => (
+
+      <SwiperSlide key={cat._id} className="!w-auto">
+
+        <Link
+          href={`/category/${cat.slug}`}
+          className="
+            inline-flex items-center
+            h-[32px] sm:h-[36px] md:h-[45px]
+            px-4 sm:px-5 md:px-7
+            rounded-full
+            border border-[#DDCFB5]
+            bg-[#FAF7F2]
+            text-[12px] sm:text-[14px] md:text-[18px]
+            font-medium
+            text-black
+            whitespace-nowrap
+            hover:bg-[#071b31]
+            hover:text-white
+            transition-all duration-200
+          "
         >
+          {cat.name}
+        </Link>
 
-          {categories.map((cat) => (
+      </SwiperSlide>
 
-            <SwiperSlide key={cat._id} className="!w-auto">
+    ))}
 
-              <Link
-                href={`/category/${cat.slug}`}
-                className="
-                  inline-flex items-center
-                  h-[32px] sm:h-[36px] md:h-[45px]
-                  px-4 sm:px-5 md:px-7
-                  rounded-full
-                  border border-[#DDCFB5]
-                  bg-[#FAF7F2]
-                  text-[12px] sm:text-[14px] md:text-[18px]
-                  font-medium
-                  text-black
-                  whitespace-nowrap
-                  hover:bg-[#071b31]
-                  hover:text-white
-                  transition-all duration-200
-                "
-              >
-                {cat.name}
-              </Link>
+  </Swiper>
 
-            </SwiperSlide>
-
-          ))}
-        </Swiper>
-      </div>
+</div>
 
       {/* MOBILE OVERLAY */}
       {menuOpen && (

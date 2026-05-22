@@ -104,7 +104,7 @@ export default function Bestsellers() {
     viewBox="0 0 500 150"
     preserveAspectRatio="none"
     aria-hidden="true"
-    className="absolute left-1/2 -translate-x-1/2 bottom-[-10px] md:bottom-[0px] w-[180px] md:w-[400px] h-[40px] md:h-[68px] text-black"
+    className="hidden md:block absolute left-1/2 -translate-x-1/2 bottom-[-10px] md:bottom-[0px] w-[180px] md:w-[400px] h-[40px] md:h-[68px] text-black"
   >
     <path
       d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7 c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"

@@ -219,206 +219,257 @@ export default function CategoryProductSections() {
             </div>
 
             {/* PRODUCTS */}
+        {/* PRODUCTS */}
+<div
+  className="
+    grid
+    grid-cols-2
+    sm:grid-cols-2
+    md:flex
+    md:gap-5
+    gap-4
+    md:overflow-x-auto
+    scrollbar-hide
+    pb-2
+  "
+>
+
+  {category.products?.length > 0 ? (
+
+    category.products.slice(0, 6).map((p) => {
+
+      const discount =
+        p.oldPrice > 0
+          ? p.oldPrice - p.price
+          : 0;
+
+      return (
+
+        <div
+          key={p._id}
+          className="
+            w-full
+            md:min-w-[220px]
+            md:max-w-[220px]
+            flex-shrink-0
+          "
+        >
+
+          {/* PRODUCT CARD */}
+          <Link href={`/product/${p.slug}`}>
+
             <div
               className="
-                flex gap-5
-                overflow-x-auto
-                scrollbar-hide
-                pb-2
+                group
+                relative
+                h-[180px]
+                sm:h-[220px]
+                md:h-[240px]
+                rounded-[18px]
+                border
+                border-[#E6E8EC]
+                bg-white
+                overflow-hidden
+                px-3
+                sm:px-4
+                pt-3
+                shadow-sm
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:shadow-xl
               "
             >
 
-              {category.products?.length > 0 ? (
+              {/* IMAGE GLOW */}
+              <div
+                className="
+                  absolute
+                  top-1/2
+                  left-1/2
+                  h-[120px]
+                  w-[120px]
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rounded-full
+                  bg-[#eef6ef]
+                  blur-3xl
+                "
+              />
 
-               category.products.slice(0, 6).map((p) => {
+              {/* IMAGE */}
+              <img
+                src={
+                  p.images?.[0]?.trim?.()
+                    ? p.images[0]
+                    : "/placeholder.png"
+                }
+                alt={p.name}
+                className="
+                  relative
+                  z-10
+                  h-full
+                  w-full
+                  object-contain
+                  transition-transform
+                  duration-500
+                  group-hover:scale-105
+                "
+              />
 
-                  const discount =
-                    p.oldPrice > 0
-                      ? p.oldPrice - p.price
-                      : 0;
+              {/* ADD BUTTON */}
+              <button
+                onClick={(e) => {
 
-                  return (
+                  e.preventDefault();
 
-                    <div
-                      key={p._id}
-                      className="
-                        min-w-[200px]
-                        max-w-[180px]
-                        flex-shrink-0
-                      "
-                    >
+                  addToCart({
+                    _id: p._id,
+                    name: p.name,
+                    slug: p.slug,
+                    price: p.price,
+                    oldPrice: p.oldPrice,
+                    images: p.images,
+                    quantity: 1,
+                  });
 
-                      {/* PRODUCT CARD */}
-                      <Link href={`/product/${p.slug}`}>
+                  toast.success("Added to cart 🛒");
 
-                        <div
-                          className="
-                            relative
-                            h-[175px]
-                            rounded-[12px]
-                            border border-[#DADDE3]
-                            bg-white
-                            overflow-hidden
-                            px-4 pt-3
-                          "
-                        >
-
-                          {/* IMAGE */}
-                          <img
-                            src={
-                              p.images?.[0]?.trim?.()
-                                ? p.images[0]
-                                : "/placeholder.png"
-                            }
-                            alt={p.name}
-                            className="
-                              h-full
-                              w-full
-                              object-contain
-                            "
-                          />
-
-                          {/* ADD BUTTON */}
-                          <button
-                            onClick={(e) => {
-
-                              e.preventDefault();
-
-                              addToCart({
-                                _id: p._id,
-                                name: p.name,
-                                slug: p.slug,
-                                price: p.price,
-                                oldPrice: p.oldPrice,
-                                images: p.images,
-                                quantity: 1,
-                              });
-
-                              toast.success("Added to cart 🛒");
-                            }}
-                            className="
-                              absolute
-                              bottom-4
-                              right-4
-                              h-[42px]
-                              min-w-[72px]
-                              rounded-[14px]
-                              border-2
-                              border-white
-                          
-                              px-4
-                              text-[16px]
-                              font-bold
-                              tracking-[0.03em]
-                             
-                              shadow-[3px_3px_0px_#0033A1]
-                              transition
-                             bg-black
-                             text-white
-                             hover:bg-[#1D8F2F]
-                             hover:shadow-[5px_5px_0px_#1D8F2F]
-                            "
-                          >
-                            ADD
-                          </button>
-
-                        </div>
-                      </Link>
-
-                      {/* PRICE */}
-                      <div className="mt-2 flex items-center gap-2">
-
-                        <div
-                          className="
-                            flex h-[38px]
-                            items-center
-                            rounded-[10px]
-                            bg-[#1D8F2F]
-                            px-3
-                            text-[17px]
-                            font-bold
-                            text-white
-                          "
-                        >
-                          ₹{p.price}
-                        </div>
-
-                        {p.oldPrice > 0 && (
-                          <span
-                            className="
-                              text-[16px]
-                              text-[#5E6472]
-                              line-through
-                            "
-                          >
-                            ₹{p.oldPrice}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* DISCOUNT */}
-                      {discount > 0 && (
-                        <p
-                          className="
-                            mt-1
-                            border-b border-dashed border-[#C7CCD4]
-                            pb-2
-                            text-[13px]
-                            font-bold
-                            text-[#1D8F2F]
-                          "
-                        >
-                          ₹{discount} OFF
-                        </p>
-                      )}
-
-                      {/* NAME */}
-                      <h3
-                        className="
-                          mt-3
-                          line-clamp-2
-                          text-[16px]
-                          font-medium
-                          leading-[1.45]
-                          text-[#1A1A1A]
-                        "
-                      >
-                        {p.name}
-                      </h3>
-
-                      {/* RATING */}
-                      <div className="mt-2 flex items-center gap-1">
-
-                        <Star
-                          className="
-                            h-4 w-4
-                            fill-[#1D8F2F]
-                            text-[#1D8F2F]
-                          "
-                        />
-
-                        <span className="text-[15px]">
-                          {p.rating || "4.5"}
-                        </span>
-
-                        <span className="text-[15px] text-[#697586]">
-                          ({p.reviewsCount || "1k"})
-                        </span>
-                      </div>
-
-                    </div>
-                  );
-                })
-
-              ) : (
-
-                <div className="text-gray-500 text-sm">
-                  No products found
-                </div>
-
-              )}
+                }}
+                className="
+                  absolute
+                  bottom-3
+                  right-3
+                  z-20
+                  h-[38px]
+                  sm:h-[42px]
+                  min-w-[65px]
+                  sm:min-w-[75px]
+                  rounded-xl
+                  bg-black
+                  px-3
+                  sm:px-4
+                  text-[12px]
+                  sm:text-[14px]
+                  font-bold
+                  tracking-[0.05em]
+                  text-white
+                  shadow-lg
+                  transition-all
+                  duration-300
+                  hover:bg-[#1D8F2F]
+                  hover:scale-105
+                "
+              >
+                ADD
+              </button>
 
             </div>
+
+          </Link>
+
+          {/* PRICE */}
+          <div className="mt-3 flex items-center gap-2 flex-wrap">
+
+            <div
+              className="
+                flex
+                h-[34px]
+                sm:h-[38px]
+                items-center
+                rounded-xl
+                bg-[#1D8F2F]
+                px-3
+                text-[15px]
+                sm:text-[17px]
+                font-bold
+                text-white
+                shadow-sm
+              "
+            >
+              ₹{p.price}
+            </div>
+
+            {p.oldPrice > 0 && (
+              <span
+                className="
+                  text-[13px]
+                  sm:text-[15px]
+                  text-[#7B8190]
+                  line-through
+                "
+              >
+                ₹{p.oldPrice}
+              </span>
+            )}
+
+          </div>
+
+          {/* DISCOUNT */}
+          {discount > 0 && (
+            <p
+              className="
+                mt-1
+                text-[12px]
+                sm:text-[13px]
+                font-semibold
+                text-[#1D8F2F]
+              "
+            >
+              Save ₹{discount}
+            </p>
+          )}
+
+          {/* NAME */}
+          <h3
+            className="
+              mt-2
+              line-clamp-2
+              text-[14px]
+              sm:text-[16px]
+              font-semibold
+              leading-[1.5]
+              text-[#1A1A1A]
+            "
+          >
+            {p.name}
+          </h3>
+
+          {/* RATING */}
+          <div className="mt-2 flex items-center gap-1">
+
+            <Star
+              className="
+                h-4
+                w-4
+                fill-[#1D8F2F]
+                text-[#1D8F2F]
+              "
+            />
+
+            <span className="text-[13px] sm:text-[14px] font-medium">
+              {p.rating || "4.5"}
+            </span>
+
+            <span className="text-[12px] sm:text-[13px] text-[#697586]">
+              ({p.reviewsCount || "1k"})
+            </span>
+
+          </div>
+
+        </div>
+      );
+    })
+
+  ) : (
+
+    <div className="text-gray-500 text-sm">
+      No products found
+    </div>
+
+  )}
+
+</div>
           </div>
         </section>
       ))}
