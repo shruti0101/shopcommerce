@@ -22,6 +22,7 @@ const Shop = () => {
 const [selectedProduct, setSelectedProduct] = useState(null);
 
 const [selectedSize, setSelectedSize] = useState("");
+const [selectedColor, setSelectedColor] = useState("");
 
   const fetchProducts = async () => {
     try {
@@ -453,9 +454,10 @@ const [selectedSize, setSelectedSize] = useState("");
 
 
 {/* SIZE MODAL */}
+{/* SIZE + COLOR MODAL */}
 {sizeModal && selectedProduct && (
 
-<div className="fixed inset-0 z-[99999] bg-black/60 flex items-center justify-center p-4">
+  <div className="fixed inset-0 z-[99999] bg-black/60 flex items-center justify-center p-4">
 
     <div className="bg-white w-full max-w-md rounded-2xl p-5 relative">
 
@@ -468,6 +470,7 @@ const [selectedSize, setSelectedSize] = useState("");
           setSelectedProduct(null);
 
           setSelectedSize("");
+          setSelectedColor("");
 
         }}
         className="absolute top-3 right-3 text-xl"
@@ -487,30 +490,111 @@ const [selectedSize, setSelectedSize] = useState("");
       </h2>
 
       {/* SIZE TITLE */}
-      <h3 className="mt-5 font-medium">
-        Select Size
-      </h3>
+      {selectedProduct?.sizes?.length > 0 && (
+        <>
+          <h3 className="mt-5 font-medium">
+            Select Size
+          </h3>
 
-      {/* SIZE BUTTONS */}
-      <div className="flex flex-wrap gap-3 mt-3">
+          {/* SIZE BUTTONS */}
+          <div className="flex flex-wrap gap-3 mt-3">
 
-        {selectedProduct.sizes.map((size, i) => (
+            {selectedProduct.sizes.map((size, i) => (
 
-          <button
-            key={i}
-            onClick={() =>
-              setSelectedSize(size.size)
-            }
-            className={`px-5 py-2 rounded-lg border uppercase transition ${
-              selectedSize === size.size
-                ? "bg-black text-white border-black"
-                : "bg-white text-black hover:border-black"
-            }`}
-          >
-            {size.size}
-          </button>
+              <button
+                key={i}
+                onClick={() =>
+                  setSelectedSize(size.size)
+                }
+                className={`px-5 py-2 rounded-lg border uppercase transition ${
+                  selectedSize === size.size
+                    ? "bg-black text-white border-black"
+                    : "bg-white text-black hover:border-black"
+                }`}
+              >
+                {size.size}
+              </button>
 
-        ))}
+            ))}
+
+          </div>
+        </>
+      )}
+
+      {/* COLORS */}
+      {selectedProduct?.colors?.length > 0 && (
+
+        <>
+          <h3 className="mt-5 font-medium">
+            Select Color
+          </h3>
+
+          <div className="flex flex-wrap gap-3 mt-3">
+
+            {selectedProduct.colors.map((color, i) => (
+
+              <button
+                key={i}
+                onClick={() =>
+                  setSelectedColor(color.color)
+                }
+                className={`
+                  flex items-center gap-2
+                  px-4 py-2 rounded-xl border transition
+                  ${
+                    selectedColor === color.color
+                      ? "bg-black text-white border-black"
+                      : "bg-white hover:border-black"
+                  }
+                `}
+              >
+
+                {/* COLOR DOT */}
+                <span
+                  className="w-5 h-5 rounded-full border"
+                  style={{
+                    backgroundColor:
+                      color.code || "#000",
+                  }}
+                />
+
+                {color.color}
+
+              </button>
+
+            ))}
+
+          </div>
+        </>
+
+      )}
+
+      {/* SELECTED INFO */}
+      <div className="mt-4 flex flex-wrap gap-3">
+
+        {selectedSize && (
+          <div className="px-3 py-1 rounded-full bg-gray-100 text-sm">
+            Size: <b>{selectedSize}</b>
+          </div>
+        )}
+
+        {selectedColor && (
+          <div className="px-3 py-1 rounded-full bg-gray-100 text-sm flex items-center gap-2">
+
+            <span
+              className="w-4 h-4 rounded-full border"
+              style={{
+                backgroundColor:
+                  selectedProduct.colors.find(
+                    (c) => c.color === selectedColor
+                  )?.code || "#000",
+              }}
+            />
+
+            Color: <b>{selectedColor}</b>
+
+          </div>
+        )}
 
       </div>
 
@@ -606,8 +690,11 @@ const [selectedSize, setSelectedSize] = useState("");
       <button
         onClick={() => {
 
-          // ✅ SIZE REQUIRED
-          if (!selectedSize) {
+          // SIZE REQUIRED
+          if (
+            selectedProduct?.sizes?.length > 0 &&
+            !selectedSize
+          ) {
 
             toast.error(
               "Please select size first"
@@ -616,18 +703,32 @@ const [selectedSize, setSelectedSize] = useState("");
             return;
           }
 
-          // ✅ FIND SIZE DATA
+          // COLOR REQUIRED
+          if (
+            selectedProduct?.colors?.length > 0 &&
+            !selectedColor
+          ) {
+
+            toast.error(
+              "Please select color first"
+            );
+
+            return;
+          }
+
+          // SIZE DATA
           const sizeData =
-            selectedProduct.sizes.find(
+            selectedProduct.sizes?.find(
               (s) => s.size === selectedSize
             );
 
-          // ✅ ADD TO CART
+          // ADD TO CART
           addToCart({
 
             ...selectedProduct,
 
             selectedSize,
+            selectedColor,
 
             price:
               sizeData?.price ||
@@ -647,6 +748,7 @@ const [selectedSize, setSelectedSize] = useState("");
           setSelectedProduct(null);
 
           setSelectedSize("");
+          setSelectedColor("");
 
         }}
         className="w-full mt-6 bg-black hover:bg-gray-900 text-white py-3 rounded-xl transition"

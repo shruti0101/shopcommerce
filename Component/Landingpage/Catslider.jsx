@@ -94,7 +94,7 @@ export default function CatSlider() {
               {/* LABEL */}
               <div className="mt-3">
 
-                <p className="text-sm md:text-lg font-semibold text-gray-700 group-hover:text-black transition-all duration-300 leading-tight tracking-wide">
+                <p className="text-sm md:text-md font-semibold text-gray-700 group-hover:text-black transition-all duration-300 leading-tight tracking-wide">
                   {item.name}
                 </p>
 

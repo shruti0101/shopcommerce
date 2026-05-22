@@ -74,6 +74,14 @@ export default function CartPage() {
                             </p>
                           )}
 
+                          
+                          {item.selectedColor && (
+                            <p className="text-sm text-gray-600 mt-1 capitalize">
+                              Color: {item.selectedColor}
+                            </p>
+                          )}
+
+
                           <p className="text-sm sm:text-base text-gray-500 mt-1">
                             ₹{item.price}
                           </p>

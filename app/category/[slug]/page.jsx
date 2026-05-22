@@ -30,6 +30,8 @@ const [selectedProduct, setSelectedProduct] =
 const [selectedSize, setSelectedSize] =
   useState("");
 
+  const [selectedColor, setSelectedColor] = useState("");
+
   const addToCart = useCartStore((state) => state.addToCart);
 
   const slides = [
@@ -215,6 +217,7 @@ const [selectedSize, setSelectedSize] =
                 price: p.price,
                 oldPrice: p.oldPrice,
                 images: p.images,
+                 selectedColor,
                 quantity: 1,
               });
 
@@ -313,6 +316,7 @@ const [selectedSize, setSelectedSize] =
           setSelectedProduct(null);
 
           setSelectedSize("");
+          setSelectedColor("");
 
         }}
         className="absolute top-3 right-3"
@@ -358,6 +362,60 @@ const [selectedSize, setSelectedSize] =
         ))}
 
       </div>
+
+   {/* COLOR TITLE */}
+{/* COLOR TITLE */}
+{selectedProduct?.colors?.length > 0 && (
+
+  <>
+  
+    <h3 className="mt-5 font-medium">
+      Select Color
+    </h3>
+
+    {/* COLORS */}
+    <div className="flex flex-wrap gap-3 mt-3">
+
+      {selectedProduct.colors.map((color, i) => (
+
+        <button
+          key={i}
+          onClick={() =>
+            setSelectedColor(color.color)
+          }
+          className={`
+            flex items-center gap-2
+            px-4 py-2 rounded-lg border transition
+            ${
+              selectedColor === color.color
+                ? "bg-black text-white border-black"
+                : "bg-white text-black hover:border-black"
+            }
+          `}
+        >
+
+          {/* COLOR DOT */}
+          <span
+            className="w-5 h-5 rounded-full border"
+            style={{
+              backgroundColor:
+                color.code || "#000",
+            }}
+          />
+
+          {color.color}
+
+        </button>
+
+      ))}
+
+    </div>
+
+  </>
+
+)}
+
+   
 
       {/* PRICE */}
       {selectedSize && (
@@ -467,6 +525,8 @@ const [selectedSize, setSelectedSize] =
               (s) => s.size === selectedSize
             );
 
+            
+
           // ✅ ADD TO CART
           addToCart({
 
@@ -479,6 +539,7 @@ const [selectedSize, setSelectedSize] =
             images: selectedProduct.images,
 
             selectedSize,
+             selectedColor,
 
             price:
               sizeData?.price ||

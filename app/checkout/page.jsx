@@ -250,8 +250,15 @@ export default function CheckoutPage() {
                       </p>
 
                       {item.selectedSize && (
-  <p className="text-sm text-gray-500">
+  <p className="text-sm text-gray-500 capitalize mt-1">
     Size: {item.selectedSize}
+  </p>
+)}
+
+
+                      {item.selectedColor && (
+  <p className="text-sm text-gray-500 my-1">
+    Color : {item.selectedColor}
   </p>
 )}
                       <p className="text-xs text-gray-500">
