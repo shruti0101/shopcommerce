@@ -541,16 +541,18 @@ export default function Navbar() {
   slidesPerView="auto"
   spaceBetween={10}
   loop={true}
-  speed={5000}
+  speed={3000}
+  centeredSlides={false}
   allowTouchMove={true}
-  grabCursor={true}
-  freeMode={true}
-  loopAdditionalSlides={categories.length}
   autoplay={{
     delay: 0,
     disableOnInteraction: false,
     pauseOnMouseEnter: false,
+    waitForTransition: true,
   }}
+  observer={true}
+  observeParents={true}
+  updateOnWindowResize={true}
   className="category-swiper"
 >
   {[...categories, ...categories].map((cat, index) => (
