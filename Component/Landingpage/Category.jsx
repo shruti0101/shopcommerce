@@ -12,7 +12,6 @@ import { ShoppingBagIcon } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 export default function ProductSlider() {
-
   const products = [
     {
       title: "Neck Pillow massager",
@@ -182,311 +181,248 @@ export default function ProductSlider() {
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
-
-    <div className="bg-[#fafafa] px-3 sm:px-4 md:px-8 py-8 md:py-12 overflow-hidden">
-
+    <div className="px-4 md:px-8 py-8 bg-white">
       {/* HEADER */}
-      <div className="mb-8 md:mb-12 flex flex-col items-center justify-center text-center">
+    <div className="mb-8 flex flex-col items-center justify-center text-center">
 
-        <span className="mb-3 rounded-full border border-[#d9c7a5] bg-white px-4 sm:px-5 py-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#9f7a3d] shadow-sm">
-          Premium Selection
-        </span>
+          <span className="mb-2 rounded-full border border-[#d9c7a5] bg-white px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#9f7a3d] shadow-sm">
+            Premium Selection
+          </span>
 
-        <h2 className="font-bebas text-3xl sm:text-5xl md:text-7xl leading-none tracking-wide text-[#111]">
-          Featured Products
-        </h2>
+          <h2 className="font-bebas text-4xl leading-none tracking-wide text-[#111] md:text-7xl">
+            Featured Products
+          </h2>
 
-        <p className="mt-3 max-w-3xl px-2 text-xs sm:text-sm md:text-[20px] leading-6 md:leading-8 text-[#5c5c5c]">
-          Discover trending products crafted to elevate your lifestyle
-          with style, innovation, and everyday convenience.
-        </p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-[#5c5c5c] md:text-[20px]">
+            Discover trending products crafted to elevate your lifestyle
+            with style, innovation, and everyday convenience.
+            
+          </p>
+        </div>
 
-      </div>
+    <Swiper
+  modules={[Navigation, Autoplay]}
+  autoplay={{ delay: 1500, disableOnInteraction: false }}
+  loop
+  navigation
+  spaceBetween={16}
+  slidesPerView={5}
+  breakpoints={{
+    320: { slidesPerView: 2 },
+    520: { slidesPerView: 2 },
+    640: { slidesPerView: 2.5 },
+    1024: { slidesPerView: 4 },
+    1280: { slidesPerView: 5 },
+  }}
+>
+  {products.map((product, i) => (
+    <SwiperSlide key={i}>
 
-      {/* SLIDER */}
-      <Swiper
-        modules={[Navigation, Autoplay]}
-        autoplay={{
-          delay: 2200,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        navigation
-        spaceBetween={14}
-        slidesPerView={5}
-        breakpoints={{
-          0: {
-            slidesPerView: 1.2,
-            spaceBetween: 12,
-          },
-
-          360: {
-            slidesPerView: 1.4,
-            spaceBetween: 12,
-          },
-
-          480: {
-            slidesPerView: 1.7,
-            spaceBetween: 14,
-          },
-
-          640: {
-            slidesPerView: 2.2,
-            spaceBetween: 16,
-          },
-
-          768: {
-            slidesPerView: 2.5,
-            spaceBetween: 18,
-          },
-
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-          },
-
-          1280: {
-            slidesPerView: 5,
-            spaceBetween: 22,
-          },
-        }}
-        className="!overflow-visible"
+      <div
+        className="
+          group
+          relative
+          mt-3
+          flex
+          h-[400px]
+          md:h-[530px]
+          flex-col
+          overflow-hidden
+          rounded-[30px]
+          border
+          border-[#f1ece5]
+          bg-white
+          shadow-[0_8px_30px_rgba(0,0,0,0.05)]
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_20px_60px_rgba(0,0,0,0.10)]
+        "
       >
 
-        {products.map((product, i) => (
+        {/* IMAGE */}
+        <Link href={product.href}>
 
-          <SwiperSlide key={i}>
+          <div className="relative flex h-[190px] md:h-[300px] w-full items-center justify-center overflow-hidden bg-white">
 
-            <div
-              className="
-                group
-                relative
-                mt-2
-                flex
-                h-[360px]
-                sm:h-[420px]
-                md:h-[520px]
-                flex-col
-                overflow-hidden
-                rounded-[28px]
-                border
-                border-[#f1ece5]
-                bg-white
-                shadow-[0_8px_30px_rgba(0,0,0,0.05)]
-                transition-all
-                duration-500
-                hover:-translate-y-2
-                hover:shadow-[0_20px_60px_rgba(0,0,0,0.10)]
-              "
-            >
+            {/* GLOW */}
+            <div className="absolute w-[220px] h-[220px] rounded-full bg-[#f5ede1] blur-3xl opacity-60 group-hover:scale-125 transition duration-700" />
 
-              {/* IMAGE */}
-              <Link href={product.href}>
+            <Image
+              src={product.img}
+              width={300}
+              height={300}
+              alt={product.title}
+              className="relative z-10 object-contain group-hover:scale-105 transition duration-500"
+            />
 
-                <div className="relative flex h-[170px] sm:h-[220px] md:h-[300px] w-full items-center justify-center overflow-hidden bg-white p-3 sm:p-5">
+            {/* DISCOUNT */}
+            {product.discount && (
+              <span
+                className="
+                  absolute
+                  top-4
+                  left-4
+                  z-20
+                  rounded-full
+                  bg-black
+                  px-3
+                  py-1.5
+                  text-[11px]
+                  font-semibold
+                  text-white
+                  shadow-lg
+                "
+              >
+                {product.discount} OFF
+              </span>
+            )}
 
-                  {/* GLOW */}
-                  <div className="absolute h-[180px] w-[180px] sm:h-[240px] sm:w-[240px] rounded-full bg-[#f5ede1] blur-3xl opacity-60 group-hover:scale-125 transition duration-700" />
+          </div>
 
-                  <Image
-                    src={product.img}
-                    width={300}
-                    height={300}
-                    alt={product.title}
-                    className="
-                      relative
-                      z-10
-                      h-full
-                      w-full
-                      object-contain
-                      transition
-                      duration-500
-                      group-hover:scale-105
-                    "
-                  />
+        </Link>
 
-                  {/* DISCOUNT */}
-                  {product.discount && (
+        {/* CONTENT */}
+        <div className="flex flex-1 flex-col justify-between px-5 pb-5 pt-3">
 
-                    <span
-                      className="
-                        absolute
-                        left-3
-                        top-3
-                        z-20
-                        rounded-full
-                        bg-black
-                        px-3
-                        py-1.5
-                        text-[10px]
-                        sm:text-[11px]
-                        font-semibold
-                        text-white
-                        shadow-lg
-                      "
-                    >
-                      {product.discount} OFF
-                    </span>
+          <Link href={product.href}>
 
-                  )}
+            <div>
 
-                </div>
+              {/* SMALL LABEL */}
+              <p className="text-[11px] uppercase tracking-[0.22em] text-[#9f7a3d] font-semibold">
+                Trending Now
+              </p>
 
-              </Link>
+              {/* TITLE */}
+              <h3
+                className="
+                  mt-2
+                  line-clamp-2
+                  text-[16px]
+                  md:text-[21px]
+                  font-semibold
+                  leading-[1.45]
+                  text-[#111]
+                  transition
+                  duration-300
+                  group-hover:text-[#8c6239]
+                "
+              >
+                {product.title}
+              </h3>
 
-              {/* CONTENT */}
-              <div className="flex flex-1 flex-col justify-between px-4 sm:px-5 pb-4 sm:pb-5 pt-3">
+              {/* PRICE */}
+              <div className="mt-2 flex items-center gap-2">
 
-                <Link href={product.href}>
+                <span className="text-2xl font-bold text-black">
+                  ₹{product.price}
+                </span>
 
-                  <div>
-
-                    {/* LABEL */}
-                    <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#9f7a3d] font-semibold">
-                      Trending Now
-                    </p>
-
-                    {/* TITLE */}
-                    <h3
-                      className="
-                        mt-2
-                        line-clamp-2
-                        text-[15px]
-                        sm:text-[17px]
-                        md:text-[21px]
-                        font-semibold
-                        leading-[1.4]
-                        text-[#111]
-                        transition
-                        duration-300
-                        group-hover:text-[#8c6239]
-                      "
-                    >
-                      {product.title}
-                    </h3>
-
-                    {/* PRICE */}
-                    <div className="mt-3 flex flex-wrap items-center gap-2">
-
-                      <span className="text-xl sm:text-2xl font-bold text-black">
-                        ₹{product.price}
-                      </span>
-
-                      {product.old && (
-
-                        <span className="text-xs sm:text-sm text-gray-400 line-through">
-                          ₹{product.old}
-                        </span>
-
-                      )}
-
-                    </div>
-
-                  </div>
-
-                </Link>
-
-                {/* BOTTOM */}
-                <div className="mt-4">
-
-                  {/* LINE */}
-                  <div className="mb-4 sm:mb-5 h-[1px] w-full bg-gradient-to-r from-transparent via-[#ebe2d6] to-transparent" />
-
-                  {/* BUTTONS */}
-                  <div className="flex items-center gap-2 sm:gap-3">
-
-                    {/* CART */}
-                    <button
-                      onClick={(e) => {
-
-                        e.preventDefault();
-
-                        addToCart(
-                          {
-                            ...product,
-                            name: product.title,
-                            images: [product.img],
-                            price: Number(
-                              String(product.price).replace(/,/g, "")
-                            ),
-                          },
-                          1
-                        );
-
-                        toast.success("Added to cart");
-
-                      }}
-                      className="
-                        flex-1
-                        h-[48px]
-                        sm:h-[52px]
-                        rounded-2xl
-                        bg-black
-                        px-3 sm:px-5
-                        text-xs sm:text-sm
-                        font-semibold
-                        text-white
-                        shadow-lg
-                        transition-all
-                        duration-300
-                        hover:bg-[#1d1d1d]
-                        hover:shadow-xl
-                      "
-                    >
-
-                      <span className="flex items-center justify-center gap-2">
-
-                        <ShoppingBagIcon size={16} />
-
-                        <span className="hidden sm:block">
-                          Add To Cart
-                        </span>
-
-                      </span>
-
-                    </button>
-
-                    {/* VIEW */}
-                    <Link
-                      href={product.href}
-                      className="
-                        flex
-                        h-[48px]
-                        w-[48px]
-                        sm:h-[52px]
-                        sm:w-[52px]
-                        items-center
-                        justify-center
-                        rounded-2xl
-                        border
-                        border-[#ece4d8]
-                        bg-white
-                        text-base
-                        sm:text-lg
-                        transition-all
-                        duration-300
-                        hover:border-black
-                        hover:bg-black
-                        hover:text-white
-                      "
-                    >
-                      →
-                    </Link>
-
-                  </div>
-
-                </div>
+                {product.old && (
+                  <span className="text-sm text-gray-400 line-through">
+                    ₹{product.old}
+                  </span>
+                )}
 
               </div>
 
             </div>
 
-          </SwiperSlide>
+          </Link>
 
-        ))}
+          {/* BOTTOM */}
+          <div className="mt-2">
 
-      </Swiper>
+            {/* LINE */}
+            <div className="mb-5 h-[1px] w-full bg-gradient-to-r from-transparent via-[#ebe2d6] to-transparent" />
 
+            {/* BUTTONS */}
+            <div className="flex items-center gap-3">
+
+              {/* ADD TO CART */}
+              <button
+                onClick={(e) => {
+
+                  e.preventDefault();
+
+                  addToCart(
+                    {
+                      ...product,
+                      name: product.title,
+                      images: [product.img],
+                      price: Number(
+                        String(product.price).replace(/,/g, "")
+                      ),
+                    },
+                    1
+                  );
+
+                  toast.success("Added to cart");
+
+                }}
+                className="
+                  flex-1
+                  h-[52px]
+                  rounded-2xl
+                  bg-black
+                  px-5
+                  text-sm
+                  font-semibold
+                  text-white
+                  shadow-lg
+                  transition-all
+                  duration-300
+                  hover:bg-[#1d1d1d]
+                  hover:shadow-xl
+                "
+              >
+
+                <span className="flex items-center justify-center gap-2">
+
+                  <ShoppingBagIcon size={17} />
+
+                  Add To Cart
+
+                </span>
+
+              </button>
+
+              {/* VIEW */}
+              <Link
+                href={product.href}
+                className="
+                  flex
+                  h-[52px]
+                  w-[52px]
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  border
+                  border-[#ece4d8]
+                  bg-white
+                  text-lg
+                  transition-all
+                  duration-300
+                  hover:border-black
+                  hover:bg-black
+                  hover:text-white
+                "
+              >
+                →
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </SwiperSlide>
+  ))}
+</Swiper>
     </div>
   );
 }
