@@ -130,6 +130,9 @@
 }
 
 
+body{
+  overflow-x: hidden;
+}
 
 @keyframes drawLine {
   0% {

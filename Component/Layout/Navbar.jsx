@@ -148,7 +148,7 @@ export default function Navbar() {
     </span>
 
     {/* SEPARATOR */}
-    <div className="hidden sm:block h-4 w-[1px] bg-white" />
+    <div className=" h-4 w-[1px] bg-white" />
 
     <span className="whitespace-nowrap">
       Trusted Importer & Wholesaler since 2005
@@ -180,7 +180,7 @@ export default function Navbar() {
       className="flex items-center gap-3 hover:text-gray-300 transition"
     >
       Track Order
-      <span className="hidden sm:block h-4 w-[1px] bg-white" />
+      <span className=" h-4 w-[1px] bg-white" />
     </Link>
 
     <Link
@@ -188,7 +188,7 @@ export default function Navbar() {
       className="flex items-center gap-3 hover:text-gray-300 transition"
     >
       Bulk Enquiry
-      <span className="hidden sm:block h-4 w-[1px] bg-white" />
+      <span className=" h-4 w-[1px] bg-white" />
     </Link>
 
     <Link
