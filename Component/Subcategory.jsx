@@ -194,6 +194,7 @@ export default function CategoryProductSections() {
     preserveAspectRatio="none"
     aria-hidden="true"
      className="
+     hidden lg:block
       absolute
       left-0
       top-1/2

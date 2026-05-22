@@ -402,7 +402,7 @@ export default function ProductSlider() {
   <Link
     href={product.href}
     className="
-      flex
+      flex flex-col md:flex-row
       h-[44px]
       w-[44px]
       sm:h-[52px]
