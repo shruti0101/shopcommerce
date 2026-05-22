@@ -10,12 +10,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Clientele() {
   const logos = [
-    "/brand1.png",
-    "/brand2.png",
-    "/brand7.jpeg",
-    "/brand6.jpeg",
-    "/brand2.png",
-    "/brand7.jpeg",
+    "/client/1.webp",
+    "/client/2.webp",
+    "/client/3.webp",
+    "/client/4.webp",
+    "/client/5.webp",
+    "/client/6.webp",
+    "/client/7.webp",
+    "/client/8.webp",
 
   ];
 
