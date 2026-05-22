@@ -299,7 +299,7 @@ export default function ProductSlider() {
                 className="
                   mt-2
                   line-clamp-2
-                  text-[16px]
+                  text-[12px]
                   md:text-[21px]
                   font-semibold
                   leading-[1.45]
@@ -315,7 +315,7 @@ export default function ProductSlider() {
               {/* PRICE */}
               <div className="mt-2 flex items-center gap-2">
 
-                <span className="text-2xl font-bold text-black">
+                <span className="text-md md:text-2xl font-bold text-black">
                   ₹{product.price}
                 </span>
 
