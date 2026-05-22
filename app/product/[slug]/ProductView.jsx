@@ -91,382 +91,546 @@ const selectedSizeData =
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* left */}
-        <div className="md:sticky md:top-20 self-start">
-          <p className="text-gray-600 uppercase mb-4 text-xs sm:text-sm font-poppins">
-            Home / <span className="uppercase ">{product.category?.name}</span>{" "}
-            / <span className="text-red-500   capitalize">{product.name}</span>
-          </p>
+        <div className="md:sticky md:top-38 self-start">
+           <p className="text-gray-500 uppercase mb-5 text-xs sm:text-sm tracking-[2px] font-poppins">
+        Home /{" "}
+        <span className="uppercase">
+          {product.category?.name}
+        </span>{" "}
+        /{" "}
+        <span className="text-black capitalize font-semibold">
+          {product.name}
+        </span>
+      </p>
 
           {/* main image div */}
-          <div
-            className={`overflow-hidden bg-white rounded-2xl border relative ${
-              activeMedia.type === "image" ? "cursor-zoom-in" : "cursor-default"
-            }`}
-            onMouseMove={
-              activeMedia.type === "image" ? handleMouseMove : undefined
-            }
-            onMouseLeave={
-              activeMedia.type === "image" ? handleMouseLeave : undefined
-            }
-          >
-            {activeMedia.type === "image" ? (
-              <Image
-                src={activeMedia.value}
-                width={1500}
-                height={1000}
-                priority
-                className="w-full sm:h-[350px]   md:h-[560px] transition-transform duration-200 ease-out"
-                style={zoomStyle}
-                alt={product.name}
-              />
-            ) : (
-              <iframe
-                src={getYoutubeEmbedUrl(activeMedia.value)}
-                className="w-full h-[350px] md:h-[550px]"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              />
-            )}
+       {/* MAIN IMAGE SLIDER */}
+<Swiper
+  modules={[Autoplay]}
+  autoplay={{
+    delay: 2500,
+    disableOnInteraction: false,
+  }}
+  loop={true}
+  spaceBetween={0}
+  className="overflow-hidden bg-white rounded-[32px] border border-gray-100 relative shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
+>
+  {/* IMAGE SLIDES */}
+  {product.images?.map((img, i) => (
+    <SwiperSlide key={i}>
+
+      <div
+        className={`relative overflow-hidden ${
+          activeMedia.type === "image"
+            ? "cursor-zoom-in"
+            : "cursor-default"
+        }`}
+        onMouseMove={
+          activeMedia.type === "image"
+            ? handleMouseMove
+            : undefined
+        }
+        onMouseLeave={
+          activeMedia.type === "image"
+            ? handleMouseLeave
+            : undefined
+        }
+      >
+      <Image src={activeMedia.value} width={1500} height={1000} priority className="w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" style={zoomStyle} alt={product.name} />
+      </div>
+
+    </SwiperSlide>
+  ))}
+
+  {/* YOUTUBE VIDEO */}
+  {product.youtubeLink && (
+    <SwiperSlide>
+
+      <iframe
+        src={getYoutubeEmbedUrl(product.youtubeLink)}
+        className="w-full h-[350px] md:h-[620px]"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+      />
+
+    </SwiperSlide>
+  )}
+</Swiper>
+
+{/* THUMBNAILS */}
+<Swiper
+  spaceBetween={14}
+  slidesPerView={"auto"}
+  className="mt-6"
+>
+  {/* IMAGE THUMBNAILS */}
+  {product.images?.map((img, i) => (
+    <SwiperSlide key={i} className="!w-auto">
+
+      <div
+        onClick={() =>
+          setActiveMedia({
+            type: "image",
+            value: img,
+          })
+        }
+        className={`relative overflow-hidden rounded-2xl cursor-pointer border bg-white transition-all duration-300 shadow-sm ${
+          activeMedia.value === img
+            ? "border-black shadow-xl scale-105"
+            : "border-gray-200 hover:border-black hover:scale-105"
+        }`}
+      >
+        <img
+          src={img}
+          alt={`product-${i}`}
+          className="h-24 w-24 object-contain bg-white p-2"
+        />
+
+        {activeMedia.value === img && (
+          <div className="absolute inset-x-0 bottom-0 h-1 bg-black" />
+        )}
+      </div>
+
+    </SwiperSlide>
+  ))}
+
+  {/* YOUTUBE THUMBNAIL */}
+  {product.youtubeLink && (
+    <SwiperSlide className="!w-auto">
+
+      <div
+        onClick={() =>
+          setActiveMedia({
+            type: "video",
+            value: product.youtubeLink,
+          })
+        }
+        className={`relative flex items-center justify-center h-24 w-24 rounded-2xl cursor-pointer border bg-white transition-all duration-300 shadow-sm ${
+          activeMedia.type === "video"
+            ? "border-red-500 shadow-xl scale-105"
+            : "border-gray-200 hover:border-red-400 hover:scale-105"
+        }`}
+      >
+        <img
+          src={`https://img.youtube.com/vi/${
+            getYoutubeEmbedUrl(product.youtubeLink)
+              .split("/embed/")[1]
+              ?.split("?")[0]
+          }/hqdefault.jpg`}
+          className="w-full h-full object-cover rounded-2xl"
+          alt="youtube-thumbnail"
+        />
+
+        {/* PLAY ICON */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-2xl">
+
+          <div className="bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg shadow-lg">
+            ▶
           </div>
 
-          {/* THUMBNAILS */}
-          <Swiper spaceBetween={12} slidesPerView={"auto"} className="mt-5">
-            {/* IMAGE THUMBNAILS */}
-            {product.images?.map((img, i) => (
-              <SwiperSlide key={i} className="!w-auto">
-                <div
-                  onClick={() =>
-                    setActiveMedia({
-                      type: "image",
-                      value: img,
-                    })
-                  }
-                  className={`relative overflow-hidden rounded-xl cursor-pointer border-2 transition-all duration-300 ${
-                    activeMedia.value === img
-                      ? "border-yellow-400 shadow-md scale-105"
-                      : "border-gray-200 hover:border-gray-400 hover:scale-105"
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`product-${i}`}
-                    className="h-20 w-20 object-contain bg-white"
-                  />
+        </div>
+      </div>
 
-                  {activeMedia.value === img && (
-                    <div className="absolute inset-x-0 bottom-0 h-1 bg-black" />
-                  )}
-                </div>
-              </SwiperSlide>
-            ))}
-
-            {/*yt thumbnai;l */}
-            {product.youtubeLink && (
-              <SwiperSlide className="!w-auto">
-                <div
-                  onClick={() =>
-                    setActiveMedia({
-                      type: "video",
-                      value: product.youtubeLink,
-                    })
-                  }
-                  className={`relative flex items-center justify-center h-20 w-20 rounded-xl cursor-pointer border-2 transition-all duration-300 ${
-                    activeMedia.type === "video"
-                      ? "border-red-500 shadow-md scale-105"
-                      : "border-gray-200 hover:border-red-400 hover:scale-105"
-                  }`}
-                >
-                  <img
-                    src={`https://img.youtube.com/vi/${
-                      getYoutubeEmbedUrl(product.youtubeLink)
-                        .split("/embed/")[1]
-                        ?.split("?")[0]
-                    }/hqdefault.jpg`}
-                    className="w-full h-full object-cover rounded-xl"
-                    alt="youtube-thumbnail"
-                  />
-
-                  {/* play icon */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl">
-                    <div className="bg-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center text-lg shadow-lg">
-                      ▶
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            )}
-          </Swiper>
+    </SwiperSlide>
+  )}
+</Swiper>
         </div>
 
         {/* right */}
-        <div>
-          <h2 className="text-3xl font-caladea sm:text-2xl md:text-4xl font-semibold ">
-            {product.name}{" "}
-          </h2>
+       <div className="relative">
 
-          {/* pricing */}
-          <div className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
-            <span className="text-xl sm:text-2xl font-bold  font-caladea">
-             ₹{
-  selectedSizeData?.price ||
-  product.price
-}
-            </span>
+  {/* TOP MINI LABEL */}
+  <div className="flex items-center gap-3 mb-4">
 
-          {(selectedSizeData?.oldPrice ||
-  product.oldPrice) > 0 && (
-  <>
-    <span className="line-through text-gray-400 text-sm">
-      ₹
-      {selectedSizeData?.oldPrice ||
-        product.oldPrice}
-    </span>
+    <div className="h-[1px] w-10 bg-black" />
 
-    <span className="text-red-500 text-xs sm:text-sm">
-      {Math.round(
-        (((selectedSizeData?.oldPrice ||
-          product.oldPrice) -
-          (selectedSizeData?.price ||
-            product.price)) /
-          (selectedSizeData?.oldPrice ||
-            product.oldPrice)) *
-          100
+    <p className="uppercase tracking-[4px] text-[11px] text-gray-500 font-medium">
+      Luxury Essential
+    </p>
+
+  </div>
+
+  {/* PRODUCT TITLE */}
+  <h1 className="text-[34px] md:text-[48px] leading-[1.05] font-caladea font-semibold text-black max-w-xl">
+    {product.name}
+  </h1>
+
+  {/* PRICE SECTION */}
+  <div className="mt-7 flex items-end flex-wrap gap-4">
+
+    <div className="flex items-end gap-3">
+
+      <span className="text-[38px] md:text-[40px] font-caladea font-semibold tracking-tight text-black">
+        ₹{selectedSizeData?.price || product.price}
+      </span>
+
+      {(selectedSizeData?.oldPrice ||
+        product.oldPrice) > 0 && (
+
+        <span className="text-lg text-gray-400 line-through mb-2">
+          ₹
+          {selectedSizeData?.oldPrice ||
+            product.oldPrice}
+        </span>
+
       )}
-      % OFF
-    </span>
-  </>
-)}
-
-            <p className="text-red-500  font-caladea  text-sm capitalize ">
-              (inclusive of all taxes)
-            </p>
-          </div>
-
-          {/* stick */}
-          <p className="mt-2 text-sm font-caladea">
-            {product.stock ? (
-              <span className="text-green-600 ">Availability : In Stock</span>
-            ) : (
-              <span className="text-red-500">Out of Stock</span>
-            )}
-          </p>
-
-          {/* DESCRIPTION */}
-          <p className="mt-2 text-gray-700 font-caladea text-[17px] ">
-            {product.description}
-          </p>
-
-          {/* SIZES */}
-          {product?.sizes?.length > 0 && (
-            <div className="mt-5">
-              <h3 className="font-semibold mb-3">Select Size</h3>
-
-              <div className="flex flex-wrap gap-3">
-                {product.sizes.map((item, i) => (
-                  <button 
-                    key={i}
-                    onClick={() => setSelectedSize(item.size)}
-                    className={`border px-5 py-2 font-semibold rounded-lg transition uppercase ${
-                      selectedSize === item.size
-                        ? "bg-black text-white border-black"
-                        : "bg-green-50 text-black"
-                    }`}
-                  >
-                    {item.size}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-
-
-          {/* COLORS */}
-{product?.colors?.length > 0 && (
-  <div className="mt-5">
-
-    <h3 className="font-semibold mb-3">
-      Select Color
-    </h3>
-
-    <div className="flex flex-wrap gap-3">
-
-      {product.colors.map((item, i) => (
-
-        <button
-          key={i}
-          onClick={() => setSelectedColor(item.color)}
-          className={`flex items-center gap-2 border rounded-xl px-4 py-2 transition ${
-            selectedColor === item.color
-              ? "border-black bg-black text-white"
-              : "border-gray-300 bg-white"
-          }`}
-        >
-
-          {/* COLOR DOT */}
-          <span
-            className="w-5 h-5 rounded-full border"
-            style={{
-              backgroundColor:
-                item.code || "#000",
-            }}
-          />
-
-          {/* NAME */}
-          <span className="text-sm font-medium">
-            {item.color}
-          </span>
-
-        </button>
-
-      ))}
 
     </div>
 
-  </div>
-)}
+    {(selectedSizeData?.oldPrice ||
+      product.oldPrice) > 0 && (
 
-          {/* SPECIFICATIONS */}
-          {product?.specifications?.length > 0 && (
-            <div className="mt-6 border-t pt-5 font-caladea">
-              <h3 className="text-lg font-semibold mb-4">Specifications</h3>
+      <div className="mb-2 rounded-full bg-[#f4f4f4] px-3 py-1">
 
-              <div className="space-y-1">
-                {product.specifications.map((spec, index) => (
-                  <div
-                    key={index}
-                    className="grid grid-cols-2 gap-4 border rounded-xl p-3 bg-[#fafafa]"
-                  >
-                    <p className="font-medium text-black">{spec.key}</p>
+        <span className="text-sm font-medium text-black">
 
-                    <p className="text-gray-800">{spec.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {Math.round(
+            (((selectedSizeData?.oldPrice ||
+              product.oldPrice) -
+              (selectedSizeData?.price ||
+                product.price)) /
+              (selectedSizeData?.oldPrice ||
+                product.oldPrice)) *
+              100
           )}
+          % OFF
 
-          <div className="mt-3 flex flex-col font-bold font-caladea">
-            Quantity:
-            <div className="flex items-center gap-6 mt-3">
-              {/* quantity */}
-              <div className="flex bg-gray-200 w-fit p-3 rounded-sm items-center gap-4">
-                <button
-                  onClick={() => {
-                    if (quantity > 1) {
-                      setQuantity(quantity - 1);
-                    }
-                  }}
-                  className="p-1 border rounded-md hover:bg-gray-100"
-                >
-                  <Minus size={14} />
-                </button>
+        </span>
 
-                <span className="text-md font-medium">{quantity}</span>
+      </div>
 
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="p-1 border rounded-md hover:bg-gray-100"
-                >
-                  <Plus size={14} />
-                </button>
-              </div>
+    )}
 
-              {/* bulk order button */}
-              <a
-                href="tel:9456664444"
-                className="bg-black animate-pulse text-white px-8 h-full py-3 rounded-sm text-sm hover:bg-gray-800 transition"
-              >
-                Want Bulk Order
-              </a>
-            </div>
+  </div>
+
+  {/* TAX */}
+  <p className="mt-2 text-sm text-red-600 font-caladea">
+    Inclusive of all taxes
+  </p>
+
+  {/* DESCRIPTION */}
+  <div className="mt-4">
+
+    <p className="text-[17px] leading-[32px] text-gray-700 font-caladea max-w-2xl">
+      {product.description}
+    </p>
+
+  </div>
+
+  {/* SIZE */}
+  {product?.sizes?.length > 0 && (
+
+    <div className="mt-10">
+
+      <div className="flex items-center justify-between mb-5">
+
+        <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold">
+          Select Size
+        </h3>
+
+        <button className="text-sm text-gray-500 hover:text-black transition">
+          Size Guide
+        </button>
+
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+
+        {product.sizes.map((item, i) => (
+
+          <button
+            key={i}
+            onClick={() => setSelectedSize(item.size)}
+            className={`
+              h-[54px]
+              min-w-[70px]
+              px-5
+              rounded-full
+              text-sm
+              font-medium
+              border
+              transition-all
+              duration-300 uppercase
+              ${
+                selectedSize === item.size
+                  ? "bg-black text-white border-black"
+                  : "bg-white border-gray-200 hover:border-black"
+              }
+            `}
+          >
+
+            {item.size}
+
+          </button>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  )}
+
+  {/* COLORS */}
+  {product?.colors?.length > 0 && (
+
+    <div className="mt-10">
+
+      <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-5">
+        Select Color
+      </h3>
+
+      <div className="flex flex-wrap gap-4">
+
+        {product.colors.map((item, i) => (
+
+          <button
+            key={i}
+            onClick={() => setSelectedColor(item.color)}
+            className={`
+              relative
+              h-[58px]
+              px-5
+              rounded-full
+              border
+              flex
+              items-center
+              gap-3
+              transition-all
+              duration-300
+              ${
+                selectedColor === item.color
+                  ? "border-black bg-black text-white"
+                  : "border-gray-200 bg-white hover:border-black"
+              }
+            `}
+          >
+
+            <span
+              className="h-5 w-5 rounded-full border border-white shadow"
+              style={{
+                backgroundColor:
+                  item.code || "#000",
+              }}
+            />
+
+            <span className="text-sm font-medium">
+              {item.color}
+            </span>
+
+          </button>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  )}
+
+  {/* SPECIFICATIONS */}
+  {product?.specifications?.length > 0 && (
+
+    <div className="mt-12">
+
+      <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-6">
+        Product Details
+      </h3>
+
+      <div className="space-y-4">
+
+        {product.specifications.map((spec, index) => (
+
+          <div
+            key={index}
+            className="flex items-start justify-between gap-8 border-b border-gray-100 pb-4"
+          >
+
+            <p className="text-md uppercase tracking-wide text-gray-800 min-w-[120px]">
+              {spec.key}
+            </p>
+
+            <p className="text-sm text-black text-right leading-relaxed">
+              {spec.value}
+            </p>
+
           </div>
 
-          {/* BUTTONS */}
-         {/* BUTTONS */}
-<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
-  <button
-    onClick={() => {
+        ))}
 
-      //  FORCE SIZE SELECTION
-      if (
-        product?.sizes?.length > 0 &&
-        !selectedSize
-      ) {
-        toast.error("Please select size first");
+      </div>
 
-        return;
-      }
+    </div>
 
-      // GET SELECTED SIZE DATA
-      const selectedSizeData =
-        product?.sizes?.find(
-          (s) => s.size === selectedSize
+  )}
+
+  {/* QUANTITY */}
+  <div className="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+
+    {/* QUANTITY BOX */}
+    <div>
+
+      <p className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-4">
+        Quantity
+      </p>
+
+      <div className="flex items-center border border-gray-200 rounded-full overflow-hidden w-fit">
+
+        <button
+          onClick={() => {
+            if (quantity > 1) {
+              setQuantity(quantity - 1);
+            }
+          }}
+          className="h-14 w-14 flex items-center justify-center hover:bg-black hover:text-white transition"
+        >
+          <Minus size={16} />
+        </button>
+
+        <div className="min-w-[60px] text-center font-semibold text-lg">
+          {quantity}
+        </div>
+
+        <button
+          onClick={() => setQuantity(quantity + 1)}
+          className="h-14 w-14 flex items-center justify-center hover:bg-black hover:text-white transition"
+        >
+          <Plus size={16} />
+        </button>
+
+      </div>
+
+    </div>
+
+    {/* BULK ORDER */}
+    <a
+      href="tel:9456664444"
+      className="group relative overflow-hidden rounded-full bg-black px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.03]"
+    >
+
+      <span className="relative z-10">
+        Want Bulk Order?
+      </span>
+
+      <div className="absolute inset-0 bg-[#222] translate-y-full group-hover:translate-y-0 transition duration-500" />
+
+    </a>
+
+  </div>
+
+  {/* CTA BUTTONS */}
+  <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+    {/* CART */}
+    <button
+      onClick={() => {
+
+        if (
+          product?.sizes?.length > 0 &&
+          !selectedSize
+        ) {
+          toast.error("Please select size first");
+          return;
+        }
+
+        const selectedSizeData =
+          product?.sizes?.find(
+            (s) => s.size === selectedSize
+          );
+
+        addToCart(
+          {
+            ...product,
+
+            selectedSize,
+            selectedColor,
+
+            price:
+              selectedSizeData?.price ||
+              product.price,
+
+            oldPrice:
+              selectedSizeData?.oldPrice ||
+              product.oldPrice,
+
+            sizeStock:
+              selectedSizeData?.stock || 0,
+          },
+          quantity
         );
 
-      // ADD TO CART
-      addToCart(
-        {
-          ...product,
+        toast.success("Added to cart");
+      }}
+      className="
+        h-[62px]
+        rounded-full
+        bg-black
+        text-white
+        font-medium
+        transition-all
+        duration-300
+        hover:scale-[1.02]
+        hover:bg-[#111]
+      "
+    >
+      Add To Cart
+    </button>
 
-          selectedSize,
-          selectedColor,
+    {/* WHATSAPP */}
+    <button className="h-[62px] rounded-full border border-[#25D366] bg-[#25D366] text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:bg-[#1ebe5d]">
+      WhatsApp Now
+    </button>
 
-          // PRICE CHANGE ACCORDING TO SIZE
-          price:
-            selectedSizeData?.price ||
-            product.price,
+    {/* WISHLIST */}
+    <button
+      onClick={() => {
+        setAnimate(true);
 
-          oldPrice:
-            selectedSizeData?.oldPrice ||
-            product.oldPrice,
+        setTimeout(() => setAnimate(false), 300);
 
-          sizeStock:
-            selectedSizeData?.stock || 0,
-        },
-        quantity
-      );
+        if (isWishlisted) {
+          removeFromWishlist(product._id);
+        } else {
+          addToWishlist(product);
+        }
+      }}
+      className="
+        h-[62px]
+        rounded-full
+        border
+        border-gray-200
+        bg-white
+        flex
+        items-center
+        justify-center
+        gap-2
+        font-medium
+        transition-all
+        duration-300
+        hover:border-black
+      "
+    >
 
-      toast.success("Added to cart");
-    }}
-    className="flex-1 bg-black text-white py-2 rounded-lg text-sm sm:text-base"
-  >
-    Add to Cart
-  </button>
+      <Heart
+        size={18}
+        className={`transition ${
+          isWishlisted
+            ? "fill-red-500 text-red-500"
+            : "text-gray-500"
+        }`}
+      />
 
-  <button className="bg-green-500 hover:bg-green-600 text-sm sm:text-base capitalize rounded-lg px-3 text-white py-2 cursor-pointer">
-    whatsapp now
-  </button>
+      {isWishlisted
+        ? "Wishlisted"
+        : "Add Wishlist"}
 
-  <button
-    onClick={() => {
-      setAnimate(true);
+    </button>
 
-      setTimeout(() => setAnimate(false), 300);
+  </div>
 
-      if (isWishlisted) {
-        removeFromWishlist(product._id);
-      } else {
-        addToWishlist(product);
-      }
-    }}
-    className="border px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-sm"
-  >
-    <Heart
-      size={18}
-      className={`transition ${
-        isWishlisted
-          ? "fill-red-500 text-red-500"
-          : "text-gray-500"
-      }`}
-    />
-
-    {isWishlisted
-      ? "Remove from Wishlist"
-      : "Add to Wishlist"}
-  </button>
 </div>
-        </div>
+
+        
       </div>
 
       {/* TABS */}

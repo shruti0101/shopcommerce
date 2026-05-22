@@ -1,6 +1,5 @@
 import {
-  Geist,
-  Geist_Mono,
+
   Poppins,
   Bebas_Neue,
 } from "next/font/google";
@@ -13,15 +12,7 @@ import Layoutwrapper from "@/Component/Layout/Layoutwrapper";
 
 import CartDrawer from "@/Component/CartDrawer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -46,8 +37,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`
-        ${geistSans.variable}
-        ${geistMono.variable}
+       
         ${poppins.variable}
         ${bebasNeue.variable}
         h-full

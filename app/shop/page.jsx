@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-hot-toast";
+import Catslider from "@/Component/Landingpage/Catslider";
 const Shop = () => {
   const addToCart = useCartStore((state) => state.addToCart);
   const [products, setProducts] = useState([]);
@@ -84,6 +85,9 @@ const [selectedSize, setSelectedSize] = useState("");
           <div className="w-16 sm:w-24 h-[2px] bg-[#c8a97e] mx-auto mt-4 sm:mt-5"></div>
         </div>
       </section>
+
+
+         <Catslider />
 
       <section className="min-h-screen bg-[#f8f5f0] py-6 sm:py-10 md:py-16 px-3 sm:px-7 ">
         {/* Loading */}

@@ -31,7 +31,7 @@ export default function Bestsellers() {
       discount: "35%",
       rating: "4.5",
       reviews: "13K",
-      img: "/best-seller/1.webp",
+      img: "/ship.jpg",
     },
 
     {
@@ -92,9 +92,31 @@ export default function Bestsellers() {
   return (
     <div className="px-4 md:px-8 py-8 bg-[#faf7f2]">
       {/* HEADER */}
-      <h2 className="text-2xl tracking-wide font-bebas text-center md:text-5xl font-bold text-black my-4">
-        Our Bestsellers
-      </h2>
+   <div className="relative w-fit mx-auto my-4">
+
+  <h2 className="relative z-10 text-2xl tracking-wide font-bebas text-center md:text-5xl font-bold text-black">
+    Our Bestsellers
+  </h2>
+
+  {/* ANIMATED SVG UNDERLINE */}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 500 150"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+    className="absolute left-1/2 -translate-x-1/2 bottom-[-18px] md:bottom-[0px] w-[180px] md:w-[400px] h-[40px] md:h-[68px] text-black"
+  >
+    <path
+      d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7 c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="8"
+      strokeLinecap="round"
+      className="animate-draw"
+    />
+  </svg>
+
+</div>
 
       <p className="text-center text-gray-800 text-lg mb-3">
         Top Picks For Everyday Living

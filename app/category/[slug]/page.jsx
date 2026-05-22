@@ -74,10 +74,12 @@ const [selectedSize, setSelectedSize] =
           >
             {slides.map((s, i) => (
               <SwiperSlide key={i}>
-                <div className="sm:h-[240px] md:h-[300px] lg:h-[350px]">
-                  <img
+                <div className="">
+                  <Image
                     src={s.image}
-                    className="max-w-full h-auto md:w-full md:h-full object-cover"
+                    className="max-w-full h-auto "
+                    width={2000}
+                    height={800}
                   />
                 </div>
               </SwiperSlide>
@@ -137,99 +139,155 @@ const [selectedSize, setSelectedSize] =
           </div>
         ) : products.length === 0 ? null : (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 pb-10">
-
-            {products.map((p) => (
-              <Link
-                href={`/product/${p.slug}`}
-                key={p._id}
-                className="group relative bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border shadow-sm hover:shadow-xl transition"
-              >
-                {/* IMAGE */}
-                <div className="relative overflow-hidden rounded-lg sm:rounded-xl">
-                  <Image
-                    src={p.images?.[0] || "/placeholder.png"}
-                    width={1500}
-                    height={1500}
-                    alt={p.name}
-                    className="w-full h-[180px] sm:h-[220px] md:h-[260px] lg:h-[310px] object-cover group-hover:scale-110 transition duration-500"
-                  />
-
-                
-               {/* ADD TO CART */}
-<div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition flex items-center p-2 sm:p-3">
-
-  <button
-    onClick={(e) => {
-
-      e.preventDefault();
-
-      //  HAS SIZES
-      if (p?.sizes?.length > 0) {
-
-        setSelectedProduct(p);
-
-        setSelectedSize("");
-
-        setSizeModal(true);
-
-        return;
-      }
-
-      //  NORMAL PRODUCT
-      addToCart({
-        _id: p._id,
-        name: p.name,
-        slug: p.slug,
-        price: p.price,
-        oldPrice: p.oldPrice,
-        images: p.images,
-        quantity: 1,
-      });
-
-      toast.success("Added to cart 🛒");
-    }}
-    className="w-full sm:w-fit mx-auto px-4 sm:px-8 md:px-12 bg-yellow-400 text-black py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-md flex items-center justify-center gap-2"
+{products.map((p) => (
+  <Link
+    href={`/product/${p.slug}`}
+    key={p._id}
+    className="group block"
   >
-    <ShoppingCart size={14} />
 
-    Add to Cart
-  </button>
+    {/* PREMIUM CARD */}
+    <div className="relative overflow-hidden rounded-[24px] border border-white/20 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(0,0,0,0.14)]">
 
-</div>
+      {/* GLOW EFFECT */}
+      <div className="absolute -top-24 -right-24 h-40 w-40 rounded-full bg-yellow-200/30 blur-3xl opacity-0 group-hover:opacity-100 transition duration-700 z-0" />
+
+      {/* IMAGE */}
+      <div className="relative overflow-hidden rounded-[20px] m-2 sm:m-3">
+
+        {/* IMAGE */}
+        <Image
+          src={p.images?.[0] || "/placeholder.png"}
+          width={1500}
+          height={1500}
+          alt={p.name}
+          className="w-full h-[180px] sm:h-[220px] md:h-[260px] lg:h-[350px] object-contain transition duration-700 group-hover:scale-110"
+        />
+
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
+
+        {/* TOP ACTIONS */}
+        <div className="absolute top-3 left-3 right-3 flex items-start justify-between z-20">
+
+          {/* DISCOUNT */}
+          {p.oldPrice > 0 && (
+            <span className="bg-black/80 backdrop-blur-xl text-white text-[10px] sm:text-xs px-3 py-1.5 rounded-full font-semibold tracking-wide shadow-xl">
+              {Math.round(
+                ((p.oldPrice - p.price) / p.oldPrice) * 100
+              )}
+              % OFF
+            </span>
+          )}
+
+          {/* WISHLIST */}
+          <button className="h-9 w-9 rounded-full bg-white/90 backdrop-blur-xl flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition duration-500 hover:scale-110">
+            🤍
+          </button>
+
+        </div>
+
+        {/* FLOATING ADD TO CART */}
+        <div className="absolute bottom-4 left-4 right-4 translate-y-24 group-hover:translate-y-0 transition-all duration-500 z-20">
+
+          <button
+            onClick={(e) => {
+
+              e.preventDefault();
+
+              // HAS SIZES
+              if (p?.sizes?.length > 0) {
+
+                setSelectedProduct(p);
+
+                setSelectedSize("");
+
+                setSizeModal(true);
+
+                return;
+              }
+
+              // NORMAL PRODUCT
+              addToCart({
+                _id: p._id,
+                name: p.name,
+                slug: p.slug,
+                price: p.price,
+                oldPrice: p.oldPrice,
+                images: p.images,
+                quantity: 1,
+              });
+
+              toast.success("Added to cart 🛒");
+            }}
+            className="w-full rounded-2xl bg-white/95 backdrop-blur-2xl py-3.5 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-all duration-300 hover:bg-yellow-400 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+          >
+
+            <ShoppingCart size={17} />
+
+            Add To Cart
+
+          </button>
+
+        </div>
+
+      </div>
+
+      {/* CONTENT */}
+      <div className="px-4 sm:px-5 pb-4 sm:pb-5 relative z-10">
+
+        {/* COLLECTION */}
+        <div className="flex items-center justify-between">
+
+          <p className="text-[10px] sm:text-xs uppercase tracking-[3px] text-gray-400 font-medium">
+            Luxury Drop
+          </p>
+
+          <div className="flex items-center gap-[2px] text-yellow-500 text-xs">
+            ★★★★★
+          </div>
+
+        </div>
+
+        {/* PRODUCT NAME */}
+        <h2 className="mt-2 text-xs sm:text-sm md:text-lg font-semibold capitalize text-gray-900 line-clamp-2 leading-snug transition duration-300 group-hover:text-black">
+          {p.name}
+        </h2>
+
+        {/* PRICE SECTION */}
+        <div className="mt-3 flex items-end justify-between">
+
+          <div className="flex items-center gap-2 flex-wrap">
+
+            <span className="text-lg sm:text-xl font-bold text-black tracking-tight">
+              ₹{p.price}
+            </span>
+
+            {p.oldPrice > 0 && (
+              <span className="text-gray-400 line-through text-xs sm:text-sm">
+                ₹{p.oldPrice}
+              </span>
+            )}
+
+          </div>
+
+          {/* STOCK */}
+          <span className="text-[11px] text-green-600 font-medium bg-green-50 px-2 py-1 rounded-full">
+            In Stock
+          </span>
+
+        </div>
 
 
+      </div>
 
-                  {/* DISCOUNT */}
-                  {p.oldPrice > 0 && (
-                    <span className="absolute top-2 left-2 bg-black text-white text-[10px] sm:text-xs px-2 py-1 rounded">
-                      {Math.round(
-                        ((p.oldPrice - p.price) / p.oldPrice) * 100
-                      )}
-                      % OFF
-                    </span>
-                  )}
-                </div>
+      {/* BORDER SHINE */}
+      <div className="pointer-events-none absolute inset-0 rounded-[24px] border border-white/40 opacity-0 group-hover:opacity-100 transition duration-500" />
 
-                {/* CONTENT */}
-                <div className="mt-2 sm:mt-3">
-                  <h2 className="text-xs sm:text-sm md:text-md font-medium line-clamp-2">
-                    {p.name}
-                  </h2>
+    </div>
 
-                  <div className="mt-1 sm:mt-2 flex items-center gap-2">
-                    <span className="font-semibold text-sm sm:text-base">
-                      ₹{p.price}
-                    </span>
-
-                    {p.oldPrice > 0 && (
-                      <span className="text-gray-400 line-through text-xs sm:text-sm">
-                        ₹{p.oldPrice}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))}
+  </Link>
+))}
 
           </div>
         )}

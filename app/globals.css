@@ -123,15 +123,36 @@
 }
 
 @layer base {
- 
-  html {
-    @apply font-sans;
+  * {
+    transition: all 0.3s ease;
+    font-family: poppins, sans-serif;
   }
 }
 
 
 
+@keyframes drawLine {
+  0% {
+    stroke-dasharray: 1500;
+    stroke-dashoffset: 1500;
+    opacity: 0;
+  }
 
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.animate-draw {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: drawLine 2s ease forwards infinite;
+}
 
 @keyframes pop {
   0% {
@@ -151,6 +172,25 @@
 }
 
 
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
 .heart-pop {
   animation: pop 0.3s ease;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

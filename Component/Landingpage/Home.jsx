@@ -28,9 +28,9 @@ export default function Hero() {
 const desktopBanners = [
   "/banner4.webp",
   "/banner/banner5.png",
-  "/banner/banner-2.png",
-  "/banner/banner-1.png",
-  "/banner/banner6.png",
+    "/banner/banner-2.png",
+    "/banner/banner-1.png",
+    "/banner/banner6.png",
   
 ];
 

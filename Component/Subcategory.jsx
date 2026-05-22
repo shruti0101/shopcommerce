@@ -162,19 +162,59 @@ export default function CategoryProductSections() {
                 {category.name}
               </h2>
 
-              <Link
-                href={`/category/${category.slug}`}
-                className="
-                  flex items-center gap-1
-                  text-[18px]
-                  font-semibold
-                  text-green-700
-                "
-              >
-                See All
+           <Link
+  href={`/category/${category.slug}`}
+  className="
+    group
+    relative
+    inline-flex
+    flex-col
+    items-start
+    text-[20px]
+    font-semibold
+    text-green-700
+  "
+>
 
-                <ChevronRight className="h-5 w-5" />
-              </Link>
+  {/* TEXT + ICON */}
+  <div className="flex items-center gap-1">
+
+    <span>
+      See All
+    </span>
+
+    <ChevronRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+
+  </div>
+
+  {/* SVG */}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 500 150"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+     className="
+      absolute
+      left-0
+      top-1/2
+      -translate-y-1/2
+      w-[120px]
+      h-[38px]
+      text-green-500/70
+      pointer-events-none
+    "
+  >
+    <path
+      d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7 c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="10"
+      strokeLinecap="round"
+      className="animate-draw"
+    />
+  </svg>
+
+</Link>
             </div>
 
             {/* PRODUCTS */}
