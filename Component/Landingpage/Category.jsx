@@ -224,7 +224,7 @@ export default function ProductSlider() {
           relative
           mt-3
           flex
-          h-[410px]
+          h-[390px]
           md:h-[540px]
           flex-col
           overflow-hidden
@@ -338,81 +338,97 @@ export default function ProductSlider() {
             <div className="mb-5 h-[1px] w-full bg-gradient-to-r from-transparent via-[#ebe2d6] to-transparent" />
 
             {/* BUTTONS */}
-            <div className="flex items-center gap-3">
+         <div className="flex items-center gap-2 sm:gap-3 w-full">
 
-              {/* ADD TO CART */}
-              <button
-                onClick={(e) => {
+  {/* ADD TO CART */}
+  <button
+    onClick={(e) => {
 
-                  e.preventDefault();
+      e.preventDefault();
 
-                  addToCart(
-                    {
-                      ...product,
-                      name: product.title,
-                      images: [product.img],
-                      price: Number(
-                        String(product.price).replace(/,/g, "")
-                      ),
-                    },
-                    1
-                  );
+      addToCart(
+        {
+          ...product,
+          name: product.title,
+          images: [product.img],
+          price: Number(
+            String(product.price).replace(/,/g, "")
+          ),
+        },
+        1
+      );
 
-                  toast.success("Added to cart");
+      toast.success("Added to cart");
 
-                }}
-                className="
-                  flex-1
-                  h-[52px]
-                  rounded-2xl
-                  bg-black
-                  px-5
-                  text-sm
-                  font-semibold
-                  text-white
-                  shadow-lg
-                  transition-all
-                  duration-300
-                  hover:bg-[#1d1d1d]
-                  hover:shadow-xl
-                "
-              >
+    }}
+    className="
+      flex-1
+      h-[44px]
+      sm:h-[52px]
+      rounded-xl
+      sm:rounded-2xl
+      bg-black
+      px-3
+      sm:px-5
+      text-[12px]
+      sm:text-sm
+      font-semibold
+      text-white
+      shadow-lg
+      transition-all
+      duration-300
+      hover:bg-[#1d1d1d]
+      hover:shadow-xl
+      active:scale-[0.98]
+    "
+  >
 
-                <span className="flex items-center justify-center gap-2">
+    <span className="flex items-center justify-center gap-1.5 sm:gap-2">
 
-                  <ShoppingBagIcon size={17} />
+      <ShoppingBagIcon
+        size={15}
+        className="sm:w-[17px] sm:h-[17px]"
+      />
 
-                  Add To Cart
+      <span className="truncate">
+        Add To Cart
+      </span>
 
-                </span>
+    </span>
 
-              </button>
+  </button>
 
-              {/* VIEW */}
-              <Link
-                href={product.href}
-                className="
-                  flex
-                  h-[52px]
-                  w-[52px]
-                  items-center
-                  justify-center
-                  rounded-2xl
-                  border
-                  border-[#ece4d8]
-                  bg-white
-                  text-lg
-                  transition-all
-                  duration-300
-                  hover:border-black
-                  hover:bg-black
-                  hover:text-white
-                "
-              >
-                →
-              </Link>
+  {/* VIEW */}
+  <Link
+    href={product.href}
+    className="
+      flex
+      h-[44px]
+      w-[44px]
+      sm:h-[52px]
+      sm:w-[52px]
+      shrink-0
+      items-center
+      justify-center
+      rounded-xl
+      sm:rounded-2xl
+      border
+      border-[#ece4d8]
+      bg-white
+      text-sm
+      sm:text-lg
+      transition-all
+      duration-300
+      hover:border-black
+      hover:bg-black
+      hover:text-white
+      active:scale-[0.95]
+    "
+  >
+    →
+  </Link>
 
-            </div>
+</div>
 
           </div>
 
