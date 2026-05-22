@@ -224,8 +224,8 @@ export default function ProductSlider() {
           relative
           mt-3
           flex
-          h-[400px]
-          md:h-[530px]
+          h-[410px]
+          md:h-[540px]
           flex-col
           overflow-hidden
           rounded-[30px]
