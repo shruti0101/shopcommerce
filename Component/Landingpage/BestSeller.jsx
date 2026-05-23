@@ -62,7 +62,7 @@ export default function Bestsellers() {
       discount: "9%",
       rating: "4.7",
       reviews: "278",
-      img: "/bg-images/jl.webp",
+      img: "/f4.jpg",
     },
     {
       title: "KIDS FIGHTER JET",
