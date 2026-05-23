@@ -161,7 +161,7 @@ const selectedSizeData =
     {/* IMAGE SLIDES */}
     {product.images?.map((img, i) => (
 
-      <SwiperSlide key={i}>
+      <SwiperSlide key={`${img}-${i}`}>
 
         <div
           className={`
@@ -186,20 +186,19 @@ const selectedSizeData =
           }
         >
 
-          <Image
-            src={img}
-            width={1500}
-            height={1000}
-            priority
-            alt={product.name}
-            style={
-              activeMedia.value === img
-                ? zoomStyle
-                : {}
-            }
-            className="width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" 
-            
-          />
+       <Image
+  src={img}
+  width={1500}
+  height={1000}
+  priority={i === 0}
+  alt={product.name}
+  style={
+    activeMedia.value === img
+      ? zoomStyle
+      : {}
+  }
+  className="w-full h-[300px] sm:h-[350px] md:h-[560px] object-contain transition-transform duration-200 ease-out"
+/>
         </div>
 
       </SwiperSlide>
