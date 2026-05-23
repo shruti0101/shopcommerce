@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 
 export default function Categories() {
   const [name, setName] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [categories, setCategories] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [image, setImage] = useState("");
@@ -66,7 +68,7 @@ export default function Categories() {
     }
 
     const toastId = toast.loading(
-      editingId ? "Updating category..." : "Adding category..."
+      editingId ? "Updating category..." : "Adding category...",
     );
 
     try {
@@ -74,6 +76,8 @@ export default function Categories() {
         name,
         image,
         slug: name.toLowerCase().replace(/\s+/g, "-"),
+        metaTitle,
+        metaDescription,
       };
 
       if (editingId) {
@@ -119,6 +123,8 @@ export default function Categories() {
   // Reset
   const resetForm = () => {
     setName("");
+    setMetaTitle("");
+    setMetaDescription("");
     setImage("");
     setEditingId(null);
 
@@ -133,6 +139,8 @@ export default function Categories() {
     setEditingId(c._id);
     setImage(c.image || "");
     setName(c.name);
+    setMetaTitle(c.metaTitle || "");
+    setMetaDescription(c.metaDescription || "");
 
     window.scrollTo({
       top: 0,
@@ -165,7 +173,6 @@ export default function Categories() {
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] px-10 py-10">
-
       {/* HEADER */}
       <div className="flex items-center justify-between mb-8 ">
         <div className="">
@@ -190,12 +197,9 @@ export default function Categories() {
 
       {/* MAIN GRID */}
       <div className="grid lg:grid-cols-2 gap-6">
-
         {/* LEFT FORM */}
         <div className="lg:col-span-1 ">
-
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-
             <div className="mb-5">
               <label className="text-xl font-semibold text-gray-700 block mb-2">
                 Category Name
@@ -209,6 +213,32 @@ export default function Categories() {
               />
             </div>
 
+            <div className="mb-5">
+              <label className="text-xl font-semibold text-gray-700 block mb-2">
+                Meta Title (for seo purposes)
+              </label>
+
+              <input
+                className="w-full border border-black bg-gray-50 focus:bg-white p-3 rounded-xl outline-none focus:ring-2 focus:ring-black/10 transition"
+                placeholder="Enter meta title"
+                value={metaTitle}
+                onChange={(e) => setMetaTitle(e.target.value)}
+              />
+            </div>
+
+            <div className="mb-5">
+              <label className="text-xl font-semibold text-gray-700 block mb-2">
+                Meta Description (for seo purposes)
+              </label>
+
+              <textarea
+                className="w-full border border-black bg-gray-50 focus:bg-white p-3 rounded-xl outline-none focus:ring-2 focus:ring-black/10 transition resize-none h-28"
+                placeholder="Enter meta description"
+                value={metaDescription}
+                onChange={(e) => setMetaDescription(e.target.value)}
+              />
+            </div>
+
             {/* IMAGE UPLOAD */}
             <div className="mb-5">
               <label className="text-xl font-semibold text-gray-700 block mb-2">
@@ -216,16 +246,13 @@ export default function Categories() {
               </label>
 
               <label className="border-2 border-dashed border-black hover:border-black/40 transition rounded-2xl p-5 flex flex-col items-center justify-center bg-gray-50 cursor-pointer">
-
                 <span className="text-3xl mb-2">📁</span>
 
                 <p className="text-sm text-gray-600 font-medium">
                   Click to upload image
                 </p>
 
-                <p className="text-xs text-gray-400 mt-1">
-                  PNG, JPG, WEBP
-                </p>
+                <p className="text-xs text-gray-400 mt-1">PNG, JPG, WEBP</p>
 
                 <input
                   type="file"
@@ -260,16 +287,14 @@ export default function Categories() {
               {uploading
                 ? "Uploading..."
                 : editingId
-                ? "Update Category"
-                : "Publish Category"}
+                  ? "Update Category"
+                  : "Publish Category"}
             </button>
-
           </div>
         </div>
 
         {/* RIGHT LIST */}
         <div className="lg:col-span-2 mt-10">
-
           <div className="flex items-center justify-between mb-5">
             <div>
               <h2 className="text-2xl font-bold text-gray-800">
@@ -296,16 +321,13 @@ export default function Categories() {
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
-
               {categories.map((c) => (
                 <div
                   key={c._id}
                   className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-300"
                 >
-
                   {/* IMAGE */}
                   <div className="relative overflow-hidden">
-
                     {c.image ? (
                       <img
                         src={c.image}
@@ -323,24 +345,18 @@ export default function Categories() {
 
                   {/* CONTENT */}
                   <div className="p-5">
-
                     <div className="flex items-start justify-between gap-3">
-
                       <div>
                         <h3 className="font-semibold text-gray-800 text-lg line-clamp-1">
                           {c.name}
                         </h3>
 
-                        <p className="text-xs text-gray-700 mt-1">
-                          /{c.slug}
-                        </p>
+                        <p className="text-xs text-gray-700 mt-1">/{c.slug}</p>
                       </div>
-
                     </div>
 
                     {/* ACTIONS */}
                     <div className="flex gap-2 mt-5">
-
                       <button
                         onClick={() => handleEdit(c)}
                         className="flex-1 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-sm font-medium transition"
@@ -354,13 +370,10 @@ export default function Categories() {
                       >
                         Delete
                       </button>
-
                     </div>
-
                   </div>
                 </div>
               ))}
-
             </div>
           )}
         </div>

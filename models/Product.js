@@ -5,7 +5,17 @@ const ProductSchema = new mongoose.Schema({
   slug: String,
 
   price: Number,
-  oldPrice: Number, 
+  oldPrice: Number,
+
+metaTitle: {
+  type: String,
+  default: "",
+},
+
+metaDescription: {
+  type: String,
+  default: "",
+},
 
   description: String,
   features: [String],

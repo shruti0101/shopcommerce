@@ -118,6 +118,10 @@ const [filterCategory, setFilterCategory] = useState("");
 
 const [oldPrice, setOldPrice] = useState("");
 const [description, setDescription] = useState("");
+// for seo
+
+const [metaTitle, setMetaTitle] = useState("");
+const [metaDescription, setMetaDescription] = useState("");
 
 const [longdescription, setLongdescription] = useState("");
 
@@ -141,6 +145,33 @@ const [editorKey, setEditorKey] = useState(0);
 const [sizes, setSizes] = useState([]);
 
 
+// for seo
+
+useEffect(() => {
+
+  // AUTO TITLE
+  if (name) {
+
+    setMetaTitle(
+      `${name} | Buy Online at Best Price`
+    );
+
+  }
+
+  // AUTO DESCRIPTION
+  if (description) {
+
+    const cleanDesc = description
+      .replace(/<[^>]*>/g, "")
+      .trim();
+
+    setMetaDescription(
+      cleanDesc.slice(0, 160)
+    );
+
+  }
+
+}, [name, description]);
 
 
 
@@ -287,6 +318,8 @@ oldPrice: oldPrice ? Number(oldPrice) : 0,
   stock,
   category,
   images,
+  metaTitle,
+  metaDescription,
 sizes: sizes.filter(
   (s) => s.size?.trim()
 ),
@@ -326,6 +359,8 @@ const resetForm = () => {
   setImages([]);
   setYoutubeLink("");
   setEditingId(null);
+  setMetaTitle("");
+setMetaDescription("");
   setOldPrice("");
   setDescription("");
   setFeatures("");
@@ -356,6 +391,10 @@ const handleEdit = (p) => {
   setStock(p.stock);
   setCategory(p.category?._id || p.category);
   setImages(p.images);
+  setMetaTitle(p.metaTitle || "");
+setMetaDescription(
+  p.metaDescription || ""
+);
 
 setColors(
   p.colors?.length
@@ -477,6 +516,61 @@ const filteredProducts = products.filter((p) => {
             ))}
           </select>
         </div>
+
+
+        {/* SEO SECTION */}
+<div className="bg-white p-6 rounded-2xl shadow-sm">
+
+  <h2 className="font-semibold mb-4 text-black">
+    SEO Settings
+  </h2>
+
+  {/* META TITLE */}
+  <div className="mb-4">
+
+    <label className="text-sm font-medium block mb-2">
+      Meta Title
+    </label>
+
+    <input
+      value={metaTitle}
+      onChange={(e) =>
+        setMetaTitle(e.target.value)
+      }
+      placeholder="Meta title"
+      className="w-full border border-black p-3 rounded-lg"
+    />
+
+    <p className="text-xs text-gray-500 mt-1">
+      {metaTitle.length}/60 characters
+    </p>
+
+  </div>
+
+  {/* META DESCRIPTION */}
+  <div>
+
+    <label className="text-sm font-medium block mb-2">
+      Meta Description
+    </label>
+
+    <textarea
+      value={metaDescription}
+      onChange={(e) =>
+        setMetaDescription(e.target.value)
+      }
+      rows={4}
+      placeholder="Meta description"
+      className="w-full border border-black p-3 rounded-lg"
+    />
+
+    <p className="text-xs text-gray-500 mt-1">
+      {metaDescription.length}/160 characters
+    </p>
+
+  </div>
+
+</div>
 
 
 
