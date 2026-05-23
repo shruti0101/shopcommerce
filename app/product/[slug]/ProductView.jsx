@@ -149,15 +149,7 @@ const selectedSizeData =
             alt={product.name}
             style={zoomStyle}
             className="
-              w-full
-              h-[300px]
-              sm:h-[420px]
-              md:h-[560px]
-              object-contain
-              transition-transform
-              duration-300
-              ease-out
-              bg-white
+            width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out
             "
           />
 
