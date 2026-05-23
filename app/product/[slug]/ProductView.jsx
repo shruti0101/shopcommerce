@@ -594,6 +594,7 @@ export default function ProductView({ product, relatedProducts }) {
                       item.images?.[0] ||
                       "/placeholder.png"
                     }
+                    
                     width={300}
                     height={300}
                     unoptimized
