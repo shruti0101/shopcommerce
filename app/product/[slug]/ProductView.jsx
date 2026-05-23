@@ -21,8 +21,6 @@ export default function ProductView({ product, relatedProducts }) {
   const [animate, setAnimate] = useState(false);
  const [selectedSize, setSelectedSize] = useState("");
 const [selectedColor, setSelectedColor] = useState("");
-
-
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQty = useCartStore((state) => state.updateQty);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -115,7 +113,7 @@ const selectedSizeData =
       delay: 2500,
       disableOnInteraction: false,
     }}
-    loop={false}
+    loop={true}
     spaceBetween={0}
     onSlideChange={(swiper) => {
 
@@ -161,7 +159,7 @@ const selectedSizeData =
     {/* IMAGE SLIDES */}
     {product.images?.map((img, i) => (
 
-      <SwiperSlide key={`${img}-${i}`}>
+      <SwiperSlide key={i}>
 
         <div
           className={`
@@ -186,20 +184,20 @@ const selectedSizeData =
           }
         >
 
-       <Image
-  src={img}
-  width={1500}
-  unoptimized
-  height={1000}
-  priority={i === 0}
-  alt={product.name}
-  style={
-    activeMedia.value === img
-      ? zoomStyle
-      : {}
-  }
-  className="w-full h-[300px] sm:h-[350px] md:h-[560px] object-contain transition-transform duration-200 ease-out"
-/>
+          <Image
+            src={img}
+            width={1500}
+            height={1000}
+            priority
+            alt={product.name}
+            style={
+              activeMedia.value === img
+                ? zoomStyle
+                : {}
+            }
+            className="width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" 
+            
+          />
         </div>
 
       </SwiperSlide>
