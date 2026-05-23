@@ -90,8 +90,8 @@ const selectedSizeData =
   return (
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-       
-{/* LEFT */}
+    
+      {/* LEFT */}
 <div className="md:sticky md:top-38 self-start">
 
   {/* BREADCRUMB */}
@@ -106,9 +106,44 @@ const selectedSizeData =
     </span>
   </p>
 
-  {/* MAIN IMAGE */}
-  <div
-    className={`
+  {/* MAIN SLIDER */}
+  <Swiper
+    modules={[Autoplay]}
+    autoplay={{
+      delay: 2500,
+      disableOnInteraction: false,
+    }}
+    loop={true}
+    spaceBetween={0}
+    onSlideChange={(swiper) => {
+
+      const realIndex = swiper.realIndex;
+
+      // IMAGE
+      if (
+        realIndex <
+        product.images?.length
+      ) {
+
+        setActiveMedia({
+          type: "image",
+          value: product.images[realIndex],
+        });
+
+      }
+
+      // VIDEO
+      else if (product.youtubeLink) {
+
+        setActiveMedia({
+          type: "video",
+          value: product.youtubeLink,
+        });
+
+      }
+
+    }}
+    className="
       overflow-hidden
       bg-white
       rounded-[20px]
@@ -118,75 +153,84 @@ const selectedSizeData =
       border-gray-100
       relative
       shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-      ${
-        activeMedia.type === "image"
-          ? "cursor-zoom-in"
-          : "cursor-default"
-      }
-    `}
-    onMouseMove={
-      activeMedia.type === "image"
-        ? handleMouseMove
-        : undefined
-    }
-    onMouseLeave={
-      activeMedia.type === "image"
-        ? handleMouseLeave
-        : undefined
-    }
+    "
   >
 
-    {/* IMAGE */}
-    {activeMedia.type === "image" ? (
+    {/* IMAGE SLIDES */}
+    {product.images?.map((img, i) => (
 
-      <Image
-        src={activeMedia.value}
-        width={1500}
-        height={1000}
-        priority
-        alt={product.name}
-        style={zoomStyle}
-        className="
-          w-full
-          h-[300px]
-          sm:h-[420px]
-          md:h-[660px]
-          object-cover
-          bg-white
-          transition-transform
-          duration-300
-          ease-out
-        "
-      />
+      <SwiperSlide key={i}>
 
-    ) : (
+        <div
+          className={`
+            relative
+            overflow-hidden
+            bg-white
+            ${
+              activeMedia.type === "image"
+                ? "cursor-zoom-in"
+                : "cursor-default"
+            }
+          `}
+          onMouseMove={
+            activeMedia.type === "image"
+              ? handleMouseMove
+              : undefined
+          }
+          onMouseLeave={
+            activeMedia.type === "image"
+              ? handleMouseLeave
+              : undefined
+          }
+        >
 
-      <iframe
-        src={getYoutubeEmbedUrl(activeMedia.value)}
-        className="
-          w-full
-          h-[300px]
-          sm:h-[420px]
-          md:h-[560px]
-        "
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-      />
+          <Image
+            src={img}
+            width={1500}
+            height={1000}
+            priority
+            alt={product.name}
+            style={
+              activeMedia.value === img
+                ? zoomStyle
+                : {}
+            }
+            className="width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" 
+            
+          />
+        </div>
+
+      </SwiperSlide>
+
+    ))}
+
+    {/* VIDEO */}
+    {product.youtubeLink && (
+
+      <SwiperSlide>
+
+        <iframe
+          src={getYoutubeEmbedUrl(product.youtubeLink)}
+          className="
+            w-full
+            h-[300px]
+            sm:h-[420px]
+            md:h-[560px]
+          "
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        />
+
+      </SwiperSlide>
 
     )}
 
-  </div>
+  </Swiper>
 
-  {/* AUTO THUMBNAIL SLIDER */}
+  {/* THUMBNAILS */}
   <Swiper
-    modules={[Autoplay]}
-    autoplay={{
-      delay: 1800,
-      disableOnInteraction: false,
-    }}
-    loop={true}
-    slidesPerView={"auto"}
     spaceBetween={12}
+    slidesPerView={"auto"}
     className="mt-5"
   >
 
@@ -238,7 +282,9 @@ const selectedSizeData =
           />
 
           {activeMedia.value === img && (
+
             <div className="absolute inset-x-0 bottom-0 h-1 bg-black" />
+
           )}
 
         </div>
