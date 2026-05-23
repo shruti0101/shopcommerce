@@ -21,6 +21,8 @@ export default function ProductView({ product, relatedProducts }) {
   const [animate, setAnimate] = useState(false);
  const [selectedSize, setSelectedSize] = useState("");
 const [selectedColor, setSelectedColor] = useState("");
+
+
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQty = useCartStore((state) => state.updateQty);
   const removeItem = useCartStore((state) => state.removeItem);
