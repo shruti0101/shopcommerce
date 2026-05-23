@@ -115,7 +115,7 @@ const selectedSizeData =
       delay: 2500,
       disableOnInteraction: false,
     }}
-    loop={true}
+    loop={false}
     spaceBetween={0}
     onSlideChange={(swiper) => {
 
@@ -189,6 +189,7 @@ const selectedSizeData =
        <Image
   src={img}
   width={1500}
+  unoptimized
   height={1000}
   priority={i === 0}
   alt={product.name}
