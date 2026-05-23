@@ -8,6 +8,7 @@ import "swiper/css";
 import Link from "next/link";
 import { Heart, Minus, Plus } from "lucide-react";
 import { toast } from "react-hot-toast";
+import {  Thumbs } from "swiper/modules";
 
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
@@ -19,6 +20,7 @@ export default function ProductView({ product, relatedProducts }) {
   const [zoomStyle, setZoomStyle] = useState({});
   const [activeTab, setActiveTab] = useState("description");
   const [animate, setAnimate] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
  const [selectedSize, setSelectedSize] = useState("");
 const [selectedColor, setSelectedColor] = useState("");
   const addToCart = useCartStore((state) => state.addToCart);
@@ -90,8 +92,9 @@ const selectedSizeData =
   return (
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-    
-      {/* LEFT */}
+       
+{/* LEFT */}
+{/* LEFT */}
 <div className="md:sticky md:top-38 self-start">
 
   {/* BREADCRUMB */}
@@ -108,50 +111,21 @@ const selectedSizeData =
 
   {/* MAIN SLIDER */}
   <Swiper
-    modules={[Autoplay]}
+    modules={[Autoplay, Thumbs]}
+    thumbs={{ swiper: thumbsSwiper }}
     autoplay={{
       delay: 2500,
       disableOnInteraction: false,
     }}
     loop={true}
-    spaceBetween={0}
-    onSlideChange={(swiper) => {
-
-      const realIndex = swiper.realIndex;
-
-      // IMAGE
-      if (
-        realIndex <
-        product.images?.length
-      ) {
-
-        setActiveMedia({
-          type: "image",
-          value: product.images[realIndex],
-        });
-
-      }
-
-      // VIDEO
-      else if (product.youtubeLink) {
-
-        setActiveMedia({
-          type: "video",
-          value: product.youtubeLink,
-        });
-
-      }
-
-    }}
+    spaceBetween={10}
     className="
-      overflow-hidden
-      bg-white
       rounded-[20px]
       sm:rounded-[26px]
       md:rounded-[32px]
+      overflow-hidden
       border
       border-gray-100
-      relative
       shadow-[0_10px_40px_rgba(0,0,0,0.08)]
     "
   >
@@ -162,26 +136,9 @@ const selectedSizeData =
       <SwiperSlide key={i}>
 
         <div
-          className={`
-            relative
-            overflow-hidden
-            bg-white
-            ${
-              activeMedia.type === "image"
-                ? "cursor-zoom-in"
-                : "cursor-default"
-            }
-          `}
-          onMouseMove={
-            activeMedia.type === "image"
-              ? handleMouseMove
-              : undefined
-          }
-          onMouseLeave={
-            activeMedia.type === "image"
-              ? handleMouseLeave
-              : undefined
-          }
+          className="overflow-hidden bg-white cursor-zoom-in"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
 
           <Image
@@ -190,14 +147,20 @@ const selectedSizeData =
             height={1000}
             priority
             alt={product.name}
-            style={
-              activeMedia.value === img
-                ? zoomStyle
-                : {}
-            }
-            className="width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out" 
-            
+            style={zoomStyle}
+            className="
+              w-full
+              h-[300px]
+              sm:h-[420px]
+              md:h-[560px]
+              object-contain
+              transition-transform
+              duration-300
+              ease-out
+              bg-white
+            "
           />
+
         </div>
 
       </SwiperSlide>
@@ -229,12 +192,15 @@ const selectedSizeData =
 
   {/* THUMBNAILS */}
   <Swiper
+    onSwiper={setThumbsSwiper}
     spaceBetween={12}
     slidesPerView={"auto"}
+    watchSlidesProgress={true}
+    modules={[Thumbs]}
     className="mt-5"
   >
 
-    {/* IMAGE THUMBNAILS */}
+    {/* IMAGE THUMBS */}
     {product.images?.map((img, i) => (
 
       <SwiperSlide
@@ -243,33 +209,21 @@ const selectedSizeData =
       >
 
         <div
-          onClick={() =>
-            setActiveMedia({
-              type: "image",
-              value: img,
-            })
-          }
-          className={`
-            relative
+          className="
             overflow-hidden
             rounded-2xl
-            cursor-pointer
             border
-            bg-white
+            border-gray-200
+            cursor-pointer
+            hover:border-black
             transition-all
             duration-300
-            shadow-sm
-            ${
-              activeMedia.value === img
-                ? "border-black shadow-xl scale-105"
-                : "border-gray-200 hover:border-black hover:scale-105"
-            }
-          `}
+          "
         >
 
           <img
             src={img}
-            alt={`product-${i}`}
+            alt={`thumb-${i}`}
             className="
               h-20
               w-20
@@ -280,12 +234,6 @@ const selectedSizeData =
               p-2
             "
           />
-
-          {activeMedia.value === img && (
-
-            <div className="absolute inset-x-0 bottom-0 h-1 bg-black" />
-
-          )}
 
         </div>
 
@@ -299,34 +247,17 @@ const selectedSizeData =
       <SwiperSlide className="!w-auto">
 
         <div
-          onClick={() =>
-            setActiveMedia({
-              type: "video",
-              value: product.youtubeLink,
-            })
-          }
-          className={`
+          className="
             relative
-            flex
-            items-center
-            justify-center
-            h-20
-            w-20
-            sm:h-24
-            sm:w-24
+            overflow-hidden
             rounded-2xl
-            cursor-pointer
             border
-            bg-white
+            border-gray-200
+            cursor-pointer
+            hover:border-red-500
             transition-all
             duration-300
-            shadow-sm
-            ${
-              activeMedia.type === "video"
-                ? "border-red-500 shadow-xl scale-105"
-                : "border-gray-200 hover:border-red-400 hover:scale-105"
-            }
-          `}
+          "
         >
 
           <img
@@ -335,14 +266,19 @@ const selectedSizeData =
                 .split("/embed/")[1]
                 ?.split("?")[0]
             }/hqdefault.jpg`}
-            className="w-full h-full object-cover rounded-2xl"
-            alt="youtube-thumbnail"
+            className="
+              h-20
+              w-20
+              sm:h-24
+              sm:w-24
+              object-cover
+            "
+            alt="youtube-thumb"
           />
 
-          {/* PLAY ICON */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-2xl">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20">
 
-            <div className="bg-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center text-sm shadow-lg">
+            <div className="bg-red-600 text-white rounded-full w-9 h-9 flex items-center justify-center text-sm">
               ▶
             </div>
 
