@@ -9,6 +9,10 @@ export default function Categories() {
   const [editingId, setEditingId] = useState(null);
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
+const [metaTitle, setMetaTitle] = useState("");
+
+const [metaDescription, setMetaDescription] =
+  useState("");
 
   // Upload Image
   const uploadImage = async (file) => {
@@ -74,6 +78,9 @@ export default function Categories() {
         name,
         image,
         slug: name.toLowerCase().replace(/\s+/g, "-"),
+          metaTitle,
+
+  metaDescription,
       };
 
       if (editingId) {
@@ -121,6 +128,9 @@ export default function Categories() {
     setName("");
     setImage("");
     setEditingId(null);
+    setMetaTitle("");
+
+setMetaDescription("");
 
     window.scrollTo({
       top: 0,
@@ -133,6 +143,11 @@ export default function Categories() {
     setEditingId(c._id);
     setImage(c.image || "");
     setName(c.name);
+    setMetaTitle(c.metaTitle || "");
+
+setMetaDescription(
+  c.metaDescription || ""
+);
 
     window.scrollTo({
       top: 0,
@@ -214,6 +229,41 @@ export default function Categories() {
               <label className="text-xl font-semibold text-gray-700 block mb-2">
                 Category Image
               </label>
+
+              <div className="mb-5">
+
+  <label className="text-xl font-semibold text-gray-700 block mb-2">
+    Meta Title
+  </label>
+
+  <input
+    className="w-full border border-black bg-gray-50 focus:bg-white p-3 rounded-xl outline-none"
+    placeholder="Enter SEO meta title"
+    value={metaTitle}
+    onChange={(e) =>
+      setMetaTitle(e.target.value)
+    }
+  />
+
+  <div className="mb-5">
+
+  <label className="text-xl font-semibold text-gray-700 block mb-2">
+    Meta Description
+  </label>
+
+  <textarea
+    rows={4}
+    className="w-full border border-black bg-gray-50 focus:bg-white p-3 rounded-xl outline-none resize-none"
+    placeholder="Enter SEO meta description"
+    value={metaDescription}
+    onChange={(e) =>
+      setMetaDescription(e.target.value)
+    }
+  />
+
+</div>
+
+</div>
 
               <label className="border-2 border-dashed border-black hover:border-black/40 transition rounded-2xl p-5 flex flex-col items-center justify-center bg-gray-50 cursor-pointer">
 
