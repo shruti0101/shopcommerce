@@ -633,6 +633,7 @@ const selectedSizeData =
       h-[62px]
       rounded-full
       border
+      px-10
       border-[#25D366]
       bg-[#25D366]
       text-white
@@ -667,7 +668,7 @@ const selectedSizeData =
         h-[62px]
         rounded-full
         border
-        border-gray-200
+        border-black
         bg-white
         flex
         items-center
@@ -681,11 +682,11 @@ const selectedSizeData =
     >
 
       <Heart
-        size={18}
+        size={20}
         className={`transition ${
           isWishlisted
             ? "fill-red-500 text-red-500"
-            : "text-gray-500"
+            : "text-red-500"
         }`}
       />
 
