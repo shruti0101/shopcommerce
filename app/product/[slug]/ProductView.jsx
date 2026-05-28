@@ -625,9 +625,15 @@ const selectedSizeData =
     </button>
 
     {/* WHATSAPP */}
-    <a href="tel:+918130385561" className="h-[62px] rounded-full border border-[#25D366] bg-[#25D366] text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:bg-[#1ebe5d]">
+
+<a href="tel:+918130385561">
+
+
+    <button  className="h-[62px] rounded-full border border-[#25D366] bg-[#25D366] text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:bg-[#1ebe5d]">
       WhatsApp Now
-    </a>
+    </button>
+</a>
+
 
     {/* WISHLIST */}
     <button
