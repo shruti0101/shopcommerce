@@ -2,7 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
+import Iconslider from "@/Component/Landingpage/Iconslider"
 import {
   CheckCircle,
   
@@ -114,6 +114,8 @@ const mobileBanners = [
         </div>
       </section>
 
+
+
       <Category></Category>
 
       <section className="w-full bg-white">
@@ -196,6 +198,9 @@ const mobileBanners = [
           ))}
         </Swiper>
       </div> */}
+
+<Iconslider></Iconslider>
+
       <Clientele></Clientele>
 
       {/* <section className="w-full mt-3 mx-auto rounded-xl bg-gray-50 py-16 px-6 md:px-16">

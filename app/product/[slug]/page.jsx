@@ -64,7 +64,7 @@ export default async function ProductPage({ params }) {
   if (!product) {
     return (
       <div className="text-center text-red-500">
-        Product not foundff
+        Product not found
       </div>
     );
   }

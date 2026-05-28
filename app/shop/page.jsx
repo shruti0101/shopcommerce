@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-hot-toast";
-import Catslider from "@/Component/Landingpage/Catslider";
+import Iconslider from "@/Component/Landingpage/Iconslider";
 const Shop = () => {
   const addToCart = useCartStore((state) => state.addToCart);
   const [products, setProducts] = useState([]);
@@ -88,7 +88,7 @@ const [selectedColor, setSelectedColor] = useState("");
       </section>
 
 
-         <Catslider />
+         <Iconslider />
 
       <section className="min-h-screen bg-[#f8f5f0] py-6 sm:py-10 md:py-16 px-3 sm:px-7 ">
         {/* Loading */}

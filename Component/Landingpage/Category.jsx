@@ -8,8 +8,13 @@ import "swiper/css/navigation";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
-import { ShoppingBagIcon } from "lucide-react";
+
 import { toast } from "react-hot-toast";
+import {
+  ShoppingCart,
+  Heart,
+  Eye,
+} from "lucide-react";
 
 export default function ProductSlider() {
   const products = [
@@ -278,6 +283,136 @@ export default function ProductSlider() {
               </span>
             )}
 
+
+
+
+            {/* FLOATING ACTIONS */}
+<div
+  className="
+    absolute
+    top-4
+    right-4
+    z-30
+    flex
+    flex-col
+    gap-3
+    opacity-0
+    translate-x-5
+    transition-all
+    duration-500
+    group-hover:opacity-100
+    group-hover:translate-x-0
+  "
+>
+
+  {/* ADD TO CART */}
+  <button
+    onClick={(e) => {
+      e.preventDefault();
+
+      addToCart(
+        {
+          ...product,
+          name: product.title,
+          images: [product.img],
+          price: Number(
+            String(product.price).replace(/,/g, "")
+          ),
+        },
+        1
+      );
+
+      toast.success("Added to cart");
+    }}
+    className="
+      group/icon
+      flex
+      h-11
+      w-11
+      items-center
+      justify-center
+      rounded-2xl
+      border
+      border-white/20
+      bg-white/90
+      backdrop-blur-xl
+      shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+      transition-all
+      duration-300
+      hover:scale-110
+      hover:bg-black
+    "
+  >
+    <ShoppingCart
+      size={18}
+      className="text-red-600 transition group-hover/icon:text-white"
+    />
+  </button>
+
+  {/* WISHLIST */}
+  {/* <button
+    onClick={(e) => {
+      e.preventDefault();
+
+      addToWishlist(product);
+
+      toast.success("Added to wishlist");
+    }}
+    className="
+      group/icon
+      flex
+      h-11
+      w-11
+      items-center
+      justify-center
+      rounded-2xl
+      border
+      border-white/20
+      bg-white/90
+      backdrop-blur-xl
+      shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+      transition-all
+      duration-300
+      hover:scale-110
+      hover:bg-[#ff4d6d]
+    "
+  >
+    <Heart
+      size={18}
+      className="text-black transition group-hover/icon:text-white"
+    />
+  </button> */}
+
+  {/* QUICK VIEW */}
+  <Link
+    href={product.href}
+    className="
+      group/icon
+      flex
+      h-11
+      w-11
+      items-center
+      justify-center
+      rounded-2xl
+      border
+      border-white/20
+      bg-white/90
+      backdrop-blur-xl
+      shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+      transition-all
+      duration-300
+      hover:scale-110
+      hover:bg-[#8c6239]
+    "
+  >
+    <Eye
+      size={18}
+      className="text-black transition group-hover/icon:text-white"
+    />
+  </Link>
+
+</div>
+
           </div>
 
         </Link>
@@ -332,10 +467,10 @@ export default function ProductSlider() {
           </Link>
 
           {/* BOTTOM */}
-          <div className="mt-2">
+          <div className="">
 
             {/* LINE */}
-            <div className="mb-5 h-[1px] w-full bg-gradient-to-r from-transparent via-[#ebe2d6] to-transparent" />
+            <div className="mb-3 h-[1px] w-full bg-gradient-to-r from-transparent via-[#ebe2d6] to-transparent" />
 
             {/* BUTTONS */}
          <div className="flex items-center gap-2 sm:gap-3 w-full">
@@ -364,7 +499,7 @@ export default function ProductSlider() {
     className="
       flex-1
       h-[44px]
-      sm:h-[52px]
+     py-3
       rounded-xl
       sm:rounded-2xl
       bg-black
@@ -385,7 +520,7 @@ export default function ProductSlider() {
 
     <span className="flex items-center justify-center gap-1.5 sm:gap-2">
 
-      <ShoppingBagIcon
+      <ShoppingCart
         size={15}
         className="sm:w-[17px] sm:h-[17px]"
       />

@@ -116,30 +116,26 @@ export default function Navbar() {
    {/* TOP BAR */}
 <div
   className="
-    bg-[#071B31]
-    flex flex-col
-    sm:flex-row
-    sm:items-center
+    hidden md:flex
+    items-center
     justify-between
-    px-3
-    sm:px-4
-    md:px-12
-    py-2
-    gap-2
+    bg-[#071B31]
+    px-6
+    lg:px-12
+    py-3
+    text-white
   "
 >
 
   {/* LEFT */}
   <div
     className="
-      flex flex-wrap items-center
-      gap-1 sm:gap-3
-      text-[10px]
-      sm:text-[11px]
-      md:text-[13px]
-      tracking-[0.02em]
-      text-white
+      flex
+      items-center
+      gap-4
+      text-[13px]
       font-medium
+      tracking-[0.02em]
     "
   >
 
@@ -148,9 +144,9 @@ export default function Navbar() {
     </span>
 
     {/* SEPARATOR */}
-    <div className=" h-4 w-[1px] bg-white" />
+    <span className="h-4 w-[1px] bg-white/30" />
 
-    <span className="whitespace-nowrap">
+    <span className="whitespace-nowrap text-white/90">
       Trusted Importer & Wholesaler since 2005
     </span>
 
@@ -159,41 +155,51 @@ export default function Navbar() {
   {/* RIGHT */}
   <div
     className="
-      flex flex-wrap
+      flex
       items-center
-      justify-start
-      sm:justify-end
-      gap-3
-      sm:gap-5
-      md:gap-8
-      text-[10px]
-      sm:text-[12px]
-      md:text-[14px]
+      gap-6
+      text-[13px]
       font-medium
-      text-white
-      whitespace-nowrap
     "
   >
 
     <Link
       href="/"
-      className="flex items-center gap-3 hover:text-gray-300 transition"
+      className="
+        flex
+        items-center
+        gap-6
+        hover:text-[#d6b98c]
+        transition-all
+        duration-300
+      "
     >
-      Track Order
-      <span className=" h-4 w-[1px] bg-white" />
+      <span>Track Order</span>
+      <span className="h-4 w-[1px] bg-white/30" />
     </Link>
 
     <Link
       href="/"
-      className="flex items-center gap-3 hover:text-gray-300 transition"
+      className="
+        flex
+        items-center
+        gap-6
+        hover:text-[#d6b98c]
+        transition-all
+        duration-300
+      "
     >
-      Bulk Enquiry
-      <span className=" h-4 w-[1px] bg-white" />
+      <span>Bulk Enquiry</span>
+      <span className="h-4 w-[1px] bg-white/30" />
     </Link>
 
     <Link
       href="/"
-      className="hover:text-gray-300 transition"
+      className="
+        hover:text-[#d6b98c]
+        transition-all
+        duration-300
+      "
     >
       Contact Us
     </Link>
@@ -479,7 +485,7 @@ export default function Navbar() {
               </span>
 
               {mounted && wishlist.length > 0 && (
-                <span className="absolute top-0 right-3 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
+                <span className="absolute -top-2 right-3 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
                   {wishlist.length}
                 </span>
               )}
@@ -618,6 +624,34 @@ export default function Navbar() {
         </div>
 
         <div className="p-4 flex flex-col gap-4">
+
+
+{/* MOBILE CATEGORIES */}
+<div className="flex flex-col gap-3 pt-2">
+
+  <p className="text-[15px] font-semibold text-[#071B31]">
+  All  Categories
+  </p>
+
+  <div className="flex flex-col gap-3 max-h-[250px] overflow-y-auto pr-2">
+
+    {categories.map((cat) => (
+
+      <Link
+        key={cat._id}
+        href={`/category/${cat.slug}`}
+        onClick={() => setMenuOpen(false)}
+        className="text-[14px] text-[#2f3b52]"
+      >
+        {cat.name}
+      </Link>
+
+    ))}
+
+  </div>
+
+</div>
+
 
           <Link href="/profile">Profile</Link>
 

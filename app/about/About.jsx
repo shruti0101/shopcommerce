@@ -3,20 +3,20 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
-
+import Image from "next/image";
 const About = () => {
   const slides = [
     {
       title: "RENEWED TECH",
       subtitle: "Premium Quality • Lower Price",
       offer: "Save Up to 60% off",
-      image: "/catbg1.avif",
+      image: "/slider1.png",
     },
     {
       title: "SMART DEVICES",
       subtitle: "Latest Tech • Best Deals",
       offer: "Up to 50% off",
-      image: "/catbg2.avif",
+      image: "/slider-2.png",
     },
   ];
   return (
@@ -49,12 +49,15 @@ const About = () => {
           >
             {slides.map((slide, i) => (
               <SwiperSlide key={i}>
-                <div className="relative h-[300px] md:h-[340px]">
+                <div className="relative h-[70vh]">
                   {/* IMAGE */}
-                  <img
-                    src={slide.image}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+              <Image
+  src={slide.image}
+  alt="slide-image"
+  width={2000}
+  height={2000}
+className="absolute inset-0 w-full h-full object-cover"
+/>
                 </div>
               </SwiperSlide>
             ))}
@@ -64,199 +67,835 @@ const About = () => {
 
       {/* Description */}
 
-      <section className="text-gray-600 body-font overflow-hidden">
-        <div className="w-full px-4 md:px-6 lg:px-10 pt-16 pb-10">
-          <div className="w-full mx-auto flex flex-wrap items-center">
-            {/* IMAGE */}
-            <img
-              alt="JL Industries"
-              className="lg:w-[55%] w-full h-[250px] sm:h-[320px] md:h-[400px] object-cover object-center rounded-xl"
-              src="/bg-images/about.webp"
-            />
+     <section className="relative overflow-hidden bg-[#f7f4ee] py-8">
 
-            {/* CONTENT */}
-            <div className="lg:w-[40%] w-full lg:pl-10 mt-6 lg:mt-0">
-              <h1 className="text-gray-900 text-2xl md:text-3xl font-semibold mb-3">
-                About JL Industries
-              </h1>
+  {/* BACKGROUND BLURS */}
+  <div className="absolute -top-24 left-0 h-[320px] w-[320px] rounded-full bg-[#d7c2a3]/30 blur-3xl" />
+  <div className="absolute bottom-0 right-0 h-[260px] w-[260px] rounded-full bg-[#c7d2fe]/30 blur-3xl" />
 
-              <p className="leading-relaxed text-black text-sm md:text-base">
-                JL Industries is a trusted name in the field of industrial
-                supply and safety solutions, known for delivering high-quality
-                products with reliability and consistency. As a leading
-                wholesaler and importer, we are committed to bridging the gap
-                between global manufacturers and local industries by providing
-                premium products at competitive prices.
-              </p>
+  <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
 
-              <p className="leading-relaxed text-black text-sm md:text-base mt-3">
-                We take pride in our efficient supply chain management, ensuring
-                timely availability of products for our clients across various
-                sectors. Every product we supply undergoes strict quality checks
-                to ensure performance, durability, and safety compliance.
-              </p>
-            </div>
-             <div className="max-w-7xl mt-7 px-5  text-black text-sm md:text-base leading-relaxed md:text-start  mb-10">
-        <p>
-          With a strong focus on quality, sourcing excellence, and customer
-          satisfaction, JL Industries specializes in importing and supplying a
-          wide range of industrial equipment, fire protection systems, and
-          safety products. Our extensive network of global suppliers enables us
-          to offer advanced and durable solutions that meet international
-          standards and cater to diverse industrial requirements. Driven by
-          years of industry experience and a customer-centric approach, JL
-          Industries has built long-term relationships with clients by offering
-          reliable sourcing, bulk supply capabilities, competitive pricing, and
-          responsive support. Our goal is to support businesses with dependable
-          products that enhance safety, productivity, and operational
-          efficiency.
-        </p>
-      </div>
-          </div>
+    <div
+      className="
+        grid
+        grid-cols-1
+        lg:grid-cols-2
+        gap-12
+        items-center
+      "
+    >
+
+      {/* IMAGE */}
+      <div className="relative group">
+
+        {/* GLOW */}
+        <div
+          className="
+            absolute
+            inset-0
+            rounded-[35px]
+            bg-gradient-to-br
+            from-[#d7c2a3]/30
+            to-[#1e3a8a]/10
+            blur-2xl
+            scale-105
+          "
+        />
+
+        <img
+          src="/bg-images/about.webp"
+          alt="JL Industries"
+          className="
+            relative
+            h-[320px]
+            sm:h-[420px]
+            md:h-[520px]
+            w-full
+            rounded-[35px]
+            object-cover
+            shadow-[0_30px_80px_rgba(0,0,0,0.12)]
+          "
+        />
+
+        {/* FLOATING BADGE */}
+        <div
+          className="
+            absolute
+            bottom-6
+            left-6
+            rounded-2xl
+            border
+            border-white/20
+            bg-white/80
+            px-5
+            py-4
+            backdrop-blur-xl
+            shadow-xl
+          "
+        >
+          <h3 className="text-2xl font-bold text-[#111]">
+            20+
+          </h3>
+
+          <p className="text-sm text-[#666]">
+            Years Industry Experience
+          </p>
         </div>
-      </section>
+
+      </div>
+
+      {/* CONTENT */}
+      <div>
+
+        {/* LABEL */}
+        <span
+          className="
+            inline-flex
+            items-center
+            rounded-full
+            border
+            border-[#d7c2a3]
+            bg-white/80
+            px-5
+            py-2
+            text-[11px]
+            font-semibold
+            uppercase
+            tracking-[0.3em]
+            text-[#9f7a3d]
+            shadow-sm
+            backdrop-blur-xl
+          "
+        >
+          Premium Industrial Supplier
+        </span>
+
+        {/* TITLE */}
+        <h1
+          className="
+            mt-6
+            text-4xl
+            md:text-6xl
+            font-bold
+            leading-tight
+            text-[#111]
+          "
+        >
+          About JL Industries
+        </h1>
+
+        {/* TEXT */}
+        <div className="mt-6 space-y-5">
+
+          <p className="text-[15px] md:text-[17px] leading-8 text-[#444]">
+            JL Industries is a trusted name in industrial supply and
+            safety solutions, known for delivering premium-quality
+            products with consistency, reliability, and sourcing
+            excellence.
+          </p>
+
+          <p className="text-[15px] md:text-[17px] leading-8 text-[#444]">
+            As a leading importer and wholesaler, we bridge the gap
+            between global manufacturers and local industries by
+            providing durable products at competitive pricing with
+            dependable service support.
+          </p>
+
+          <p className="text-[15px] md:text-[17px] leading-8 text-[#444]">
+            With strong supply chain management and strict quality
+            standards, we ensure every product meets performance,
+            durability, and safety expectations across industries.
+          </p>
+
+        </div>
+
+        {/* PREMIUM STATS */}
+        <div className="mt-5 grid grid-cols-3 gap-4">
+
+          <div
+            className="
+              rounded-3xl
+              bg-white
+              p-5
+              shadow-[0_15px_40px_rgba(0,0,0,0.06)]
+            "
+          >
+            <h3 className="text-3xl font-bold text-[#111]">
+              500+
+            </h3>
+
+            <p className="mt-1 text-sm text-[#666]">
+              Products
+            </p>
+          </div>
+
+          <div
+            className="
+              rounded-3xl
+              bg-white
+              p-5
+              shadow-[0_15px_40px_rgba(0,0,0,0.06)]
+            "
+          >
+            <h3 className="text-3xl font-bold text-[#111]">
+              100%
+            </h3>
+
+            <p className="mt-1 text-sm text-[#666]">
+              Quality Focus
+            </p>
+          </div>
+
+          <div
+            className="
+              rounded-3xl
+              bg-white
+              p-5
+              shadow-[0_15px_40px_rgba(0,0,0,0.06)]
+            "
+          >
+            <h3 className="text-3xl font-bold text-[#111]">
+              24/7
+            </h3>
+
+            <p className="mt-1 text-sm text-[#666]">
+              Support
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* BOTTOM CONTENT */}
+    <div
+      className="
+        mt-16
+        rounded-[35px]
+        border
+        border-white/40
+        bg-white/70
+        p-8
+        md:p-12
+        shadow-[0_20px_70px_rgba(0,0,0,0.06)]
+        backdrop-blur-xl
+      "
+    >
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        {/* BOX 1 */}
+        <div>
+
+          <div
+            className="
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
+              rounded-2xl
+              bg-[#f3efe8]
+              text-2xl
+              shadow-inner
+            "
+          >
+            🌍
+          </div>
+
+          <h3 className="mt-5 text-xl font-bold text-[#111]">
+            Global Sourcing
+          </h3>
+
+          <p className="mt-3 text-[15px] leading-7 text-[#666]">
+            Extensive supplier networks delivering international-grade
+            industrial products and safety equipment.
+          </p>
+
+        </div>
+
+        {/* BOX 2 */}
+        <div>
+
+          <div
+            className="
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
+              rounded-2xl
+              bg-[#eef2ff]
+              text-2xl
+              shadow-inner
+            "
+          >
+            ⚡
+          </div>
+
+          <h3 className="mt-5 text-xl font-bold text-[#111]">
+            Reliable Supply
+          </h3>
+
+          <p className="mt-3 text-[15px] leading-7 text-[#666]">
+            Consistent inventory availability with efficient logistics
+            and timely delivery support.
+          </p>
+
+        </div>
+
+        {/* BOX 3 */}
+        <div>
+
+          <div
+            className="
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
+              rounded-2xl
+              bg-[#fff7ed]
+              text-2xl
+              shadow-inner
+            "
+          >
+            🛡️
+          </div>
+
+          <h3 className="mt-5 text-xl font-bold text-[#111]">
+            Quality Assurance
+          </h3>
+
+          <p className="mt-3 text-[15px] leading-7 text-[#666]">
+            Every product undergoes strict quality checks to ensure
+            safety, durability, and performance standards.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
      
 
       {/* MISSION & VISION */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        {/* Mission */}
-        <div className="flex gap-4 border rounded-lg p-5">
-          <div className="w-12 h-12 flex items-center justify-center rounded-full bg-indigo-100 shrink-0">
-            <svg
-              className="w-6 h-6"
-              stroke="#1E3A8A"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-            </svg>
-          </div>
-          <div>
-            <h2 className="font-bold text-lg mb-2">Our Mission</h2>
-            <p className="text-sm text-gray-600">
-              To provide high-quality industrial and safety products through
-              reliable sourcing and efficient distribution, ensuring value,
-              performance, and customer satisfaction.
-            </p>
-          </div>
-        </div>
+   {/* MISSION & VISION */}
+<section className="relative py-7 overflow-hidden bg-[#f8f5ef]">
 
-        {/* Vision */}
-        <div className="flex gap-4 border rounded-lg p-5">
-          <div className="w-12 h-12 flex items-center justify-center rounded-full bg-indigo-100 shrink-0">
-            <svg
-              className="w-6 h-6"
-              stroke="#1E3A8A"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <div>
-            <h2 className="font-bold text-lg mb-2">Our Vision</h2>
-            <p className="text-sm text-gray-600">
-              To become a leading importer and wholesaler recognized for quality
-              products, global sourcing excellence, and strong customer
-              relationships in the industrial supply sector.
-            </p>
-          </div>
-        </div>
-      </div>
+  {/* BLURS */}
+  <div className="absolute top-0 left-0 h-[300px] w-[300px] rounded-full bg-[#d7c2a3]/20 blur-3xl" />
+  <div className="absolute bottom-0 right-0 h-[250px] w-[250px] rounded-full bg-[#c7d2fe]/20 blur-3xl" />
 
-      <style>{`
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
 
-  * {
-    font-family: 'Poppins', sans-serif;
-  }
-`}</style>
+    {/* TITLE */}
+    <div className="text-center mb-14">
 
-      <h1 className="text-3xl font-semibold text-center mx-auto">
-        About JL Industries
-      </h1>
+      <span
+        className="
+          inline-flex
+          rounded-full
+          border
+          border-[#d7c2a3]
+          bg-white/80
+          px-5
+          py-2
+          text-[11px]
+          font-semibold
+          uppercase
+          tracking-[0.3em]
+          text-[#9f7a3d]
+          shadow-sm
+          backdrop-blur-xl
+        "
+      >
+        Our Foundation
+      </span>
 
-      <p className="text-sm text-slate-500 text-center mt-2 max-w-md mx-auto">
-        A trusted importer and wholesaler delivering quality products across
-        health, beauty, kitchen, office, and fitness categories.
+      <h2 className="mt-5 text-4xl md:text-6xl font-bold text-[#111]">
+        Mission & Vision
+      </h2>
+
+      <p className="mt-4 max-w-2xl mx-auto text-[15px] md:text-[17px] leading-8 text-[#666]">
+        Driven by quality, reliability, and innovation, JL Industries
+        continues to build strong relationships through dependable
+        industrial supply solutions.
       </p>
 
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4 md:px-0 py-10">
+    </div>
+
+    {/* CARDS */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      {/* MISSION */}
+      <div
+        className="
+          group
+          relative
+          overflow-hidden
+          rounded-[35px]
+          border
+          border-white/40
+          bg-white/80
+          p-8
+          shadow-[0_20px_70px_rgba(0,0,0,0.06)]
+          backdrop-blur-xl
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_30px_80px_rgba(0,0,0,0.10)]
+        "
+      >
+
+        {/* GLOW */}
+        <div
+          className="
+            absolute
+            top-0
+            right-0
+            h-32
+            w-32
+            rounded-full
+            bg-[#c7d2fe]/20
+            blur-3xl
+          "
+        />
+
+        {/* ICON */}
+        <div
+          className="
+            relative
+            flex
+            h-16
+            w-16
+            items-center
+            justify-center
+            rounded-2xl
+            bg-[#eef2ff]
+            shadow-inner
+            text-3xl
+          "
+        >
+          🚀
+        </div>
+
+        {/* CONTENT */}
+        <h3 className="mt-7 text-3xl font-bold text-[#111]">
+          Our Mission
+        </h3>
+
+        <p className="mt-5 text-[15px] md:text-[16px] leading-8 text-[#555]">
+          To provide high-quality industrial and safety products
+          through reliable sourcing, efficient distribution, and
+          customer-focused service that delivers long-term value,
+          trust, and operational excellence.
+        </p>
+
+        {/* BOTTOM LINE */}
+        <div
+          className="
+            mt-8
+            h-[2px]
+            w-20
+            rounded-full
+            bg-gradient-to-r
+            from-[#1e3a8a]
+            to-transparent
+          "
+        />
+
+      </div>
+
+      {/* VISION */}
+      <div
+        className="
+          group
+          relative
+          overflow-hidden
+          rounded-[35px]
+          border
+          border-white/40
+          bg-white/80
+          p-8
+          shadow-[0_20px_70px_rgba(0,0,0,0.06)]
+          backdrop-blur-xl
+          transition-all
+          duration-500
+          hover:-translate-y-2
+          hover:shadow-[0_30px_80px_rgba(0,0,0,0.10)]
+        "
+      >
+
+        {/* GLOW */}
+        <div
+          className="
+            absolute
+            bottom-0
+            left-0
+            h-32
+            w-32
+            rounded-full
+            bg-[#d7c2a3]/20
+            blur-3xl
+          "
+        />
+
+        {/* ICON */}
+        <div
+          className="
+            relative
+            flex
+            h-16
+            w-16
+            items-center
+            justify-center
+            rounded-2xl
+            bg-[#fff7ed]
+            shadow-inner
+            text-3xl
+          "
+        >
+          👑
+        </div>
+
+        {/* CONTENT */}
+        <h3 className="mt-7 text-3xl font-bold text-[#111]">
+          Our Vision
+        </h3>
+
+        <p className="mt-5 text-[15px] md:text-[16px] leading-8 text-[#555]">
+          To become a globally recognized importer and wholesaler
+          known for premium quality products, sourcing excellence,
+          innovation, and long-term partnerships across industries.
+        </p>
+
+        {/* BOTTOM LINE */}
+        <div
+          className="
+            mt-8
+            h-[2px]
+            w-20
+            rounded-full
+            bg-gradient-to-r
+            from-[#9f7a3d]
+            to-transparent
+          "
+        />
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+  
+<section className="relative overflow-hidden bg-white py-5">
+
+  <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+
+    {/* HEADING */}
+    <div className="text-center">
+
+      <span
+        className="
+          inline-flex
+          rounded-full
+          border
+          border-[#d7c2a3]
+          bg-white/80
+          px-5
+          py-2
+          text-[11px]
+          font-semibold
+          uppercase
+          tracking-[0.3em]
+          text-[#9f7a3d]
+          shadow-sm
+          backdrop-blur-xl
+        "
+      >
+        Why Choose JL Industries
+      </span>
+
+      <h2
+        className="
+          mt-5
+          text-4xl
+          md:text-6xl
+          font-bold
+          leading-tight
+          text-[#111]
+        "
+      >
+        What We Offer
+      </h2>
+
+      <p
+        className="
+          mt-2
+          max-w-3xl
+          mx-auto
+          text-[15px]
+          md:text-[17px]
+          leading-8
+          text-[#666]
+        "
+      >
+        A trusted importer and wholesaler delivering premium-quality
+        industrial and lifestyle products with reliability, consistency,
+        and competitive pricing.
+      </p>
+
+    </div>
+
+    {/* CONTENT */}
+    <div
+      className="
+        mt-5
+        grid
+        grid-cols-1
+        lg:grid-cols-2
+        gap-14
+        items-center
+      "
+    >
+
+      {/* IMAGE SIDE */}
+      <div className="relative group">
+
+        {/* GLOW */}
+        <div
+          className="
+            absolute
+            inset-0
+            rounded-[35px]
+            bg-gradient-to-br
+            from-[#d7c2a3]/30
+            to-[#1e3a8a]/10
+            blur-2xl
+            scale-105
+          "
+        />
+
         <img
-          className="max-w-sm w-full rounded-xl h-[50vh] md:h-auto"
-          src="/bg-images/JL.webp/"
+          className="
+            relative
+            w-full
+            rounded-[35px]
+            object-contain
+            shadow-[0_25px_80px_rgba(0,0,0,0.12)]
+          "
+          src="/bg-images/JL.webp"
           alt="JL Industries"
         />
 
-        <div>
-          <h1 className="text-3xl font-semibold">What We Offer</h1>
+        {/* FLOAT CARD */}
+        <div
+          className="
+            absolute
+            bottom-6
+            left-6
+            rounded-2xl
+            border
+            border-white/20
+            bg-white/80
+            px-5
+            py-4
+            backdrop-blur-xl
+            shadow-xl
+          "
+        >
+          <h3 className="text-2xl font-bold text-[#111]">
+            Trusted by
+          </h3>
 
-          <p className="text-sm text-slate-500 mt-2">
-            We provide a wide range of high-quality products sourced globally,
-            ensuring affordability, reliability, and consistency for businesses
-            and bulk buyers.
+          <p className="mt-1 text-sm text-[#666]">
+            Retailers, Businesses & Bulk Buyers
           </p>
-
-          <div className="flex flex-col gap-10 mt-6">
-            {/* Feature 1 */}
-            <div className="flex items-center gap-4">
-              <div className="size-9 p-2 bg-indigo-50 border border-indigo-200 rounded">
-                 <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/flashEmoji.png" alt="" />
-              </div>
-              <div>
-                <h3 className="text-base font-medium text-slate-600">
-                  Wide Product Range
-                </h3>
-                <p className="text-sm text-slate-500">
-                  From health & beauty to kitchen, office, and fitness products
-                  — all in one place.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="flex items-center gap-4">
-              <div className="size-9 p-2 bg-indigo-50 border border-indigo-200 rounded">
-                <img
-                  src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/colorsEmoji.png"
-                  alt=""
-                />
-              </div>
-              <div>
-                <h3 className="text-base font-medium text-slate-600">
-                  Quality & Affordability
-                </h3>
-                <p className="text-sm text-slate-500">
-                  Carefully sourced products that ensure durability, value, and
-                  competitive pricing.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="flex items-center gap-4">
-              <div className="size-9 p-2 bg-indigo-50 border border-indigo-200 rounded">
-                <img
-                  src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/puzzelEmoji.png"
-                  alt=""
-                />
-              </div>
-              <div>
-                <h3 className="text-base font-medium text-slate-600">
-                  Reliable Wholesale Supply
-                </h3>
-                <p className="text-sm text-slate-500">
-                  Trusted by retailers and businesses for consistent supply and
-                  smooth bulk transactions.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
+
       </div>
 
+      {/* RIGHT SIDE */}
+      <div>
+
+        <div className="space-y-8">
+
+          {/* FEATURE 1 */}
+          <div
+            className="
+              group
+              flex
+              gap-5
+              rounded-[28px]
+              border
+              border-white/40
+              bg-white/70
+              p-6
+              shadow-[0_15px_50px_rgba(0,0,0,0.05)]
+              backdrop-blur-xl
+              transition-all
+              duration-500
+              hover:-translate-y-1
+            "
+          >
+
+            <div
+              className="
+                flex
+                h-16
+                w-16
+                shrink-0
+                items-center
+                justify-center
+                rounded-2xl
+                bg-[#eef2ff]
+                text-3xl
+                shadow-inner
+              "
+            >
+              ⚡
+            </div>
+
+            <div>
+
+              <h3 className="text-2xl font-bold text-[#111]">
+                Wide Product Range
+              </h3>
+
+              <p className="mt-3 text-[15px] leading-8 text-[#666]">
+                From industrial solutions and safety equipment to
+                lifestyle and utility products — all sourced under one
+                trusted network.
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* FEATURE 2 */}
+          <div
+            className="
+              group
+              flex
+              gap-5
+              rounded-[28px]
+              border
+              border-white/40
+              bg-white/70
+              p-6
+              shadow-[0_15px_50px_rgba(0,0,0,0.05)]
+              backdrop-blur-xl
+              transition-all
+              duration-500
+              hover:-translate-y-1
+            "
+          >
+
+            <div
+              className="
+                flex
+                h-16
+                w-16
+                shrink-0
+                items-center
+                justify-center
+                rounded-2xl
+                bg-[#fff7ed]
+                text-3xl
+                shadow-inner
+              "
+            >
+              💎
+            </div>
+
+            <div>
+
+              <h3 className="text-2xl font-bold text-[#111]">
+                Quality & Affordability
+              </h3>
+
+              <p className="mt-3 text-[15px] leading-8 text-[#666]">
+                Carefully sourced products designed to deliver
+                durability, performance, and excellent value at
+                competitive wholesale pricing.
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* FEATURE 3 */}
+          <div
+            className="
+              group
+              flex
+              gap-5
+              rounded-[28px]
+              border
+              border-white/40
+              bg-white/70
+              p-6
+              shadow-[0_15px_50px_rgba(0,0,0,0.05)]
+              backdrop-blur-xl
+              transition-all
+              duration-500
+              hover:-translate-y-1
+            "
+          >
+
+            <div
+              className="
+                flex
+                h-16
+                w-16
+                shrink-0
+                items-center
+                justify-center
+                rounded-2xl
+                bg-[#f3efe8]
+                text-3xl
+                shadow-inner
+              "
+            >
+              🤝
+            </div>
+
+            <div>
+
+              <h3 className="text-2xl font-bold text-[#111]">
+                Reliable Wholesale Supply
+              </h3>
+
+              <p className="mt-3 text-[15px] leading-8 text-[#666]">
+                Trusted by businesses for consistent inventory,
+                dependable logistics, smooth bulk transactions, and
+                responsive customer support.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
       {/* Closing */}
     </section>
   );
