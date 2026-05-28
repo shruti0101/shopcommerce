@@ -28,7 +28,7 @@ const About = () => {
 
       <div className="w-full px-6 mt-2 mb-4">
         <div className="relative rounded-2xl overflow-hidden shadow-lg">
-          {/* NAV BUTTONS */}
+          {/* NAV BUTTONS */}2
           <div className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center shadow cursor-pointer">
             <ChevronLeft />
           </div>
