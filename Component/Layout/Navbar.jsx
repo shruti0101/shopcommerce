@@ -690,6 +690,7 @@ const [bulkOpen, setBulkOpen] = useState(false);
           <Link href="/orders">Orders</Link>
 
           <Link href="/wishlist">Wishlist</Link>
+          <Link href="/contact-us">Contact Us</Link>
 
           <div
             onClick={openCart}
