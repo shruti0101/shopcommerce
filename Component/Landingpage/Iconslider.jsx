@@ -82,7 +82,7 @@ const categories = [
 
 export default function CategorySlider() {
   return (
-    <div className="w-full bg-white py-6">
+    <div className="w-full bg-white ">
       <Swiper
          modules={[Navigation, Autoplay]}
   autoplay={{ delay: 1500, disableOnInteraction: false }}

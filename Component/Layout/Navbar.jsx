@@ -2,10 +2,15 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Autoplay } from "swiper/modules";
-
+import BulkEnquiryPopup from "@/component/Landingpage/Bulk";
 import "swiper/css";
 import "swiper/css/free-mode";
-
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 import Image from "next/image";
 import {
   Search,
@@ -28,7 +33,7 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
+const [bulkOpen, setBulkOpen] = useState(false);  
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -107,6 +112,9 @@ export default function Navbar() {
 
   return (
 
+    <>
+    
+    
     <div
       className={`w-full font-sans sticky top-0 z-[999] transition-all duration-300 ${
         scrolled ? "shadow-lg bg-white" : "bg-transparent"
@@ -153,58 +161,82 @@ export default function Navbar() {
   </div>
 
   {/* RIGHT */}
-  <div
+<div
+  className="
+    flex
+    items-center
+    gap-5
+    text-[13px]
+    font-medium
+  "
+>
+
+
+
+  <button
+    onClick={() => setBulkOpen(true)}
     className="
-      flex
-      items-center
-      gap-6
-      text-[13px]
-      font-medium
+      hover:text-[#d6b98c]
+      transition-all
+      duration-300
+      animate-pulse
+      whitespace-nowrap
     "
   >
+    Bulk Enquiry
+  </button>
 
-    <Link
-      href="/"
-      className="
-        flex
-        items-center
-        gap-6
-        hover:text-[#d6b98c]
-        transition-all
-        duration-300
-      "
+  <span className="h-4 w-[1px] bg-white" />
+
+  <Link
+    href="/contact-us"
+    className="
+      hover:text-[#d6b98c]
+      transition-all
+      duration-300
+      whitespace-nowrap
+    "
+  >
+    Contact Us
+  </Link>
+
+
+
+  <span className="h-4 w-[1px] bg-white" />
+
+    <div className="flex items-center gap-3">
+    <a
+      href="https://www.facebook.com/profile.php?id=100064843774189"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#d6b98c] transition-all duration-300"
     >
-      <span>Track Order</span>
-      <span className="h-4 w-[1px] bg-white/30" />
-    </Link>
+      <FaFacebookF size={14} />
+    </a>
 
-    <Link
-      href="/"
-      className="
-        flex
-        items-center
-        gap-6
-        hover:text-[#d6b98c]
-        transition-all
-        duration-300
-      "
+    <a
+      href="https://www.instagram.com/j_l_industries_hub/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#d6b98c] transition-all duration-300"
     >
-      <span>Bulk Enquiry</span>
-      <span className="h-4 w-[1px] bg-white/30" />
-    </Link>
+      <FaInstagram size={15} />
+    </a>
 
-    <Link
-      href="/"
-      className="
-        hover:text-[#d6b98c]
-        transition-all
-        duration-300
-      "
+  
+
+    <a
+      href="https://www.youtube.com/@JLIndustriesPvtltd"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#d6b98c] transition-all duration-300"
     >
-      Contact Us
-    </Link>
+      <FaYoutube size={18} />
+    </a>
+  </div>  
+</div>
 
-  </div>
+
 
 </div>
 
@@ -789,5 +821,14 @@ export default function Navbar() {
         </div>
       </div>
     </div>
+
+
+    <BulkEnquiryPopup
+  isOpen={bulkOpen}
+  setIsOpen={setBulkOpen}
+  categories={categories}
+/>
+    </>
+
   );
 }

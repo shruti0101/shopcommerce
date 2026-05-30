@@ -70,12 +70,16 @@ export default async function ProductPage({ params }) {
   }
 
   // 🔥 FETCH RELATED PRODUCTS
-  const relatedProducts = await Product.find({
-    category: product.category._id, // same category
-    _id: { $ne: product._id }, // exclude current product
+let relatedProducts = [];
+
+if (product?.category?._id) {
+  relatedProducts = await Product.find({
+    category: product.category._id,
+    _id: { $ne: product._id },
   })
     .limit(6)
     .populate("category");
+}
 
   const cleanProduct = JSON.parse(
     JSON.stringify(product)

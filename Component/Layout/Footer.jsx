@@ -42,7 +42,7 @@ const Footer = () => {
 {/* Social Icons */}
 <div className="flex items-center gap-3 mt-6">
   <a
-    href="https://facebook.com"
+    href="https://www.facebook.com/profile.php?id=100064843774189"
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-full bg-white/20 hover:bg-[#039c98] transition flex items-center justify-center border border-white/10 hover:scale-110"
@@ -51,7 +51,7 @@ const Footer = () => {
   </a>
 
   <a
-    href="https://instagram.com"
+    href="https://www.instagram.com/j_l_industries_hub/"
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-full bg-white/20 hover:bg-pink-600 transition flex items-center justify-center border border-white/10 hover:scale-110"
@@ -59,17 +59,10 @@ const Footer = () => {
     <FaInstagram className="text-white text-sm" />
   </a>
 
-  <a
-    href="https://linkedin.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full bg-white/20 hover:bg-blue-600 transition flex items-center justify-center border border-white/10 hover:scale-110"
-  >
-    <FaLinkedinIn className="text-white text-sm" />
-  </a>
+ 
 
   <a
-    href="https://youtube.com"
+    href="https://www.youtube.com/@JLIndustriesPvtltd"
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-full bg-white/20 hover:bg-red-600 transition flex items-center justify-center border border-white/10 hover:scale-110"
@@ -78,7 +71,7 @@ const Footer = () => {
   </a>
 
   <a
-    href="https://wa.me/919999999999"
+    href="https://wa.me/918130385561"
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-full bg-white/20 hover:bg-green-500 transition flex items-center justify-center border border-white/10 hover:scale-110"

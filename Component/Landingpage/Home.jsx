@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Category from "./Category";
 
-import Clientele from "./Clientele";
+
 import Catslider from "./Catslider";
 import Bestsellers from "./BestSeller";
 import Whychoose from "./Whychoose";
@@ -201,8 +201,7 @@ const mobileBanners = [
 
 <Iconslider></Iconslider>
 
-      <Clientele></Clientele>
-
+  <TestimonialSlider></TestimonialSlider>
       {/* <section className="w-full mt-3 mx-auto rounded-xl bg-gray-50 py-16 px-6 md:px-16">
       
         <div className="flex items-center gap-6 mb-12">
@@ -274,7 +273,7 @@ const mobileBanners = [
     </div>
   </section>
 
-  <TestimonialSlider></TestimonialSlider>
+
 
 
 

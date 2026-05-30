@@ -35,9 +35,15 @@ const [selectedSize, setSelectedSize] =
   const addToCart = useCartStore((state) => state.addToCart);
 
   const slides = [
-    { image: "/slider1.png" },
-    { image: "/slider-2.png" },
+    { image: "/banner/banner-1.png" },
+    { image: "/banner/banner-2.png", },
+     { image: "/banner/banner5.png" },
+        { image:   "/banner/banner6.png", },
+        {image: "/banner4.webp"}
   ];
+
+
+
 
   useEffect(() => {
     if (!slug) return;
