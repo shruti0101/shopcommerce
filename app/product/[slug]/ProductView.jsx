@@ -494,11 +494,11 @@ const selectedSizeData =
             className="flex items-start justify-between gap-8 border-b border-gray-100 pb-4"
           >
 
-            <p className="text-md uppercase tracking-wide text-gray-800 min-w-[120px]">
+            <p className="text-md uppercase tracking-wide text-gray-800 font-bold min-w-[120px]">
               {spec.key}
             </p>
 
-            <p className="text-sm text-black text-right leading-relaxed">
+            <p className="text-sm text-black font-semibold text-right leading-relaxed">
               {spec.value}
             </p>
 
