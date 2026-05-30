@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Autoplay } from "swiper/modules";
-import BulkEnquiryPopup from "@/component/Landingpage/Bulk";
+import BulkEnquiryPopup from "@/Component/Landingpage/Bulk"
 import "swiper/css";
 import "swiper/css/free-mode";
 import {
