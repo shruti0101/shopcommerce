@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Heart, Minus, Plus } from "lucide-react";
 import { toast } from "react-hot-toast";
 import {  Thumbs } from "swiper/modules";
-
+import { FaWhatsapp } from "react-icons/fa";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
@@ -89,8 +89,11 @@ const selectedSizeData =
     return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1` : "";
   };
 
+         
+        console.log(product.longdescription);
+
   return (
-    <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-5">
+    <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-2">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
        
 {/* LEFT */}
@@ -109,7 +112,49 @@ const selectedSizeData =
     </span>
   </p>
 
-  {/* MAIN SLIDER */}
+
+
+<div className="relative">
+  {/* Mobile Wishlist */}
+  <button
+    onClick={() => {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 300);
+
+      if (isWishlisted) {
+        removeFromWishlist(product._id);
+      } else {
+        addToWishlist(product);
+      }
+    }}
+    className="
+      md:hidden
+      absolute
+      top-3
+      right-3
+      z-20
+      h-11
+      w-11
+      rounded-full
+      bg-white/90
+      backdrop-blur
+      shadow-md
+      flex
+      items-center
+      justify-center
+    "
+  >
+    <Heart
+      size={20}
+      className={`${
+        isWishlisted
+          ? "fill-red-500 text-red-500"
+          : "text-red-500"
+      }`}
+    />
+  </button>
+
+ {/* MAIN SLIDER */}
   <Swiper
     modules={[Autoplay, Thumbs]}
     thumbs={{ swiper: thumbsSwiper }}
@@ -124,9 +169,8 @@ const selectedSizeData =
       sm:rounded-[26px]
       md:rounded-[32px]
       overflow-hidden
-      border
-      border-gray-100
-      shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+   
+
     "
   >
 
@@ -143,17 +187,19 @@ const selectedSizeData =
 
           <Image
             src={img}
-            width={1500}
-            height={1000}
+            width={1000}
+            height={500}
             priority
             alt={product.name}
             style={zoomStyle}
             className="
-            width={1500} height={1000} priority w-full sm:h-[350px] md:h-[560px] transition-transform duration-200 ease-out
+           priority max-w-full  h-[350px] md:h-[560px] transition-transform duration-200 ease-out
             "
           />
 
         </div>
+
+        
 
       </SwiperSlide>
 
@@ -181,6 +227,12 @@ const selectedSizeData =
     )}
 
   </Swiper>
+</div>
+
+
+
+
+ 
 
   {/* THUMBNAILS */}
   <Swiper
@@ -308,16 +360,16 @@ const selectedSizeData =
   {/* PRICE SECTION */}
   <div className="mt-4 flex items-end flex-wrap gap-4">
 
-    <div className="flex items-end gap-3">
+    <div className="flex items-end gap-5">
 
       <span className="text-[38px]   font-semibold tracking-tight text-black">
-        ₹{selectedSizeData?.price || product.price}
+        ₹ {" "}{selectedSizeData?.price || product.price}
       </span>
 
       {(selectedSizeData?.oldPrice ||
         product.oldPrice) > 0 && (
 
-        <span className="text-md text-gray-400 line-through mb-2">
+        <span className="text-2xl text-gray-600 line-through mb-3 font-medium">
           ₹
           {selectedSizeData?.oldPrice ||
             product.oldPrice}
@@ -332,7 +384,7 @@ const selectedSizeData =
 
       <div className="mb-2 rounded-full bg-[#f4f4f4] px-3 py-1">
 
-        <span className="text-sm font-medium text-black">
+        <span className="text-md font-medium text-black">
 
           {Math.round(
             (((selectedSizeData?.oldPrice ||
@@ -481,7 +533,7 @@ const selectedSizeData =
 
     <div className="mt-10">
 
-      <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-6">
+      <h3 className="text-[18px] uppercase tracking-[3px] text-black font-semibold mb-6">
         Product Specifications
       </h3>
 
@@ -494,11 +546,11 @@ const selectedSizeData =
             className="flex items-start justify-between gap-8 border-b border-gray-100 pb-4"
           >
 
-            <p className="text-md uppercase tracking-wide text-gray-800 font-bold min-w-[120px]">
+            <p className="text-[15px] uppercase tracking-wide text-gray-800 font-bold min-w-[120px]">
               {spec.key}
             </p>
 
-            <p className="text-sm text-black font-semibold text-right leading-relaxed">
+            <p className="text-[15px] text-black font-semibold text-right leading-relaxed">
               {spec.value}
             </p>
 
@@ -512,105 +564,110 @@ const selectedSizeData =
 
   )}
 
+ <div className="mt-6 flex items-end gap-2 md:gap-8">
   {/* QUANTITY */}
-  <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+  <div>
+    <p className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-4">
+      Quantity
+    </p>
 
-    {/* QUANTITY BOX */}
-    <div>
+    <div className="flex items-center border border-gray-200 rounded-full overflow-hidden w-fit">
+      <button
+        onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+        className="h-12 w-12   md:h-14 md:w-14 flex items-center justify-center hover:bg-black   hover:text-white transition"
+      >
+        <Minus size={16} />
+      </button>
 
-      <p className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-4">
-        Quantity
-      </p>
-
-      <div className="flex items-center border border-gray-200 rounded-full overflow-hidden w-fit">
-
-        <button
-          onClick={() => {
-            if (quantity > 1) {
-              setQuantity(quantity - 1);
-            }
-          }}
-          className="h-14 w-14 flex items-center justify-center hover:bg-black hover:text-white transition"
-        >
-          <Minus size={16} />
-        </button>
-
-        <div className="min-w-[60px] text-center font-semibold text-lg">
-          {quantity}
-        </div>
-
-        <button
-          onClick={() => setQuantity(quantity + 1)}
-          className="h-14 w-14 flex items-center justify-center hover:bg-black hover:text-white transition"
-        >
-          <Plus size={16} />
-        </button>
-
+      <div className="min-w-[60px] text-center font-semibold text-lg">
+        {quantity}
       </div>
 
+      <button
+        onClick={() => setQuantity(quantity + 1)}
+        className="h-12 w-12 md:h-14 md:w-14 flex items-center justify-center hover:bg-black hover:text-white transition"
+      >
+        <Plus size={16} />
+      </button>
     </div>
-
-    {/* BULK ORDER */}
-    <a
-      href="tel:9456664444"
-      className="group relative overflow-hidden rounded-full bg-black px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.03]"
-    >
-
-      <span className="relative z-10">
-        Want Bulk Order?
-      </span>
-
-      <div className="absolute inset-0 bg-[#222] translate-y-full group-hover:translate-y-0 transition duration-500" />
-
-    </a>
-
   </div>
 
+  {/* BULK ORDER */}
+  <a
+    href="tel:9456664444"
+    className="
+      h-14
+      px-5
+      md:px-8
+      rounded-full
+      bg-black
+      text-white
+      font-medium
+      flex
+      items-center
+      justify-center
+      whitespace-nowrap
+      transition-all
+      duration-300
+      hover:bg-[#111]
+      hover:scale-[1.02]
+      animate-pulse
+    "
+  >
+    Want Bulk Order?
+  </a>
+</div>
+
   {/* CTA BUTTONS */}
-  <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
 
     {/* CART */}
     <button
-      onClick={() => {
+  onClick={() => {
+  // Check color first
+  if (
+    product?.colors?.length > 0 &&
+    !selectedColor
+  ) {
+    toast.error("Please select color first");
+    return;
+  }
 
-        if (
-          product?.sizes?.length > 0 &&
-          !selectedSize
-        ) {
-          toast.error("Please select size first");
-          return;
-        }
+  // Then check size
+  if (
+    product?.sizes?.length > 0 &&
+    !selectedSize
+  ) {
+    toast.error("Please select size first");
+    return;
+  }
 
-        const selectedSizeData =
-          product?.sizes?.find(
-            (s) => s.size === selectedSize
-          );
+  const selectedSizeData =
+    product?.sizes?.find(
+      (s) => s.size === selectedSize
+    );
 
-        addToCart(
-          {
-            ...product,
+  addToCart(
+    {
+      ...product,
+      selectedSize,
+      selectedColor,
+      price:
+        selectedSizeData?.price ||
+        product.price,
+      oldPrice:
+        selectedSizeData?.oldPrice ||
+        product.oldPrice,
+      sizeStock:
+        selectedSizeData?.stock || 0,
+    },
+    quantity
+  );
 
-            selectedSize,
-            selectedColor,
-
-            price:
-              selectedSizeData?.price ||
-              product.price,
-
-            oldPrice:
-              selectedSizeData?.oldPrice ||
-              product.oldPrice,
-
-            sizeStock:
-              selectedSizeData?.stock || 0,
-          },
-          quantity
-        );
-
-        toast.success("Added to cart");
-      }}
+  toast.success("Added to cart");
+}}
       className="
-        h-[62px]
+        h-[60px]
         rounded-full
         bg-black
         text-white
@@ -624,31 +681,6 @@ const selectedSizeData =
       Add To Cart
     </button>
 
-    {/* WHATSAPP */}
-
-<a href="https://wa.me/918130385561" target="_blank" rel="noopener noreferrer">
-  <button
-    className="
-      px-8
-      h-[62px]
-      rounded-full
-      border
-      px-10
-      border-[#25D366]
-      bg-[#25D366]
-      text-white
-      font-semibold
-      transition-all
-      duration-300
-      hover:scale-[1.03]
-      hover:bg-[#1ebe5d]
-      shadow-lg
-      hover:shadow-xl
-    "
-  >
-    WhatsApp Now
-  </button>
-</a>
 
 
     {/* WISHLIST */}
@@ -665,12 +697,13 @@ const selectedSizeData =
         }
       }}
       className="
-        h-[62px]
+      hidden lg:flex
+        h-[60px]
         rounded-full
         border
         border-black
         bg-white
-        flex
+        
         items-center
         justify-center
         gap-2
@@ -696,9 +729,63 @@ const selectedSizeData =
 
     </button>
 
+
+
+
+
+
+<a
+  href="https://wa.me/918130385561"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <button
+    className="
+ 
+      h-[60px]
+      rounded-full
+      border
+      text-sm
+      w-full
+      border-[#25D366]
+      bg-[#25D366]
+      text-white
+      font-semibold
+      transition-all
+      duration-300
+      hover:scale-[1.03]
+      hover:bg-[#1ebe5d]
+      shadow-lg
+      hover:shadow-xl
+      flex
+      items-center
+      justify-center
+      gap-2
+      
+    "
+  >
+    <FaWhatsapp size={22} />
+    WhatsApp Now
+  </button>
+</a>
+
+
+
   </div>
 
+
+
+
+
+
+
+
+
 </div>
+
+
+
+
 
         
       </div>
@@ -713,7 +800,10 @@ const selectedSizeData =
               className={`pb-2 whitespace-nowrap text-sm sm:text-lg capitalize ${
                 activeTab === tab ? "border-b-2 border-red-500" : ""
               }`}
+              
             >
+
+              
               {tab}
             </button>
           ))}
@@ -721,11 +811,14 @@ const selectedSizeData =
 
         {activeTab === "description" && (
           <div
-            className="text-sm sm:text-base"
+            className="text-sm sm:text-lg description-content"
             dangerouslySetInnerHTML={{
+              
               __html: product.longdescription || "No description available",
+             
             }}
           />
+   
         )}
 
         {activeTab === "specifications" && (
