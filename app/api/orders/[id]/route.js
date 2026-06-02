@@ -3,10 +3,13 @@ import Order from "@/models/Order";
 import User from "@/models/User";
 import jwt from "jsonwebtoken";
 
-export async function GET(req) {
+export async function PATCH(req, { params }) {
   await connectDB();
 
-  const token = req.headers.get("authorization")?.split(" ")[1];
+  const token =
+    req.headers
+      .get("authorization")
+      ?.split(" ")[1];
 
   if (!token) {
     return Response.json(
@@ -29,21 +32,32 @@ export async function GET(req) {
     );
   }
 
-  const admin = await User.findById(decoded.id);
+  const admin = await User.findById(
+    decoded.id
+  );
 
-  if (!admin || admin.role !== "admin") {
+  if (
+    !admin ||
+    admin.role !== "admin"
+  ) {
     return Response.json(
       { msg: "Unauthorized" },
       { status: 403 }
     );
   }
 
-  const orders = await Order.find()
-    .populate(
-      "userId",
-      "name email phone role createdAt"
-    )
-    .sort({ createdAt: -1 });
+  const { status } = await req.json();
 
-  return Response.json(orders);
+console.log("ORDER ID:", params.id);
+console.log("NEW STATUS:", status);
+
+const order = await Order.findByIdAndUpdate(
+  params.id,
+  { status },
+  { new: true }
+);
+
+console.log("UPDATED ORDER:", order);
+
+return Response.json(order);
 }

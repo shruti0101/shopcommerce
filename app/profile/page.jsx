@@ -10,7 +10,7 @@ import {
   MapPin,
   Package,
 } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -21,6 +21,8 @@ export default function ProfilePage() {
     name: "",
     email: "",
   });
+
+  
 
   // ✅ Load user
   useEffect(() => {
@@ -36,28 +38,44 @@ export default function ProfilePage() {
   }, []);
 
   // ✅ Load orders
-  useEffect(() => {
-    const fetchOrders = async () => {
+ useEffect(() => {
+  const fetchOrders = async () => {
+    try {
       const token = localStorage.getItem("token");
 
       if (!token) return;
 
-      const res = await fetch("/api/orders", {
+      const res = await fetch("/api/my-orders", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        cache: "no-store",
       });
 
       const data = await res.json();
-      setOrders(data);
-    };
 
-    fetchOrders();
-  }, []);
+      setOrders(
+        Array.isArray(data) ? data : []
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  fetchOrders();
+
+  const interval = setInterval(
+    fetchOrders,
+    5000
+  );
+
+  return () => clearInterval(interval);
+}, []);
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
+    route.push("/");
   };
 
   const handleUpdate = () => {
@@ -176,9 +194,15 @@ export default function ProfilePage() {
                     <p className="font-semibold">
                       ₹{order.totalAmount}
                     </p>
-                    <p className="text-xs text-green-600">
-                      Confirmed
-                    </p>
+                  <span
+  className={`text-xs px-2 py-1 rounded-full ${
+    order.status === "Fulfilled"
+      ? "bg-green-100 text-green-700"
+      : "bg-yellow-100 text-yellow-700"
+  }`}
+>
+  {order.status}
+</span>
                   </div>
                 </div>
               ))}

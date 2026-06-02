@@ -7,9 +7,9 @@ import { useParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import Catslider from "@/Component/Landingpage/Catslider";
-import "swiper/css";
 
+import "swiper/css";
+import Iconslider  from "@/Component/Landingpage/Iconslider";
 import { useCartStore } from "@/store/cartStore";
 import toast from "react-hot-toast";
 
@@ -102,9 +102,9 @@ const [selectedSize, setSelectedSize] =
                 <div className="">
                   <Image
                     src={s.image}
-                    className="max-w-full h-auto "
+                    className="max-w-full h-[25vh] md:h-[60vh] "
                     width={2000}
-                    height={800}
+                    height={1500}
                   />
                 </div>
               </SwiperSlide>
@@ -113,14 +113,16 @@ const [selectedSize, setSelectedSize] =
         </div>
       </div>
 
-      <Catslider />
+      {/* <Catslider /> */}
+
+
 
       {/* PRODUCTS */}
       <div className="px-4 sm:px-6 md:px-10 lg:px-18 mt-6 sm:mt-8">
 
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold capitalize">
+          <h2 className="text-lg sm:text-xl md:text-5xl my-4 font-semibold capitalize">
             {decodeURIComponent(slug || "").replace(/-/g, " ")}
           </h2>
 
@@ -180,6 +182,50 @@ const [selectedSize, setSelectedSize] =
       {/* IMAGE */}
       <div className="relative overflow-hidden rounded-[20px] m-2 sm:m-3">
 
+{/* MOBILE QUICK ADD TO CART */}
+<button
+  onClick={(e) => {
+    e.preventDefault();
+
+    if (p?.sizes?.length > 0) {
+      setSelectedProduct(p);
+      setSelectedSize("");
+      setSizeModal(true);
+      return;
+    }
+
+    addToCart({
+      _id: p._id,
+      name: p.name,
+      slug: p.slug,
+      price: p.price,
+      oldPrice: p.oldPrice,
+      images: p.images,
+      quantity: 1,
+    });
+
+    toast.success("Added to cart 🛒");
+  }}
+  className="
+    md:hidden
+    absolute
+    bottom-3
+    right-1
+    z-20
+    h-11
+    w-11
+    rounded-full
+    bg-black
+    text-white
+    shadow-lg
+    flex
+    items-center
+    justify-center
+    active:scale-95
+  "
+>
+  <ShoppingCart className="animate-cart-move" size={18} />
+</button>
         {/* IMAGE */}
         <Image
           src={p.images?.[0] || "/placeholder.png"}
@@ -212,8 +258,20 @@ const [selectedSize, setSelectedSize] =
 
         </div>
 
+
+
+
         {/* FLOATING ADD TO CART */}
         <div className="absolute bottom-4 left-4 right-4 translate-y-24 group-hover:translate-y-0 transition-all duration-500 z-20">
+
+
+
+
+
+
+
+
+
 
           <button
             onClick={(e) => {
@@ -326,9 +384,9 @@ const [selectedSize, setSelectedSize] =
 {/* SIZE MODAL */}
 {sizeModal && selectedProduct && (
 
-  <div className="fixed top-0 inset-0 z-99999 bg-black/60 flex items-center justify-center p-4">
+  <div className="fixed top-0 inset-0 z-999 bg-black/60 flex items-center justify-center p-4">
 
-    <div className="bg-white w-full max-w-md rounded-2xl p-5 relative">
+    <div className="bg-white w-full max-w-md rounded-2xl p-3 relative">
 
       {/* CLOSE */}
       <button
@@ -350,16 +408,16 @@ const [selectedSize, setSelectedSize] =
       {/* IMAGE */}
       <img
         src={selectedProduct.images?.[0]}
-        className="w-full h-64 object-cover rounded-xl"
+        className="w-full h-44 object-contain rounded-xl"
       />
 
       {/* NAME */}
-      <h2 className="mt-4 text-xl font-semibold">
+      <h2 className="mt-2 text-xl font-semibold">
         {selectedProduct.name}
       </h2>
 
       {/* SIZE TITLE */}
-      <h3 className="mt-5 font-medium">
+      <h3 className="mt-3 font-medium">
         Select Size
       </h3>
 
@@ -392,7 +450,7 @@ const [selectedSize, setSelectedSize] =
 
   <>
   
-    <h3 className="mt-5 font-medium">
+    <h3 className="mt-2 font-medium">
       Select Color
     </h3>
 
@@ -443,7 +501,7 @@ const [selectedSize, setSelectedSize] =
       {/* PRICE */}
       {selectedSize && (
 
-        <div className="mt-5">
+        <div className="mt-3">
 
           {(() => {
 
@@ -542,6 +600,15 @@ const [selectedSize, setSelectedSize] =
             return;
           }
 
+               if (!selectedColor) {  
+
+            toast.error(
+              "Please select color first"
+            );
+
+            return;
+          }
+
           // ✅ FIND SIZE DATA
           const sizeData =
             selectedProduct.sizes.find(
@@ -586,7 +653,7 @@ const [selectedSize, setSelectedSize] =
           setSelectedSize("");
 
         }}
-        className="w-full mt-6 bg-black hover:bg-gray-900 text-white py-3 rounded-xl transition"
+        className="w-full mt-3 bg-black hover:bg-gray-900 text-white py-3 rounded-xl transition"
       >
         Add To Cart
       </button>

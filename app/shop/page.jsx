@@ -457,9 +457,9 @@ const [selectedColor, setSelectedColor] = useState("");
 {/* SIZE + COLOR MODAL */}
 {sizeModal && selectedProduct && (
 
-  <div className="fixed inset-0 z-[99999] bg-black/60 flex items-center justify-center p-4">
+  <div className="fixed inset-0 z-[999] bg-black/60 flex items-center justify-center p-4">
 
-    <div className="bg-white w-full max-w-md rounded-2xl p-5 relative">
+    <div className="bg-white w-full max-w-md rounded-2xl p-2 relative">
 
       {/* CLOSE */}
       <button
@@ -481,11 +481,11 @@ const [selectedColor, setSelectedColor] = useState("");
       {/* IMAGE */}
       <img
         src={selectedProduct.images?.[0]}
-        className="w-full h-64 object-cover rounded-xl"
+        className="w-full h-44 object-contain rounded-xl"
       />
 
       {/* NAME */}
-      <h2 className="mt-4 text-xl font-semibold">
+      <h2 className="mt-2 text-xl font-semibold">
         {selectedProduct.name}
       </h2>
 
@@ -525,7 +525,7 @@ const [selectedColor, setSelectedColor] = useState("");
       {selectedProduct?.colors?.length > 0 && (
 
         <>
-          <h3 className="mt-5 font-medium">
+          <h3 className="mt-3 font-medium">
             Select Color
           </h3>
 
@@ -570,7 +570,7 @@ const [selectedColor, setSelectedColor] = useState("");
       )}
 
       {/* SELECTED INFO */}
-      <div className="mt-4 flex flex-wrap gap-3">
+      <div className="mt-3 flex flex-wrap gap-3">
 
         {selectedSize && (
           <div className="px-3 py-1 rounded-full bg-gray-100 text-sm">
@@ -751,7 +751,7 @@ const [selectedColor, setSelectedColor] = useState("");
           setSelectedColor("");
 
         }}
-        className="w-full mt-6 bg-black hover:bg-gray-900 text-white py-3 rounded-xl transition"
+        className="w-full mt-3 bg-black hover:bg-gray-900 text-white py-3 rounded-xl transition"
       >
         Add To Cart
       </button>

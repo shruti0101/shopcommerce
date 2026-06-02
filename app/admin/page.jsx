@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 export default function AdminPage() {
   const router = useRouter();
-
+const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // AUTH CHECK
@@ -18,6 +18,24 @@ export default function AdminPage() {
     }
   }, []);
 
+
+useEffect(() => {
+  const fetchUsers = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("/api/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    setUsers(Array.isArray(data) ? data : []);
+  };
+
+  fetchUsers();
+}, []);
 
 
   // LOGOUT
@@ -80,10 +98,15 @@ export default function AdminPage() {
             <h3 className="text-2xl font-bold mt-2">₹45,320</h3>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl shadow-sm border">
-            <p className="text-sm text-gray-500">Users</p>
-            <h3 className="text-2xl font-bold mt-2">1,240</h3>
-          </div>
+       <div className="bg-black text-white rounded-2xl p-6 mb-6">
+  <p className="text-sm opacity-70">
+    Total Registered Users
+  </p>
+
+  <h2 className="text-4xl font-bold mt-2">
+    {users.length}
+  </h2>
+</div>
 
         </div>
 

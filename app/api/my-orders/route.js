@@ -1,12 +1,14 @@
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
-import User from "@/models/User";
 import jwt from "jsonwebtoken";
 
 export async function GET(req) {
   await connectDB();
 
-  const token = req.headers.get("authorization")?.split(" ")[1];
+  const token =
+    req.headers
+      .get("authorization")
+      ?.split(" ")[1];
 
   if (!token) {
     return Response.json(
@@ -28,22 +30,14 @@ export async function GET(req) {
       { status: 401 }
     );
   }
+const orders = await Order.find({
+  userId: decoded.id,
+}).sort({
+  createdAt: -1,
+});
 
-  const admin = await User.findById(decoded.id);
+console.log("MY ORDERbhhS:", orders);
 
-  if (!admin || admin.role !== "admin") {
-    return Response.json(
-      { msg: "Unauthorized" },
-      { status: 403 }
-    );
-  }
-
-  const orders = await Order.find()
-    .populate(
-      "userId",
-      "name email phone role createdAt"
-    )
-    .sort({ createdAt: -1 });
-
-  return Response.json(orders);
+return Response.json(orders);
+  
 }

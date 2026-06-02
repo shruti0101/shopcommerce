@@ -142,3 +142,24 @@ body{
 .jodit-content li {
   margin: 5px 0;
 }
+
+
+
+
+@keyframes cartMove {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(6px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-cart-move {
+  animation: cartMove 1s ease-in-out infinite;
+}

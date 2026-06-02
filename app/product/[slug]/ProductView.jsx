@@ -96,7 +96,7 @@ const selectedSizeData =
     <div className="bg-white  font-caladea px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8 mt-2">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
        
-{/* LEFT */}
+
 {/* LEFT */}
 <div className="md:sticky md:top-38 self-start">
 
@@ -145,7 +145,7 @@ const selectedSizeData =
     "
   >
     <Heart
-      size={20}
+      size={22}
       className={`${
         isWishlisted
           ? "fill-red-500 text-red-500"

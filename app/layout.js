@@ -53,6 +53,7 @@ export default function RootLayout({ children }) {
               background: "#111827",
               color: "#fff",
               borderRadius: "10px",
+              zIndex: 99999999,
             },
           }}
         />

@@ -9,14 +9,17 @@ export default function OrdersPage() {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("/api/orders", {
+      const res = await fetch("/api/my-orders", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const data = await res.json();
-      setOrders(data);
+   const data = await res.json();
+
+console.log("Orders API:", data);
+
+setOrders(Array.isArray(data) ? data : []);
     };
 
     fetchOrders();

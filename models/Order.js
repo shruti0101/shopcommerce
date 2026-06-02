@@ -16,10 +16,17 @@ const OrderSchema = new mongoose.Schema(
       },
     ],
     totalAmount: Number,
-    status: {
-      type: String,
-      default: "Pending",
-    },
+   
+
+
+status: {
+  type: String,
+  enum: ["Pending", "Fulfilled"],
+  default: "Pending",
+},
+
+
+
   },
   { timestamps: true }
 );
