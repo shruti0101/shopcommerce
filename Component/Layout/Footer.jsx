@@ -9,8 +9,10 @@ import {
   FaYoutube,
   FaWhatsapp,
 } from "react-icons/fa";
-
+import { useState } from "react";
 const Footer = () => {
+
+    const [showCertificate, setShowCertificate] = useState(false);
   return (
     <footer className="relative w-full overflow-hidden text-white">
       {/* Background */}
@@ -18,10 +20,10 @@ const Footer = () => {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-10">
+      <div className="relative z-10 w-full mx-auto px-6 md:px-25 py-10">
         
         {/* Top Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/20 pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 border-b border-white/20 pb-10">
           
           {/* Brand */}
           <div>
@@ -83,6 +85,52 @@ const Footer = () => {
 
           </div>
 
+
+
+ {/* Company */}
+          <div>
+            <h3 className="text-lg font-semibold mb-5 tracking-wide">
+              COMPANY
+            </h3>
+
+            <ul className="space-y-3 text-sm text-white">
+              <li>
+                <Link href="/" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/about" className="hover:text-[#039c98] hover:pl-1 transition">
+                  About
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Blogs
+                </Link>
+              </li>
+
+
+               <li>
+                <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Shop
+                </Link>
+              </li>
+
+     <li>
+                <Link href="/bulk-enquiry" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Bulk Enquiry
+                </Link>
+              </li>
+
+           
+            </ul>
+          </div>
+
+
+
           {/* Support */}
           <div>
             <h3 className="text-lg font-semibold mb-5 tracking-wide">
@@ -126,40 +174,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Company */}
-          <div>
-            <h3 className="text-lg font-semibold mb-5 tracking-wide">
-              COMPANY
-            </h3>
-
-            <ul className="space-y-3 text-sm text-white">
-              <li>
-                <Link href="/" className="hover:text-[#039c98] hover:pl-1 transition">
-                  Home
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/about" className="hover:text-[#039c98] hover:pl-1 transition">
-                  About
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
-                  Blogs
-                </Link>
-              </li>
-
-     <li>
-                <Link href="/bulk-enquiry" className="hover:text-[#039c98] hover:pl-1 transition">
-                  Bulk Enquiry
-                </Link>
-              </li>
-
-           
-            </ul>
-          </div>
+         
 
           {/* Contact / CTA */}
           <div>
@@ -168,7 +183,7 @@ const Footer = () => {
             </h3>
 
             <p className="text-sm text-white mb-4">
-              Have questions or bulk requirements? Contact our team.
+            Need assistance or have bulk purchasing requirements? Our team is here to help.
             </p>
 
             <Link
@@ -178,6 +193,38 @@ const Footer = () => {
               Contact Us
             </Link>
           </div>
+
+
+
+
+{/* Trust Elite Certificate */}
+<div>
+  <h3 className="text-lg font-semibold mb-5 tracking-wide text-[#f5b335]">
+    TRUST ELITE CERTIFICATE
+  </h3>
+
+ <div className="flex justify-center lg:justify-start mb-4">
+  <button
+    onClick={() => setShowCertificate(true)}
+    className="group"
+  >
+    <img
+      src="/trustseal.webp"
+      alt="Trust Elite Certificate"
+      className="h-24 w-auto object-contain cursor-pointer transition-transform duration-300 group-hover:scale-110"
+    />
+  </button>
+</div>
+
+  <p className="text-sm text-white leading-relaxed">
+    We are proud to present the Trust Elite Certificate of Excellence,
+    recognizing our commitment to exceptional customer service,
+    outstanding business practices, and building long-term trust with
+    our customers.
+  </p>
+</div>
+
+
         </div>
 
         {/* Bottom */}
@@ -197,6 +244,42 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+
+
+
+
+
+
+
+
+{showCertificate && (
+  <div
+    className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
+    onClick={() => setShowCertificate(false)}
+  >
+    <div
+      className="relative max-w-3xl w-full"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close Button */}
+      <button
+        onClick={() => setShowCertificate(false)}
+        className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white text-black text-xl font-bold shadow-lg"
+      >
+        ×
+      </button>
+
+      {/* Certificate Image */}
+      <img
+        src="/cert.png"
+        alt="Trust Elite Certificate"
+        className="w-full rounded-xl shadow-2xl"
+      />
+    </div>
+  </div>
+)}
+
     </footer>
   );
 };

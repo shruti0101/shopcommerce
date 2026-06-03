@@ -11,7 +11,7 @@ const Layoutwrapper = ({children}) => {
 
   const shouldHideHeader =
     pathname === "/login" ||
-    pathname === "/register" ||
+    pathname === "/register" || 
     pathname.startsWith("/admin");
    
 
@@ -21,6 +21,8 @@ const Layoutwrapper = ({children}) => {
      
 {!shouldHideHeader &&  <Whatsapp/>}
 {!shouldHideHeader &&  <Stickyfooter/>}
+
+
   {children}
 
   
