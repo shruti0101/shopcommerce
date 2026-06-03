@@ -108,11 +108,15 @@ const Footer = () => {
                 </Link>
               </li>
 
-              <li>
-                <Link href="/bulk-enquiry" className="hover:text-[#039c98] hover:pl-1 transition">
-                  Bulk Enquiry
+
+
+                 <li>
+                <Link href="/privacy-policy" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Privacy Policy
                 </Link>
               </li>
+
+         
 
               <li>
                 <Link href="/terms-conditions" className="hover:text-[#039c98] hover:pl-1 transition">
@@ -147,11 +151,13 @@ const Footer = () => {
                 </Link>
               </li>
 
-              <li>
-                <Link href="/privacy-policy" className="hover:text-[#039c98] hover:pl-1 transition">
-                  Privacy Policy
+     <li>
+                <Link href="/bulk-enquiry" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Bulk Enquiry
                 </Link>
               </li>
+
+           
             </ul>
           </div>
 

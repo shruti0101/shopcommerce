@@ -29,7 +29,7 @@ const totalItems = cart.reduce(
 
         <Link href="/shop" className="flex flex-col items-center text-xs">
           <ShoppingBag size={30} />
-       <span className="mt-1">Products</span>
+       <span className="mt-1">Shop</span>
         </Link>
 
  {/* CART */}

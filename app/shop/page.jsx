@@ -78,7 +78,7 @@ const [selectedColor, setSelectedColor] = useState("");
             border border-yellow-200 w-full h-[20vh]"
       >
         {/* Heading */}
-        <div className="text-center mb-8 md:mb-14">
+        <div className="text-center mt-10 mb-8 md:mb-14">
           <h2 className="text-[28px] leading-tight sm:text-4xl md:text-6xl   font-bold text-[#1c1c1c] mt-2 sm:mt-3">
             Explore Our Products
           </h2>

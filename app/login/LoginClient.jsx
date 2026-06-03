@@ -6,6 +6,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ChevronRight } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  ShoppingBag,
+  ShieldCheck,
+  Truck,
+  Heart,
+  
+  
+  
+} from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
@@ -53,72 +64,183 @@ export default function Login() {
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] px-4">
+return (
+  <div className="relative min-h-screen overflow-hidden bg-[#f8fafc]">
 
-      {/* Card */}
-      <div className="w-full max-w-md bg-white/70 backdrop-blur-lg border border-white/40 shadow-2xl rounded-2xl p-8">
+    {/* Background */}
+    <div className="absolute top-0 left-0 h-[400px] w-[400px] rounded-full bg-yellow-200/30 blur-3xl" />
+    <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-gray-300/30 blur-3xl" />
 
-        {/* Logo */}
-        <div className="flex justify-center ">
-          <Image
-            src="/logo.png"
-            alt="JL Industries Logo"
-            width={320}
-            height={220}
-            className="object-cover"
-            priority
-          />
+    <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-10">
+
+      <div className="w-full max-w-6xl grid lg:grid-cols-2 overflow-hidden rounded-[32px] bg-white shadow-[0_25px_80px_rgba(0,0,0,0.12)] border border-gray-100">
+
+        {/* LEFT SIDE */}
+        <div className="hidden lg:flex bg-black text-white p-14 flex-col justify-center relative overflow-hidden">
+
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-40 h-40 border rounded-full border-white" />
+            <div className="absolute bottom-10 right-10 w-60 h-60 border rounded-full border-white" />
+          </div>
+
+          <span className="relative z-10 inline-flex w-fit px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
+            Welcome Back 👋
+          </span>
+
+          <h1 className="relative z-10 text-5xl font-bold leading-tight mt-6">
+            Continue
+            <br />
+            Shopping
+          </h1>
+
+          <p className="relative z-10 mt-5 text-gray-300 text-lg leading-relaxed">
+            Sign in to access your wishlist, track orders,
+            manage addresses and enjoy member-only deals.
+          </p>
+
+          <div className="relative z-10 mt-10 space-y-5">
+
+            <div className="flex items-center gap-3">
+              <Truck size={20} />
+              Fast Order Tracking
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Heart size={20} />
+              Saved Wishlist
+            </div>
+
+            <div className="flex items-center gap-3">
+              <ShieldCheck size={20} />
+              Secure Checkout
+            </div>
+
+          </div>
+
+          <div className="relative z-10 mt-12 bg-white/10 border border-white/10 rounded-2xl p-5">
+            <p className="text-sm text-gray-300">
+              🎉 Members get exclusive discounts and early access to new arrivals.
+            </p>
+          </div>
+
         </div>
 
-        {/* Heading */}
-        <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
-          Login To Continue In JL Industries
-        </h2>
+        {/* RIGHT SIDE */}
+        <div className="p-8 sm:p-10 lg:p-14 flex flex-col justify-center">
 
-        {/* Email */}
-        <input
-          placeholder="Email"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-4 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
+          {/* Logo */}
+          <div className="flex justify-center">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={260}
+              height={120}
+              priority
+            />
+          </div>
 
-        {/* Password */}
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-5 text-sm outline-none focus:ring-2 focus:ring-black/80 focus:border-black transition"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
+          {/* Heading */}
+          <div className="text-center mt-4 mb-8">
 
-        {/* Button */}
-        <button
-          onClick={handleLogin}
-          className="w-full bg-black text-white py-2.5 rounded-lg font-medium tracking-wide hover:bg-gray-900 active:scale-[0.98] transition-all duration-200 shadow-md"
-        >
-          Login
-        </button>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 text-sm font-medium">
+              <ShoppingBag size={16} />
+              Customer Login
+            </div>
 
-        <Link href="/register" className="text-sm text-gray-600 hover:text-black transition">
-          <p className="text-center mt-4">
-            Don't have an account? <span className="font-medium text-black">Register</span>
-          </p>
-        </Link>
+            <h2 className="text-3xl font-bold text-gray-900 mt-5">
+              Welcome Back
+            </h2>
 
-<div className="flex items-center justify-center mt-4">
+            <p className="text-gray-500 mt-2">
+              Login to continue your shopping experience.
+            </p>
 
-<Link href="/" className="bg-yellow-700 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 capitalize group hover:bg-yellow-800 transition duration-200">
-  Back to home
-  <ArrowRight
-    size={18}
-    className="transition duration-200 group-hover:translate-x-1"
-  />
-</Link>
+          </div>
 
+          {/* Email */}
+          <div className="relative mb-4">
 
+            <Mail
+              size={18}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            />
 
-</div>
+            <input
+              placeholder="Email Address"
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  email: e.target.value,
+                })
+              }
+              className="w-full h-14 pl-12 pr-4 rounded-2xl border border-gray-200 focus:border-black focus:ring-4 focus:ring-black/5 outline-none transition"
+            />
+
+          </div>
+
+          {/* Password */}
+          <div className="relative mb-6">
+
+            <Lock
+              size={18}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  password: e.target.value,
+                })
+              }
+              className="w-full h-14 pl-12 pr-4 rounded-2xl border border-gray-200 focus:border-black focus:ring-4 focus:ring-black/5 outline-none transition"
+            />
+
+          </div>
+
+          {/* Login Button */}
+          <button
+            onClick={handleLogin}
+            className="w-full h-14 rounded-2xl bg-black text-white font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-0.5 transition-all"
+          >
+            Login To Account
+          </button>
+
+          {/* Register */}
+          <div className="text-center mt-6">
+
+            <p className="text-gray-500">
+              Don't have an account?{" "}
+              <Link
+                href="/register"
+                className="font-semibold text-black hover:underline"
+              >
+                Create Account
+              </Link>
+            </p>
+
+          </div>
+
+          {/* Back Home */}
+          <div className="flex justify-center mt-6">
+
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#C8921C] text-white font-medium hover:opacity-90 transition"
+            >
+              Back To Home
+              <ArrowRight size={18} />
+            </Link>
+
+          </div>
+
+        </div>
+
       </div>
+
     </div>
-  );
+  </div>
+);
 }

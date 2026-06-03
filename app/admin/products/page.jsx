@@ -262,6 +262,15 @@ const removeSpec = (index) => {
 
   // ✅ Upload Images
 const uploadImages = async (files) => {
+  const MAX_IMAGES = 5;
+
+  // check current + new images
+  if (images.length + files.length > MAX_IMAGES) {
+    return toast.error(
+      `You can upload a maximum of ${MAX_IMAGES} images only`
+    );
+  }
+
   setUploading(true);
 
   const toastId = toast.loading("Uploading images...");
@@ -1045,16 +1054,21 @@ const filteredProducts = products.filter((p) => {
     Click to upload product images
   </p>
 
-  <p className="text-xs text-gray-800 mt-1 text-center">
-    PNG, JPG, WEBP • Multiple images supported
-  </p>
+<p className="text-md text-gray-800 mt-1 text-center">
+  PNG, JPG, WEBP • <span className="text-red-600 text-md">( Maximum 5 images )</span> 
+</p>
 
-  <input
-    type="file"
-    multiple
-    className="hidden"
-    onChange={(e) => uploadImages([...e.target.files])}
-  />
+<input
+  type="file"
+  multiple
+  disabled={images.length >= 5}
+  className="hidden"
+  onChange={(e) => uploadImages([...e.target.files])}
+/>
+
+<p className="text-sm text-gray-600 mt-4">
+  {images.length}/5 images uploaded
+</p>
 </label>
 
 
@@ -1087,7 +1101,7 @@ const filteredProducts = products.filter((p) => {
         <button
           onClick={handleSubmit}
           disabled={uploading}
-          className="w-full bg-black text-white py-3 rounded-xl font-medium hover:opacity-90 transition"
+          className="w-full bg-black cursor-pointer text-white text-xl py-4 rounded-xl font-medium hover:opacity-90 transition"
         >
           {uploading
             ? "Uploading..."
