@@ -168,7 +168,7 @@ const [selectedSize, setSelectedSize] =
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 pb-10">
 {products.map((p) => (
   <Link
-    href={`/product/${p.slug}`}
+    href={`/product/${p.slug}?category=${slug}`}
     key={p._id}
     className="group block"
   >
@@ -251,10 +251,7 @@ const [selectedSize, setSelectedSize] =
             </span>
           )}
 
-          {/* WISHLIST */}
-          <button className="h-9 w-9 rounded-full bg-white/90 backdrop-blur-xl flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition duration-500 hover:scale-110">
-            🤍
-          </button>
+       
 
         </div>
 

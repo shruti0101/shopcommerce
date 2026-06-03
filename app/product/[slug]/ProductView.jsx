@@ -12,8 +12,22 @@ import {  Thumbs } from "swiper/modules";
 import { FaWhatsapp } from "react-icons/fa";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
-
+import { useSearchParams } from "next/navigation";
 export default function ProductView({ product, relatedProducts }) {
+
+
+
+
+const searchParams = useSearchParams();
+
+const category =
+  searchParams.get("category");
+
+
+
+
+
+
   const [activeImage, setActiveImage] = useState(
     product.images?.[0] || "/placeholder.png",
   );
@@ -101,16 +115,25 @@ const selectedSizeData =
 <div className="md:sticky md:top-38 self-start">
 
   {/* BREADCRUMB */}
-  <p className="text-gray-500 uppercase mb-5 text-xs sm:text-sm tracking-[2px] font-poppins">
-    Home /{" "}
-    <span className="uppercase">
-      {product.category?.name}
-    </span>{" "}
-    /{" "}
-    <span className="text-black capitalize font-semibold">
-      {product.name}
-    </span>
-  </p>
+<p className="text-gray-500 uppercase mb-5 text-xs sm:text-sm tracking-[2px] font-poppins">
+  Home /{" "}
+
+  {category && (
+    <>
+      <span className="uppercase">
+        {decodeURIComponent(category).replace(
+          /-/g,
+          " "
+        )}
+      </span>
+      {" / "}
+    </>
+  )}
+
+  <span className="text-black capitalize font-semibold">
+    {product.name}
+  </span>
+</p>
 
 
 

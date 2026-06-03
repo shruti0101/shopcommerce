@@ -59,7 +59,7 @@ export default async function ProductPage({ params }) {
 
   const product = await Product.findOne({
     slug,
-  }).populate("category");
+  }).populate("categories");
 
   if (!product) {
     return (

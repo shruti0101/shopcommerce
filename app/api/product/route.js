@@ -198,7 +198,9 @@ export async function GET(req) {
 
       }
 
-      filter.category = category._id;
+   filter.categories = {
+  $in: [category._id],
+};
 
     }
 
@@ -217,7 +219,7 @@ export async function GET(req) {
 
     // PRODUCTS
     const products = await Product.find(filter)
-      .populate("category")
+    .populate("categories")
       .sort(sortOption);
 
     return Response.json(

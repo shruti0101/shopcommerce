@@ -131,7 +131,7 @@ const [colors, setColors] = useState([]);
 const [youtubeLink, setYoutubeLink] = useState("");
 const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
+const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -200,7 +200,14 @@ const removeColor = (index) => {
 };
 
 
+const [categorySearch, setCategorySearch] = useState("");
 
+
+const filteredCategories = categories.filter((c) =>
+  c.name
+    .toLowerCase()
+    .includes(categorySearch.toLowerCase())
+);
 
 
 // for sizes
@@ -237,7 +244,9 @@ const removeSize = (index) => {
   fetch("/api/product")
     .then((res) => res.json())
     .then((data) => {
+
       setProducts(data);
+        console.log("PRODUCTS API:", data);
     })
     .finally(() => {
       setLoadingProducts(false);
@@ -311,7 +320,7 @@ const uploadImages = async (files) => {
   setUploading(false);
 };
 
-  // ✅ Create / Update
+  //  Create / Update
   const handleSubmit = async () => {
     if (!images.length) return toast.error("Upload image first");
 
@@ -325,7 +334,7 @@ oldPrice: oldPrice ? Number(oldPrice) : 0,
   description,
   features: features.split(","),
   stock,
-  category,
+  categories: selectedCategories,
   images,
   metaTitle,
   metaDescription,
@@ -364,7 +373,7 @@ colors: colors.filter(
 const resetForm = () => {
   setName("");
   setPrice("");
-  setCategory("");
+ setSelectedCategories([]);
   setImages([]);
   setYoutubeLink("");
   setEditingId(null);
@@ -398,7 +407,11 @@ const handleEdit = (p) => {
   setDescription(p.description || "");
   setFeatures(p.features?.join(",") || "");
   setStock(p.stock);
-  setCategory(p.category?._id || p.category);
+ setSelectedCategories(
+  p.categories?.map((c) =>
+    typeof c === "object" ? c._id : c
+  ) || []
+);
   setImages(p.images);
   setMetaTitle(p.metaTitle || "");
 setMetaDescription(
@@ -454,10 +467,11 @@ const filteredProducts = products.filter((p) => {
   const matchSearch =
     p.name.toLowerCase().includes(search.toLowerCase());
 
-  const matchCategory =
-    !filterCategory ||
-    p.category?._id === filterCategory ||
-    p.category === filterCategory;
+ const matchCategory =
+  !filterCategory ||
+  p.categories?.some((cat) =>
+    (typeof cat === "object" ? cat._id : cat) === filterCategory
+  );
 
   return matchSearch && matchCategory;
 });
@@ -514,16 +528,53 @@ const filteredProducts = products.filter((p) => {
             />
           </div>
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full border border-black p-3 rounded-lg mt-3"
-          >
-            <option>Select Category</option>
-            {categories.map((c) => (
-              <option key={c._id} value={c._id}>{c.name}</option>
-            ))}
-          </select>
+   <div className="mt-4">
+  <label className="block mb-2 font-medium text-gray-700">
+    Categories
+  </label>
+
+  <input
+    type="text"
+    placeholder="Search categories..."
+    value={categorySearch}
+    onChange={(e) =>
+      setCategorySearch(e.target.value)
+    }
+    className="w-full border border-gray-300 rounded-lg p-3 mb-3"
+  />
+
+  <div className="max-h-[250px] overflow-y-auto border border-gray-200 rounded-xl p-3 bg-gray-50">
+    {filteredCategories.map((cat) => (
+      <label
+        key={cat._id}
+        className="flex items-center gap-3 py-2 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          checked={selectedCategories.includes(cat._id)}
+          onChange={(e) => {
+            if (e.target.checked) {
+              setSelectedCategories([
+                ...selectedCategories,
+                cat._id,
+              ]);
+            } else {
+              setSelectedCategories(
+                selectedCategories.filter(
+                  (id) => id !== cat._id
+                )
+              );
+            }
+          }}
+        />
+
+        <span>{cat.name}</span>
+      </label>
+    ))}
+  </div>
+</div>
+
+
         </div>
 
 

@@ -162,6 +162,30 @@ export default function CheckoutPage() {
                 ))}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+
+  {/* Company Name */}
+  <div className="relative w-full">
+    <input
+      type="text"
+      name="company"
+      value={form.company}
+      onChange={handleChange}
+      placeholder=" "
+      className="peer w-full border border-gray-300 rounded-xl px-4 pt-5 pb-2 bg-white outline-none transition
+      focus:border-black"
+    />
+
+    <label
+      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
+      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+      peer-focus:top-2 peer-focus:text-sm"
+    >
+      Company Name
+    </label>
+  </div>
+
+
   
   {/* GST Number */}
   <div className="relative w-full">
@@ -184,26 +208,6 @@ export default function CheckoutPage() {
     </label>
   </div>
 
-  {/* Company Name */}
-  <div className="relative w-full">
-    <input
-      type="text"
-      name="company"
-      value={form.company}
-      onChange={handleChange}
-      placeholder=" "
-      className="peer w-full border border-gray-300 rounded-xl px-4 pt-5 pb-2 bg-white outline-none transition
-      focus:border-black"
-    />
-
-    <label
-      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
-      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
-      peer-focus:top-2 peer-focus:text-sm"
-    >
-      Company Name
-    </label>
-  </div>
 
 </div>
 

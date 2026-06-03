@@ -187,7 +187,7 @@ const Footer = () => {
             </p>
 
             <Link
-              href="/contact"
+              href="/contact-us"
               className="inline-block bg-[#039c98] hover:bg-[#02827f] transition px-5 py-2.5 rounded-lg text-sm font-medium shadow-lg"
             >
               Contact Us
@@ -228,7 +228,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 text-xs md:text-sm text-white">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-3 text-xs pb-10 md:pb-0 md:text-sm text-white">
           <p>© 2026 JL Industries. All Rights Reserved.</p>
 
           <p>

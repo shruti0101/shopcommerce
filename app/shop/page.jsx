@@ -34,9 +34,14 @@ const [selectedColor, setSelectedColor] = useState("");
         throw new Error("Failed to fetch products");
       }
 
-      const data = await res.json();
+  const data = await res.json();
 
-      setProducts(data);
+// Remove duplicate products by _id
+const uniqueProducts = Array.from(
+  new Map(data.map((item) => [item._id, item])).values()
+);
+
+setProducts(uniqueProducts);
     } catch (err) {
       console.log(err);
 
@@ -54,22 +59,26 @@ const [selectedColor, setSelectedColor] = useState("");
 
   // GET UNIQUE CATEGORIES
 
-  const categories = [
-    "All",
-
-    ...new Set(
-      products.map((product) => product.category?.name?.trim()).filter(Boolean),
-    ),
-  ];
+ const categories = [
+  "All",
+  ...new Set(
+    products.flatMap(
+      (product) =>
+        product.categories?.map(cat => cat.name) || []
+    )
+  ),
+];
 
   // FILTER PRODUCTS
 
-  const filteredProducts =
-    selectedCategory === "All"
-      ? products
-      : products.filter(
-          (product) => product.category?.name === selectedCategory,
-        );
+const filteredProducts =
+  selectedCategory === "All"
+    ? products
+    : products.filter((product) =>
+        product.categories?.some(
+          (cat) => cat.name === selectedCategory
+        )
+      );
 
   return (
     <>

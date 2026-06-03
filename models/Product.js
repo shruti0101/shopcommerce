@@ -75,10 +75,12 @@ colors: [
     },
 
 
-  category: {
+categories: [
+  {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
+],
 
   stock: {
     type: Boolean,
