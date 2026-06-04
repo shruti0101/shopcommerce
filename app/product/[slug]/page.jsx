@@ -72,13 +72,13 @@ export default async function ProductPage({ params }) {
   // 🔥 FETCH RELATED PRODUCTS
 let relatedProducts = [];
 
-if (product?.category?._id) {
+if (product?.categories?.length > 0) {
   relatedProducts = await Product.find({
-    category: product.category._id,
+    categories: { $in: product.categories.map((c) => c._id) },
     _id: { $ne: product._id },
   })
     .limit(6)
-    .populate("category");
+    .populate("categories");
 }
 
   const cleanProduct = JSON.parse(

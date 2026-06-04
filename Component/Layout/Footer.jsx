@@ -114,7 +114,7 @@ const Footer = () => {
 
 
                <li>
-                <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
+                <Link href="/shop" className="hover:text-[#039c98] hover:pl-1 transition">
                   Shop
                 </Link>
               </li>
@@ -217,10 +217,7 @@ const Footer = () => {
 </div>
 
   <p className="text-sm text-white leading-relaxed">
-    We are proud to present the Trust Elite Certificate of Excellence,
-    recognizing our commitment to exceptional customer service,
-    outstanding business practices, and building long-term trust with
-    our customers.
+  We are proud to present the Trust Elite Certificate of Excellence to JL Industries, recognizing their commitment to exceptional customer service, outstanding business practices, and a dedication to building trust with their customers.
   </p>
 </div>
 
