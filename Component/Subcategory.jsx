@@ -20,119 +20,49 @@ export default function CategoryProductSections() {
     "fitness-&-health",
   ];
 
-  useEffect(() => {
+useEffect(() => {
+  async function fetchData() {
+    try {
+      // Fetch Categories
+      const categoryRes = await fetch("/api/categories", {
+        cache: "no-store",
+      });
 
-    async function fetchData() {
+      const categoryData = await categoryRes.json();
 
-      try {
+      // Only selected categories
+      const filteredCategories = categoryData.filter((cat) =>
+        selectedCategories.includes(cat.slug)
+      );
 
-        // ✅ FETCH CATEGORIES
-        const categoryRes = await fetch("/api/categories");
+      // Fetch products for each category
+      const categoriesWithProducts = await Promise.all(
+        filteredCategories.map(async (cat) => {
+        const productRes = await fetch(
+  `/api/product?category=${encodeURIComponent(cat.slug)}`,
+  {
+    cache: "no-store",
+  }
+);
 
-        const categoryData = await categoryRes.json();
-
-        // ✅ FILTER SELECTED CATEGORIES
-        const filteredCategories = categoryData.filter((cat) =>
-          selectedCategories.includes(cat.slug)
-        );
-
-        // ✅ FETCH ALL PRODUCTS
-        const productRes = await fetch("/api/product");
-
-        const allProducts = await productRes.json();
-
-        // ✅ MATCH PRODUCTS CATEGORY-WISE
-        const categoriesWithProducts = filteredCategories.map((cat) => {
-
-          const matchedProducts = Array.isArray(allProducts)
-            ? allProducts.filter((p) => {
-
-                // ✅ NORMAL CATEGORY OBJECT
-                if (p.category?.slug === cat.slug) {
-                  return true;
-                }
-
-                //  CATEGORY STRING
-                if (p.category === cat.slug) {
-                  return true;
-                }
-
-                //  FALLBACK FOR BROKEN PRODUCTS
-                // (category: null)
-
-                const productName =
-                  p.name?.toLowerCase() || "";
-
-                // FITNESS & HEALTH
-                if (
-                  cat.slug === "fitness-&-health" &&
-                  (
-                    productName.includes("yoga") ||
-                    productName.includes("fitness") ||
-                    productName.includes("health")
-                  )
-                ) {
-                  return true;
-                }
-
-                // HOME & KITCHEN
-                if (
-                  cat.slug === "home-&-kitchen-product" &&
-                  (
-                    productName.includes("kitchen") ||
-                    productName.includes("home")
-                  )
-                ) {
-                  return true;
-                }
-
-                // DECORATIVE
-                if (
-                  cat.slug === "decorative-product" &&
-                  (
-                    productName.includes("lamp") ||
-                    productName.includes("decor") ||
-                    productName.includes("light")
-                  )
-                ) {
-                  return true;
-                }
-
-                // CORPORATE
-                if (
-                  cat.slug === "corporate-gifts-&-office-products" &&
-                  (
-                    productName.includes("office") ||
-                    productName.includes("gift") ||
-                    productName.includes("corporate")
-                  )
-                ) {
-                  return true;
-                }
-
-                return false;
-              })
-            : [];
+          const products = await productRes.json();
 
           return {
             ...cat,
-            products: matchedProducts,
+            products: Array.isArray(products) ? products : [],
           };
-        });
+        })
+      );
 
-        setCategories(categoriesWithProducts);
-
-      } catch (err) {
-
-        console.log(err);
-
-        setCategories([]);
-      }
+      setCategories(categoriesWithProducts);
+    } catch (err) {
+      console.log(err);
+      setCategories([]);
     }
+  }
 
-    fetchData();
-
-  }, []);
+  fetchData();
+}, []);
 
   return (
     <div className="bg-[#faf7f2]">

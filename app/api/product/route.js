@@ -117,7 +117,7 @@ import slugify from "slugify";
 
 export const dynamic = "force-dynamic";
 
-// ✅ CREATE
+//  CREATE
 export async function POST(req) {
 
   try {
@@ -166,7 +166,7 @@ export async function POST(req) {
 
 }
 
-// ✅ READ
+//  READ
 export async function GET(req) {
 
   try {
@@ -177,6 +177,9 @@ export async function GET(req) {
 
     const slug =
       searchParams.get("category");
+
+console.log("REQUEST URL:", req.url);
+console.log("SLUG RECEIVED:", slug);
 
     const sort =
       searchParams.get("sort");

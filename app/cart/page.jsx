@@ -10,17 +10,11 @@ export default function CartPage() {
   const updateQty = useCartStore((state) => state.updateQty);
 
   //  Total
-  const total = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 py-8 md:py-10">
-      
-      <h1 className="text-2xl sm:text-3xl font-semibold mb-8">
-        Shopping Cart
-      </h1>
+      <h1 className="text-2xl sm:text-3xl font-semibold mb-8">Shopping Cart</h1>
 
       {/* EMPTY CART */}
       {cart.length === 0 && (
@@ -40,16 +34,11 @@ export default function CartPage() {
       {/* CART ITEMS */}
       {cart.length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 xl:gap-16">
-
           {/* LEFT */}
           <div className="space-y-5">
             {cart.map((item) => (
-              <div
-                key={item._id}
-                className="border rounded-2xl p-4 sm:p-5"
-              >
+              <div key={item._id} className="border rounded-2xl p-4 sm:p-5">
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-
                   {/* IMAGE */}
                   <img
                     src={item.images?.[0]}
@@ -59,10 +48,8 @@ export default function CartPage() {
 
                   {/* CONTENT */}
                   <div className="flex-1 flex flex-col justify-between">
-
                     <div>
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                        
                         <div>
                           <p className="font-medium text-base sm:text-lg">
                             {item.name}
@@ -74,13 +61,11 @@ export default function CartPage() {
                             </p>
                           )}
 
-                          
                           {item.selectedColor && (
                             <p className="text-sm text-gray-600 mt-1 capitalize">
                               Color: {item.selectedColor}
                             </p>
                           )}
-
 
                           <p className="text-sm sm:text-base text-gray-500 mt-1">
                             ₹{item.price}
@@ -96,23 +81,23 @@ export default function CartPage() {
 
                     {/* BOTTOM */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-5">
-
                       {/* QUANTITY */}
                       <div className="flex items-center gap-3">
-                        <button
-                          onClick={() =>
-                            item.quantity > 1
-                              ? updateQty(
-                                  item._id,
-                                  item.selectedSize,
-                                  item.quantity - 1
-                                )
-                              : removeItem(item._id, item.selectedSize)
-                          }
-                          className="w-9 h-9 border rounded-lg flex items-center justify-center text-lg"
-                        >
-                          -
-                        </button>
+                    <button
+  onClick={() => {
+    if (item.quantity > 1) {
+      updateQty(
+        item._id,
+        item.selectedSize,
+        item.selectedColor,
+        item.quantity - 1
+      );
+    }
+  }}
+  className="w-9 h-9 border rounded-lg flex items-center justify-center text-lg"
+>
+  -
+</button>
 
                         <span className="min-w-[20px] text-center">
                           {item.quantity}
@@ -123,7 +108,8 @@ export default function CartPage() {
                             updateQty(
                               item._id,
                               item.selectedSize,
-                              item.quantity + 1
+                              item.selectedColor,
+                              item.quantity + 1,
                             )
                           }
                           className="w-9 h-9 border rounded-lg flex items-center justify-center text-lg"
@@ -133,14 +119,18 @@ export default function CartPage() {
                       </div>
 
                       {/* REMOVE */}
-                      <button
-                        onClick={() =>
-                          removeItem(item._id, item.selectedSize)
-                        }
-                        className="text-red-500 text-sm font-medium w-fit"
-                      >
-                        Remove
-                      </button>
+                     <button
+  onClick={() =>
+    removeItem(
+      item._id,
+      item.selectedSize,
+      item.selectedColor
+    )
+  }
+  className="text-red-500 text-sm font-medium w-fit"
+>
+  Remove
+</button>
                     </div>
                   </div>
                 </div>
@@ -150,10 +140,7 @@ export default function CartPage() {
 
           {/* RIGHT (SUMMARY) */}
           <div className="bg-gray-50 p-5 sm:p-6 rounded-2xl h-fit sticky top-24">
-
-            <h2 className="text-xl font-semibold mb-5">
-              Cart Summary
-            </h2>
+            <h2 className="text-xl font-semibold mb-5">Cart Summary</h2>
 
             <div className="flex justify-between mb-4 text-sm sm:text-base">
               <span>Subtotal</span>

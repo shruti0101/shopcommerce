@@ -100,9 +100,7 @@ export default function CartDrawer() {
                  onClick={() => {
   if (item.quantity > 1) {
     updateQty(item._id,   item.selectedSize,  item.selectedColor, item.quantity - 1);
-  } else {
-    removeItem(item._id, item.selectedSize, item.selectedColor); 
-  }
+  } 
 }}
                     className="p-1 border rounded-md hover:bg-gray-100"
                   >
