@@ -13,7 +13,36 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
 
   const [error, setError] = useState("");
+const [hoveredProduct, setHoveredProduct] = useState(null);
+const [imageIndexes, setImageIndexes] = useState({});
 
+
+
+useEffect(() => {
+  if (!hoveredProduct) return;
+
+  const product = products.find((p) => p._id === hoveredProduct);
+
+  if (!product?.images?.length || product.images.length <= 1) return;
+
+  const maxImages = Math.min(product.images.length, 3);
+
+  // Change immediately to 2nd image
+  setImageIndexes((prev) => ({
+    ...prev,
+    [hoveredProduct]: 1,
+  }));
+
+  const interval = setInterval(() => {
+    setImageIndexes((prev) => ({
+      ...prev,
+      [hoveredProduct]:
+        ((prev[hoveredProduct] || 0) + 1) % maxImages,
+    }));
+  }, 1200);
+
+  return () => clearInterval(interval);
+}, [hoveredProduct, products]);
 
   // for size
 
@@ -206,7 +235,7 @@ const filteredProducts =
               className="
       grid
       grid-cols-2
-      md:grid-cols-3
+      md:grid-cols-4
     
       gap-3
       sm:gap-5
@@ -216,6 +245,16 @@ const filteredProducts =
               {filteredProducts.map((product) => (
                 <div
                   key={product._id}
+
+  onMouseEnter={() => setHoveredProduct(product._id)}
+  onMouseLeave={() => {
+    setHoveredProduct(null);
+
+    setImageIndexes((prev) => ({
+      ...prev,
+      [product._id]: 0,
+    }));
+  }}
                   className="
             group
             relative
@@ -240,44 +279,33 @@ const filteredProducts =
                     className="
               relative
               overflow-hidden
-              bg-gradient-to-br
-              from-[#faf7f2]
-              to-[#f4eee6]
+              bg-white
             "
                   >
-                    <Image
-                      src={product.images?.[0] || "/placeholder.png"}
-                      alt={product.name}
-                      width={700}
-                      height={700}
-                      className="
-                w-full
-                h-[160px]
-                sm:h-[240px]
-                md:h-[300px]
-                xl:h-[340px]
-                object-contain
-                md:object-cover
-                group-hover:scale-105
-                transition-transform
-                duration-700
-              "
-                    />
+<Image
+  src={
+    product.images?.[
+      imageIndexes[product._id] || 0
+    ] || "/placeholder.png"
+  }
+  alt={product.name}
+  width={700}
+  height={700}
+  className="
+    w-full
+    h-[160px]
+    sm:h-[240px]
+    md:h-[270px]
+  
+    object-contain
 
-                    {/* Premium Overlay */}
-                    <div
-                      className="
-              absolute
-              inset-0
-              bg-gradient-to-t
-              from-black/10
-              to-transparent
-              opacity-0
-              group-hover:opacity-100
-              transition
-              duration-500
-            "
-                    ></div>
+    transition-all
+    duration-700
+    ease-in-out
+  "
+/>
+
+                   
                   </Link>
 
                   {/* Content */}
@@ -396,7 +424,7 @@ const filteredProducts =
                   text-white
                   text-[12px]
                   sm:text-sm
-                  md:text-base
+                 
                   font-medium
                   tracking-wide
                   transition-all
