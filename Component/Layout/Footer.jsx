@@ -108,7 +108,7 @@ const Footer = () => {
 
               <li>
                 <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
-                  Blogs
+                  Articles
                 </Link>
               </li>
 
@@ -229,14 +229,14 @@ const Footer = () => {
           <p>© 2026 JL Industries. All Rights Reserved.</p>
 
           <p>
-            Designed by Promozione Branding Pvt. Ltd{" "}
+           Website Designed By Inquiry Bazaar Pvt. Ltd. {" "}
             <a
               href="https://promozionebranding.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#039c98] hover:underline"
             >
-              Website Designing Company
+            B2B Marketplace
             </a>
           </p>
         </div>

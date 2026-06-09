@@ -52,6 +52,12 @@ export default function AdminLayout({ children }) {
       icon: "👤",
       path: "/admin/users",
     },
+
+      {
+      name: "Blogs",
+  icon: "📝",
+      path: "/admin/blog",
+    },
   ];
 
   return (
