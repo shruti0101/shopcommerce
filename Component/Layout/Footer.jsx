@@ -8,6 +8,9 @@ import {
   FaLinkedinIn,
   FaYoutube,
   FaWhatsapp,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 import { useState } from "react";
 const Footer = () => {
@@ -20,10 +23,10 @@ const Footer = () => {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       {/* Main Content */}
-      <div className="relative z-10 w-full mx-auto px-6 md:px-25 py-10">
+      <div className="relative z-10 w-full mx-auto px-6 md:px-15 py-10">
         
         {/* Top Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 border-b border-white/20 pb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1.3fr_1.3fr_1fr_1fr_1fr] gap-10 border-b border-white/10 pb-12">
           
           {/* Brand */}
           <div>
@@ -87,6 +90,78 @@ const Footer = () => {
 
 
 
+
+
+      <div>
+  <h3 className="text-lg font-semibold mb-5 tracking-wide">
+    GET IN TOUCH
+  </h3>
+
+
+
+  {/* Contact Details */}
+  <div className="space-y-4 mb-6">
+    <a
+      href="tel:+918130385561"
+      className="flex items-start gap-3 group"
+    >
+      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#039c98] transition">
+        <FaPhoneAlt className="text-sm" />
+      </div>
+
+      <div>
+        <p className="text-xs text-white/60 uppercase tracking-wider">
+          Call Us
+        </p>
+
+        <p className="text-sm text-white">
+       +91 8130385561
+        </p>
+      </div>
+    </a>
+
+    <a
+      href="mailto:info@jlindustries.com"
+      className="flex items-start gap-3 group"
+    >
+      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#039c98] transition">
+        <FaEnvelope className="text-sm" />
+      </div>
+
+      <div>
+        <p className="text-xs text-white/60 uppercase tracking-wider">
+          Email
+        </p>
+
+        <p className="text-sm text-white break-all">
+        jlindustriespvtltd@gmail.com
+        </p>
+      </div>
+    </a>
+
+    <div className="flex items-start gap-3">
+      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
+        <FaMapMarkerAlt className="text-sm" />
+      </div>
+
+      <div>
+        <p className="text-xs text-white/60 uppercase tracking-wider">
+          Address
+        </p>
+
+        <p className="text-xs text-white leading-relaxed">
+       J L Industries Hub Private Limited 2nd Floor, House No 253, Block E-2 ICICI Bank Shastri Nagar North West Delhi, <br />
+New Delhi - 110052, India
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
  {/* Company */}
           <div>
             <h3 className="text-lg font-semibold mb-5 tracking-wide">
@@ -107,10 +182,16 @@ const Footer = () => {
               </li>
 
               <li>
-                <Link href="/blogs" className="hover:text-[#039c98] hover:pl-1 transition">
+                <Link href="/blog" className="hover:text-[#039c98] hover:pl-1 transition">
                   Articles
                 </Link>
               </li>
+                <li>
+                <Link href="/contact-us" className="hover:text-[#039c98] hover:pl-1 transition">
+                  Contact Us
+                </Link>
+              </li>
+
 
 
                <li>
@@ -176,24 +257,8 @@ const Footer = () => {
 
          
 
-          {/* Contact / CTA */}
-          <div>
-            <h3 className="text-lg font-semibold mb-5 tracking-wide">
-              GET IN TOUCH
-            </h3>
-
-            <p className="text-sm text-white mb-4">
-            Need assistance or have bulk purchasing requirements? Our team is here to help.
-            </p>
-
-            <Link
-              href="/contact-us"
-              className="inline-block bg-[#039c98] hover:bg-[#02827f] transition px-5 py-2.5 rounded-lg text-sm font-medium shadow-lg"
-            >
-              Contact Us
-            </Link>
-          </div>
-
+      
+  
 
 
 
@@ -216,7 +281,7 @@ const Footer = () => {
   </button>
 </div>
 
-  <p className="text-sm text-white leading-relaxed">
+  <p className="text-xs text-white leading-relaxed">
   We are proud to present the Trust Elite Certificate of Excellence to JL Industries, recognizing their commitment to exceptional customer service, outstanding business practices, and a dedication to building trust with their customers.
   </p>
 </div>

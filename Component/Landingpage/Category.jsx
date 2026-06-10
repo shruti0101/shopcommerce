@@ -71,7 +71,7 @@ export default function ProductSlider() {
 
     {
       title: "Ship Humdifier",
-      href: "/product/ship-humdifier",
+      href: "/product/titanic-ship-humdifier",
       price: "1,299",
       old: "799",
       discount: "19%",

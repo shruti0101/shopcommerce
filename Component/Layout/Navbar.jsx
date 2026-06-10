@@ -35,6 +35,7 @@ export default function Navbar() {
   const openCart = useCartStore((state) => state.openCart);
   const cart = useCartStore((state) => state.cart);
   const wishlist = useWishlistStore((state) => state.wishlist);
+  
 
   useEffect(() => {
     if (!query) {
@@ -204,7 +205,7 @@ export default function Navbar() {
 
         {/* MAIN NAVBAR */}
         <div className="bg-white border-b-2 border-[#e2cd95]">
-          <div className="min-h-[75px] flex items-center justify-between px-2 sm:px-4 md:px-12 gap-2">
+          <div className="min-h-[75px] flex items-center justify-between px-2 sm:px-4 md:px-10 gap-2">
             {/* LEFT */}
             <div className="flex items-center gap-2 sm:gap-4 lg:gap-12 flex-shrink-0">
               {/* MOBILE MENU */}
@@ -264,8 +265,8 @@ export default function Navbar() {
             </div>
 
             {/* SEARCH */}
-            <div className="flex-1 px-1 sm:px-3 md:px-8 min-w-0">
-              <div className="max-w-[500px] xl:max-w-[560px] mx-auto relative w-full">
+            <div className="flex-1 px-1 sm:px-3  min-w-0">
+              <div className="max-w-[500px] xl:max-w-[600px] mx-auto relative w-full">
                 <div
                   className="
                   flex items-center

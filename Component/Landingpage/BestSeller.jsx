@@ -25,7 +25,7 @@ export default function Bestsellers() {
 
     {
       title: "SHIP HUMDIFIER",
-      href: "/product/ship-humdifier",
+      href: "/product/titanic-ship-humdifier",
       price: "1699",
       old: "1100",
       discount: "35%",

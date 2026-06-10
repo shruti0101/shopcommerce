@@ -575,87 +575,42 @@ const selectedSizeData =
   </div>
 )}
 
+
   {/* SPECIFICATIONS */}
-{product?.specifications?.length > 0 && (
-  <div className="mt-6">
-    {/* Heading */}
-    <div className="flex items-center gap-4 mb-6">
-      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-      <h3 className="text-xl uppercase tracking-[5px] font-semibold text-gray-800">
+  {product?.specifications?.length > 0 && (
+
+    <div className="mt-10">
+
+      <h3 className="text-[18px] uppercase tracking-[3px] text-black font-semibold mb-6">
         Product Specifications
       </h3>
-      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-    </div>
 
-    {/* Specs Container */}
-    <div className="rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-200 overflow-hidden shadow-sm">
-      {product.specifications.map((spec, index) => (
-        <div
-          key={index}
-          className="
-            group
-            relative
-            flex
-            flex-col
-            md:flex-row
-            md:items-center
-            justify-between
-            gap-3
-            px-6
-            py-5
-            border-b
-            border-gray-100
-            transition-all
-            duration-300
-            hover:bg-white
-            hover:shadow-md
-          "
-        >
-          {/* Left Accent */}
-          <div className="absolute left-0 top-0 h-full w-0 group-hover:w-1 bg-black transition-all duration-300" />
+      <div className="space-y-4">
 
-          {/* Number */}
-          <div className="flex items-center gap-4">
-            <div
-              className="
-                h-10
-                w-10
-                rounded-full
-                bg-black
-                text-white
-                flex
-                items-center
-                justify-center
-                text-xs
-                font-bold
-                shrink-0
-              "
-            >
-              {(index + 1).toString().padStart(2, "0")}
-            </div>
+        {product.specifications.map((spec, index) => (
 
-            <div>
-              <p className="text-[13px] uppercase tracking-[2px] text-gray-500 font-medium">
-                Specification
-              </p>
+          <div
+            key={index}
+            className="flex items-start justify-between gap-8 border-b border-gray-100 pb-4"
+          >
 
-              <h4 className="text-[15px] font-bold text-black">
-                {spec.key}
-              </h4>
-            </div>
-          </div>
+            <p className="text-[15px] uppercase tracking-wide text-gray-800 font-bold min-w-[120px]">
+              {spec.key}
+            </p>
 
-          {/* Value */}
-          <div className="md:max-w-[55%]">
-            <p className="text-[15px] text-gray-700 font-medium md:text-right leading-relaxed">
+            <p className="text-[15px] text-black font-semibold text-right leading-relaxed">
               {spec.value}
             </p>
+
           </div>
-        </div>
-      ))}
+
+        ))}
+
+      </div>
+
     </div>
-  </div>
-)}
+
+  )}
 
  <div className="mt-6 flex items-end gap-2 md:gap-8">
   {/* QUANTITY */}

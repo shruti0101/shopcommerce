@@ -79,7 +79,7 @@ export default function page(){
           <ul className="space-y-2 list-disc pl-5 text-lg md:text-xl leading-relaxed">
             <li>Bulk orders (unless damaged or defective)</li>
             <li>Customized or made-to-order products</li>
-            <li>Clearance or discounted items (if marked non-returnable)</li>
+            <li>Clearance or discounted items </li>
           </ul>
         </div>
 
@@ -93,7 +93,7 @@ export default function page(){
           </p>
           <p className="text-sm md:text-base">
             📧 Email:{" "}
-            <span className="font-medium">support@jlindustries.com</span>
+            <span className="font-medium">jlindustriespvtltd@gmail.com</span>
           </p>
           
         </div>

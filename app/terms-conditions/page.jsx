@@ -117,7 +117,7 @@ export default function page () {
             For any questions regarding these terms:
           </p>
           <p className="mt-2 font-medium text-indigo-600">
-            info@jlindustries.com
+         jlindustriespvtltd@gmail.com
           </p>
         </div>
 
