@@ -495,97 +495,167 @@ const selectedSizeData =
   )}
 
   {/* COLORS */}
-  {product?.colors?.length > 0 && (
+ {product?.colors?.length > 0 && (
+  <div className="mt-8">
+    <h3 className="text-sm uppercase tracking-[3px] font-semibold mb-5">
+      Select Color
+    </h3>
 
-    <div className="mt-7">
+    <div className="flex flex-wrap gap-4">
+      {product.colors.map((item, i) => {
+        const active =
+          selectedColor === item.color;
 
-      <h3 className="text-[15px] uppercase tracking-[3px] text-black font-semibold mb-5">
-        Select Color
-      </h3>
-
-      <div className="flex flex-wrap gap-4">
-
-        {product.colors.map((item, i) => (
-
+        return (
           <button
             key={i}
-            onClick={() => setSelectedColor(item.color)}
+            onClick={() =>
+              setSelectedColor(item.color)
+            }
             className={`
-              relative
-              h-[58px]
-              px-5
-              rounded-full
-              border
-              flex
-              items-center
-              gap-3
-              transition-all
-              duration-300
-              ${
-                selectedColor === item.color
-                  ? "border-black bg-black text-white"
-                  : "border-gray-200 bg-white hover:border-black"
-              }
+              flex flex-col items-center
+              transition-all duration-300
             `}
           >
+            <div
+              className={`
+                relative
+                h-[80px]
+                w-[80px]
+                rounded-2xl
+                overflow-hidden
+                border-2
+                ${
+                  active
+                    ? "border-yellow-500"
+                    : "border-gray-200"
+                }
+              `}
+            >
+             {item.colorImage ? (
+  <img
+    src={item.colorImage}
+    alt={item.color}
+    className="w-full h-full object-cover"
+  />
+) : item.code ? (
+  <div
+    className="w-full h-full"
+    style={{
+      backgroundColor: item.code,
+    }}
+  />
+) : (
+  <div className="w-full h-full bg-gray-100 flex items-center justify-center text-xs text-gray-400">
+    No Image
+  </div>
+)}
 
-            <span
-              className="h-5 w-5 rounded-full border border-white shadow"
-              style={{
-                backgroundColor:
-                  item.code || "#000",
-              }}
-            />
+              {active && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg
+                    width="24"
+                    height="24"
+                    fill="white"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.285 6.709l-11.025 11.025-5.545-5.545 1.414-1.414 4.131 4.131 9.611-9.611z" />
+                  </svg>
+                </div>
+              )}
+            </div>
 
-            <span className="text-sm font-medium">
+            <span className="mt-2 text-sm font-medium text-center">
               {item.color}
             </span>
-
           </button>
-
-        ))}
-
-      </div>
-
+        );
+      })}
     </div>
-
-  )}
+  </div>
+)}
 
   {/* SPECIFICATIONS */}
-  {product?.specifications?.length > 0 && (
-
-    <div className="mt-10">
-
-      <h3 className="text-[18px] uppercase tracking-[3px] text-black font-semibold mb-6">
+{product?.specifications?.length > 0 && (
+  <div className="mt-6">
+    {/* Heading */}
+    <div className="flex items-center gap-4 mb-6">
+      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+      <h3 className="text-xl uppercase tracking-[5px] font-semibold text-gray-800">
         Product Specifications
       </h3>
-
-      <div className="space-y-4">
-
-        {product.specifications.map((spec, index) => (
-
-          <div
-            key={index}
-            className="flex items-start justify-between gap-8 border-b border-gray-100 pb-4"
-          >
-
-            <p className="text-[15px] uppercase tracking-wide text-gray-800 font-bold min-w-[120px]">
-              {spec.key}
-            </p>
-
-            <p className="text-[15px] text-black font-semibold text-right leading-relaxed">
-              {spec.value}
-            </p>
-
-          </div>
-
-        ))}
-
-      </div>
-
+      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
     </div>
 
-  )}
+    {/* Specs Container */}
+    <div className="rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-200 overflow-hidden shadow-sm">
+      {product.specifications.map((spec, index) => (
+        <div
+          key={index}
+          className="
+            group
+            relative
+            flex
+            flex-col
+            md:flex-row
+            md:items-center
+            justify-between
+            gap-3
+            px-6
+            py-5
+            border-b
+            border-gray-100
+            transition-all
+            duration-300
+            hover:bg-white
+            hover:shadow-md
+          "
+        >
+          {/* Left Accent */}
+          <div className="absolute left-0 top-0 h-full w-0 group-hover:w-1 bg-black transition-all duration-300" />
+
+          {/* Number */}
+          <div className="flex items-center gap-4">
+            <div
+              className="
+                h-10
+                w-10
+                rounded-full
+                bg-black
+                text-white
+                flex
+                items-center
+                justify-center
+                text-xs
+                font-bold
+                shrink-0
+              "
+            >
+              {(index + 1).toString().padStart(2, "0")}
+            </div>
+
+            <div>
+              <p className="text-[13px] uppercase tracking-[2px] text-gray-500 font-medium">
+                Specification
+              </p>
+
+              <h4 className="text-[15px] font-bold text-black">
+                {spec.key}
+              </h4>
+            </div>
+          </div>
+
+          {/* Value */}
+          <div className="md:max-w-[55%]">
+            <p className="text-[15px] text-gray-700 font-medium md:text-right leading-relaxed">
+              {spec.value}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
  <div className="mt-6 flex items-end gap-2 md:gap-8">
   {/* QUANTITY */}

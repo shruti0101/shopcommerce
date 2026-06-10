@@ -50,7 +50,7 @@ metaDescription: {
 colors: [
   {
     color: String,
-
+   colorImage: String,
     code: {
       type: String,
       default: "",

@@ -183,6 +183,7 @@ const addColor = () => {
     {
       color: "",
       code: "",
+      colorImage: "",
     },
   ]);
 };
@@ -423,6 +424,7 @@ setColors(
     ? p.colors.map((c) => ({
         color: c.color || "",
         code: c.code || "",
+         colorImage: c.colorImage || "",
       }))
     : []
 );
@@ -475,6 +477,39 @@ const filteredProducts = products.filter((p) => {
 
   return matchSearch && matchCategory;
 });
+
+
+
+const handleColorImageUpload = async (e, index) => {
+  const file = e.target.files?.[0];
+
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("files", file);
+
+  try {
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (data.success && data.urls?.length) {
+      updateColor(
+        index,
+        "colorImage",
+        data.urls[0]
+      );
+
+      toast.success("Color image uploaded");
+    }
+  } catch (err) {
+    console.log(err);
+    toast.error("Upload failed");
+  }
+};
 
   return (
   <div className="w-full px-10 py-10 bg-[#eeeff1] min-h-screen">
@@ -958,49 +993,62 @@ const filteredProducts = products.filter((p) => {
           </div>
 
           {/* COLOR PICKER */}
-          <div className="md:col-span-6">
+       {/* COLOR */}
+{/* <div className="md:col-span-6">
+  <label className="block text-sm font-medium mb-2">
+    Color Name
+  </label>
 
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
-              Select Color
-            </label>
+  <input
+    type="text"
+    value={item.color || ""}
+    onChange={(e) =>
+      updateColor(i, "color", e.target.value)
+    }
+    placeholder="Red / Blue / other"
+    className="w-full border rounded-lg px-3 py-2"
+  />
+</div> */}
 
-            <div className="flex items-center gap-3">
+{/* SOLID COLOR PICKER */}
+<div className="md:col-span-6">
+  <label className="block text-sm font-medium mb-2">
+    Solid Color 
+  </label>
 
-              {/* PICKER */}
-              <input
-                type="color"
-                value={item.code || "#000000"}
-                onChange={(e) =>
-                  updateColor(i, "code", e.target.value)
-                }
-                className="
-                  w-16
-                  h-12
-                  border
-                  rounded-lg
-                  cursor-pointer
-                  bg-white
-                  p-1
-                "
-              />
+  <input
+    type="color"
+    value={item.code || "#000000"}
+    onChange={(e) =>
+      updateColor(i, "code", e.target.value)
+    }
+    className="w-20 h-12 cursor-pointer"
+  />
+</div>
 
-              {/* PREVIEW */}
-              <div
-                className="
-                  flex-1
-                  h-12
-                  rounded-lg
-                  border
-                "
-                style={{
-                  background:
-                    item.code || "#000000",
-                }}
-              />
+{/* COLOR IMAGE */}
+{/* <div className="md:col-span-12">
+  <label className="block text-sm font-medium mb-2">
+    Mixed Color Image (Optional)
+  </label>
 
-            </div>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) =>
+      handleColorImageUpload(e, i)
+    }
+    className="w-full border rounded-lg p-2"
+  />
 
-          </div>
+  {item.colorImage && (
+    <img
+      src={item.colorImage}
+      alt=""
+      className="mt-3 w-24 h-24 rounded-xl border object-cover"
+    />
+  )}
+</div> */}
 
           {/* REMOVE */}
           <div className="md:col-span-2">
