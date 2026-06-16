@@ -35,8 +35,8 @@ export default function BulkEnquiryPopup({
       setLoading(true);
 
       const formData = {
-        platform: "Bulk Enquiry Form",
-        platformEmail: "care@inquirybazaar.com",
+        platform: " jl industry Bulk Enquiry Form",
+        platformEmail: "jlindustriespvtltd@gmail.com",
         name,
         companyName,
         phone,
@@ -71,7 +71,7 @@ Requirement:
 ${message}`;
 
         window.open(
-          `https://wa.me/917669988825?text=${encodeURIComponent(
+          `https://wa.me/918130385561?text=${encodeURIComponent(
             whatsappText
           )}`,
           "_blank"
