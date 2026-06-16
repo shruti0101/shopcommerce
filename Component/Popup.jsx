@@ -49,8 +49,8 @@ fetchCatgories();
 
     try {
       const formData = {
-        platform: "DPACK Popup Form",
-        platformEmail: "dpacksolutionindia@gmail.com",
+        platform: "jl industry Popup Form",
+        platformEmail: "jlindustriespvtltd@gmail.com",
         name,
         phone,
         email,
@@ -79,7 +79,7 @@ Contact: ${phone}`;
 
         setTimeout(() => {
           window.open(
-            `https://wa.me/917669988825?text=${encodeURIComponent(
+            `https://wa.me/918130385561?text=${encodeURIComponent(
               whatsappText
             )}`,
             "_blank"

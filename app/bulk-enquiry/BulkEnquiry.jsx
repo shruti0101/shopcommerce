@@ -14,7 +14,7 @@ const BulkEnquiry = () => {
     try {
       const formData = {
         platform: "JL Industries",
-        platformEmail: "Inquiry.promozione@gmail.com",
+        platformEmail: "jlindustriespvtltd@gmail.com",
         name,
         phone,
         email,
@@ -37,7 +37,7 @@ const BulkEnquiry = () => {
         setEmail("");
         setProduct("");
         setMessage("");
-      console.log("all good");
+
     } catch (error) {
       console.log(error);
     }
