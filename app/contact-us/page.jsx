@@ -50,7 +50,7 @@ export default function ContactPage() {
             </h3>
 
             <p className="text-black mt-2">
-              +91 8130385561
+        +91 9891000561
             </p>
           </div>
 
@@ -118,7 +118,7 @@ export default function ContactPage() {
                       Phone
                     </h4>
                     <p className="text-black">
-                         +91 8130385561
+                         +91 9891000561
                     </p>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export default function ContactPage() {
                     </h4>
                     <p className="text-black">
                    J L Industries Hub Private Limited
-2nd Floor, House No 253, Block E-2 ICICI Bank Shastri Nagar North West Delhi, <br /> New Delhi - 110052, India
+  253, BLOCK E-2 ICICI BANK,2ND FLOOR, SHASTRI NAGAR, NEW DELHI, NORTH WEST DELHI, <br />  NEW DELHI, INDIA, 110052
                     </p>
                   </div>
                 </div>

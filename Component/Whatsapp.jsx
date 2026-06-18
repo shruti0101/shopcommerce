@@ -18,7 +18,7 @@ const Whatsapp = () => {
 
 
       <a
-        href="tel:+918130385561"
+        href="tel:+919891000561"
         aria-label="Call Us"
         className="fixed bottom-22 right-4 z-50   p-3 rounded-full shadow-lg bg-white text-green-600 transition animate-bounce"
       >

@@ -102,7 +102,7 @@ const Footer = () => {
   {/* Contact Details */}
   <div className="space-y-4 mb-6">
     <a
-      href="tel:+918130385561"
+      href="tel:+919891000561"
       className="flex items-start gap-3 group"
     >
       <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#039c98] transition">
@@ -115,7 +115,7 @@ const Footer = () => {
         </p>
 
         <p className="text-sm text-white">
-       +91 8130385561
+      +91 9891000561
         </p>
       </div>
     </a>
@@ -140,18 +140,16 @@ const Footer = () => {
     </a>
 
     <div className="flex items-start gap-3">
-      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
-        <FaMapMarkerAlt className="text-sm" />
-      </div>
-
+   
+        <FaMapMarkerAlt className="text-3xl" />
+      
       <div>
         <p className="text-xs text-white/60 uppercase tracking-wider">
           Address
         </p>
 
         <p className="text-xs text-white leading-relaxed">
-       J L Industries Hub Private Limited 2nd Floor, House No 253, Block E-2 ICICI Bank Shastri Nagar North West Delhi, <br />
-New Delhi - 110052, India
+    253, BLOCK E-2 ICICI BANK,2ND FLOOR,, SHASTRI NAGAR, NEW DELHI, NORTH WEST DELHI,  NEW DELHI, INDIA, 110052
         </p>
       </div>
     </div>
