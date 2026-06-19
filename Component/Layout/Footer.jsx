@@ -121,7 +121,7 @@ const Footer = () => {
     </a>
 
     <a
-      href="mailto:info@jlindustries.com"
+      href="mailto:jairamchy@gmail.com"
       className="flex items-start gap-3 group"
     >
       <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#039c98] transition">
@@ -134,7 +134,7 @@ const Footer = () => {
         </p>
 
         <p className="text-sm text-white break-all">
-        jlindustriespvtltd@gmail.com
+       jairamchy@gmail.com
         </p>
       </div>
     </a>

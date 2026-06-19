@@ -1,10 +1,10 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
-export default function page () {
+export default function page() {
   return (
     <>
-    <div className="w-full bg-gradient-to-r from-gray-700 to-gray-900 py-12 md:py-16 text-white">
+      <div className="w-full bg-gradient-to-r from-gray-700 to-gray-900 py-12 md:py-16 text-white">
         <div className="max-w-6xl mx-auto px-4">
           <h1 className="text-3xl md:text-5xl font-bold mb-2">
             Terms & Conditions
@@ -18,8 +18,7 @@ export default function page () {
           </p>
         </div>
       </div>
-     <section className="max-w-5xl mx-auto px-4 md:px-8 py-10 text-black">
-
+      <section className="max-w-5xl mx-auto px-4 md:px-8 py-10 text-black">
         <p className="text-2xl  md:text-5xl text-black text-center mb-5">
           Terms and Conditions
         </p>
@@ -27,11 +26,13 @@ export default function page () {
         {/* INTRO */}
         <div className="space-y-4 text-lg md:text-xl leading-relaxed">
           <p>
-            These Terms and Conditions govern your use of our website and services.
-            By accessing or using JL Industries, you agree to comply with these terms.
+            These Terms and Conditions govern your use of our website and
+            services. By accessing or using JL Industries, you agree to comply
+            with these terms.
           </p>
           <p>
-            If you do not agree with any part of these terms, you should not use our services.
+            If you do not agree with any part of these terms, you should not use
+            our services.
           </p>
         </div>
 
@@ -39,7 +40,7 @@ export default function page () {
         <div className="mt-10">
           <h2 className="text-xl font-semibold mb-3">Use of Our Services</h2>
           <ol className="list-disc pl-5 space-y-2 text-lg md:text-xl">
-            <li>  You agree to use our services only for lawful purposes</li>
+            <li> You agree to use our services only for lawful purposes</li>
             <li>You must not misuse or disrupt our platform</li>
             <li>Unauthorized access or activity is strictly prohibited</li>
           </ol>
@@ -50,7 +51,8 @@ export default function page () {
           <h2 className="text-xl font-semibold mb-3">Products & Services</h2>
           <p className="text-lg md:text-xl leading-relaxed">
             JL Industries provides industrial, safety, and wholesale products.
-            We reserve the right to modify or discontinue any product without prior notice.
+            We reserve the right to modify or discontinue any product without
+            prior notice.
           </p>
         </div>
 
@@ -75,10 +77,13 @@ export default function page () {
 
         {/* LIABILITY */}
         <div className="mt-10">
-          <h2 className="text-xl font-semibold mb-3">Limitation of Liability</h2>
+          <h2 className="text-xl font-semibold mb-3">
+            Limitation of Liability
+          </h2>
           <p className="text-lg md:text-xl leading-relaxed">
             JL Industries shall not be held liable for any indirect, incidental,
-            or consequential damages arising from the use of our products or services.
+            or consequential damages arising from the use of our products or
+            services.
           </p>
         </div>
 
@@ -105,8 +110,8 @@ export default function page () {
         <div className="mt-10">
           <h2 className="text-xl font-semibold mb-3">Changes to Terms</h2>
           <p className="text-lg md:text-xl leading-relaxed">
-            We may update these Terms & Conditions from time to time.
-            Continued use of the service means you accept the updated terms.
+            We may update these Terms & Conditions from time to time. Continued
+            use of the service means you accept the updated terms.
           </p>
         </div>
 
@@ -117,11 +122,10 @@ export default function page () {
             For any questions regarding these terms:
           </p>
           <p className="mt-2 font-medium text-indigo-600">
-         jlindustriespvtltd@gmail.com
+            jairamchy@gmail.com
           </p>
         </div>
-
       </section>
     </>
-  )
+  );
 }
