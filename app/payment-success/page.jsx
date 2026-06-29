@@ -30,9 +30,6 @@ export default async function PaymentSuccess({ searchParams }) {
 
 
 
- <p>
-            <strong>Amount:</strong> ₹{name}
-          </p>
 
         </div>
 
