@@ -6,6 +6,17 @@ const OrderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+
+    customerName: String,
+    email: String,
+    phone: String,
+
+    address: String,
+    pincode: String,
+
+    company: String,
+    gst: String,
+
     items: [
       {
         productId: String,
@@ -15,20 +26,32 @@ const OrderSchema = new mongoose.Schema(
         image: String,
       },
     ],
+
     totalAmount: Number,
-   
 
+    paymentMethod: {
+      type: String,
+      default: "ICICI",
+    },
 
-status: {
-  type: String,
-  enum: ["Pending", "Fulfilled"],
-  default: "Pending",
-},
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "paid", "failed"],
+      default: "pending",
+    },
 
+    transactionId: String,
 
+    merchantTxnNo: String,
 
+    status: {
+      type: String,
+      enum: ["Pending", "Fulfilled"],
+      default: "Pending",
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.Order || mongoose.model("Order", OrderSchema);
+export default mongoose.models.Order ||
+  mongoose.model("Order", OrderSchema);

@@ -46,78 +46,134 @@ export default function CheckoutPage() {
     0
   );
 
-  const handlePlaceOrder = async () => {
-    const token = localStorage.getItem("token");
 
-    // ✅ LOGIN ON PLACE ORDER (MAIN LOGIC)
-    if (!token) {
-      localStorage.setItem(
-        "checkoutData",
-        JSON.stringify({
-          form,
-          cart,
-        })
-      );
 
-      toast.error("Please login to continue");
-      router.push("/login?redirect=/checkout");
-      return;
-    }
 
-    if (cart.length === 0) {
-      toast.error("Cart is empty");
-      return;
-    }
+const handlePlaceOrder = async () => {
+  const token = localStorage.getItem("token");
 
-    if (
-      !form.name ||
-      !form.phone ||
-      !form.address ||
-      !form.pincode ||
-      !form.email
-    ) {
-      toast.error("Please fill required details");
-      return;
-    }
+  if (!token) {
+    localStorage.setItem(
+      "checkoutData",
+      JSON.stringify({
+        form,
+        cart,
+      })
+    );
 
-    try {
-      setLoading(true);
+    toast.error("Please login to continue");
 
-      const res = await fetch("/api/orders/create", {
+    router.push(
+      "/login?redirect=/checkout"
+    );
+
+    return;
+  }
+
+  if (cart.length === 0) {
+    toast.error("Cart is empty");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const orderRes = await fetch(
+      "/api/orders/create",
+      {
         method: "POST",
+
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Content-Type":
+            "application/json",
+
+          Authorization:
+            `Bearer ${token}`,
         },
+
         body: JSON.stringify({
           ...form,
-          items: cart.map((item) => ({
-            productId: item._id,
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-            image: item.images?.[0],
-          })),
+
+          items: cart.map(
+            (item) => ({
+              productId: item._id,
+              name: item.name,
+              price: item.price,
+              quantity:
+                item.quantity,
+              image:
+                item.images?.[0],
+            })
+          ),
+
           totalAmount: total,
         }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.msg || "Order failed");
-        return;
       }
+    );
 
-      toast.success("Order placed successfully ✅");
-      clearCart();
-      router.push("/order-success");
-    } catch (err) {
-      toast.error("Something went wrong");
-    } finally {
-      setLoading(false);
+    const order =
+      await orderRes.json();
+
+    if (!orderRes.ok) {
+      toast.error(
+        "Order creation failed"
+      );
+      return;
     }
-  };
+
+    const paymentRes = await fetch(
+      "/api/icici/create-payment",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          name: form.name,
+
+          mobile: form.phone,
+
+          email: form.email,
+
+          amount: total,
+
+          orderId: order._id,
+        }),
+      }
+    );
+
+  const payment = await paymentRes.json();
+
+console.log("Payment Response:", payment);
+
+if (!paymentRes.ok || !payment.success) {
+  toast.error(payment.message || "Payment initiation failed");
+  console.log(payment);
+  return;
+}
+
+window.location.href = payment.paymentUrl;
+
+
+
+
+
+  } catch (err) {
+    console.error(err);
+
+    toast.error(
+      "Something went wrong"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
 
   return (
     <div className="min-h-screen bg-[#f8fafc] py-10 px-4">
