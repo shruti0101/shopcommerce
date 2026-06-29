@@ -118,27 +118,45 @@ export default function OrdersPage() {
                   )}
                 </div>
 
-                <div className="text-left md:text-right">
+              <div className="text-left md:text-right space-y-3">
 
-                  <p className="text-2xl font-bold">
-                    ₹{order.totalAmount}
-                  </p>
+  <p className="text-2xl font-bold">
+    ₹{order.totalAmount}
+  </p>
 
-                  <span
-                    className="
-                      inline-block
-                      px-3
-                      py-1
-                      rounded-full
-                      text-xs
-                      bg-green-100
-                      text-green-700
-                    "
-                  >
-                    {order.status}
-                  </span>
+  {/* Order Status */}
+  <div>
 
-                </div>
+  </div>
+
+  {/* Payment Status */}
+  <div>
+    <span
+      className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+        order.paymentStatus === "paid"
+          ? "bg-green-100 text-green-700"
+          : order.paymentStatus === "failed"
+          ? "bg-red-100 text-red-700"
+          : "bg-orange-100 text-orange-700"
+      }`}
+    >
+      Payment : {order.paymentStatus || "pending"}
+    </span>
+  </div>
+
+  {order.transactionId && (
+    <p className="text-xs text-gray-500 break-all">
+      <strong>Transaction ID:</strong> {order.transactionId}
+    </p>
+  )}
+
+  {order.merchantTxnNo && (
+    <p className="text-xs text-gray-500 break-all">
+      <strong>Merchant Txn:</strong> {order.merchantTxnNo}
+    </p>
+  )}
+
+</div>
 
               </div>
 
