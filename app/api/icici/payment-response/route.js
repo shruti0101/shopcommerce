@@ -89,9 +89,10 @@ export async function POST(req) {
 
     // SUCCESS
 
-    if (
-      responseData.responseCode === "0000"
-    ) {
+  if (
+    responseData.responseCode === "0000" ||
+    responseData.responseCode === "R1000"
+) {
       console.log("PAYMENT SUCCESS");
 
       order.paymentStatus = "paid";
