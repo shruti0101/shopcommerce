@@ -1,3 +1,5 @@
+
+import Link from "next/link";
 export default async function PaymentSuccess({ searchParams }) {
   const params = await searchParams;
 
@@ -27,12 +29,12 @@ export default async function PaymentSuccess({ searchParams }) {
           </p>
         </div>
 
-        <a
+        <Link
           href="/"
           className="mt-8 inline-block bg-green-600 text-white px-6 py-3 rounded-lg"
         >
           Back to Home
-        </a>
+        </Link>
       </div>
     </div>
   );
