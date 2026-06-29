@@ -26,7 +26,7 @@ setOrders(Array.isArray(data) ? data : []);
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto py-10">
+    <div className="max-w-7xl mx-auto py-10">
       <h1 className="text-2xl font-semibold mb-6">My Orders</h1>
 
       {orders.length === 0 && <p>No orders yet</p>}
@@ -38,13 +38,47 @@ setOrders(Array.isArray(data) ? data : []);
             Order ID: {order._id}
           </p>
 
-          <p className="mb-2">
-            Status: <span className="font-medium">{order.status}</span>
-          </p>
 
-          <p className="mb-4">
-            Total: ₹{order.totalAmount}
-          </p>
+        <div className="flex flex-wrap justify-between items-center mb-4 gap-3">
+
+  <div>
+    <p className="font-semibold text-lg">
+      Total: ₹{order.totalAmount}
+    </p>
+
+    <p className="text-sm text-gray-500">
+      {new Date(order.createdAt).toLocaleString()}
+    </p>
+  </div>
+
+  <div className="flex gap-2">
+
+    <span
+      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+        order.paymentStatus === "paid"
+          ? "bg-green-100 text-green-700"
+          : order.paymentStatus === "failed"
+          ? "bg-red-100 text-red-700"
+          : "bg-yellow-100 text-yellow-700"
+      }`}
+    >
+      {order.paymentStatus === "paid"
+        ? "✅ Paid"
+        : "❌ Failed"
+      }
+    </span>
+
+ 
+
+  </div>
+
+</div>
+
+{order.transactionId && (
+  <p className="text-sm text-gray-600 mb-4">
+    <strong>Transaction ID:</strong> {order.transactionId}
+  </p>
+)}
 
           {/* ITEMS */}
           {order.items.map((item, i) => (

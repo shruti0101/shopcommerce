@@ -51,6 +51,8 @@ export async function PATCH(req, { params }) {
 console.log("ORDER ID:", params.id);
 console.log("NEW STATUS:", status);
 
+
+
 const order = await Order.findByIdAndUpdate(
   params.id,
   { status },
