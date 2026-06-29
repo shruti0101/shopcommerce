@@ -70,7 +70,7 @@ console.log("Response Message:", responseData.respMessage);
 
     if (
       responseData.responseCode ===
-      "0000"
+      "R1000"
     ) {
       await Order.findByIdAndUpdate(
         orderId,
@@ -81,7 +81,7 @@ console.log("Response Message:", responseData.respMessage);
             responseData.merchantTxnNo,
 
           transactionId:
-            responseData.pgTxnNo,
+            responseData.txnID,
         }
       );
 
