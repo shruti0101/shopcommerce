@@ -18,9 +18,9 @@ export async function POST(req) {
       responseData[key] = value;
     });
 
-    console.log("========================================");
+    console.log("=======================================");
     console.log("ICICI PAYMENT CALLBACK");
-    console.log("========================================");
+    console.log("=======================================");
     console.log(responseData);
 
     const receivedHash = responseData.secureHash;
@@ -44,13 +44,8 @@ export async function POST(req) {
     );
 
     console.log(
-      "Merchant Txn :",
-      responseData.merchantTxnNo
-    );
-
-    console.log(
-      "Transaction ID :",
-      responseData.txnID
+      "Description :",
+      responseData.respDescription
     );
 
     console.log(
@@ -61,7 +56,8 @@ export async function POST(req) {
     const orderId = responseData.addlParam1;
 
     if (!orderId) {
-      console.log("Order Id Missing");
+      console.log("Order ID Missing");
+
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_SITE_URL}/payment-failed`
       );
@@ -71,16 +67,19 @@ export async function POST(req) {
 
     if (!order) {
       console.log("Order Not Found");
+
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_SITE_URL}/payment-failed`
       );
     }
 
-    // Verify Hash
+    // Hash Verification
+
     if (receivedHash !== calculatedHash) {
-      console.log("HASH VERIFICATION FAILED");
+      console.log("HASH FAILED");
 
       order.paymentStatus = "failed";
+
       await order.save();
 
       return NextResponse.redirect(
@@ -88,25 +87,33 @@ export async function POST(req) {
       );
     }
 
-    // Success
-    if (responseData.responseCode === "R1000") {
+    // SUCCESS
+
+    if (
+      responseData.responseCode === "0000"
+    ) {
       console.log("PAYMENT SUCCESS");
 
       order.paymentStatus = "paid";
+
       order.merchantTxnNo =
         responseData.merchantTxnNo || "";
 
       order.transactionId =
-        responseData.txnID || "";
+        responseData.txnID ||
+        responseData.paymentID ||
+        "";
 
       await order.save();
 
-      console.log("Order Updated Successfully");
+      console.log("ORDER UPDATED");
 
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_SITE_URL}/payment-success?txn=${responseData.merchantTxnNo}&amount=${responseData.amount}`
       );
     }
+
+    // FAILURE
 
     console.log("PAYMENT FAILED");
 
@@ -118,11 +125,8 @@ export async function POST(req) {
       `${process.env.NEXT_PUBLIC_SITE_URL}/payment-failed`
     );
   } catch (err) {
-    console.log("========================================");
     console.log("CALLBACK ERROR");
     console.log(err);
-    console.log(err.stack);
-    console.log("========================================");
 
     return NextResponse.redirect(
       `${process.env.NEXT_PUBLIC_SITE_URL}/payment-failed`
@@ -130,9 +134,7 @@ export async function POST(req) {
   }
 }
 
-export async function GET(req) {
-  console.log("ICICI GET CALLBACK");
-
+export async function GET() {
   return NextResponse.redirect(
     `${process.env.NEXT_PUBLIC_SITE_URL}`
   );
