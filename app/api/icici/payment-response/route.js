@@ -22,6 +22,9 @@ export async function POST(req) {
       responseData[key] = value;
     });
 
+    console.log("========== ICICI CALLBACK ==========");
+console.log(responseData);
+
     const receivedHash =
       responseData.secureHash;
 
@@ -34,6 +37,18 @@ export async function POST(req) {
 
     const calculatedHash =
       generateSecureHash(plainText);
+
+
+
+
+
+console.log("Received Hash:", receivedHash);
+console.log("Calculated Hash:", calculatedHash);
+console.log("Response Code:", responseData.responseCode);
+console.log("Response Message:", responseData.respMessage);
+
+
+
 
     const orderId =
       responseData.addlParam1;
@@ -80,7 +95,7 @@ export async function POST(req) {
       {
         paymentStatus: "failed",
       }
-      
+
     );
 
     return NextResponse.redirect(
