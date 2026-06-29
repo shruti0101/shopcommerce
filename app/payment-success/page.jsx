@@ -1,13 +1,8 @@
-"use client";
+export default async function PaymentSuccess({ searchParams }) {
+  const params = await searchParams;
 
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-
-export default function PaymentSuccess() {
-  const searchParams = useSearchParams();
-
-  const txn = searchParams.get("txn");
-  const amount = searchParams.get("amount");
+  const txn = params?.txn;
+  const amount = params?.amount;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-50">
@@ -32,12 +27,12 @@ export default function PaymentSuccess() {
           </p>
         </div>
 
-        <Link
+        <a
           href="/"
           className="mt-8 inline-block bg-green-600 text-white px-6 py-3 rounded-lg"
         >
           Back to Home
-        </Link>
+        </a>
       </div>
     </div>
   );

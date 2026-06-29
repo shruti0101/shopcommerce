@@ -1,7 +1,3 @@
-"use client";
-
-import Link from "next/link";
-
 export default function PaymentFailed() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-red-50">
@@ -16,12 +12,12 @@ export default function PaymentFailed() {
           Your payment could not be completed.
         </p>
 
-        <Link
+        <a
           href="/checkout"
           className="mt-8 inline-block bg-red-600 text-white px-6 py-3 rounded-lg"
         >
           Try Again
-        </Link>
+        </a>
       </div>
     </div>
   );
