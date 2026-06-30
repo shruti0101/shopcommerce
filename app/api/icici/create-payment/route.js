@@ -6,7 +6,7 @@ import {
   generateSecureHash,
 } from "@/lib/icici";
 
-const ICICI_URL ="https://pgpayuat.icicibank.com/tsp/pg/api/v2/initiateSale"
+const ICICI_URL ="https://pgpay.icicibank.com/pg/api/v2/initiateSale"
 
 export async function POST(req) {
   try {
