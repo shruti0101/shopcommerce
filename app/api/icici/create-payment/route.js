@@ -52,7 +52,6 @@ export async function POST(req) {
       addlParam1: orderId,
 
       addlParam2: "ECOM",
-      
     };
 
     console.log("payment payload",payload)
