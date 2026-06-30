@@ -50,6 +50,43 @@ export default function CheckoutPage() {
 
 
 const handlePlaceOrder = async () => {
+
+
+
+ 
+  if (
+    !form.name.trim() ||
+    !form.phone.trim() ||
+    !form.email.trim() ||
+    !form.pincode.trim() ||
+    !form.address.trim()
+  ) {
+    toast.error("Please fill in all required fields.");
+    return;
+  }
+
+ 
+  if (!/^\d{10}$/.test(form.phone)) {
+    toast.error("Please enter a valid 10-digit phone number.");
+    return;
+  }
+
+  
+  if (!/^\S+@\S+\.\S+$/.test(form.email)) {
+    toast.error("Please enter a valid email address.");
+    return;
+  }
+
+ 
+  if (!/^\d{6}$/.test(form.pincode)) {
+    toast.error("Please enter a valid 6-digit pincode.");
+    return;
+  }
+
+
+
+
+
   const token = localStorage.getItem("token");
 
   if (!token) {
@@ -193,98 +230,122 @@ window.location.href = payment.paymentUrl;
                 Customer Details
               </h2>
 
-              <div className="grid gap-5">
+            <div className="grid gap-5">
+  {[
+    { name: "name", label: "Full Name", type: "text" },
+    { name: "phone", label: "Phone Number", type: "tel" },
+    { name: "email", label: "Email Address", type: "email" },
+    { name: "pincode", label: "Pincode", type: "text" },
+  ].map((field) => (
+    <div key={field.name} className="relative">
+      <input
+        type={field.type}
+        name={field.name}
+        value={form[field.name]}
+        onChange={handleChange}
+        placeholder=" "
+        
+        required
+        className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
 
-                {[
-                  { name: "name", label: "Full Name" },
-                  { name: "phone", label: "Phone Number" },
-                  { name: "email", label: "Email Address" },
-                  { name: "pincode", label: "Pincode" },
-                ].map((field) => (
-                  <div key={field.name} className="relative">
-                    <input
-                      name={field.name}
-                      value={form[field.name]}
-                      onChange={handleChange}
-                      placeholder=" "
-                      className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
-                    />
-                    <label className="absolute left-4 top-2 text-gray-500 text-sm transition-all
-                      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
-                      peer-focus:top-2 peer-focus:text-sm">
-                      {field.label}*
-                    </label>
-                  </div>
-                ))}
+        {...(field.name === "phone"
+          ? {
+              maxLength: 10,
+              minLength: 10,
+              pattern: "[0-9]{10}",
+              inputMode: "numeric",
+            }
+          : {})}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {...(field.name === "pincode"
+          ? {
+              maxLength: 6,
+              minLength: 6,
+              pattern: "[0-9]{6}",
+              inputMode: "numeric",
+            }
+          : {})}
+      />
 
+      <label
+        className="absolute left-4 top-2 text-gray-500 text-sm transition-all
+        peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+        peer-focus:top-2 peer-focus:text-sm"
+      >
+        {field.label}*
+      </label>
+    </div>
+  ))}
 
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
   {/* Company Name */}
-  <div className="relative w-full">
+  <div className="relative">
     <input
       type="text"
+      id="company"
       name="company"
       value={form.company}
       onChange={handleChange}
       placeholder=" "
-      className="peer w-full border border-gray-300 rounded-xl px-4 pt-5 pb-2 bg-white outline-none transition
-      focus:border-black"
+      autoComplete="organization"
+      className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
     />
 
     <label
-      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
-      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
-      peer-focus:top-2 peer-focus:text-sm"
+      htmlFor="company"
+      className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
+      peer-placeholder-shown:top-4 peer-placeholder-shown:px-0 peer-placeholder-shown:text-base
+      peer-focus:top-2 peer-focus:px-1 peer-focus:text-sm"
     >
       Company Name
     </label>
   </div>
 
-
-  
   {/* GST Number */}
-  <div className="relative w-full">
+  <div className="relative">
     <input
       type="text"
+      id="gst"
       name="gst"
       value={form.gst}
       onChange={handleChange}
       placeholder=" "
-      className="peer w-full border border-gray-300 rounded-xl px-4 pt-5 pb-2 bg-white outline-none transition
-      focus:border-black"
+      autoComplete="off"
+      className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
     />
 
+    <label
+      htmlFor="gst"
+      className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
+      peer-placeholder-shown:top-4 peer-placeholder-shown:px-0 peer-placeholder-shown:text-base
+      peer-focus:top-2 peer-focus:px-1 peer-focus:text-sm"
+    >
+      GST Number
+    </label>
+  </div>
+</div>
+
+  <div className="relative">
+    <textarea
+      name="address"
+      value={form.address}
+      onChange={handleChange}
+      placeholder=" "
+      rows={3}
+      required
+      className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
+    />
     <label
       className="absolute left-4 top-2 text-gray-500 text-sm transition-all
       peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
       peer-focus:top-2 peer-focus:text-sm"
     >
-      GST Number
+      Address *
     </label>
   </div>
-
-
 </div>
 
-                <div className="relative">
-                  <textarea
-                    name="address"
-                    value={form.address}
-                    onChange={handleChange}
-                    placeholder=" "
-                    rows={3}
-                    required
-                    className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
-                  />
-                  <label className="absolute left-4 top-2 text-gray-500 text-sm transition-all
-                    peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
-                    peer-focus:top-2 peer-focus:text-sm">
-                    Address *
-                  </label>
-                </div>
 
-              </div>
             </div>
 
             {/* CART */}
@@ -336,7 +397,7 @@ window.location.href = payment.paymentUrl;
 
           </div>
 
-          {/* RIGHT */}
+         
           <div className="sticky top-30 h-fit">
             <div className="bg-white border rounded-3xl p-6 shadow-2xl">
 
