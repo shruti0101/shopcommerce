@@ -87,7 +87,7 @@ export async function POST(req) {
       );
     }
 
-    // SUCCESS
+  // on pay success
 
   if (
     responseData.responseCode === "0000" ||
@@ -114,7 +114,7 @@ export async function POST(req) {
       );
     }
 
-    // FAILURE
+// on pay failure
 
     console.log("PAYMENT FAILED");
 

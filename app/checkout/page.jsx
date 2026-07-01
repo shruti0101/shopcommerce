@@ -222,7 +222,7 @@ window.location.href = payment.paymentUrl;
 
         <div className="grid lg:grid-cols-3 gap-8">
 
-          {/* LEFT */}
+       
           <div className="lg:col-span-2 space-y-6">
 
             <div className="bg-white/80 backdrop-blur-lg border border-gray-200 rounded-3xl p-6 shadow-xl">
@@ -278,7 +278,8 @@ window.location.href = payment.paymentUrl;
   ))}
 
  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-  {/* Company Name */}
+
+
   <div className="relative">
     <input
       type="text"
@@ -301,7 +302,7 @@ window.location.href = payment.paymentUrl;
     </label>
   </div>
 
-  {/* GST Number */}
+
   <div className="relative">
     <input
       type="text"
@@ -348,7 +349,7 @@ window.location.href = payment.paymentUrl;
 
             </div>
 
-            {/* CART */}
+            
             <div className="bg-white/80 backdrop-blur-lg border rounded-3xl p-6 shadow-xl">
               <h3 className="text-lg font-semibold mb-4">
                 Your Items
