@@ -18,9 +18,9 @@ export async function POST(req) {
       responseData[key] = value;
     });
 
-    console.log("=======================================");
+  
     console.log("ICICI PAYMENT CALLBACK");
-    console.log("=======================================");
+
     console.log(responseData);
 
     const receivedHash = responseData.secureHash;
@@ -134,6 +134,8 @@ export async function POST(req) {
     );
   }
 }
+
+
 
 export async function GET() {
   return NextResponse.redirect(
