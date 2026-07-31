@@ -239,12 +239,7 @@ export default function Navbar() {
                   relative
                   font-semibold
                   text-[#071B31]
-                  after:absolute
-                  after:left-0
-                  after:-bottom-[16px]
-                  after:w-full
-                  after:h-[2px]
-                  after:bg-[#D6AE45]
+               
                 "
                 >
                   Home

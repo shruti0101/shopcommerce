@@ -30,6 +30,15 @@ const bebasNeue = Bebas_Neue({
 export const metadata = {
   title: "JL Industries Hub | Premium Industrial Products Importer & Wholesale Supplier India",
   description: "JL Industries Hub is a trusted importer and wholesale supplier of premium industrial products, safety equipment, tools, and bulk supply solutions across India.",
+
+
+  icons: {
+    icon: "/logo.png",          
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+
+
 };
 
 export default function RootLayout({ children }) {

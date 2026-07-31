@@ -352,11 +352,7 @@ const [selectedSize, setSelectedSize] =
 
           </div>
 
-          {/* STOCK */}
-          <span className="text-[11px] text-green-600 font-medium bg-green-50 px-2 py-1 rounded-full">
-            In Stock
-          </span>
-
+      
         </div>
 
 
