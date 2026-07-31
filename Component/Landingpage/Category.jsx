@@ -18,22 +18,13 @@ import {
 
 export default function ProductSlider() {
   const products = [
-    {
-      title: "Neck Pillow massager",
-      href: "/product/neck-massager",
-      price: "640",
-      old: "999",
-      discount: "30%",
-      rating: "4.6",
-      reviews: "33.8K",
-      img: "/featured-products/neck.webp",
-    },
+  
     {
       title: "Slim N Lift Vest",
       href: "/product/slim-n-lift-for-men",
-      price: "399",
-      old: "799",
-      discount: "35%",
+      price: "299",
+      old: "499",
+    
       rating: "4.5",
       reviews: "13K",
       img: "/featured-products/vest.webp",
@@ -43,7 +34,7 @@ export default function ProductSlider() {
       href: "/product/steam-iron",
       price: "899",
       old: "1,599",
-      discount: "",
+      
       rating: "4.6",
       reviews: "1.6K",
       img: "/featured-products/steam.webp",
@@ -51,9 +42,9 @@ export default function ProductSlider() {
     {
       title: "Kinoki Foot Patches",
       href: "/product/kinoki-foot-patches",
-      price: "149",
-      old: "566",
-      discount: "40%",
+      price: "119",
+      old: "199",
+    
       rating: "4.5",
       reviews: "20.1K",
       img: "/featured-products/foot.webp",
@@ -61,9 +52,9 @@ export default function ProductSlider() {
     {
       title: "Mini Cooling Fan",
       href: "/product/mini-cooling-fan",
-      price: "1,299",
-      old: "2599",
-      discount: "9%",
+      price: "449",
+      old: "599",
+     
       rating: "4.7",
       reviews: "278",
       img: "/featured-products/mini-fan.webp",
@@ -71,10 +62,10 @@ export default function ProductSlider() {
 
     {
       title: "Ship Humdifier",
-      href: "/product/titanic-ship-humdifier",
-      price: "1,299",
-      old: "799",
-      discount: "19%",
+      href: "/product/titanic-ship-humidifier",
+      price: "1599",
+      old: "2199",
+     
       rating: "4.7",
       reviews: "278",
       img: "/featured-products/ship.webp",
@@ -83,9 +74,9 @@ export default function ProductSlider() {
     {
       title: "Anty Gravity Water Drop Humidifier",
       href: "/product/anty-gravity-water-drop-humidifier",
-      price: "799",
-      old: "1,320",
-      discount: "9%",
+      price: "1199",
+      old: "1399",
+      
       rating: "4.7",
       reviews: "278",
       img: "/featured-products/anti.webp",
@@ -93,9 +84,9 @@ export default function ProductSlider() {
     {
       title: "Stainless Steel Tumbler 1200ml",
       href: "/product/tumbler1200ml-black",
-      price: "799",
-      old: "320",
-      discount: "9%",
+      price: "599",
+      old: "899",
+      
       rating: "4.7",
       reviews: "278",
       img: "/tumbler.webp",
@@ -103,9 +94,9 @@ export default function ProductSlider() {
     {
       title: "Wooden Door Chime with Brass Bell",
       href: "/product/wooden-door-chime-with-brass-bell",
-      price: "799",
-      old: "1,320",
-      discount: "9%",
+      price: "159",
+      old: "199",
+     
       rating: "4.7",
       reviews: "278",
       img: "/Premium-Wooden-Brass-Bell-Chime.webp",
@@ -115,56 +106,38 @@ export default function ProductSlider() {
       href: "/product/glass-coffee-mixing-mug",
       price: "499",
       old: "1,320",
-      discount: "39%",
+      
       rating: "4.7",
       reviews: "278",
       img: "/featured-products/coffee.webp",
     },
     {
       title: "Jellyfish Lamp",
-      href: "/product/3-layer-jellyfish-light-(pair)",
-      price: "499",
-      old: "1,320",
-      discount: "19%",
+      href: "/product/solar-jellyfish-light-pair",
+      price: "429",
+      old: "549",
+
       rating: "4.7",
       reviews: "278",
       img: "/featured-products/jelly.webp",
     },
-    {
-      title: "Vaccume Flask Set Mix Color",
-      href: "/product/vaccume-flask-set-mix-color",
-      price: "799",
-      old: "1,320",
-      discount: "9%",
-      rating: "4.7",
-      reviews: "278",
-      img: "/featured-products/vaccume.webp",
-    },
+  
     {
       title: "Garden Water Sprinkler",
       href: "/product/garden-water-sprinkler",
-      price: "799",
-      old: "1,520",
-      discount: "29%",
+      price: "249",
+      old: "399",
+      
       rating: "4.7",
       reviews: "278",
       img: "/featured-products/grass.webp",
     },
-    {
-      title: "Vaccume Flask Set",
-      href: "/product/vaccume-flask-set-black-color",
-      price: "499",
-      old: "720",
-      discount: "9%",
-      rating: "4.7",
-      reviews: "278",
-      img: "/vaccumeset.webp",
-    },
+ 
     {
       title: "Silicone Foldable kettle",
       href: "/product/electric-foldable-kettle",
-      price: "699",
-      old: "1,120",
+      price: "999",
+      old: "1399",
       discount: "9%",
       rating: "4.7",
       reviews: "278",
