@@ -433,6 +433,24 @@ const selectedSizeData =
     Inclusive of all taxes
   </p>
 
+<div className="mt-4 flex items-center gap-3">
+  {product.stock > 0 ? (
+    <>
+      <span className="h-3 w-3 rounded-full bg-green-500 animate-pulse"></span>
+      <span className="rounded-full bg-green-50 px-3 py-1 text-sm font-semibold text-green-700 border border-green-200">
+        In Stock ({product.stock} Available)
+      </span>
+    </>
+  ) : (
+    <>
+      <span className="h-3 w-3 rounded-full bg-red-500"></span>
+      <span className="rounded-full bg-red-50 px-3 py-1 text-sm font-semibold text-red-700 border border-red-200">
+        Out of Stock
+      </span>
+    </>
+  )}
+</div>
+
   {/* DESCRIPTION */}
   <div className="mt-4">
 
