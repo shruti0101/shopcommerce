@@ -1,5 +1,6 @@
-
 import Link from "next/link";
+import ClearCartOnSuccess from "@/Component/ClearCartOnSuccess";
+
 export default async function PaymentSuccess({ searchParams }) {
   const params = await searchParams;
 
@@ -7,39 +8,39 @@ export default async function PaymentSuccess({ searchParams }) {
   const amount = params?.amount;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-50">
-      <div className="bg-white rounded-xl shadow-xl p-10 text-center max-w-md">
-        <div className="text-6xl mb-4">✅</div>
+    <>
+      <ClearCartOnSuccess />
 
-        <h1 className="text-3xl font-bold text-green-600">
-          Payment Successful
-        </h1>
+      <div className="min-h-screen flex items-center justify-center bg-green-50">
+        <div className="bg-white rounded-xl shadow-xl p-10 text-center max-w-md">
+          <div className="text-6xl mb-4">✅</div>
 
-        <p className="mt-4 text-gray-600">
-          Your payment has been completed successfully.
-        </p>
+          <h1 className="text-3xl font-bold text-green-600">
+            Payment Successful
+          </h1>
 
-        <div className="mt-6 text-left space-y-2">
-          <p>
-            <strong>Transaction:</strong> {txn}
+          <p className="mt-4 text-gray-600">
+            Your payment has been completed successfully.
           </p>
 
-          <p>
-            <strong>Amount:</strong> ₹{amount}
-          </p>
+          <div className="mt-6 text-left space-y-2">
+            <p>
+              <strong>Transaction:</strong> {txn}
+            </p>
 
+            <p>
+              <strong>Amount:</strong> ₹{amount}
+            </p>
+          </div>
 
-
-
+          <Link
+            href="/"
+            className="mt-8 inline-block bg-green-600 text-white px-6 py-3 rounded-lg"
+          >
+            Back to Home
+          </Link>
         </div>
-
-        <Link
-          href="/"
-          className="mt-8 inline-block bg-green-600 text-white px-6 py-3 rounded-lg"
-        >
-          Back to Home
-        </Link>
       </div>
-    </div>
+    </>
   );
 }

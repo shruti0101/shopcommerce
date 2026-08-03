@@ -25,6 +25,8 @@ export default function Login() {
   // ✅ get redirect path
   const redirect = searchParams.get("redirect");
 
+  console.log("Redirect:", redirect);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -56,7 +58,7 @@ export default function Login() {
       if (data.user.role === "admin") {
         router.push("/admin");
       } else {
-        router.push(redirect || "/"); 
+       router.replace(redirect || "/");
       }
 
     } catch (err) {
