@@ -326,24 +326,26 @@ window.location.href = payment.paymentUrl;
   </div>
 </div>
 
-  <div className="relative">
-    <textarea
-      name="address"
-      value={form.address}
-      onChange={handleChange}
-      placeholder=" "
-      rows={3}
-      required
-      className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
-    />
-    <label
-      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
-      peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
-      peer-focus:top-2 peer-focus:text-sm"
-    >
-      Address *
-    </label>
-  </div>
+ <div className="relative">
+  <textarea
+    name="address"
+    value={form.address}
+    onChange={handleChange}
+    placeholder=" "
+    rows={3}
+    required
+    className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
+  />
+
+  <label
+    className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
+    peer-placeholder-shown:top-4 peer-placeholder-shown:px-0 peer-placeholder-shown:text-base
+    peer-focus:top-2 peer-focus:px-1 peer-focus:text-sm
+    peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:px-1 peer-not-placeholder-shown:text-sm"
+  >
+    House No / Flat / Block / Street / Building Details *
+  </label>
+</div>
 </div>
 
 

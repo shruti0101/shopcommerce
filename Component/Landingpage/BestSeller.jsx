@@ -15,9 +15,9 @@ export default function Bestsellers() {
     {
       title: "Mobile Holder",
       href: "/product/mobile-holder",
-      price: "899",
-      old: "1299",
-      discount: "14%",
+      price: "0",
+      old: "0",
+    
       rating: "4.6",
       reviews: "33.8K",
       img: "/f1.jpg",
@@ -25,10 +25,10 @@ export default function Bestsellers() {
 
     {
       title: "SHIP HUMDIFIER",
-      href: "/product/titanic-ship-humdifier",
-      price: "1699",
-      old: "1100",
-      discount: "35%",
+      href: "/product/titanic-ship-humidifier",
+      price: "1599",
+      old: "2199",
+    
       rating: "4.5",
       reviews: "13K",
       img: "/ship.jpg",
@@ -39,7 +39,7 @@ export default function Bestsellers() {
       href: "/product/panda-lamp",
       price: "899",
       old: "1599",
-      discount: "12%",
+   
       rating: "4.6",
       reviews: "1.6K",
       img: "/panda.png",
@@ -47,9 +47,9 @@ export default function Bestsellers() {
     {
       title: "Jellyfish Lamp Bluetooth Speaker",
       href: "/product/jellyfish-lamp-bluetooth-speaker",
-      price: "1299",
-      old: "2599",
-      discount: "9%",
+      price: "1099",
+      old: "1599",
+
       rating: "4.7",
       reviews: "278",
       img: "/f3.jpg",
@@ -67,9 +67,9 @@ export default function Bestsellers() {
     {
       title: "KIDS FIGHTER JET",
       href: "/product/kids-fighter-jet",
-      price: "1149",
-      old: "2566",
-      discount: "",
+      price: "899",
+      old: "1299",
+  
       rating: "4.5",
       reviews: "20.1K",
       img: "/f6.avif",
@@ -78,9 +78,9 @@ export default function Bestsellers() {
         {
       title: "MATKA SHAPED AROMA DIFFUSER",
       href: "/product/matka-shaped-aroma-diffuser",
-      price: "900",
-      old: "1200",
-      discount: "",
+      price: "599",
+      old: "699",
+
       rating: "4.5",
       reviews: "20.1K",
       img: "/MATKA.png",
