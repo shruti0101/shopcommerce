@@ -144,14 +144,14 @@ export default function WhyChooseUs() {
         "
       >
         When you can access a wide range of
-        high-quality <a className="font-bold" href="/shop">products</a> from one trusted
+        high-quality products from one trusted
         source, it naturally becomes your go-to
         destination.
 
         <br />
         <br className="hidden sm:block" />
 
-        Here's what sets <a href="/about" className="font-bold"> JL Industries</a> apart.
+        Here's what sets JL Industries apart.
       </p>
     </div>
   </div>

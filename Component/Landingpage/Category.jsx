@@ -172,7 +172,7 @@ export default function ProductSlider() {
           </h2>
 
           <p className="mt-2 max-w-4xl text-sm leading-7 text-[#5c5c5c] md:text-[20px]">
-            Discover trending products crafted to elevate your lifestyle
+            Discover trending <a className="font-bold text-black" href="/shop">products</a> crafted to elevate your lifestyle
             with style, innovation, and everyday convenience.
             
           </p>
