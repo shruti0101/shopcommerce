@@ -365,7 +365,7 @@ const mobileBanners = [
       </div>
 
       <p className="text-black mt-8 text-xl leading-relaxed">
-        Whether you are purchasing a single item or placing a bulk order,
+        Whether you are purchasing a single item or placing a <a href="/bulk-enquiry" className="font-bold">bulk order</a>,
         we ensure a smooth process from start to finish.
       </p>
     </div>
