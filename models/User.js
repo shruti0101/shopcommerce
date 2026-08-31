@@ -7,10 +7,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-  phone: {
-  type: String,
-  default: "",
-},
+    phone: {
+      type: String,
+      default: "",
+    },
     password: String,
     role: {
       type: String,
@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema(
       default: "user",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
