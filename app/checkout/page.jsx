@@ -19,11 +19,10 @@ export default function CheckoutPage() {
     email: "",
     address: "",
     pincode: "",
-    gst:"",
-    company:""
+    gst: "",
+    company: "",
   });
 
-  
   useEffect(() => {
     const saved = localStorage.getItem("checkoutData");
 
@@ -41,131 +40,97 @@ export default function CheckoutPage() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const total = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
+  const handlePlaceOrder = async () => {
+    if (
+      !form.name.trim() ||
+      !form.phone.trim() ||
+      !form.email.trim() ||
+      !form.pincode.trim() ||
+      !form.address.trim()
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
 
+    if (!/^\d{10}$/.test(form.phone)) {
+      toast.error("Please enter a valid 10-digit phone number.");
+      return;
+    }
 
+    if (!/^\S+@\S+\.\S+$/.test(form.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
 
-const handlePlaceOrder = async () => {
+    if (!/^\d{6}$/.test(form.pincode)) {
+      toast.error("Please enter a valid 6-digit pincode.");
+      return;
+    }
 
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      localStorage.setItem(
+        "checkoutData",
+        JSON.stringify({
+          form,
+          cart,
+        }),
+      );
 
- 
-  if (
-    !form.name.trim() ||
-    !form.phone.trim() ||
-    !form.email.trim() ||
-    !form.pincode.trim() ||
-    !form.address.trim()
-  ) {
-    toast.error("Please fill in all required fields.");
-    return;
-  }
+      toast.error("Please login to continue");
 
- 
-  if (!/^\d{10}$/.test(form.phone)) {
-    toast.error("Please enter a valid 10-digit phone number.");
-    return;
-  }
+      router.push("/login?redirect=/checkout");
 
-  
-  if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-    toast.error("Please enter a valid email address.");
-    return;
-  }
+      return;
+    }
 
- 
-  if (!/^\d{6}$/.test(form.pincode)) {
-    toast.error("Please enter a valid 6-digit pincode.");
-    return;
-  }
+    if (cart.length === 0) {
+      toast.error("Cart is empty");
+      return;
+    }
 
+    try {
+      setLoading(true);
 
-
-
-
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    localStorage.setItem(
-      "checkoutData",
-      JSON.stringify({
-        form,
-        cart,
-      })
-    );
-
-    toast.error("Please login to continue");
-
-    router.push(
-      "/login?redirect=/checkout"
-    );
-
-    return;
-  }
-
-  if (cart.length === 0) {
-    toast.error("Cart is empty");
-    return;
-  }
-
-  try {
-    setLoading(true);
-
-    const orderRes = await fetch(
-      "/api/orders/create",
-      {
+      const orderRes = await fetch("/api/orders/create", {
         method: "POST",
 
         headers: {
-          "Content-Type":
-            "application/json",
+          "Content-Type": "application/json",
 
-          Authorization:
-            `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
 
         body: JSON.stringify({
           ...form,
 
-          items: cart.map(
-            (item) => ({
-              productId: item._id,
-              name: item.name,
-              price: item.price,
-              quantity:
-                item.quantity,
-              image:
-                item.images?.[0],
-            })
-          ),
+          items: cart.map((item) => ({
+            productId: item._id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.images?.[0],
+          })),
 
           totalAmount: total,
         }),
+      });
+
+      const order = await orderRes.json();
+
+      if (!orderRes.ok) {
+        toast.error(order.msg || "Order creation failed");
+        return;
       }
-    );
 
-    const order =
-      await orderRes.json();
-
-    if (!orderRes.ok) {
-      toast.error(
-        "Order creation failed"
-      );
-      return;
-    }
-
-    const paymentRes = await fetch(
-      "/api/icici/create-payment",
-      {
+      const paymentRes = await fetch("/api/icici/create-payment", {
         method: "POST",
 
         headers: {
-          "Content-Type":
-            "application/json",
+          "Content-Type": "application/json",
         },
 
         body: JSON.stringify({
@@ -179,183 +144,153 @@ const handlePlaceOrder = async () => {
 
           orderId: order._id,
         }),
+      });
+
+      const payment = await paymentRes.json();
+
+      console.log("Payment Response:", payment);
+
+      if (!paymentRes.ok || !payment.success) {
+        toast.error(payment.message || "Payment initiation failed");
+        console.log(payment);
+        return;
       }
-    );
 
-  const payment = await paymentRes.json();
+      window.location.href = payment.paymentUrl;
+    } catch (err) {
+      console.error(err);
 
-console.log("Payment Response:", payment);
-
-if (!paymentRes.ok || !payment.success) {
-  toast.error(payment.message || "Payment initiation failed");
-  console.log(payment);
-  return;
-}
-
-window.location.href = payment.paymentUrl;
-
-
-
-
-
-  } catch (err) {
-    console.error(err);
-
-    toast.error(
-      "Something went wrong"
-    );
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f8fafc] py-10 px-4">
       <div className="max-w-7xl mx-auto">
-
-        <h1 className="text-4xl font-bold mb-10 tracking-tight">
-          Checkout
-        </h1>
+        <h1 className="text-4xl font-bold mb-10 tracking-tight">Checkout</h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
-
-       
           <div className="lg:col-span-2 space-y-6">
-
             <div className="bg-white/80 backdrop-blur-lg border border-gray-200 rounded-3xl p-6 shadow-xl">
-              <h2 className="text-xl font-semibold mb-6">
-                Customer Details
-              </h2>
+              <h2 className="text-xl font-semibold mb-6">Customer Details</h2>
 
-            <div className="grid gap-5">
-  {[
-    { name: "name", label: "Full Name", type: "text" },
-    { name: "phone", label: "Phone Number", type: "tel" },
-    { name: "email", label: "Email Address", type: "email" },
-    { name: "pincode", label: "Pincode", type: "text" },
-  ].map((field) => (
-    <div key={field.name} className="relative">
-      <input
-        type={field.type}
-        name={field.name}
-        value={form[field.name]}
-        onChange={handleChange}
-        placeholder=" "
-        
-        required
-        className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
+              <div className="grid gap-5">
+                {[
+                  { name: "name", label: "Full Name", type: "text" },
+                  { name: "phone", label: "Phone Number", type: "tel" },
+                  { name: "email", label: "Email Address", type: "email" },
+                  { name: "pincode", label: "Pincode", type: "text" },
+                ].map((field) => (
+                  <div key={field.name} className="relative">
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      value={form[field.name]}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      className="peer w-full border rounded-xl px-4 pt-5 pb-2 bg-white outline-none focus:border-black"
+                      {...(field.name === "phone"
+                        ? {
+                            maxLength: 10,
+                            minLength: 10,
+                            pattern: "[0-9]{10}",
+                            inputMode: "numeric",
+                          }
+                        : {})}
+                      {...(field.name === "pincode"
+                        ? {
+                            maxLength: 6,
+                            minLength: 6,
+                            pattern: "[0-9]{6}",
+                            inputMode: "numeric",
+                          }
+                        : {})}
+                    />
 
-        {...(field.name === "phone"
-          ? {
-              maxLength: 10,
-              minLength: 10,
-              pattern: "[0-9]{10}",
-              inputMode: "numeric",
-            }
-          : {})}
-
-        {...(field.name === "pincode"
-          ? {
-              maxLength: 6,
-              minLength: 6,
-              pattern: "[0-9]{6}",
-              inputMode: "numeric",
-            }
-          : {})}
-      />
-
-      <label
-        className="absolute left-4 top-2 text-gray-500 text-sm transition-all
+                    <label
+                      className="absolute left-4 top-2 text-gray-500 text-sm transition-all
         peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
         peer-focus:top-2 peer-focus:text-sm"
-      >
-        {field.label}*
-      </label>
-    </div>
-  ))}
+                    >
+                      {field.label}*
+                    </label>
+                  </div>
+                ))}
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={form.company}
+                      onChange={handleChange}
+                      placeholder=" "
+                      autoComplete="organization"
+                      className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
+                    />
 
-
-  <div className="relative">
-    <input
-      type="text"
-      id="company"
-      name="company"
-      value={form.company}
-      onChange={handleChange}
-      placeholder=" "
-      autoComplete="organization"
-      className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
-    />
-
-    <label
-      htmlFor="company"
-      className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
+                    <label
+                      htmlFor="company"
+                      className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
       peer-placeholder-shown:top-4 peer-placeholder-shown:px-0 peer-placeholder-shown:text-base
       peer-focus:top-2 peer-focus:px-1 peer-focus:text-sm"
-    >
-      Company Name
-    </label>
-  </div>
+                    >
+                      Company Name
+                    </label>
+                  </div>
 
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="gst"
+                      name="gst"
+                      value={form.gst}
+                      onChange={handleChange}
+                      placeholder=" "
+                      autoComplete="off"
+                      className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
+                    />
 
-  <div className="relative">
-    <input
-      type="text"
-      id="gst"
-      name="gst"
-      value={form.gst}
-      onChange={handleChange}
-      placeholder=" "
-      autoComplete="off"
-      className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
-    />
-
-    <label
-      htmlFor="gst"
-      className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
+                    <label
+                      htmlFor="gst"
+                      className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
       peer-placeholder-shown:top-4 peer-placeholder-shown:px-0 peer-placeholder-shown:text-base
       peer-focus:top-2 peer-focus:px-1 peer-focus:text-sm"
-    >
-      GST Number
-    </label>
-  </div>
-</div>
+                    >
+                      GST Number
+                    </label>
+                  </div>
+                </div>
 
- <div className="relative">
-  <textarea
-    name="address"
-    value={form.address}
-    onChange={handleChange}
-    placeholder=" "
-    rows={3}
-    required
-    className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
-  />
+                <div className="relative">
+                  <textarea
+                    name="address"
+                    value={form.address}
+                    onChange={handleChange}
+                    placeholder=" "
+                    rows={3}
+                    required
+                    className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 outline-none transition-all duration-200 focus:border-black focus:ring-1 focus:ring-black"
+                  />
 
-  <label
-    className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
+                  <label
+                    className="pointer-events-none absolute left-4 top-2 bg-white px-1 text-sm text-gray-500 transition-all duration-200
     peer-placeholder-shown:top-4 peer-placeholder-shown:px-0 peer-placeholder-shown:text-base
     peer-focus:top-2 peer-focus:px-1 peer-focus:text-sm
     peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:px-1 peer-not-placeholder-shown:text-sm"
-  >
-    House No / Flat / Block / Street / Building Details *
-  </label>
-</div>
-</div>
-
-
+                  >
+                    House No / Flat / Block / Street / Building Details *
+                  </label>
+                </div>
+              </div>
             </div>
 
-            
             <div className="bg-white/80 backdrop-blur-lg border rounded-3xl p-6 shadow-xl">
-              <h3 className="text-lg font-semibold mb-4">
-                Your Items
-              </h3>
+              <h3 className="text-lg font-semibold mb-4">Your Items</h3>
 
               <div className="space-y-4">
                 {cart.map((item) => (
@@ -369,22 +304,19 @@ window.location.href = payment.paymentUrl;
                     />
 
                     <div className="flex-1">
-                      <p className="font-medium text-sm">
-                        {item.name}
-                      </p>
+                      <p className="font-medium text-sm">{item.name}</p>
 
                       {item.selectedSize && (
-  <p className="text-sm text-gray-500 capitalize mt-1">
-    Size: {item.selectedSize}
-  </p>
-)}
-
+                        <p className="text-sm text-gray-500 capitalize mt-1">
+                          Size: {item.selectedSize}
+                        </p>
+                      )}
 
                       {item.selectedColor && (
-  <p className="text-sm text-gray-500 my-1">
-    Color : {item.selectedColor}
-  </p>
-)}
+                        <p className="text-sm text-gray-500 my-1">
+                          Color : {item.selectedColor}
+                        </p>
+                      )}
                       <p className="text-xs text-gray-500">
                         ₹{item.price} × {item.quantity}
                       </p>
@@ -397,16 +329,11 @@ window.location.href = payment.paymentUrl;
                 ))}
               </div>
             </div>
-
           </div>
 
-         
           <div className="sticky top-30 h-fit">
             <div className="bg-white border rounded-3xl p-6 shadow-2xl">
-
-              <h2 className="text-xl font-semibold mb-6">
-                Order Summary
-              </h2>
+              <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
@@ -440,10 +367,8 @@ window.location.href = payment.paymentUrl;
               >
                 {loading ? "Processing..." : "Place Order"}
               </button>
-
             </div>
           </div>
-
         </div>
       </div>
     </div>

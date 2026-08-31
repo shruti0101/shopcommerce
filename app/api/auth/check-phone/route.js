@@ -12,35 +12,61 @@ export async function POST(req) {
     if (!phone) {
       return NextResponse.json(
         { msg: "Phone number is required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
-    // Find user by phone
-    const user = await User.findOne({ phone });
+    // Normalize phone number
+    const normalizedPhone = phone.toString().trim();
 
-    // User not found
-    if (!user) {
-      return NextResponse.json({ msg: "User not found" }, { status: 404 });
+    if (!/^\d{10}$/.test(normalizedPhone)) {
+      return NextResponse.json(
+        { msg: "Invalid phone number" },
+        { status: 400 }
+      );
     }
 
-    // User found → create your existing JWT
+    // Find user
+    const user = await User.findOne({
+      phone: normalizedPhone,
+    }).select("-password");
+
+    if (!user) {
+      return NextResponse.json(
+        { msg: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    if (!process.env.JWT_SECRET) {
+      console.error("JWT_SECRET is missing");
+
+      return NextResponse.json(
+        { msg: "Server configuration error" },
+        { status: 500 }
+      );
+    }
+
+    // Create JWT
     const token = jwt.sign(
       {
-        id: user._id,
+        id: user._id.toString(),
         role: user.role,
       },
       process.env.JWT_SECRET,
       {
         expiresIn: "7d",
-      },
+      }
     );
 
-    return NextResponse.json({
-      msg: "Login successful",
-      token,
-      user,
-    });
+    return NextResponse.json(
+      {
+        msg: "Login successful",
+        token,
+        user,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Check Phone Error:", error);
 
@@ -50,7 +76,7 @@ export async function POST(req) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

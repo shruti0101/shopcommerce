@@ -108,79 +108,127 @@ export default function Login() {
   // VERIFY OTP
   // =========================
 
-  const handleVerifyOTP = async () => {
-    if (!otp) {
-      toast.error("Please enter the OTP");
+ const handleVerifyOTP = async () => {
+  if (!otp) {
+    toast.error("Please enter the OTP");
+    return;
+  }
+
+  if (otp.length !== 6) {
+    toast.error("OTP must be 6 digits");
+    return;
+  }
+
+  if (!confirmationResult) {
+    toast.error("Please request OTP first");
+    return;
+  }
+
+  const toastId = toast.loading("Verifying OTP...");
+
+  try {
+    setLoading(true);
+
+    // ==========================================
+    // 1. VERIFY OTP WITH FIREBASE
+    // ==========================================
+
+    const result = await confirmationResult.confirm(otp);
+
+    const firebaseUser = result.user;
+
+    console.log("Firebase User:", firebaseUser);
+
+    // ==========================================
+    // 2. CHECK USER IN MONGODB
+    // ==========================================
+
+    const res = await fetch("/api/auth/check-phone", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone: phone.trim(),
+      }),
+    });
+
+    const data = await res.json();
+
+    console.log("Check Phone Response:", data);
+
+    // User does not exist
+    if (res.status === 404) {
+      toast.error(
+        "Account not found. Please register.",
+        { id: toastId }
+      );
+
+      router.replace("/register");
       return;
     }
 
-    if (otp.length !== 6) {
-      toast.error("OTP must be 6 digits");
+    // Other API errors
+    if (!res.ok) {
+      toast.error(
+        data?.msg || "Login failed",
+        { id: toastId }
+      );
+
       return;
     }
 
-    if (!confirmationResult) {
-      toast.error("Please request OTP first");
+    // ==========================================
+    // 3. GET YOUR BACKEND JWT
+    // ==========================================
+
+    const token = data?.token;
+
+    if (!token) {
+      toast.error(
+        "Login token was not generated",
+        { id: toastId }
+      );
+
       return;
     }
 
-    const toastId = toast.loading("Verifying OTP...");
+    console.log("Backend JWT:", token);
 
-    try {
-      setLoading(true);
+    // ==========================================
+    // 4. STORE YOUR BACKEND JWT
+    // ==========================================
 
-      const result = await confirmationResult.confirm(otp);
+    localStorage.setItem("token", token);
 
-      const user = result.user;
+    // Store user
+    localStorage.setItem(
+      "user",
+      JSON.stringify(data?.user)
+    );
 
-      // Firebase ID Token
-      const firebaseToken = await user.getIdToken();
+    // ==========================================
+    // 5. SUCCESS
+    // ==========================================
 
-      console.log("Firebase User:", user);
-      console.log("Firebase Token:", firebaseToken);
+    toast.success("Login successful!", {
+      id: toastId,
+    });
 
-      // 2. Check user in MongoDB
-      const res = await fetch("/api/auth/check-phone", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phone }),
-      });
-      const data = await res.json();
+    router.replace(redirect || "/");
+  } catch (error) {
+    console.error("Verify OTP Error:", error);
 
-      if (res.status === 404) {
-        toast.error("Account not found. Please register.", { id: toastId });
-        router.replace(`/register`);
-        return;
+    toast.error(
+      "Invalid OTP. Please try again.",
+      {
+        id: toastId,
       }
-
-      // ==========================================
-      // STORE FIREBASE TOKEN
-      // ==========================================
-
-      localStorage.setItem("token", firebaseToken);
-
-      // Store basic user information
-     localStorage.setItem("user", JSON.stringify(data?.user));
-
-      toast.success("Login successful!", {
-        id: toastId,
-      });
-
-      // ==========================================
-      // REDIRECT
-      // ==========================================
-
-      router.replace(redirect || "/");
-    } catch (error) {
-      console.error("Verify OTP Error:", error);
-
-      toast.error("Invalid OTP. Please try again.", {
-        id: toastId,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   // =========================
   // CHANGE NUMBER
