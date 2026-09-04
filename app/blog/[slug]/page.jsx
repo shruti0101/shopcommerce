@@ -17,13 +17,12 @@ export async function generateMetadata({ params }) {
   return {
     title: post.metaTitle || post.title,
     description:
-      post.metaDescription || post.excerpt || post.content.slice(0, 150),
+      post.metaDescription || post.excerpt || post.content?.slice(0, 150) || "",
   };
 }
 
 export default async function BlogPostPage({ params }) {
   await connectDB();
-
   const { slug } = await params;
   const post = await Blog.findOne({ slug });
 
@@ -32,6 +31,7 @@ export default async function BlogPostPage({ params }) {
   }
 
   const cleanPost = JSON.parse(JSON.stringify(post));
+
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] py-10 px-4 md:px-10">
@@ -54,11 +54,10 @@ export default async function BlogPostPage({ params }) {
           </h1>
           <p className="text-lg text-gray-600 mb-8">{cleanPost.excerpt}</p>
 
-          <div className="space-y-6 text-gray-700 leading-8">
-            {cleanPost.content.split("\n\n").map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          <article
+            className="prose prose-lg max-w-none text-gray-700"
+            dangerouslySetInnerHTML={{ __html: cleanPost.content }}
+          />
 
           {cleanPost.tags?.length > 0 ? (
             <div className="mt-10 flex flex-wrap gap-2">

@@ -23,7 +23,7 @@
     "clsx": "^2.1.1",
     "firebase": "^12.18.0",
     "framer-motion": "^12.40.0",
-    "jodit-react": "^5.3.21",
+    "jodit-react": "^5.5.3",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.7.0",
     "mongoose": "^9.4.1",

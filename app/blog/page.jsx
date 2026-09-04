@@ -7,7 +7,6 @@ export default async function BlogPage() {
 
   const posts = await Blog.find({ published: true }).sort({ createdAt: -1 });
   const cleanPosts = JSON.parse(JSON.stringify(posts));
-  console.log(cleanPosts)
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] py-10 px-4 md:px-10">

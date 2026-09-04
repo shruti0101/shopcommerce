@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+
+// Dynamic import to avoid SSR issues
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const emptyForm = {
   title: "",
@@ -24,6 +28,27 @@ export default function AdminBlogPage() {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const editor = useRef(null);
+
+  // Jodit config
+  const config = {
+    readonly: false,
+    height: 400,
+    toolbarButtonSize: "medium",
+    buttons: [
+      "source", "|",
+      "bold", "italic", "underline", "strikethrough", "|",
+      "font", "fontsize", "paragraph", "|",
+      "align", "list", "indent", "outdent", "|",
+      "link", "image", "table", "|",
+      "undo", "redo", "|",
+      "fullsize", "preview",
+    ],
+    uploader: {
+      url: "/api/upload",
+      format: "json",
+    },
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
@@ -31,7 +56,6 @@ export default function AdminBlogPage() {
       router.push("/login");
       return;
     }
-
     const user = JSON.parse(stored);
     if (user.role !== "admin") {
       router.push("/login");
@@ -45,7 +69,6 @@ export default function AdminBlogPage() {
       setBlogs(Array.isArray(data) ? data : []);
       setLoading(false);
     };
-
     fetchBlogs();
   }, []);
 
@@ -60,32 +83,20 @@ export default function AdminBlogPage() {
 
   const uploadImage = async (file) => {
     if (!file) return;
-
     try {
       setUploading(true);
       const toastId = toast.loading("Uploading image...");
       const formData = new FormData();
       formData.append("files", file);
-
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
       const data = await res.json();
-
       if (data.success && data.urls?.[0]) {
         setForm((prev) => ({ ...prev, image: data.urls[0] }));
-        toast.success("Image uploaded ✅", {
-          id: toastId,
-        });
+        toast.success("Image uploaded ✅", { id: toastId });
       } else {
-        toast.error("Upload failed", {
-          id: toastId,
-        });
+        toast.error("Upload failed", { id: toastId });
       }
     } catch (err) {
-      console.log(err);
       toast.error("Upload failed");
     } finally {
       setUploading(false);
@@ -94,46 +105,33 @@ export default function AdminBlogPage() {
 
   const handleSave = async (event) => {
     event.preventDefault();
-
     if (!form.title || !form.content) {
       toast.error("Please add a title and content.");
       return;
     }
-
     const payload = {
       ...form,
-      tags: form.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean),
+      tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
     };
-
     const method = editingId ? "PUT" : "POST";
     const body = editingId ? { ...payload, _id: editingId } : payload;
-
     const res = await fetch("/api/blog", {
       method,
       body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
-
     const saved = await res.json();
-
     if (!saved || res.status >= 400) {
       toast.error("Failed to save blog post.");
       return;
     }
-
     toast.success(editingId ? "Blog updated" : "Blog created");
     resetForm();
-    setBlogs((prev) => {
-      if (editingId) {
-        return prev.map((item) => (item._id === saved._id ? saved : item));
-      }
-      return [saved, ...prev];
-    });
+    setBlogs((prev) =>
+      editingId
+        ? prev.map((item) => (item._id === saved._id ? saved : item))
+        : [saved, ...prev]
+    );
   };
 
   const handleEdit = (post) => {
@@ -152,14 +150,8 @@ export default function AdminBlogPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("Delete this blog post?")) {
-      return;
-    }
-
-    await fetch(`/api/blog?id=${id}`, {
-      method: "DELETE",
-    });
-
+    if (!confirm("Delete this blog post?")) return;
+    await fetch(`/api/blog?id=${id}`, { method: "DELETE" });
     setBlogs((prev) => prev.filter((post) => post._id !== id));
     toast.success("Blog deleted");
   };
@@ -169,9 +161,7 @@ export default function AdminBlogPage() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-[#071B31]">
-              Blog Management
-            </h1>
+            <h1 className="text-3xl font-bold text-[#071B31]">Blog Management</h1>
             <p className="text-gray-600 mt-2">
               Create, update, and delete blog posts for the public blog section.
             </p>
@@ -218,15 +208,16 @@ export default function AdminBlogPage() {
                   />
                 </label>
 
-                <label className="space-y-2">
+                <div className="space-y-2">
                   <span className="font-medium text-gray-700">Content</span>
-                  <textarea
-                    rows={8}
+                  <JoditEditor
+                    ref={editor}
                     value={form.content}
-                    onChange={(e) => handleChange("content", e.target.value)}
-                    className="w-full rounded-2xl border border-gray-200 px-4 py-3"
+                    config={config}
+                    onBlur={(newContent) => handleChange("content", newContent)}
+                    onChange={(newContent) => {}}
                   />
-                </label>
+                </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <label className="space-y-2">
@@ -252,9 +243,7 @@ export default function AdminBlogPage() {
 
                 <div className="grid gap-4 md:grid-cols-2 items-end">
                   <label className="space-y-2">
-                    <span className="font-medium text-gray-700">
-                      Upload image
-                    </span>
+                    <span className="font-medium text-gray-700">Upload image</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -264,9 +253,7 @@ export default function AdminBlogPage() {
                     />
                   </label>
                   <div className="space-y-2">
-                    <span className="font-medium text-gray-700">
-                      Upload status
-                    </span>
+                    <span className="font-medium text-gray-700">Upload status</span>
                     <div className="rounded-2xl border border-gray-200 bg-[#F8FAFC] px-4 py-3 text-sm text-gray-600">
                       {uploading ? "Uploading..." : "Select a file to upload"}
                     </div>
@@ -275,12 +262,7 @@ export default function AdminBlogPage() {
 
                 {form.image ? (
                   <div className="relative h-56 overflow-hidden rounded-3xl border border-gray-200 bg-gray-50">
-                    <Image
-                      src={form.image}
-                      alt="Blog preview"
-                      fill
-                      className="object-cover"
-                    />
+                    <Image src={form.image} alt="Blog preview" fill className="object-cover" />
                   </div>
                 ) : null}
 
@@ -294,15 +276,11 @@ export default function AdminBlogPage() {
                 </label>
 
                 <label className="space-y-2">
-                  <span className="font-medium text-gray-700">
-                    Meta description
-                  </span>
+                  <span className="font-medium text-gray-700">Meta description</span>
                   <textarea
                     rows={3}
                     value={form.metaDescription}
-                    onChange={(e) =>
-                      handleChange("metaDescription", e.target.value)
-                    }
+                    onChange={(e) => handleChange("metaDescription", e.target.value)}
                     className="w-full rounded-2xl border border-gray-200 px-4 py-3"
                   />
                 </label>
@@ -312,9 +290,7 @@ export default function AdminBlogPage() {
                     <input
                       type="checkbox"
                       checked={form.published}
-                      onChange={(e) =>
-                        handleChange("published", e.target.checked)
-                      }
+                      onChange={(e) => handleChange("published", e.target.checked)}
                       className="h-4 w-4 rounded border-gray-300"
                     />
                     Published
@@ -330,17 +306,14 @@ export default function AdminBlogPage() {
             </div>
           </div>
 
+          {/* Posts list stays the same */}
           <div className="space-y-6">
             <div className="rounded-3xl bg-white p-6 shadow-sm">
               <h2 className="text-xl font-semibold mb-4">Posts</h2>
-
               {loading ? (
                 <div className="space-y-3">
                   {[...Array(4)].map((_, index) => (
-                    <div
-                      key={index}
-                      className="h-20 rounded-2xl bg-gray-100 animate-pulse"
-                    />
+                    <div key={index} className="h-20 rounded-2xl bg-gray-100 animate-pulse" />
                   ))}
                 </div>
               ) : blogs.length === 0 ? (
@@ -348,31 +321,19 @@ export default function AdminBlogPage() {
               ) : (
                 <div className="space-y-4">
                   {blogs.map((post) => (
-                    <div
-                      key={post._id}
-                      className="rounded-3xl border border-gray-200 p-4"
-                    >
+                    <div key={post._id} className="rounded-3xl border border-gray-200 p-4">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <p className="font-semibold text-gray-900">
-                            {post.title}
-                          </p>
+                          <p className="font-semibold text-gray-900">{post.title}</p>
                           <p className="text-sm text-gray-500 mt-1">
                             {new Date(post.createdAt).toLocaleDateString()}
                           </p>
                         </div>
-
                         <div className="flex gap-2">
-                          <button
-                            onClick={() => handleEdit(post)}
-                            className="rounded-full border border-black px-4 py-2 text-sm"
-                          >
+                          <button onClick={() => handleEdit(post)} className="rounded-full border border-black px-4 py-2 text-sm">
                             Edit
                           </button>
-                          <button
-                            onClick={() => handleDelete(post._id)}
-                            className="rounded-full bg-red-500 px-4 py-2 text-sm text-white"
-                          >
+                          <button onClick={() => handleDelete(post._id)} className="rounded-full bg-red-500 px-4 py-2 text-sm text-white">
                             Delete
                           </button>
                         </div>

@@ -1,5 +1,8 @@
 import { connectDB } from "@/lib/db";
+import { r2 } from "@/lib/r2";
 import Blog from "@/models/Blog";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { NextResponse } from "next/server";
 import slugify from "slugify";
 
 export const dynamic = "force-dynamic";
@@ -87,11 +90,71 @@ export async function PUT(req) {
 }
 
 export async function DELETE(req) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
 
-  await Blog.findByIdAndDelete(id);
-  return Response.json({ success: true });
+    if (!id) {
+      return NextResponse.json({ error: "Missing blog id" }, { status: 400 });
+    }
+
+    // 1. Find the blog first (so we can access the image)
+    const post = await Blog.findById(id);
+
+    if (!post) {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+    }
+
+    // 2. Try to delete the image from R2 (if it exists)
+    if (post.image) {
+      try {
+        const key = extractKeyFromUrl(post.image);
+
+        if (key) {
+          await r2.send(
+            new DeleteObjectCommand({
+              Bucket: process.env.CLOUD_FLARE_R2_BUCKET,
+              Key: key,
+            })
+          );
+          console.log(`Deleted image from R2: ${key}`);
+        }
+      } catch (err) {
+        // Don't stop the blog deletion if image delete fails
+        console.error(`Failed to delete image from R2: ${err}`);
+      }
+    }
+
+    // 3. Delete the blog post
+    await Blog.findByIdAndDelete(id);
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Delete failed" },
+      { status: 500 }
+    );
+  }
+}
+
+// Helper: extract the R2 object key from the full image URL
+function extractKeyFromUrl(url) {
+  try {
+    const publicUrl = process.env.CLOUD_FLARE_R2_PUBLIC_URL;
+    if (!publicUrl) return null;
+
+    // If URL starts with the public base, strip it
+    if (url.startsWith(publicUrl)) {
+      return url.replace(`${publicUrl}/`, "");
+    }
+
+    // Fallback: try parsing the URL pathname
+    const parsed = new URL(url);
+    return parsed.pathname.replace(/^\//, "");
+  } catch {
+    return null;
+  }
 }
