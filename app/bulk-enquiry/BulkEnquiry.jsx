@@ -14,6 +14,7 @@ const BulkEnquiry = () => {
     try {
       const formData = {
         platform: "JL Industries",
+        supplierToken: "6a9be38bf6505f7f9d749f29",
         platformEmail: "jlindustriespvtltd@gmail.com",
         name,
         phone,
