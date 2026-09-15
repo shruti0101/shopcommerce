@@ -5,9 +5,9 @@ import Link from "next/link";
 export default async function BlogPage() {
   await connectDB();
 
-  const posts = await Blog.find({ published: true }).sort({ createdAt: -1 });
+  const posts = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
   const cleanPosts = JSON.parse(JSON.stringify(posts));
-  console.log(posts)
+  console.log(cleanPosts)
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] py-10 px-4 md:px-10">
@@ -25,7 +25,7 @@ export default async function BlogPage() {
               No blog posts published yet.
             </div>
           ) : (
-            cleanPosts.map((post) => (
+            cleanPosts?.map((post) => (
               <Link
                 key={post._id}
                 href={`/blog/${post.slug}`}
