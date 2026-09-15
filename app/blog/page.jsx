@@ -7,6 +7,7 @@ export default async function BlogPage() {
 
   const posts = await Blog.find({ published: true }).sort({ createdAt: -1 });
   const cleanPosts = JSON.parse(JSON.stringify(posts));
+  console.log(posts)
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] py-10 px-4 md:px-10">
@@ -44,7 +45,7 @@ export default async function BlogPage() {
 
                 <div className="p-6">
                   <p className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
-                    {new Date(post.createdAt).toLocaleDateString()}
+                    {new Date(post.date).toLocaleDateString()}
                   </p>
                   <h2 className="text-2xl font-semibold text-[#071B31] mb-3">
                     {post.title}

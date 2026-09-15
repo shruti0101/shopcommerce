@@ -103,47 +103,453 @@ body{
 
 
 
-.jodit-wysiwyg ul {
-  list-style: disc;
-  padding-left: 20px;
-}
-
-.jodit-wysiwyg ol {
-  list-style: decimal;
-  padding-left: 20px;
-}
-
-.jodit-wysiwyg ul ul {
-  list-style: circle;
-}
-
-.jodit-wysiwyg ul ul ul {
-  list-style: square;
-}
-
+/* =========================================================
+   JODIT BLOG CONTENT
+========================================================= */
 
 .jodit-content {
-  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 100%;
+  color: #374151;
   font-size: 16px;
-  line-height: 1.5;
-  color: #333;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
+
+/* =========================================================
+   PARAGRAPHS
+========================================================= */
+
+.jodit-content p {
+  display: block;
+  margin: 0 0 20px;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+.jodit-content h1 {
+  display: block;
+  margin: 40px 0 20px;
+  color: #071B31;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.jodit-content h2 {
+  display: block;
+  margin: 36px 0 18px;
+  color: #071B31;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.jodit-content h3 {
+  display: block;
+  margin: 32px 0 15px;
+  color: #071B31;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.jodit-content h4 {
+  display: block;
+  margin: 28px 0 12px;
+  color: #071B31;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.jodit-content h5 {
+  display: block;
+  margin: 24px 0 10px;
+  color: #071B31;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.jodit-content h6 {
+  display: block;
+  margin: 22px 0 10px;
+  color: #071B31;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   BOLD / ITALIC / UNDERLINE
+========================================================= */
+
+.jodit-content strong,
+.jodit-content b {
+  color: #071B31;
+  font-weight: 700;
+}
+
+.jodit-content em,
+.jodit-content i {
+  font-style: italic;
+}
+
+.jodit-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.jodit-content a {
+  color: #85a30f;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: all 0.2s ease;
+}
+
+.jodit-content a:hover {
+  color: #657c08;
+}
+
+/* =========================================================
+   UNORDERED LIST
+========================================================= */
 
 .jodit-content ul {
+  display: block;
+  margin: 20px 0;
+  padding-left: 30px;
   list-style-type: disc;
-  /* or circle, square */
-  margin-left: 20px;
-  padding-left: 20px;
 }
+
+.jodit-content ul li {
+  display: list-item;
+  margin-bottom: 8px;
+  padding-left: 5px;
+}
+
+/* =========================================================
+   ORDERED LIST
+========================================================= */
 
 .jodit-content ol {
+  display: block;
+  margin: 20px 0;
+  padding-left: 30px;
   list-style-type: decimal;
-  margin-left: 20px;
-  padding-left: 20px;
 }
 
-.jodit-content li {
-  margin: 5px 0;
+.jodit-content ol li {
+  display: list-item;
+  margin-bottom: 8px;
+  padding-left: 5px;
+}
+
+/* =========================================================
+   NESTED LIST
+========================================================= */
+
+.jodit-content ul ul {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  list-style-type: circle;
+}
+
+.jodit-content ul ul ul {
+  list-style-type: square;
+}
+
+.jodit-content ol ol {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  list-style-type: lower-alpha;
+}
+
+/* =========================================================
+   BLOCKQUOTE
+========================================================= */
+
+.jodit-content blockquote {
+  display: block;
+  margin: 30px 0;
+  padding: 18px 22px;
+  border-left: 4px solid #85a30f;
+  background: #f6f7f1;
+  color: #4b5563;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+.jodit-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 28px auto;
+  object-fit: contain;
+}
+
+/* Jodit image alignment */
+
+.jodit-content img[style*="float: left"] {
+  float: left;
+  margin: 8px 24px 16px 0;
+}
+
+.jodit-content img[style*="float: right"] {
+  float: right;
+  margin: 8px 0 16px 24px;
+}
+
+/* =========================================================
+   FIGURE
+========================================================= */
+
+.jodit-content figure {
+  display: block;
+  margin: 30px 0;
+}
+
+.jodit-content figcaption {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* =========================================================
+   HORIZONTAL LINE
+========================================================= */
+
+.jodit-content hr {
+  margin: 35px 0;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.jodit-content table {
+  width: 100%;
+  margin: 30px 0;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.jodit-content th,
+.jodit-content td {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+  vertical-align: top;
+}
+
+.jodit-content th {
+  background: #f3f4f6;
+  color: #071B31;
+  font-weight: 700;
+}
+
+.jodit-content tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+/* =========================================================
+   CODE
+========================================================= */
+
+.jodit-content code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #f3f4f6;
+  color: #071B31;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.jodit-content pre {
+  margin: 25px 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #071B31;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.jodit-content pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+/* =========================================================
+   MARK / HIGHLIGHT
+========================================================= */
+
+.jodit-content mark {
+  padding: 2px 4px;
+  background: #fff3a3;
+}
+
+/* =========================================================
+   DEFINITION LIST
+========================================================= */
+
+.jodit-content dl {
+  margin: 20px 0;
+}
+
+.jodit-content dt {
+  margin-top: 15px;
+  color: #071B31;
+  font-weight: 700;
+}
+
+.jodit-content dd {
+  margin: 5px 0 15px 20px;
+}
+
+/* =========================================================
+   TEXT ALIGNMENT FROM JODIT
+========================================================= */
+
+.jodit-content [style*="text-align: center"] {
+  text-align: center;
+}
+
+.jodit-content [style*="text-align: right"] {
+  text-align: right;
+}
+
+.jodit-content [style*="text-align: left"] {
+  text-align: left;
+}
+
+.jodit-content [style*="text-align: justify"] {
+  text-align: justify;
+}
+
+/* =========================================================
+   JODIT DIV / SPAN CONTENT
+========================================================= */
+
+.jodit-content div,
+.jodit-content span {
+  max-width: 100%;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+  .jodit-content {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .jodit-content p {
+    margin-bottom: 18px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .jodit-content h1 {
+    margin-top: 30px;
+    margin-bottom: 16px;
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .jodit-content h2 {
+    margin-top: 30px;
+    margin-bottom: 14px;
+    font-size: 26px;
+    line-height: 1.3;
+  }
+
+  .jodit-content h3 {
+    margin-top: 26px;
+    margin-bottom: 12px;
+    font-size: 22px;
+  }
+
+  .jodit-content h4 {
+    font-size: 19px;
+  }
+
+  .jodit-content h5 {
+    font-size: 17px;
+  }
+
+  .jodit-content h6 {
+    font-size: 15px;
+  }
+
+  .jodit-content ul,
+  .jodit-content ol {
+    padding-left: 24px;
+  }
+
+  .jodit-content blockquote {
+    margin: 24px 0;
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .jodit-content img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 22px auto;
+  }
+
+  /* Disable Jodit floating images on mobile */
+  .jodit-content img[style*="float: left"],
+  .jodit-content img[style*="float: right"] {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .jodit-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .jodit-content th,
+  .jodit-content td {
+    padding: 10px;
+  }
+
+  .jodit-content pre {
+    font-size: 13px;
+  }
 }
 
 

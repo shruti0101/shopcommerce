@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   await connectDB();
+
   const { slug } = await params;
+
   const post = await Blog.findOne({ slug });
 
   if (!post) {
@@ -17,13 +19,18 @@ export async function generateMetadata({ params }) {
   return {
     title: post.metaTitle || post.title,
     description:
-      post.metaDescription || post.excerpt || post.content?.slice(0, 150) || "",
+      post.metaDescription ||
+      post.excerpt ||
+      post.content?.slice(0, 150) ||
+      "",
   };
 }
 
 export default async function BlogPostPage({ params }) {
   await connectDB();
+
   const { slug } = await params;
+
   const post = await Blog.findOne({ slug });
 
   if (!post) {
@@ -32,35 +39,70 @@ export default async function BlogPostPage({ params }) {
 
   const cleanPost = JSON.parse(JSON.stringify(post));
 
-
   return (
-    <div className="min-h-screen bg-[#F6F7FB] py-10 px-4 md:px-10">
-      <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-sm overflow-hidden">
+    <main className="min-h-screen bg-[#F6F7FB] px-4 py-10 md:px-10">
+      <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white shadow-sm">
+
+        {/* BLOG IMAGE */}
         {cleanPost.image ? (
-          <img
-            src={cleanPost.image}
-            alt={cleanPost.title}
-            className="w-full max-h-[520px] object-cover"
-          />
+          <div className="overflow-hidden">
+            <img
+              src={cleanPost.image}
+              alt={cleanPost.title}
+              className="max-h-[520px] w-full object-cover"
+            />
+          </div>
         ) : null}
 
-        <div className="p-8">
-          <p className="text-sm uppercase tracking-[0.2em] text-gray-500 mb-3">
-            {new Date(cleanPost.createdAt).toLocaleDateString()} •{" "}
-            {cleanPost.author}
-          </p>
-          <h1 className="text-4xl font-bold text-[#071B31] mb-4">
+        {/* BLOG CONTENT WRAPPER */}
+        <div className="p-6 md:p-8 lg:p-10">
+
+          {/* DATE + AUTHOR */}
+          <div className="mb-4 flex flex-wrap items-center gap-2 text-sm uppercase tracking-[0.15em] text-gray-500">
+            <span>
+              {cleanPost.createdAt
+                ? new Date(cleanPost.date).toLocaleDateString(
+                    "en-US",
+                    {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    }
+                  )
+                : ""}
+            </span>
+
+            {cleanPost.author ? (
+              <>
+                <span>•</span>
+                <span>{cleanPost.author}</span>
+              </>
+            ) : null}
+          </div>
+
+          {/* BLOG TITLE */}
+          <h1 className="mb-5 text-3xl font-bold leading-tight text-[#071B31] sm:text-4xl md:text-5xl">
             {cleanPost.title}
           </h1>
-          <p className="text-lg text-gray-600 mb-8">{cleanPost.excerpt}</p>
 
+          {/* EXCERPT */}
+          {cleanPost.excerpt ? (
+            <p className="mb-8 text-lg leading-8 text-gray-600 md:text-xl">
+              {cleanPost.excerpt}
+            </p>
+          ) : null}
+
+          {/* JODIT CONTENT */}
           <article
-            className="prose prose-lg max-w-none text-gray-700"
-            dangerouslySetInnerHTML={{ __html: cleanPost.content }}
+            className="jodit-content"
+            dangerouslySetInnerHTML={{
+              __html: cleanPost.content || "",
+            }}
           />
 
+          {/* TAGS */}
           {cleanPost.tags?.length > 0 ? (
-            <div className="mt-10 flex flex-wrap gap-2">
+            <div className="mt-10 flex flex-wrap gap-2 border-t border-gray-200 pt-6">
               {cleanPost.tags.map((tag) => (
                 <span
                   key={tag}
@@ -73,6 +115,6 @@ export default async function BlogPostPage({ params }) {
           ) : null}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
