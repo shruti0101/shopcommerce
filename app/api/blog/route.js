@@ -94,7 +94,17 @@ export async function POST(req) {
       );
     }
 
-    const slug = await createUniqueSlug(data.title);
+    // --------------------------------------------------
+    // SLUG
+    // --------------------------------------------------
+    // If slug comes from the form, use it.
+    // If slug is empty/not provided, generate it
+    // from the blog title.
+    // --------------------------------------------------
+
+    const slug = data.slug?.trim()
+      ? data.slug.trim()
+      : await createUniqueSlug(data.title);
 
     /*
       Convert selected date into a MongoDB Date.
@@ -115,6 +125,8 @@ export async function POST(req) {
     const blog = await Blog.create({
       ...data,
 
+      // Use form slug if provided,
+      // otherwise generated slug
       slug,
 
       // Save selected blog date
@@ -131,11 +143,18 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("CREATE BLOG ERROR:", error);
+    console.error(
+      "CREATE BLOG ERROR:",
+      error
+    );
 
     return NextResponse.json(
-      { error: "Failed to create blog" },
-      { status: 500 }
+      {
+        error: "Failed to create blog",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
@@ -160,10 +179,22 @@ export async function PUT(req) {
       );
     }
 
-    const slug = await createUniqueSlug(
-      data.title,
-      data._id
-    );
+    // --------------------------------------------------
+    // SLUG
+    // --------------------------------------------------
+    // If slug is provided from the edit form,
+    // use that slug.
+    //
+    // If slug is empty/not provided,
+    // generate a unique slug from the title.
+    // --------------------------------------------------
+
+    const slug = data.slug?.trim()
+      ? data.slug.trim()
+      : await createUniqueSlug(
+          data.title,
+          data._id
+        );
 
     /*
       Convert selected date into a MongoDB Date.
@@ -171,6 +202,7 @@ export async function PUT(req) {
       If the edit form doesn't send a date,
       keep the existing date.
     */
+
     let blogDate;
 
     if (data.date) {
@@ -186,6 +218,9 @@ export async function PUT(req) {
 
     const updateData = {
       ...data,
+
+      // Use manual slug if provided,
+      // otherwise generated slug
       slug,
 
       tags:
@@ -194,24 +229,35 @@ export async function PUT(req) {
           .filter(Boolean) || [],
     };
 
-    // Only update date if a date was supplied
+    // --------------------------------------------------
+    // ONLY UPDATE DATE IF PROVIDED
+    // --------------------------------------------------
+
     if (blogDate) {
       updateData.date = blogDate;
     } else {
       delete updateData.date;
     }
 
-    // Never save _id as part of the update object
+    // --------------------------------------------------
+    // NEVER UPDATE _id
+    // --------------------------------------------------
+
     delete updateData._id;
 
-    const updated = await Blog.findByIdAndUpdate(
-      data._id,
-      updateData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    // --------------------------------------------------
+    // UPDATE BLOG
+    // --------------------------------------------------
+
+    const updated =
+      await Blog.findByIdAndUpdate(
+        data._id,
+        updateData,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
     if (!updated) {
       return NextResponse.json(
@@ -221,14 +267,23 @@ export async function PUT(req) {
     }
 
     return NextResponse.json(
-      JSON.parse(JSON.stringify(updated))
+      JSON.parse(
+        JSON.stringify(updated)
+      )
     );
   } catch (error) {
-    console.error("UPDATE BLOG ERROR:", error);
+    console.error(
+      "UPDATE BLOG ERROR:",
+      error
+    );
 
     return NextResponse.json(
-      { error: "Failed to update blog" },
-      { status: 500 }
+      {
+        error: "Failed to update blog",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
