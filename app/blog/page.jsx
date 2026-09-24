@@ -5,9 +5,9 @@ import Link from "next/link";
 export default async function BlogPage() {
   await connectDB();
 
-  const posts = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+  const posts = await Blog.find().sort({ createdAt: -1 }).lean();
   const cleanPosts = JSON.parse(JSON.stringify(posts));
-  console.log(cleanPosts)
+  console.log(cleanPosts , "post")
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] py-10 px-4 md:px-10">
